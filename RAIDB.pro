@@ -6,14 +6,16 @@ QT +=  core
 QT += network
 
 SOURCES += \
-    example/ex1/client.cpp \
-    example/ex1/server.cpp \
-    main.cpp
+    main.cpp \
+    example/fileManipulation/ex2.cpp \
+    example/serverClient/ex1/server.cpp \
+    example/serverClient/ex1/client.cpp \
+    example/fileManipulation/ex1.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi
 
 HEADERS += \
-    example/ex1/client.h \
-    example/ex1/server.h
+    example/serverClient/ex1/server.h \
+    example/serverClient/ex1/client.h
 
