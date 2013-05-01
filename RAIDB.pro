@@ -5,9 +5,10 @@ CONFIG += qt
 QT +=  core
 QT += network
 
-SOURCES += main.cpp \
-    server.cpp \
-    client.cpp
+SOURCES += \
+    example/ex1/client.cpp \
+    example/ex1/main.cpp \
+    example/ex1/server.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi
