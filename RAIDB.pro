@@ -19,5 +19,7 @@ HEADERS += \
     example/serverClient/ex1/server.h \
     example/serverClient/ex1/client.h \
     raid/IRaid.h \
-    fileHandling/dataField/RegistryDataField.h
+    fileHandling/dataField/RegistryDataField.h \
+    dataStructure/DLLNode.h \
+    dataStructure/DLL.h
 
