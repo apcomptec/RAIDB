@@ -3,6 +3,7 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG += qt
 QT +=  core
+QT += network
 
 SOURCES += main.cpp \
     server.cpp \
