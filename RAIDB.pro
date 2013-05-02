@@ -18,7 +18,8 @@ SOURCES += \
     n_arynode.cpp
 
 OTHER_FILES += \
-    doc/RAIDB_UML.xmi
+    doc/RAIDB_UML.xmi \
+    doc/RAIDB_UML.pdf
 
 HEADERS += \
     example/serverClient/ex1/server.h \
