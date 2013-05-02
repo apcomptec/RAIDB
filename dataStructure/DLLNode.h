@@ -8,8 +8,6 @@
 #ifndef DLLNODE_H
 #define DLLNODE_H
 
-// -------------------------- DEFINITION OF A DLLNODE --------------------------
-
 // forward declaration of class DLL required to announce that class DLL exists
 // so it can be used in the friend declaration at line 20
 template<typename NODETYPE> class DLL;
@@ -52,7 +50,9 @@ private:
     DLLNode<NODETYPE> *_prevPtr, *_nextPtr;
 };
 
-// ---------------------------------- DLLNODE ----------------------------------
+// -----------------------------------------------------------------------------
+// DLLNODE DEFINITION
+// -----------------------------------------------------------------------------
 
 template<typename NODETYPE>
 DLLNode<NODETYPE>::DLLNode(const NODETYPE &pData)

@@ -1,28 +1,43 @@
 /*******************************************************************************
- * File: RegistryDataField.h
+ * File: RecordDataType.h
  * Author: Brallan Aguilar
  * Description: Tipos de datos de un registro
  * Reference:
  ******************************************************************************/
 
-#ifndef REGISTRYDATAFIELD_H
-#define REGISTRYDATAFIELD_H
+#ifndef RECORDDATATYPE_H
+#define RECORDDATATYPE_H
 
 #include <iostream>
+#include "IRecordDataType.h"
 
 template<typename DATATYPE>
-class RegistryDataField
+class RegistryDataType: public IRecordDataType
 {
 public:
 
     /**
-     * @brief RegistryDataField Constructor
+     * @brief RegistryDataType Constructor
+     * @param pName Nombre del campo de registro
      * @param pData Dato contenido
      * @param pLength Tamaño del tipo de datos bytes (B). Si no se especifica,
      * se le otorga un cero para así calcularlo automáticamente (en caso que
      * no sea un string)
      */
-    RegistryDataField(DATATYPE pData, unsigned short pLength = 0);
+    RegistryDataType(char const* &pName, DATATYPE &pData,
+                     unsigned short pLength = 0);
+
+    /**
+     * @brief getName
+     * @return
+     */
+    virtual char const* getName() const;
+
+    /**
+     * @brief setName
+     * @param pName
+     */
+    virtual void setName(const char *pName);
 
     /**
      * @brief getData
@@ -34,12 +49,12 @@ public:
      * @brief setData Establece un nuevo dato de registro
      * @param pData Nuevo dato
      */
-    void setData(DATATYPE pData);
+    void setData(DATATYPE &pData);
 
     /**
      * @brief getSize Tamaño del dato de registro
      */
-    void getSize() const;
+    virtual unsigned short getSize() const;
 
     /**
      * @brief printDataInfo Imprime el dato y su tamaño
@@ -47,6 +62,11 @@ public:
     void printDataInfo() const;
 
 private:
+
+    /**
+     * @brief _name
+     */
+    const char *_name;
 
     /**
      * @brief _data Dato del campo de registro
@@ -64,36 +84,51 @@ private:
 // -----------------------------------------------------------------------------
 
 template<typename DATATYPE>
-RegistryDataField<DATATYPE>::RegistryDataField(DATATYPE pData,
+RegistryDataType<DATATYPE>::RegistryDataType(const char *&pName, DATATYPE &pData,
         unsigned short pLength)
-    : _data(pData),
+    : _name(pName),
+      _data(pData),
       _size(pLength == 0 ? sizeof(DATATYPE) : pLength)
 {
     // vacío
 }
 
 template<typename DATATYPE>
-DATATYPE RegistryDataField<DATATYPE>::getData() const
+const char *RegistryDataType<DATATYPE>::getName() const
+{
+    return _name;
+}
+
+template<typename DATATYPE>
+void RegistryDataType<DATATYPE>::setName(const char *pName)
+{
+    _name = pName;
+}
+
+template<typename DATATYPE>
+DATATYPE RegistryDataType<DATATYPE>::getData() const
 {
     return _data;
 }
 
 template<typename DATATYPE>
-void RegistryDataField<DATATYPE>::setData(DATATYPE pData)
+void RegistryDataType<DATATYPE>::setData(DATATYPE &pData)
 {
     _data = pData;
 }
 
 template<typename DATATYPE>
-void RegistryDataField<DATATYPE>::getSize() const
+unsigned short RegistryDataType::getSize() const
 {
     return _size;
 }
 
 template<typename DATATYPE>
-void RegistryDataField<DATATYPE>::printDataInfo() const
+void RegistryDataType<DATATYPE>::printDataInfo() const
 {
-    std::cout << "Dato: \t" << _data << "\nTamaño: " << _size << " B\n";
+    std::cout << "\nNombre: " << _name
+              << "\nDato: \t" << _data
+              << "\nTamaño: " << _size << "B\n";
 }
 
-#endif // REGISTRYDATAFIELD_H
+#endif // RECORDDATATYPE_H

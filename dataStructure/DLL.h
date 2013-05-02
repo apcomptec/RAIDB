@@ -11,8 +11,6 @@
 #include <iostream>
 #include "dataStructure/DLLNode.h"
 
-// --------------------------    DEFINITION OF DLL    --------------------------
-
 template<typename NODETYPE>
 class DLL
 {
@@ -86,9 +84,9 @@ public:
 
     /**
      * @brief getSize
-     * @return
+     * @return List size. Allows 65535 items maximum
      */
-    int getSize() const;
+    unsigned short getSize() const;
 
     DLLNode<NODETYPE> *getHeadPtr() const;
 
@@ -101,9 +99,9 @@ private:
     DLLNode<NODETYPE> *_headPtr, *_tailPtr;
 
     /**
-     * @brief size
+     * @brief _size List size. Allows 65535 items maximum
      */
-    int _size;
+    unsigned short _size;
 
     /**
      * @brief getNewNode utility function to allocate new node
@@ -112,7 +110,9 @@ private:
     DLLNode<NODETYPE> *getNewNode(const NODETYPE &pData);
 };
 
-// ---------------------------------    DLL    ---------------------------------
+// -----------------------------------------------------------------------------
+// DLL IMPLEMENTATION
+// -----------------------------------------------------------------------------
 
 template<typename NODETYPE>
 DLL<NODETYPE>::DLL()
@@ -315,7 +315,7 @@ bool DLL<NODETYPE>::isEmpty() const
 }
 
 template<typename NODETYPE>
-int DLL<NODETYPE>::getSize() const
+unsigned short DLL<NODETYPE>::getSize() const
 {
     return _size;
 }
