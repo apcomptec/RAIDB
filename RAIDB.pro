@@ -15,7 +15,7 @@ SOURCES += \
     fileHandling/BTRecord.cpp \
     fileHandling/RecordData.cpp \
     fileHandling/ARecord.cpp \
-    n_arynode.cpp
+    dataStructure/n_aryrecordfilenode.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -33,7 +33,7 @@ HEADERS += \
     fileHandling/RecordData.h \
     fileHandling/RecordDataType.h \
     fileHandling/IRecord.h \
-    dataStructure/In_anrytree.h \
-    dataStructure/In_arynode.h \
-    dataStructure/n_arynode.h
+    dataStructure/IN_aryNode.h \
+    dataStructure/IN_aryTree.h \
+    dataStructure/n_aryrecordfilenode.h
 
