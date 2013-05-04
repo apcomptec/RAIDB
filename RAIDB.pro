@@ -14,7 +14,6 @@ SOURCES += \
     example/fileManipulation/ex1.cpp \
     fileHandling/BTRecord.cpp \
     fileHandling/RecordData.cpp \
-    fileHandling/ARecord.cpp \
     dataStructure/n_aryrecordfilenode.cpp \
     example/fileManipulation/ex3.cpp \
     example/fileManipulation/ex4.cpp \
