@@ -16,7 +16,8 @@ SOURCES += \
     fileHandling/BTRecord.cpp \
     fileHandling/RecordData.cpp \
     fileHandling/ARecord.cpp \
-    XMLParser.cpp
+    XMLParser.cpp \
+    dataStructure/n_aryrecordfilenode.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -34,5 +35,7 @@ HEADERS += \
     fileHandling/RecordData.h \
     fileHandling/RecordDataType.h \
     fileHandling/IRecord.h \
-    XMLParser.h
-
+    XMLParser.h \
+    dataStructure/IN_aryNode.h \
+    dataStructure/IN_aryTree.h \
+    dataStructure/n_aryrecordfilenode.h
