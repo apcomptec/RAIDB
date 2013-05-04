@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG += qt
 QT +=  core
 QT += network
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += \
     main.cpp \
