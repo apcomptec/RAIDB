@@ -14,7 +14,8 @@ SOURCES += \
     example/fileManipulation/ex1.cpp \
     fileHandling/BTRecord.cpp \
     fileHandling/RecordData.cpp \
-    fileHandling/ARecord.cpp
+    fileHandling/ARecord.cpp \
+    dataStructure/n_aryrecordfilenode.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -31,5 +32,8 @@ HEADERS += \
     fileHandling/IRecordDataType.h \
     fileHandling/RecordData.h \
     fileHandling/RecordDataType.h \
-    fileHandling/IRecord.h
+    fileHandling/IRecord.h \
+    dataStructure/IN_aryNode.h \
+    dataStructure/IN_aryTree.h \
+    dataStructure/n_aryrecordfilenode.h
 
