@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG += qt
 QT +=  core
 QT += network
+Qt += xml
 QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += \
@@ -14,7 +15,8 @@ SOURCES += \
     example/fileManipulation/ex1.cpp \
     fileHandling/BTRecord.cpp \
     fileHandling/RecordData.cpp \
-    fileHandling/ARecord.cpp
+    fileHandling/ARecord.cpp \
+    XMLParser.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -31,5 +33,6 @@ HEADERS += \
     fileHandling/IRecordDataType.h \
     fileHandling/RecordData.h \
     fileHandling/RecordDataType.h \
-    fileHandling/IRecord.h
+    fileHandling/IRecord.h \
+    XMLParser.h
 
