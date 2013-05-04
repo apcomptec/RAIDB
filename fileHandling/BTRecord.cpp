@@ -8,22 +8,22 @@
 #include "BTRecord.h"
 
 BTRecord::BTRecord(const DLL<IRecordDataType *> * const pRegistryStructPtr)
-    : ARecord(pRegistryStructPtr)
+    : _registryStructPtr(pRegistryStructPtr)
 {
     // vacío
 }
 
-bool BTRecord::insert(ARecord *pRegistry)
+bool BTRecord::insert(BTRecord *pRegistry)
 {
     return pRegistry == nullptr;
 }
 
-bool BTRecord::modify(ARecord *pRegistry)
+bool BTRecord::modify(BTRecord *pRegistry)
 {
     return pRegistry == nullptr;
 }
 
-ARecord *BTRecord::deleteR(ARecord *pRegistry)
+BTRecord *BTRecord::erase(BTRecord *pRegistry)
 {
     return pRegistry;
 }

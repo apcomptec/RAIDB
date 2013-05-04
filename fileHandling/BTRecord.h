@@ -8,11 +8,23 @@
 #ifndef BTRECORD_H
 #define BTRECORD_H
 
-#include "ARecord.h"
+#include "dataStructure/DLL.h"
+#include "IRecordDataType.h"
 
-class BTRecord: public ARecord
+class BTRecord
 {
 public:
+
+// -----------------------------------------------------------------------------
+// DEFINICIÓN DE CONSTANTES
+// -----------------------------------------------------------------------------
+    static const char STRING    = 0;
+    static const char CHAR      = 1;
+    static const char SHORT     = 2;
+    static const char DOUBLE    = 3;
+    static const char INT       = 4;
+    static const char BOOL      = 5;
+// -----------------------------------------------------------------------------
 
     /**
      * @brief BTRecord Constructor
@@ -20,9 +32,9 @@ public:
      * datos de registro
      */
     BTRecord(const DLL<IRecordDataType *> * const pRegistryStructPtr);
-    virtual bool insert(ARecord *pRegistry);
-    virtual bool modify(ARecord *pRegistry);
-    virtual ARecord *deleteR(ARecord *pRegistry);
+    virtual bool insert(BTRecord *pRegistry);
+    virtual bool modify(BTRecord *pRegistry);
+    virtual BTRecord *erase(BTRecord *pRegistry);
 
 private:
 
@@ -32,6 +44,12 @@ private:
      * @brief _rightChildPtr Puntero al hijo derecho del registro
      */
     IRecordDataType *_parentPtr, *_leftChildPtr, *_rightChildPtr;
+
+    /**
+     * @brief _registryStructPtr Puntero a una lista doble con las cabeceras de
+     * campo del registro.
+     */
+    const DLL<IRecordDataType *> * const _registryStructPtr;
 
     /**
      * @brief _dataListPtr Lista con los elementos de datos del registro
