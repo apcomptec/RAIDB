@@ -1,6 +1,7 @@
 #ifndef N_ARYRECORDFILENODE_H
 #define N_ARYRECORDFILENODE_H
 #include <dataStructure/IN_aryNode.h>
+#include <fileHandling/IRecord.h>
 
 template<typename DATATYPE>
 class N_aryRecordFileNode: public IN_aryNode<DATATYPE>
@@ -23,10 +24,17 @@ public:
     DLL<IN_aryNode<DATATYPE>*>* getChildList();
     void setChildList(DLL<IN_aryNode<DATATYPE> *> *);
 
-    //METODOS
+    //METODOS IMPLEMENTADOS
     bool addChildPtr(IN_aryNode<DATATYPE> *);
     IN_aryNode<DATATYPE>* deleteChildPtr(IN_aryNode<DATATYPE> *);
     IN_aryNode<DATATYPE>* searchChildPtr(IN_aryNode<DATATYPE> *);
+
+    //METODOS ARBOL N-ARIO DE ARCHIVOS
+    DLL<IRecord*>* getRecordFileListPtr();
+    void setRecordFileListPtr(DLL<IRecord*>);
+    bool addRecordFilePtr(IRecord*);
+    IRecord* deleteRecordFilePtr(IRecord*);
+    IRecord* searchRecordFilePtr(IRecord*);
 
 
 };
