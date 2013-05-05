@@ -26,7 +26,8 @@ SOURCES += \
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
-    doc/RAIDB_UML.pdf
+    doc/RAIDB_UML.pdf \
+    doc/fileHandling.ods
 
 HEADERS += \
     example/serverClient/ex1/server.h \
