@@ -28,7 +28,7 @@ public:
     virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
     virtual DLL<IRecord *> *getRecordListPtr();
     virtual void setRecordListPtr(DLL<IRecord *> *pListPtr);
-    virtual void insertRecordPtr(BTRecord *pRecordPtr) = 0;
+    virtual void insertRecordPtr(BTRecord *pRecordPtr);
     virtual BTRecord *deleteRecordPtr(BTRecord *pRecordPtr);
     virtual BTRecord *searchRecordPtr(BTRecord *pRecordPtr) const;
     virtual unsigned short showFragmentation() const;

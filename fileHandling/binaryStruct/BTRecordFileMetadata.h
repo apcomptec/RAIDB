@@ -9,6 +9,7 @@
 #define BTRECORDFILEMETADATA_H
 
 #include "fileHandling/IMetadata.h"
+#include "fileHandling/IRecordDataType.h"
 
 class BTRecordFileMetadata: public IMetadata
 {
@@ -33,6 +34,8 @@ public:
     virtual void setUsedBlockList(DLL<unsigned short> *pBlockUsedList);
     virtual unsigned short *getEOFPtr() const;
     virtual void setEOFPtr(unsigned short *pEOFPtr);
+    virtual unsigned short *getBORPtr() const;
+    virtual unsigned short setBORPtr(unsigned short *pBORPtr);
 // -----------------------------------------------------------------------------
 
 private:
@@ -42,8 +45,9 @@ private:
     unsigned short _fileSize;
     unsigned short _blockSize;
     std::string _owner;
-    DLL<unsigned short> _freeBlockList;
-    DLL<unsigned short> _UsedBlockList;
+    DLL<IRecordDataType *> _freeBlockList;
+    DLL<IRecordDataType *> _usedBlockList;
+    unsigned short *_borPtr;
     unsigned short *_eofPtr;
 };
 

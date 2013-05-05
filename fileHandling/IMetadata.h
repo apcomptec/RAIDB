@@ -103,6 +103,11 @@ public:
      * @param pEOFPtr
      */
     virtual void setEOFPtr(unsigned short *pEOFPtr) = 0;
+
+    virtual unsigned short *getBORPtr() const = 0;
+
+    virtual unsigned short setBORPtr(unsigned short *pBORPtr) = 0;
+
 };
 
 #endif // IMETADATA_H
