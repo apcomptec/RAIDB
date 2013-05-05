@@ -106,7 +106,7 @@ public:
 
     virtual unsigned short *getBORPtr() const = 0;
 
-    virtual unsigned short setBORPtr(unsigned short *pBORPtr) = 0;
+    virtual void setBORPtr(unsigned short *pBORPtr) = 0;
 
 };
 

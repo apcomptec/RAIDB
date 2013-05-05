@@ -35,7 +35,7 @@ public:
     virtual unsigned short *getEOFPtr() const;
     virtual void setEOFPtr(unsigned short *pEOFPtr);
     virtual unsigned short *getBORPtr() const;
-    virtual unsigned short setBORPtr(unsigned short *pBORPtr);
+    virtual void setBORPtr(unsigned short *pBORPtr);
 // -----------------------------------------------------------------------------
 
 private:
