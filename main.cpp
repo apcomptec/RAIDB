@@ -1,7 +1,5 @@
 #include <fstream>
 #include <iostream>
-#include <QFile>
-#include <QDebug>
 
 using namespace std;
 #define SizeBlock ((5<<20) - 1)
@@ -40,3 +38,5 @@ int main()
     ifs.close();
     return 0;
 }
+
+

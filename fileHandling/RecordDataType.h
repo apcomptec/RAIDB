@@ -12,7 +12,7 @@
 #include "IRecordDataType.h"
 
 template<typename DATATYPE>
-class RegistryDataType: public IRecordDataType
+class RecordDataType: public IRecordDataType
 {
 public:
 
@@ -24,49 +24,36 @@ public:
      * se le otorga un cero para así calcularlo automáticamente (en caso que
      * no sea un string)
      */
-    RegistryDataType(char const* &pName, DATATYPE &pData,
-                     unsigned short pLength = 0);
+    RecordDataType(std::string &pName, DATATYPE &pData,
+                   unsigned short pLength = 0);
 
-    /**
-     * @brief getName
-     * @return
-     */
-    virtual char const* getName() const;
-
-    /**
-     * @brief setName
-     * @param pName
-     */
-    virtual void setName(const char *pName);
+// -----------------------------------------------------------------------------
+// MÉTODOS DE LA INTERFAZ IRECORDDATATYPE
+// -----------------------------------------------------------------------------
+    virtual unsigned short getSize() const;
+    virtual std::string getName() const;
+    virtual void setName(std::string &pName);
+    virtual void printDataInfo() const;
+// -----------------------------------------------------------------------------
 
     /**
      * @brief getData
-     * @return El dato de campo de registro
+     * @return
      */
-    DATATYPE getData() const;
+    const DATATYPE *getDataPtr() const;
 
     /**
-     * @brief setData Establece un nuevo dato de registro
-     * @param pData Nuevo dato
+     * @brief setData
+     * @param pData
      */
-    void setData(DATATYPE &pData);
-
-    /**
-     * @brief getSize Tamaño del dato de registro
-     */
-    virtual unsigned short getSize() const;
-
-    /**
-     * @brief printDataInfo Imprime el dato y su tamaño
-     */
-    void printDataInfo() const;
+    void setData(DATATYPE *pDataPtr);
 
 private:
 
     /**
      * @brief _name
      */
-    const char *_name;
+    std::string _name;
 
     /**
      * @brief _data Dato del campo de registro
@@ -84,7 +71,7 @@ private:
 // -----------------------------------------------------------------------------
 
 template<typename DATATYPE>
-RegistryDataType<DATATYPE>::RegistryDataType(const char *&pName, DATATYPE &pData,
+RecordDataType<DATATYPE>::RecordDataType(std::string &pName, DATATYPE &pData,
         unsigned short pLength)
     : _name(pName),
       _data(pData),
@@ -94,37 +81,37 @@ RegistryDataType<DATATYPE>::RegistryDataType(const char *&pName, DATATYPE &pData
 }
 
 template<typename DATATYPE>
-const char *RegistryDataType<DATATYPE>::getName() const
+std::string RecordDataType<DATATYPE>::getName() const
 {
     return _name;
 }
 
 template<typename DATATYPE>
-void RegistryDataType<DATATYPE>::setName(const char *pName)
+void RecordDataType<DATATYPE>::setName(std::string &pName)
 {
     _name = pName;
 }
 
 template<typename DATATYPE>
-DATATYPE RegistryDataType<DATATYPE>::getData() const
+const DATATYPE *RecordDataType<DATATYPE>::getDataPtr() const
 {
-    return _data;
+    return &_data;
 }
 
 template<typename DATATYPE>
-void RegistryDataType<DATATYPE>::setData(DATATYPE &pData)
+void RecordDataType<DATATYPE>::setData(DATATYPE *pDataPtr)
 {
-    _data = pData;
+    _data = *pDataPtr;
 }
 
 template<typename DATATYPE>
-unsigned short RegistryDataType::getSize() const
+unsigned short RecordDataType<DATATYPE>::getSize() const
 {
     return _size;
 }
 
 template<typename DATATYPE>
-void RegistryDataType<DATATYPE>::printDataInfo() const
+void RecordDataType<DATATYPE>::printDataInfo() const
 {
     std::cout << "\nNombre: " << _name
               << "\nDato: \t" << _data
