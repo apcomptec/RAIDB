@@ -9,21 +9,22 @@
 #define BTRECORD_H
 
 #include "dataStructure/DLL.h"
-#include "IRecordDataType.h"
+#include "fileHandling/RecordDataType.h"
+#include "fileHandling/IRecord.h"
 
-class BTRecord
+class BTRecord: public IRecord
 {
 public:
 
 // -----------------------------------------------------------------------------
-// DEFINICIÓN DE CONSTANTES
+// PROTOTIPO DE CONSTANTES
 // -----------------------------------------------------------------------------
-    static const char STRING    = 0;
-    static const char CHAR      = 1;
-    static const char SHORT     = 2;
-    static const char DOUBLE    = 3;
-    static const char INT       = 4;
-    static const char BOOL      = 5;
+    static const char STRING;
+    static const char CHAR;
+    static const char SHORT;
+    static const char INT;
+    static const char DOUBLE;
+    static const char BOOL;
 // -----------------------------------------------------------------------------
 
     /**
@@ -31,10 +32,17 @@ public:
      * @param pRegistryStructPtr Puntero constante a una lista constante de
      * datos de registro
      */
-    BTRecord(const DLL<IRecordDataType *> * const pRegistryStructPtr);
-    virtual bool insert(BTRecord *pRegistry);
-    virtual bool modify(BTRecord *pRegistry);
-    virtual BTRecord *erase(BTRecord *pRegistry);
+    BTRecord(const DLL<char> * const pRegistryStructPtr);
+
+
+// -----------------------------------------------------------------------------
+// MÉTODOS DE LA INTERFAZ IRECORD
+// -----------------------------------------------------------------------------
+    virtual DLL<IRecordDataType *> *getDataListPtr();
+    virtual void setDataList(DLL<IRecordDataType *> *);
+    virtual const DLL<char> *getRecordStructPtr();
+    virtual void setRecordStruct(DLL<char> *);
+// -----------------------------------------------------------------------------
 
 private:
 
@@ -49,7 +57,7 @@ private:
      * @brief _registryStructPtr Puntero a una lista doble con las cabeceras de
      * campo del registro.
      */
-    const DLL<IRecordDataType *> * const _registryStructPtr;
+    const DLL<char> * const _recordStructPtr;
 
     /**
      * @brief _dataListPtr Lista con los elementos de datos del registro

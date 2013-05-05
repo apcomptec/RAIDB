@@ -26,7 +26,7 @@ public:
      * @param pDataListPtr Nueva lista de datos de registro (dados por el
      * usuario)
      */
-    virtual void setDataListPtr(DLL<IRecordDataType *> *pDataListPtr) const = 0;
+    virtual void setDataList(DLL<IRecordDataType *> *pListPtr) const = 0;
 
     /**
      * @brief getRecordStructPtr
@@ -39,7 +39,7 @@ public:
      * @brief setRecordStructPtr
      * @param pListPtr Nuevo puntero a la lista de estructura del registro
      */
-    virtual void setRecordStructPtr(DLL<char> *pListPtr) const = 0;
+    virtual void setRecordStruct(DLL<char> *pListPtr) const = 0;
 };
 
 #endif // IRECORD_H

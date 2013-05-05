@@ -12,12 +12,14 @@ SOURCES += \
     example/serverClient/ex1/server.cpp \
     example/serverClient/ex1/client.cpp \
     example/fileManipulation/ex1.cpp \
-    fileHandling/BTRecord.cpp \
     fileHandling/RecordData.cpp \
     dataStructure/n_aryrecordfilenode.cpp \
     example/fileManipulation/ex3.cpp \
     example/fileManipulation/ex4.cpp \
-    example/md5.cpp
+    example/md5.cpp \
+    fileHandling/binaryStruct/BTRecord.cpp \
+    fileHandling/binaryStruct/BTRecordFile.cpp \
+    fileHandling/binaryStruct/BTRecordFileMetadata.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -29,12 +31,16 @@ HEADERS += \
     raid/IRaid.h \
     dataStructure/DLLNode.h \
     dataStructure/DLL.h \
-    fileHandling/BTRecord.h \
     fileHandling/IRecordDataType.h \
     fileHandling/RecordData.h \
     fileHandling/RecordDataType.h \
     fileHandling/IRecord.h \
     dataStructure/IN_aryNode.h \
     dataStructure/IN_aryTree.h \
-    dataStructure/n_aryrecordfilenode.h
+    dataStructure/n_aryrecordfilenode.h \
+    fileHandling/IRecordFile.h \
+    fileHandling/IMetadata.h \
+    fileHandling/binaryStruct/BTRecord.h \
+    fileHandling/binaryStruct/BTRecordFile.h \
+    fileHandling/binaryStruct/BTRecordFileMetadata.h
 
