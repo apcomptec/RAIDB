@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG += qt
 QT +=  core
 QT += network
+Qt += xml
 QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += \
@@ -19,7 +20,9 @@ SOURCES += \
     example/md5.cpp \
     fileHandling/binaryStruct/BTRecord.cpp \
     fileHandling/binaryStruct/BTRecordFile.cpp \
-    fileHandling/binaryStruct/BTRecordFileMetadata.cpp
+    fileHandling/binaryStruct/BTRecordFileMetadata.cpp \
+    XMLParser.cpp \
+    dataStructure/n_aryrecordfilenode.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -35,6 +38,7 @@ HEADERS += \
     fileHandling/RecordData.h \
     fileHandling/RecordDataType.h \
     fileHandling/IRecord.h \
+    XMLParser.h \
     dataStructure/IN_aryNode.h \
     dataStructure/IN_aryTree.h \
     dataStructure/n_aryrecordfilenode.h \
@@ -42,5 +46,5 @@ HEADERS += \
     fileHandling/IMetadata.h \
     fileHandling/binaryStruct/BTRecord.h \
     fileHandling/binaryStruct/BTRecordFile.h \
-    fileHandling/binaryStruct/BTRecordFileMetadata.h
-
+    fileHandling/binaryStruct/BTRecordFileMetadata.h \
+    dataStructure/n_aryrecordfilenode.h
