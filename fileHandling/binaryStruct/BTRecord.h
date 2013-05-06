@@ -34,6 +34,8 @@ public:
      */
     BTRecord(const DLL<char> * const pRegistryStructPtr);
 
+    BTRecord();
+
 
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IRECORD
@@ -44,6 +46,15 @@ public:
     virtual void setRecordStruct(DLL<char> *);
 // -----------------------------------------------------------------------------
 
+//    DLLNode *getParentPtr() const;
+//    void setParentPtr(DLLNode *parentPtr);
+
+//    DLLNode *getLeftChildPtr() const;
+//    void setLeftChildPtr(DLLNode *leftChildPtr);
+
+//    DLLNode *getRightChildPtr() const;
+//    void setRightChildPtr(DLLNode *rightChildPtr);
+
 private:
 
     /**
@@ -51,13 +62,13 @@ private:
      * @brief _leftChildPtr Puntero al hijo izquierdo del registro
      * @brief _rightChildPtr Puntero al hijo derecho del registro
      */
-    IRecordDataType *_parentPtr, *_leftChildPtr, *_rightChildPtr;
+//    DLLNode *_parentPtr, *_leftChildPtr, *_rightChildPtr;
 
     /**
      * @brief _registryStructPtr Puntero a una lista doble con las cabeceras de
      * campo del registro.
      */
-    const DLL<char> * const _recordStructPtr;
+//    const DLL<char> * const _recordStructPtr;
 
     /**
      * @brief _dataListPtr Lista con los elementos de datos del registro

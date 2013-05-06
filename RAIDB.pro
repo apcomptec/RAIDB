@@ -22,12 +22,17 @@ SOURCES += \
     fileHandling/binaryStruct/BTRecordFile.cpp \
     fileHandling/binaryStruct/BTRecordFileMetadata.cpp \
     XMLParser.cpp \
-    dataStructure/n_aryrecordfilenode.cpp
+    dataStructure/n_aryrecordfilenode.cpp \
+    example/fileManipulation/ex5.cpp \
+    example/fileManipulation/ex6.cpp \
+    example/fileManipulation/ex7.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
     doc/RAIDB_UML.pdf \
-    doc/fileHandling.ods
+    doc/fileHandling.ods \
+    doc/ProtocoloV1.0.pdf \
+    doc/recordExample.txt
 
 HEADERS += \
     example/serverClient/ex1/server.h \

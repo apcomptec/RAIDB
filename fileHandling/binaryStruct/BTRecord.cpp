@@ -19,9 +19,13 @@ const char BTRecord::BOOL       = 5;
 // -----------------------------------------------------------------------------
 
 BTRecord::BTRecord(const DLL<char> * const pRegistryStructPtr)
-    : _recordStructPtr(pRegistryStructPtr)
+//    : _recordStructPtr(pRegistryStructPtr)
 {
     // vacío
+}
+
+BTRecord::BTRecord()
+{
 }
 
 DLL<IRecordDataType *> *BTRecord::getDataListPtr()
@@ -36,10 +40,36 @@ void BTRecord::setDataList(DLL<IRecordDataType *> *pDataListPtr)
 
 const DLL<char> *BTRecord::getRecordStructPtr()
 {
-    return _recordStructPtr;
+    //
+
+//    return _recordStructPtr;
 }
 
 void BTRecord::setRecordStruct(DLL<char> *)
 {
     // vacío (NOTE el puntero no es modificable)
 }
+
+//DLLNode *BTRecord::getParentPtr() const
+//{
+//}
+
+//void BTRecord::setParentPtr(DLLNode *parentPtr)
+//{
+//}
+
+//DLLNode *BTRecord::getLeftChildPtr() const
+//{
+//}
+
+//void BTRecord::setLeftChildPtr(DLLNode *leftChildPtr)
+//{
+//}
+
+//DLLNode *BTRecord::getRightChildPtr() const
+//{
+//}
+
+//void BTRecord::setRightChildPtr(DLLNode *rightChildPtr)
+//{
+//}
