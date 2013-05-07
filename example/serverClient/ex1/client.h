@@ -10,7 +10,7 @@ class Client : public QObject
     Q_OBJECT
 public:
     explicit Client(QObject *parent = 0);
-    void connectToServer();
+    void connectToServer(QString pIp);
 signals:
 
 public slots:

@@ -1,11 +1,11 @@
-#include <QtCore/QCoreApplication>
+//#include <QtCore/QCoreApplication>
 
-#include "server.h"
+//#include "server.h"
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
-    Server s;
-    s.listen();
-    return a.exec();
-}
+//int main(int argc, char *argv[])
+//{
+//    QCoreApplication a(argc, argv);
+//    Server s;
+//    s.listen();
+//    return a.exec();
+//}
