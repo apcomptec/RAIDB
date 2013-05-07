@@ -8,7 +8,6 @@ Qt += xml
 QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += \
-    main.cpp \
     example/fileManipulation/ex2.cpp \
     example/fileManipulation/ex1.cpp \
     fileHandling/RecordData.cpp \
@@ -30,7 +29,9 @@ SOURCES += \
     example/fileManipulation/ex8/ex8ReadingRandomFile.cpp \
     example/serverClient/ex1/server.cpp \
     example/serverClient/ex1/client.cpp \
-    example/serverClient/ex1/main.cpp
+    example/serverClient/ex1/main.cpp \
+    main2.cpp \
+    example/serverClient/ex1/mainServer.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
