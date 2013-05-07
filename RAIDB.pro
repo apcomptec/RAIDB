@@ -29,9 +29,9 @@ SOURCES += \
     example/fileManipulation/ex8/ex8ReadingRandomFile.cpp \
     example/serverClient/ex1/server.cpp \
     example/serverClient/ex1/client.cpp \
-    main2.cpp \
     example/serverClient/ex1/mainServer.cpp \
-    example/serverClient/ex1/mainClient.cpp
+    example/serverClient/ex1/mainClient.cpp \
+    main.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
