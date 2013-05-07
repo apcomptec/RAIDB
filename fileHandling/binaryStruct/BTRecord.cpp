@@ -18,17 +18,11 @@ const char BTRecord::DOUBLE     = 4;
 const char BTRecord::BOOL       = 5;
 // -----------------------------------------------------------------------------
 
-BTRecord::BTRecord(const DLL<char> * const pRegistryStructPtr)
-//    : _recordStructPtr(pRegistryStructPtr)
-{
-    // vacío
-}
-
 BTRecord::BTRecord()
 {
 }
 
-DLL<IRecordDataType *> *BTRecord::getDataListPtr()
+DLL<IRecordDataType *> *BTRecord::getDataListPtr() const
 {
     return _dataListPtr;
 }
@@ -38,38 +32,42 @@ void BTRecord::setDataList(DLL<IRecordDataType *> *pDataListPtr)
     _dataListPtr = pDataListPtr;
 }
 
-const DLL<char> *BTRecord::getRecordStructPtr()
+unsigned short *BTRecord::getIndex() const
 {
-    //
-
-//    return _recordStructPtr;
+    return _indexPtr;
 }
 
-void BTRecord::setRecordStruct(DLL<char> *)
+void BTRecord::setIndex(unsigned short *pIndexPtr)
 {
-    // vacío (NOTE el puntero no es modificable)
+    _indexPtr = pIndexPtr;
 }
 
-//DLLNode *BTRecord::getParentPtr() const
-//{
-//}
+unsigned short *BTRecord::getParentPtr() const
+{
+    return _parentPtr;
+}
 
-//void BTRecord::setParentPtr(DLLNode *parentPtr)
-//{
-//}
+void BTRecord::setParentPtr(unsigned short *pParentPtr)
+{
+    _parentPtr = pParentPtr;
+}
 
-//DLLNode *BTRecord::getLeftChildPtr() const
-//{
-//}
+unsigned short *BTRecord::getLeftChildPtr() const
+{
+    return _leftChildPtr;
+}
 
-//void BTRecord::setLeftChildPtr(DLLNode *leftChildPtr)
-//{
-//}
+void BTRecord::setLeftChildPtr(unsigned short *pLeftChildPtr)
+{
+    _leftChildPtr = pLeftChildPtr;
+}
 
-//DLLNode *BTRecord::getRightChildPtr() const
-//{
-//}
+unsigned short *BTRecord::getRightChildPtr() const
+{
+    return _rightChildPtr;
+}
 
-//void BTRecord::setRightChildPtr(DLLNode *rightChildPtr)
-//{
-//}
+void BTRecord::setRightChildPtr(unsigned short *pRightChildPtr)
+{
+    _rightChildPtr = pRightChildPtr;
+}

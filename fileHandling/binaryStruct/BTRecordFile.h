@@ -1,51 +1,53 @@
-///*******************************************************************************
-// * File: BTRecordFile.h
-// * Author: Brallan Aguilar
-// * Description: TODO
-// * Reference:
-// ******************************************************************************/
+/*******************************************************************************
+ * File: BTRecordFile.h
+ * Author: Brallan Aguilar
+ * Description: TODO
+ * Reference:
+ ******************************************************************************/
 
-//#ifndef BTRECORDFILE_H
-//#define BTRECORDFILE_H
+#ifndef BTRECORDFILE_H
+#define BTRECORDFILE_H
 
-//#include "fileHandling/binaryStruct/BTRecordFileMetadata.h"
-//#include "fileHandling/binaryStruct/BTRecord.h"
-//#include "fileHandling/IRecordFile.h"
+#include "fileHandling/binaryStruct/BTRecordFileMetadata.h"
+#include "fileHandling/binaryStruct/BTRecord.h"
+#include "fileHandling/IRecordFile.h"
 
-//class BTRecordFile: public IRecordFile
-//{
-//public:
+class BTRecordFile: public IRecordFile
+{
+public:
 
-//    /**
-//     * @brief BTRecordFile Constructor
-//     */
-//    BTRecordFile(std::string &pFileName, std::string &pOwner);
+    /**
+     * @brief BTRecordFile Constructor
+     */
+    BTRecordFile(BTRecordFileMetadata *pMetadata);
 
-//// -----------------------------------------------------------------------------
-//// MÉTODOS DE LA INTERFAZ IRECORDFILE
-//// -----------------------------------------------------------------------------
-//    virtual BTRecordFileMetadata *getMetadataPtr() const;
-//    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
-//    virtual DLL<IRecord *> *getRecordListPtr();
-//    virtual void setRecordListPtr(DLL<IRecord *> *pListPtr);
-//    virtual void insertRecordPtr(DLL<IRecord *> *pListPtr);
-//    virtual BTRecord *deleteRecordPtr(BTRecord *pRecordPtr);
-//    virtual BTRecord *searchRecordPtr(BTRecord *pRecordPtr) const;
-//    virtual unsigned short showFragmentation() const;
-//    virtual bool defragFile();
-//// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// MÉTODOS DE LA INTERFAZ IRECORDFILE
+// -----------------------------------------------------------------------------
+    virtual BTRecordFileMetadata *getMetadata() const;
+    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
+    virtual DLL<IRecord *> *getRecordList() const;
+    virtual void setRecordList(DLL<IRecord *> *pListPtr);
+    virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
+    virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
+    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
+    virtual unsigned short showFragmentation() const;
+    virtual bool defragFile();
+// -----------------------------------------------------------------------------
 
-//private:
+private:
 
-//    /**
-//     * @brief _metadataPtr
-//     */
-//    BTRecordFileMetadata *_metadataPtr;
+    unsigned short *_index;
 
-//    /**
-//     * @brief _recordListPtr
-//     */
-//    DLL<IRecord *> _recordList;
-//};
+    /**
+     * @brief _metadataPtr
+     */
+    BTRecordFileMetadata *_metadataPtr;
 
-//#endif // BTRECORDFILE_H
+    /**
+     * @brief _recordListPtr
+     */
+    DLL<IRecord *> *_recordListPtr;
+};
+
+#endif // BTRECORDFILE_H

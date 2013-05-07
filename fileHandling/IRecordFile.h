@@ -19,7 +19,7 @@ public:
      * @brief getMetadataPtr
      * @return Puntero a metadatos
      */
-    virtual IMetadata *getMetadataPtr() const = 0;
+    virtual IMetadata *getMetadata() const = 0;
 
     /**
      * @brief setMetadataPtr
@@ -31,26 +31,26 @@ public:
      * @brief getRecordListPtr
      * @return Lista con los registros en el archivo
      */
-    virtual DLL<IRecord *> *getRecordListPtr() = 0;
+    virtual DLL<IRecord *> *getRecordList() const = 0;
 
     /**
      * @brief setRecordListPtr
      * @param pListPtr Nueva lista con registros
      */
-    virtual void setRecordListPtr(DLL<IRecord *> *pListPtr) = 0;
+    virtual void setRecordList(DLL<IRecord *> *pListPtr) = 0;
 
     /**
-     * @brief insertRecordPtr
-     * @param pRecordPtr Registro que se insertará en el archivo
+     * @brief insertRecord
+     * @param pListPtr Registro que se insertará en el archivo
      */
-    virtual void insertRecordPtr(DLL<IRecordDataType *> *pListPtr) = 0;
+    virtual void insertRecord(DLL<IRecordDataType *> *pListPtr) = 0;
 
     /**
-     * @brief deleteRecordPtr
+     * @brief deleteRecord
      * @param pRecordPtr Registro a borrar
      * @return Puntero al registro eliminado
      */
-    virtual IRecord *deleteRecordPtr(IRecord *pRecordPtr) = 0;
+    virtual IRecord *deleteRecord(IRecord *pRecordPtr) = 0;
 
     /**
      * @brief searchRecordPtr
@@ -58,7 +58,7 @@ public:
      * @return Puntero al registro deseado. Si no se encuentra, retornará
      * nullptr
      */
-    virtual IRecord *searchRecordPtr(IRecord *pRecordPtr) const = 0;
+    virtual IRecord *searchRecord(IRecord *pRecordPtr) const = 0;
 
     /**
      * @brief showFragmentation

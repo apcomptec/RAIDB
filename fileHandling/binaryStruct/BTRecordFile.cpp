@@ -1,77 +1,86 @@
-///*******************************************************************************
-// * File: BTRecordFile.cpp
-// * Author: Brallan Aguilar
-// * Description: TODO
-// * Reference:
-// ******************************************************************************/
+/*******************************************************************************
+ * File: BTRecordFile.cpp
+ * Author: Brallan Aguilar
+ * Description: TODO
+ * Reference:
+ ******************************************************************************/
 
-//#include "BTRecordFile.h"
+#include "BTRecordFile.h"
 
-//BTRecordFile::BTRecordFile(std::string &pFileName, std::string &pOwner)
+BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
+    : _index(new unsigned short(0)),
+      _metadataPtr(pMetadata)
 
-//{
-//    getMetadataPtr()->setFileName(pFileName);
-//    getMetadataPtr()->setOwner(pOwner);
-//    getMetadataPtr()->getBORPtr() = _recordList.getHeadPtr();
-//    getMetadataPtr()->getEOFPtr() = _recordList.getTailPtr();
-//}
+{
 
-//BTRecordFileMetadata *BTRecordFile::getMetadataPtr() const
-//{
-//    return _metadataPtr;
-//}
+}
 
-//void BTRecordFile::setMetadata(BTRecordFileMetadata *pMetadataPtr)
-//{
-//    _metadataPtr = pMetadataPtr;
-//}
+BTRecordFileMetadata *BTRecordFile::getMetadata() const
+{
+    return _metadataPtr;
+}
 
-//DLL<IRecord *> *BTRecordFile::getRecordListPtr()
-//{
-//    return &_recordList;
-//}
+void BTRecordFile::setMetadata(BTRecordFileMetadata *pMetadataPtr)
+{
+    _metadataPtr = pMetadataPtr;
+}
 
-//void BTRecordFile::setRecordListPtr(DLL<IRecord *> *pListPtr)
-//{
-//    _recordList = *pListPtr;
-//}
+DLL<IRecord *> *BTRecordFile::getRecordList() const
+{
+    return _recordListPtr;
+}
 
+void BTRecordFile::setRecordList(DLL<IRecord *> *pListPtr)
+{
+    _recordListPtr = pListPtr;
+}
 
-//void BTRecordFile::insertRecordPtr(DLL<IRecord *> *pListPtr)
-//{
-//    BTRecord *record = new BTRecord();
-//    record->setDataList(pListPtr);
-//    _recordList.insertAtBack(record);
+void BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
+{
+    BTRecord *newRecord = new BTRecord();
+    newRecord->setIndex(_index);
 
-//    if (_recordList.isEmpty()) { // no se han insertado registros
-//        record->setParentPtr(nullptr);
-//        record->setLeftChildPtr(nullptr);
-//        record->setRightChildPtr(nullptr);
-//    } else {
-//        record->setParentPtr(getMetadataPtr()->getEOFPtr());
-//        DLLNode *parentTmp = getMetadataPtr()->getEOFPtr();
+    if (_recordListPtr->isEmpty()) { // la lista esté vacía
+        unsigned short *tempPtr = new unsigned short(0);
+        newRecord->setParentPtr(tempPtr);
+        newRecord->setLeftChildPtr(tempPtr);
+        newRecord->setRightChildPtr(tempPtr);
+        newRecord->setDataList(pListPtr);
+        _recordListPtr->insertAtBack(newRecord);
+    } else {
+        BTRecord *tempPtr = (BTRecord*) _recordListPtr->getTailPtr()->getData();
+        if (*tempPtr->getLeftChildPtr() == 0) {
+            newRecord->setParentPtr(tempPtr->getParentPtr());
+            tempPtr->setLeftChildPtr(newRecord->getIndex());
+            newRecord->setLeftChildPtr(new unsigned short(0));
+            newRecord->setRightChildPtr(new unsigned short(0));
+        } else if (*tempPtr->getRightChildPtr() == 0) {
+            newRecord->setParentPtr(tempPtr->getParentPtr());
+            tempPtr->setRightChildPtr(newRecord->getIndex());
+            newRecord->setRightChildPtr(new unsigned short(0));
+        } else {
 
-//    }
-//}
+        }
+    }
 
-//BTRecord *BTRecordFile::deleteRecordPtr(BTRecord *pRecordPtr) // TODO
-//{
-//    BTRecord *tmp = pRecordPtr;
-//    return tmp;
-//}
+    *_index++;
+}
 
-//BTRecord *BTRecordFile::searchRecordPtr(BTRecord *pRecordPtr) const // TODO
-//{
-//    BTRecord *tmp = pRecordPtr;
-//    return tmp;
-//}
+BTRecord *BTRecordFile::deleteRecord(BTRecord *pRecordPtr) // TODO
+{
 
-//unsigned short BTRecordFile::showFragmentation() const
-//{
-//    return 0; // TODO
-//}
+}
 
-//bool BTRecordFile::defragFile()
-//{
-//    return false; // TODO
-//}
+BTRecord *BTRecordFile::searchRecord(BTRecord *pRecordPtr) const // TODO
+{
+}
+
+unsigned short BTRecordFile::showFragmentation() const
+{
+    return 0; // TODO
+}
+
+bool BTRecordFile::defragFile()
+{
+    return false; // TODO
+}
