@@ -37,16 +37,18 @@ public:
 // -----------------------------------------------------------------------------
     virtual DLL<IRecordDataType *> *getDataListPtr() const;
     virtual void setDataList(DLL<IRecordDataType *> *);
+    virtual unsigned short *getIndex() const;
+    virtual void setIndex(unsigned short *pIndexPtr);
 // -----------------------------------------------------------------------------
 
     unsigned short *getParentPtr() const;
-    void setParentPtr(unsigned short *parentPtr);
+    void setParentPtr(unsigned short *pParentPtr);
 
     unsigned short *getLeftChildPtr() const;
-    void setLeftChildPtr(unsigned short *leftChildPtr);
+    void setLeftChildPtr(unsigned short *pLeftChildPtr);
 
     unsigned short *getRightChildPtr() const;
-    void setRightChildPtr(unsigned short *rightChildPtr);
+    void setRightChildPtr(unsigned short *pRightChildPtr);
 
 private:
 
@@ -55,7 +57,7 @@ private:
      * @brief _leftChildPtr Puntero al hijo izquierdo del registro
      * @brief _rightChildPtr Puntero al hijo derecho del registro
      */
-    unsigned short *_parentPtr, *_leftChildPtr, *_rightChildPtr;
+    unsigned short *_indexPtr, *_parentPtr, *_leftChildPtr, *_rightChildPtr;
 
     /**
      * @brief _dataListPtr Lista con los elementos de datos del registro

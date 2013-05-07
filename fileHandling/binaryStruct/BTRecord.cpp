@@ -31,3 +31,39 @@ void BTRecord::setDataList(DLL<IRecordDataType *> *pDataListPtr)
 {
     _dataListPtr = pDataListPtr;
 }
+
+unsigned short *BTRecord::getIndex() const
+{
+    return _indexPtr;
+}
+
+void BTRecord::setIndex(unsigned short *pIndexPtr)
+{
+    _indexPtr = pIndexPtr;
+}
+
+unsigned short *BTRecord::getParentPtr() const
+{
+    return _parentPtr;
+}
+
+void BTRecord::setParentPtr(unsigned short *pParentPtr)
+{
+    _parentPtr = pParentPtr;
+}
+
+unsigned short *BTRecord::getLeftChildPtr() const
+{
+    return _leftChildPtr;
+}
+
+void BTRecord::setLeftChildPtr(unsigned short *pLeftChildPtr)
+{
+    _leftChildPtr = pLeftChildPtr;
+}
+
+
+void BTRecord::setRightChildPtr(unsigned short *pRightChildPtr)
+{
+    _rightChildPtr = pRightChildPtr;
+}

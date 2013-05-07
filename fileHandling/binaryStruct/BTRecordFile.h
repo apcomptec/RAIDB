@@ -37,6 +37,8 @@ public:
 
 private:
 
+    unsigned short *_index;
+
     /**
      * @brief _metadataPtr
      */

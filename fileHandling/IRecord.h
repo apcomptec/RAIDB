@@ -27,6 +27,9 @@ public:
      * usuario)
      */
     virtual void setDataList(DLL<IRecordDataType *> *pListPtr) = 0;
+
+    virtual unsigned short *getIndex() const = 0;
+    virtual void setIndex(unsigned short *pIndexPtr) = 0;
 };
 
 #endif // IRECORD_H
