@@ -139,3 +139,36 @@ IN_aryNode<DATATYPE>* N_aryRecordFileNode<DATATYPE>::deleteChildPtr(IN_aryNode<D
 {
 }
 
+template<typename DATATYPE>
+/**
+ * @brief N_aryRecordFileNode<DATATYPE>::addRecordFilePtr
+ *  Metodo para insertar el puntero al archivo
+ * @param pFile
+ * @return true or false;
+ */
+bool N_aryRecordFileNode<DATATYPE>::addRecordFilePtr(int pFile){
+    //Se inserta el puntero al archivo
+    this->_fileListPtr->insertAtBack(pFile);
+}
+
+template<typename DATATYPE>
+/**
+ * @brief N_aryRecordFileNode<DATATYPE>::searchRecordFilePtr
+ *  Metodo para buscar el dato especifico
+ * @param pFile
+ * @return _data
+ */
+int N_aryRecordFileNode<DATATYPE>::searchRecordFilePtr(int pFile){
+    //Se busca y se devuelve el dato
+    return this->_fileListPtr->searchNotInOrder(pFile)->getData();
+}
+
+template<typename DATATYPE>
+/**
+ * @brief N_aryRecordFileNode<DATATYPE>::deleteRecordFilePtr
+ *  Metodo para eliminar un puntero al archivo
+ * @param pFile
+ * @return _data
+ */
+int N_aryRecordFileNode<DATATYPE>::deleteRecordFilePtr(int pFile){
+}

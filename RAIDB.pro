@@ -22,7 +22,8 @@ SOURCES += \
     fileHandling/binaryStruct/BTRecordFile.cpp \
     fileHandling/binaryStruct/BTRecordFileMetadata.cpp \
     XMLParser.cpp \
-    dataStructure/n_aryrecordfilenode.cpp
+    dataStructure/n_aryrecordfilenode.cpp \
+    dataStructure/n_aryrecordfiletree.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -48,4 +49,6 @@ HEADERS += \
     fileHandling/binaryStruct/BTRecord.h \
     fileHandling/binaryStruct/BTRecordFile.h \
     fileHandling/binaryStruct/BTRecordFileMetadata.h \
-    dataStructure/n_aryrecordfilenode.h
+    dataStructure/n_aryrecordfilenode.h \
+    dataStructure/n_aryrecordfiletree.h \
+    dataStructure/in_arytree.h

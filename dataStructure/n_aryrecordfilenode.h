@@ -10,7 +10,7 @@ private:
     DATATYPE _data;
     IN_aryNode<DATATYPE>* _parentPtr;
     DLL<IN_aryNode<DATATYPE>*>* _dirListPtr;
-    DLL<IN_aryNode<DATATYPE>*>* _fileListPtr;
+    DLL<int>* _fileListPtr;
 
 public:
     N_aryRecordFileNode(DATATYPE pData, IN_aryNode<DATATYPE> pParent = NULL);
@@ -30,11 +30,11 @@ public:
     IN_aryNode<DATATYPE>* searchChildPtr(IN_aryNode<DATATYPE> *);
 
     //METODOS ARBOL N-ARIO DE ARCHIVOS
-    DLL<IRecord*>* getRecordFileListPtr();
-    void setRecordFileListPtr(DLL<IRecord*>);
-    bool addRecordFilePtr(IRecord*);
-    IRecord* deleteRecordFilePtr(IRecord*);
-    IRecord* searchRecordFilePtr(IRecord*);
+    DLL<int>* getRecordFileListPtr();
+    void setRecordFileListPtr(DLL<int>);
+    bool addRecordFilePtr(int);
+    int deleteRecordFilePtr(int);
+    int searchRecordFilePtr(int);
 
 
 };
