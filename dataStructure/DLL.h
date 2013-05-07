@@ -89,6 +89,7 @@ public:
     unsigned short getSize() const;
 
     DLLNode<NODETYPE> *getHeadPtr() const;
+    DLLNode<NODETYPE> *getTailPtr() const;
 
 private:
 
@@ -156,8 +157,6 @@ void DLL<NODETYPE>::insertAtFront(const NODETYPE &pData)
 
     _size++;
 }
-
-
 
 template<typename NODETYPE>
 void DLL<NODETYPE>::insertAtBack(const NODETYPE &pData)
@@ -318,6 +317,18 @@ template<typename NODETYPE>
 unsigned short DLL<NODETYPE>::getSize() const
 {
     return _size;
+}
+
+template<typename NODETYPE>
+DLLNode<NODETYPE> *DLL<NODETYPE>::getHeadPtr() const
+{
+    return _headPtr;
+}
+
+template<typename NODETYPE>
+DLLNode<NODETYPE> *DLL<NODETYPE>::getTailPtr() const
+{
+    return _tailPtr;
 }
 
 template<typename NODETYPE>

@@ -43,7 +43,7 @@ public:
      * @brief insertRecordPtr
      * @param pRecordPtr Registro que se insertará en el archivo
      */
-    virtual void insertRecordPtr(IRecord *pRecordPtr) = 0;
+    virtual void insertRecordPtr(DLL<IRecordDataType *> *pListPtr) = 0;
 
     /**
      * @brief deleteRecordPtr

@@ -44,4 +44,6 @@ int ex4()
 {
     info ob;
     ob.input();
+
+    return 0;
 }
