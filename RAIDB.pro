@@ -25,7 +25,11 @@ SOURCES += \
     dataStructure/n_aryrecordfilenode.cpp \
     example/fileManipulation/ex5.cpp \
     example/fileManipulation/ex6.cpp \
-    example/fileManipulation/ex7.cpp
+    example/fileManipulation/ex7.cpp \
+    example/fileManipulation/ex8/ClientData.cpp \
+    example/fileManipulation/ex8/ex6CreateRandomFile.cpp \
+    example/fileManipulation/ex8/ex8WrittingRandomFile.cpp \
+    example/fileManipulation/ex8/ex8ReadingRandomFile.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -53,4 +57,5 @@ HEADERS += \
     fileHandling/binaryStruct/BTRecord.h \
     fileHandling/binaryStruct/BTRecordFile.h \
     fileHandling/binaryStruct/BTRecordFileMetadata.h \
-    dataStructure/n_aryrecordfilenode.h
+    dataStructure/n_aryrecordfilenode.h \
+    example/fileManipulation/ex8/ClientData.h
