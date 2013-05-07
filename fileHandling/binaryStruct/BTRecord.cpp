@@ -62,6 +62,10 @@ void BTRecord::setLeftChildPtr(unsigned short *pLeftChildPtr)
     _leftChildPtr = pLeftChildPtr;
 }
 
+unsigned short *BTRecord::getRightChildPtr() const
+{
+    return _rightChildPtr;
+}
 
 void BTRecord::setRightChildPtr(unsigned short *pRightChildPtr)
 {
