@@ -7,7 +7,11 @@
 
 #include "BTRecordFileMetadata.h"
 
-BTRecordFileMetadata::BTRecordFileMetadata()
+BTRecordFileMetadata::BTRecordFileMetadata(DLL<std::string> *pRecordStructPtr,
+        std::string &pFileName, std::string &pOwner)
+    : _recordStructPtr(pRecordStructPtr),
+      _fileName(pFileName),
+      _owner(pOwner)
 {
 }
 

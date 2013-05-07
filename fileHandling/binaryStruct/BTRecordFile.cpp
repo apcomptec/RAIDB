@@ -7,11 +7,10 @@
 
 #include "BTRecordFile.h"
 
-BTRecordFile::BTRecordFile(std::string &pFileName, std::string &pOwner)
-
+BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
+    : _metadataPtr(pMetadata)
 {
-    getMetadataPtr()->setFileName(pFileName);
-    getMetadataPtr()->setOwner(pOwner);
+
 }
 
 BTRecordFileMetadata *BTRecordFile::getMetadataPtr() const

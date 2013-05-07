@@ -19,7 +19,7 @@ public:
     /**
      * @brief BTRecordFile Constructor
      */
-    BTRecordFile(std::string &pFileName, std::string &pOwner);
+    BTRecordFile(BTRecordFileMetadata *pMetadata);
 
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IRECORDFILE

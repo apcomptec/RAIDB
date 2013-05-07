@@ -14,7 +14,8 @@
 class BTRecordFileMetadata: public IMetadata
 {
 public:
-    BTRecordFileMetadata();
+    BTRecordFileMetadata(DLL<std::string> *pRecordStructPtr,
+                         std::string &pFileName, std::string &pOwner);
 
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IMETADATA
@@ -42,9 +43,9 @@ private:
 
     DLL<std::string> *_recordStructPtr;
     std::string _fileName;
+    std::string _owner;
     unsigned short _fileSize;
     unsigned short _blockSize;
-    std::string _owner;
     DLL<unsigned short> *_freeBlockList;
     DLL<unsigned short> *_usedBlockList;
     unsigned short *_borPtr;
