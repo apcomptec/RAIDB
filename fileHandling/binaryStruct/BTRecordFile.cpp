@@ -13,7 +13,7 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
 
 }
 
-BTRecordFileMetadata *BTRecordFile::getMetadataPtr() const
+BTRecordFileMetadata *BTRecordFile::getMetadata() const
 {
     return _metadataPtr;
 }
@@ -23,28 +23,28 @@ void BTRecordFile::setMetadata(BTRecordFileMetadata *pMetadataPtr)
     _metadataPtr = pMetadataPtr;
 }
 
-DLL<IRecord *> *BTRecordFile::getRecordListPtr() const
+DLL<IRecord *> *BTRecordFile::getRecordList() const
 {
     return _recordListPtr;
 }
 
-void BTRecordFile::setRecordListPtr(DLL<IRecord *> *pListPtr)
+void BTRecordFile::setRecordList(DLL<IRecord *> *pListPtr)
 {
     _recordListPtr = pListPtr;
 }
 
 
-void BTRecordFile::insertRecordPtr(DLL<IRecord *> *pListPtr)
+void BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
 {
 
 }
 
-BTRecord *BTRecordFile::deleteRecordPtr(IRecord *pRecordPtr) // TODO
+BTRecord *BTRecordFile::deleteRecord(BTRecord *pRecordPtr) // TODO
 {
 
 }
 
-BTRecord *BTRecordFile::searchRecordPtr(IRecord *pRecordPtr) const // TODO
+BTRecord *BTRecordFile::searchRecord(BTRecord *pRecordPtr) const // TODO
 {
 }
 

@@ -24,13 +24,13 @@ public:
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IRECORDFILE
 // -----------------------------------------------------------------------------
-    virtual BTRecordFileMetadata *getMetadataPtr() const;
+    virtual BTRecordFileMetadata *getMetadata() const;
     virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
-    virtual DLL<IRecord *> *getRecordListPtr() const;
-    virtual void setRecordListPtr(DLL<IRecord *> *pListPtr);
-    virtual void insertRecordPtr(DLL<IRecord *> *pListPtr);
-    virtual BTRecord *deleteRecordPtr(IRecord *pRecordPtr);
-    virtual BTRecord *searchRecordPtr(IRecord *pRecordPtr) const;
+    virtual DLL<IRecord *> *getRecordList() const;
+    virtual void setRecordList(DLL<IRecord *> *pListPtr);
+    virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
+    virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
+    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual unsigned short showFragmentation() const;
     virtual bool defragFile();
 // -----------------------------------------------------------------------------
