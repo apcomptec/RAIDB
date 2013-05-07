@@ -29,31 +29,24 @@ public:
 
     /**
      * @brief BTRecord Constructor
-     * @param pRegistryStructPtr Puntero constante a una lista constante de
-     * datos de registro
      */
-    BTRecord(const DLL<char> * const pRegistryStructPtr);
-
     BTRecord();
-
 
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IRECORD
 // -----------------------------------------------------------------------------
-    virtual DLL<IRecordDataType *> *getDataListPtr();
+    virtual DLL<IRecordDataType *> *getDataListPtr() const;
     virtual void setDataList(DLL<IRecordDataType *> *);
-    virtual const DLL<char> *getRecordStructPtr();
-    virtual void setRecordStruct(DLL<char> *);
 // -----------------------------------------------------------------------------
 
-//    DLLNode *getParentPtr() const;
-//    void setParentPtr(DLLNode *parentPtr);
+    unsigned short *getParentPtr() const;
+    void setParentPtr(unsigned short *parentPtr);
 
-//    DLLNode *getLeftChildPtr() const;
-//    void setLeftChildPtr(DLLNode *leftChildPtr);
+    unsigned short *getLeftChildPtr() const;
+    void setLeftChildPtr(unsigned short *leftChildPtr);
 
-//    DLLNode *getRightChildPtr() const;
-//    void setRightChildPtr(DLLNode *rightChildPtr);
+    unsigned short *getRightChildPtr() const;
+    void setRightChildPtr(unsigned short *rightChildPtr);
 
 private:
 
@@ -62,13 +55,7 @@ private:
      * @brief _leftChildPtr Puntero al hijo izquierdo del registro
      * @brief _rightChildPtr Puntero al hijo derecho del registro
      */
-//    DLLNode *_parentPtr, *_leftChildPtr, *_rightChildPtr;
-
-    /**
-     * @brief _registryStructPtr Puntero a una lista doble con las cabeceras de
-     * campo del registro.
-     */
-//    const DLL<char> * const _recordStructPtr;
+    unsigned short *_parentPtr, *_leftChildPtr, *_rightChildPtr;
 
     /**
      * @brief _dataListPtr Lista con los elementos de datos del registro

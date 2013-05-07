@@ -1,88 +1,98 @@
-///*******************************************************************************
-// * File: BTRecordFileMetadata.cpp
-// * Author: Brallan Aguilar
-// * Description: TODO
-// * Reference:
-// ******************************************************************************/
+/*******************************************************************************
+ * File: BTRecordFileMetadata.cpp
+ * Author: Brallan Aguilar
+ * Description: TODO
+ * Reference:
+ ******************************************************************************/
 
-//#include "BTRecordFileMetadata.h"
+#include "BTRecordFileMetadata.h"
 
-//BTRecordFileMetadata::BTRecordFileMetadata()
-//{
-//}
+BTRecordFileMetadata::BTRecordFileMetadata()
+{
+}
 
-//DLL<char> *BTRecordFileMetadata::getRecordStructPtr() const
-//{
-////    return _recordStruct;
-//}
+DLL<std::string> *BTRecordFileMetadata::getRecordStructPtr() const
+{
+    return _recordStructPtr;
+}
 
-//std::string BTRecordFileMetadata::getFileName() const
-//{
-//}
+std::string BTRecordFileMetadata::getFileName() const
+{
+    return _fileName;
+}
 
-//void BTRecordFileMetadata::setFileName(std::string &pFileName)
-//{
-//    _fileName = pFileName;
-//}
+void BTRecordFileMetadata::setFileName(std::string &pFileName)
+{
+    _fileName = pFileName;
+}
 
-//unsigned short BTRecordFileMetadata::getFileSize() const
-//{
-//    return _fileSize;
-//}
+unsigned short BTRecordFileMetadata::getFileSize() const
+{
+    return _fileSize;
+}
 
-//void BTRecordFileMetadata::setFileSize(unsigned short &pFileSize)
-//{
-//    _fileSize = pFileSize;
-//}
+void BTRecordFileMetadata::setFileSize(unsigned short &pFileSize)
+{
+    _fileSize = pFileSize;
+}
 
-//unsigned short BTRecordFileMetadata::getBlockSize() const
-//{
-//    return _blockSize;
-//}
+unsigned short BTRecordFileMetadata::getBlockSize() const
+{
+    return _blockSize;
+}
 
-//void BTRecordFileMetadata::setBlockSize(unsigned short &pSize)
-//{
-//    _blockSize = pSize;
-//}
+void BTRecordFileMetadata::setBlockSize(unsigned short &pSize)
+{
+    _blockSize = pSize;
+}
 
-//std::string BTRecordFileMetadata::getOwner() const
-//{
-//    return _owner;
-//}
+std::string BTRecordFileMetadata::getOwner() const
+{
+    return _owner;
+}
 
-//DLL<unsigned short> *BTRecordFileMetadata::getFreeBlockListPtr() const
-//{
-////    return
-//}
 
-//void BTRecordFileMetadata::setFreeBlockList(DLL<unsigned short> *pFreeBlockList)
-//{
-//}
+void BTRecordFileMetadata::setOwner(std::string &pOwner)
+{
+    _owner = pOwner;
+}
 
-//DLL<unsigned short> *BTRecordFileMetadata::getBlockUsedListPtr() const
-//{
-//}
+DLL<unsigned short> *BTRecordFileMetadata::getFreeBlockListPtr() const
+{
+    return _freeBlockList;
+}
 
-//void BTRecordFileMetadata::setUsedBlockList(DLL<unsigned short> *pBlockUsedList)
-//{
-//}
+void BTRecordFileMetadata::setFreeBlockList(DLL<unsigned short> *pFreeBlockList)
+{
+    _freeBlockList = pFreeBlockList;
+}
 
-//DLLNode *BTRecordFileMetadata::getEOFPtr() const
-//{
-//}
+DLL<unsigned short> *BTRecordFileMetadata::getUsedBlockListPtr() const
+{
+    return _usedBlockList;
+}
 
-//void BTRecordFileMetadata::setEOFPtr(DLLNode *pEOFPtr)
-//{
-//}
+void BTRecordFileMetadata::setUsedBlockList(DLL<unsigned short> *pBlockUsedList)
+{
+    _usedBlockList = pBlockUsedList;
+}
 
-//DLLNode *BTRecordFileMetadata::getBORPtr() const
-//{
-//}
+unsigned short *BTRecordFileMetadata::getEOFPtr() const
+{
+    return _eofPtr;
+}
 
-//void BTRecordFileMetadata::setBORPtr(DLLNode *pBORPtr)
-//{
-//}
+void BTRecordFileMetadata::setEOFPtr(unsigned short *pEOFPtr)
+{
+    _eofPtr = pEOFPtr;
+}
 
-//void BTRecordFileMetadata::setOwner(std::string &pOwner)
-//{
-//}
+unsigned short *BTRecordFileMetadata::getBORPtr() const
+{
+    return _borPtr;
+}
+
+void BTRecordFileMetadata::setBORPtr(unsigned short *pBORPtr)
+{
+    _borPtr = pBORPtr;
+}

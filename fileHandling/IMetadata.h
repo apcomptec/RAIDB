@@ -18,7 +18,7 @@ public:
      * @brief getRecordStruct
      * @return
      */
-    virtual DLL<char> *getRecordStructPtr() const = 0;
+    virtual DLL<std::string> *getRecordStructPtr() const = 0;
 
     /**
      * @brief getFileName
@@ -84,7 +84,7 @@ public:
      * @brief getBlockUsedList
      * @return
      */
-    virtual DLL<unsigned short> *getBlockUsedListPtr() const = 0;
+    virtual DLL<unsigned short> *getUsedBlockListPtr() const = 0;
 
     /**
      * @brief setBlockUsedList
@@ -104,10 +104,17 @@ public:
      */
     virtual void setEOFPtr(unsigned short *pEOFPtr) = 0;
 
+    /**
+     * @brief getBORPtr
+     * @return
+     */
     virtual unsigned short *getBORPtr() const = 0;
 
+    /**
+     * @brief setBORPtr
+     * @param pBORPtr
+     */
     virtual void setBORPtr(unsigned short *pBORPtr) = 0;
-
 };
 
 #endif // IMETADATA_H

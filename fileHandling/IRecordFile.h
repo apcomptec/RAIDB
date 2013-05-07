@@ -31,7 +31,7 @@ public:
      * @brief getRecordListPtr
      * @return Lista con los registros en el archivo
      */
-    virtual DLL<IRecord *> *getRecordListPtr() = 0;
+    virtual DLL<IRecord *> *getRecordListPtr() const = 0;
 
     /**
      * @brief setRecordListPtr
@@ -43,7 +43,7 @@ public:
      * @brief insertRecordPtr
      * @param pRecordPtr Registro que se insertará en el archivo
      */
-    virtual void insertRecordPtr(DLL<IRecordDataType *> *pListPtr) = 0;
+    virtual void insertRecordPtr(DLL<IRecord *> *pListPtr) = 0;
 
     /**
      * @brief deleteRecordPtr
