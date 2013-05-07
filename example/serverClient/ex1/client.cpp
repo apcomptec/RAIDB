@@ -28,7 +28,8 @@ void Client::on_connected()
 
 }
 
-void Client::connectToServer()
+void Client::connectToServer(QString pIp)
 {
-    socket->connectToHost(QHostAddress::LocalHost, 1234);
+    QHostAddress address(pIp);
+    socket->connectToHost(address, 1234);
 }
