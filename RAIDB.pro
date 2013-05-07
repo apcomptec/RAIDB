@@ -10,8 +10,6 @@ QMAKE_CXXFLAGS += -std=c++0x
 SOURCES += \
     main.cpp \
     example/fileManipulation/ex2.cpp \
-    example/serverClient/ex1/server.cpp \
-    example/serverClient/ex1/client.cpp \
     example/fileManipulation/ex1.cpp \
     fileHandling/RecordData.cpp \
     dataStructure/n_aryrecordfilenode.cpp \
@@ -29,7 +27,10 @@ SOURCES += \
     example/fileManipulation/ex8/ClientData.cpp \
     example/fileManipulation/ex8/ex6CreateRandomFile.cpp \
     example/fileManipulation/ex8/ex8WrittingRandomFile.cpp \
-    example/fileManipulation/ex8/ex8ReadingRandomFile.cpp
+    example/fileManipulation/ex8/ex8ReadingRandomFile.cpp \
+    example/serverClient/ex1/server.cpp \
+    example/serverClient/ex1/client.cpp \
+    example/serverClient/ex1/main.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -39,8 +40,6 @@ OTHER_FILES += \
     doc/recordExample.txt
 
 HEADERS += \
-    example/serverClient/ex1/server.h \
-    example/serverClient/ex1/client.h \
     raid/IRaid.h \
     dataStructure/DLLNode.h \
     dataStructure/DLL.h \
@@ -58,4 +57,6 @@ HEADERS += \
     fileHandling/binaryStruct/BTRecordFile.h \
     fileHandling/binaryStruct/BTRecordFileMetadata.h \
     dataStructure/n_aryrecordfilenode.h \
-    example/fileManipulation/ex8/ClientData.h
+    example/fileManipulation/ex8/ClientData.h \
+    example/serverClient/ex1/client.h \
+    example/serverClient/ex1/server.h
