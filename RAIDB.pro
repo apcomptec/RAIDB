@@ -27,11 +27,11 @@ SOURCES += \
     example/fileManipulation/ex8/ex6CreateRandomFile.cpp \
     example/fileManipulation/ex8/ex8WrittingRandomFile.cpp \
     example/fileManipulation/ex8/ex8ReadingRandomFile.cpp \
-    example/serverClient/ex1/server.cpp \
-    example/serverClient/ex1/client.cpp \
-    main2.cpp \
-    example/serverClient/ex1/mainServer.cpp \
-    example/serverClient/ex1/mainClient.cpp
+    Client-Server/threadserver.cpp \
+    Client-Server/server.cpp \
+    Client-Server/mainClient.cpp \
+    Client-Server/client.cpp \
+    Client-Server/mainServer.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -59,5 +59,6 @@ HEADERS += \
     fileHandling/binaryStruct/BTRecordFileMetadata.h \
     dataStructure/n_aryrecordfilenode.h \
     example/fileManipulation/ex8/ClientData.h \
-    example/serverClient/ex1/client.h \
-    example/serverClient/ex1/server.h
+    Client-Server/threadserver.h \
+    Client-Server/server.h \
+    Client-Server/client.h
