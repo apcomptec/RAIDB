@@ -8,6 +8,7 @@
 #ifndef BTRECORDFILE_H
 #define BTRECORDFILE_H
 
+#include <vector>
 #include "fileHandling/binaryStruct/BTRecordFileMetadata.h"
 #include "fileHandling/binaryStruct/BTRecord.h"
 #include "fileHandling/IRecordFile.h"
@@ -45,9 +46,9 @@ private:
     BTRecordFileMetadata *_metadataPtr;
 
     /**
-     * @brief _recordListPtr
+     * @brief _recordList
      */
-    DLL<IRecord *> *_recordListPtr;
+    std::vector<IRecord *> *_recordList;
 };
 
 #endif // BTRECORDFILE_H
