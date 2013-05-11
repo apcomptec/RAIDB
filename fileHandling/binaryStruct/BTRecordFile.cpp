@@ -8,11 +8,9 @@
 #include "BTRecordFile.h"
 
 BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
-    : _index(new unsigned short(0)),
-      _metadataPtr(pMetadata)
-
 {
-
+    this->_registryArray = new DLL < IRecordDataType* >[100];
+    this->_counter = 1;
 }
 
 BTRecordFileMetadata *BTRecordFile::getMetadata() const
@@ -25,54 +23,69 @@ void BTRecordFile::setMetadata(BTRecordFileMetadata *pMetadataPtr)
     _metadataPtr = pMetadataPtr;
 }
 
-DLL<IRecord *> *BTRecordFile::getRecordList() const
-{
-    return _recordListPtr;
-}
+//DLL<IRecord *> *BTRecordFile::getRecordList() const
+//{
+//    return _recordListPtr;
+//}
 
-void BTRecordFile::setRecordList(DLL<IRecord *> *pListPtr)
-{
-    _recordListPtr = pListPtr;
-}
+//void BTRecordFile::setRecordList(DLL<IRecord *> *pListPtr)
+//{
+//    _recordListPtr = pListPtr;
+//}
 
 void BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
 {
-    BTRecord *newRecord = new BTRecord();
-    newRecord->setIndex(_index);
-
-    if (_recordListPtr->isEmpty()) { // la lista esté vacía
-        unsigned short *tempPtr = new unsigned short(0);
-        newRecord->setParentPtr(tempPtr);
-        newRecord->setLeftChildPtr(tempPtr);
-        newRecord->setRightChildPtr(tempPtr);
-        newRecord->setDataList(pListPtr);
-        _recordListPtr->insertAtBack(newRecord);
-    } else {
-        BTRecord *tempPtr = (BTRecord*) _recordListPtr->getTailPtr()->getData();
-        if (*tempPtr->getLeftChildPtr() == 0) {
-            newRecord->setParentPtr(tempPtr->getParentPtr());
-            tempPtr->setLeftChildPtr(newRecord->getIndex());
-            newRecord->setLeftChildPtr(new unsigned short(0));
-            newRecord->setRightChildPtr(new unsigned short(0));
-        } else if (*tempPtr->getRightChildPtr() == 0) {
-            newRecord->setParentPtr(tempPtr->getParentPtr());
-            tempPtr->setRightChildPtr(newRecord->getIndex());
-            newRecord->setRightChildPtr(new unsigned short(0));
-        } else {
-
-        }
-    }
-
-    *_index++;
+//    //// DLL<IRecordDataType*> deberia contener el padre y los hijos no el
+//    //// BTRecordFile
+//    BTRecord *newRecord = new BTRecord();
+//    if ( this->_registryArray[1] == NULL ){  //arreglo vacío
+//        ////this->_registryArray[0] = NULL;          // posición vacía
+//        this->_registryArray[1] = *pListPtr;    // inicio en la posición 1
+//        newRecord->setParentPtr( 0 );  // puede ser 0 ó -1
+//        newRecord->setLeftChildPtr( 0 );
+//        newRecord->setRightChildPtr( 0 );
+//    }
+//    else{
+//        this->_registryArray[_counter] = *pListPtr;
+//        newRecord->setParentPtr( _counter / 2 );    //// setea el padre
+//        if ( (_counter % 2) == 0 ){   ////si el numero es par es hijo izquierdo
+//            newRecord->setLeftChildPtr( 0 );    //// no tiene hijos
+//            ////this->_registryArray[newRecord->getParentPtr()]
+//            ////->setLeftChildPtr( _counter );
+//            ////hay que hacer funcion q devuelva el objeto para cambiar los hijos
+//        }
+//        else{
+//            newRecord->setRightChildPtr( 0 );   //// no tiene hijos
+//            ////this->_registryArray[newRecord->getParentPtr()]
+//            ////->setRightChildPtr( _counter );
+//        }
+//    }
+//    this->_counter++;   // aumenta la posición para insertar el siguiente dato
 }
 
-BTRecord *BTRecordFile::deleteRecord(BTRecord *pRecordPtr) // TODO
+BTRecord *BTRecordFile::deleteRecord( BTRecord *pRecordPtr )
 {
-
+//    for ( int i = 0; i < _registryArray->getSize(); i++ ){
+//        ////NOTA hacer método para comparar OBJETOS
+//        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
+//            cout << "¡Registro encontrado!" << endl;
+//            cout << "¡Procediendo a borrar registro!" << endl;
+//            break;
+//        }
+//    }
+//    cout << "¡No existe registro!" << endl;
 }
 
 BTRecord *BTRecordFile::searchRecord(BTRecord *pRecordPtr) const // TODO
 {
+//    for ( int i = 0; i < _registryArray->getSize(); i++ ){
+//        ////NOTA hacer método para comparar OBJETOS
+//        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
+//            cout << "¡Registro encontrado!" << endl;
+//            break;
+//        }
+//    }
+//    cout << "¡No existe registro!" << endl;
 }
 
 unsigned short BTRecordFile::showFragmentation() const

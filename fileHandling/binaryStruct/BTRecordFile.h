@@ -12,6 +12,9 @@
 #include "fileHandling/binaryStruct/BTRecordFileMetadata.h"
 #include "fileHandling/binaryStruct/BTRecord.h"
 #include "fileHandling/IRecordFile.h"
+#include <iostream>
+
+using namespace std;
 
 class BTRecordFile: public IRecordFile
 {
@@ -27,8 +30,8 @@ public:
 // -----------------------------------------------------------------------------
     virtual BTRecordFileMetadata *getMetadata() const;
     virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
-    virtual DLL<IRecord *> *getRecordList() const;
-    virtual void setRecordList(DLL<IRecord *> *pListPtr);
+//    virtual DLL<IRecord *> *getRecordList() const;
+//    virtual void setRecordList(DLL<IRecord *> *pListPtr);
     virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
     virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
     virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
@@ -37,9 +40,6 @@ public:
 // -----------------------------------------------------------------------------
 
 private:
-
-    unsigned short *_index;
-
     /**
      * @brief _metadataPtr
      */
@@ -49,6 +49,12 @@ private:
      * @brief _recordList
      */
     std::vector<IRecord *> *_recordList;
+    DLL<IRecord *> _recordListPtr;
+
+    int _counter;       //llevará la cantidad de registros insertados
+    DLL < IRecordDataType* > * _registryArray;
+
+
 };
 
 #endif // BTRECORDFILE_H

@@ -42,32 +42,32 @@ void BTRecord::setIndex(unsigned short *pIndexPtr)
     _indexPtr = pIndexPtr;
 }
 
-unsigned short *BTRecord::getParentPtr() const
+unsigned short BTRecord::getParentPtr() const
 {
     return _parentPtr;
 }
 
-void BTRecord::setParentPtr(unsigned short *pParentPtr)
+void BTRecord::setParentPtr(unsigned short pParentPtr)
 {
     _parentPtr = pParentPtr;
 }
 
-unsigned short *BTRecord::getLeftChildPtr() const
+unsigned short BTRecord::getLeftChildPtr() const
 {
     return _leftChildPtr;
 }
 
-void BTRecord::setLeftChildPtr(unsigned short *pLeftChildPtr)
+void BTRecord::setLeftChildPtr(unsigned short pLeftChildPtr)
 {
     _leftChildPtr = pLeftChildPtr;
 }
 
-unsigned short *BTRecord::getRightChildPtr() const
+unsigned short BTRecord::getRightChildPtr() const
 {
     return _rightChildPtr;
 }
 
-void BTRecord::setRightChildPtr(unsigned short *pRightChildPtr)
+void BTRecord::setRightChildPtr(unsigned short pRightChildPtr)
 {
     _rightChildPtr = pRightChildPtr;
 }
