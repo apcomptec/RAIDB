@@ -52,7 +52,7 @@ private:
     DLL<IRecord *> _recordListPtr;
 
     int _counter;       //llevará la cantidad de registros insertados
-    DLL < IRecordDataType* > * _registryArray;
+    BTRecord *_registryArray;
 
 
 };
