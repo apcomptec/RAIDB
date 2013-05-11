@@ -13,25 +13,25 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
     this->_counter = 1;
 }
 
-BTRecordFileMetadata *BTRecordFile::getMetadata() const
-{
-    return _metadataPtr;
-}
-
-void BTRecordFile::setMetadata(BTRecordFileMetadata *pMetadataPtr)
-{
-    _metadataPtr = pMetadataPtr;
-}
-
-//DLL<IRecord *> *BTRecordFile::getRecordList() const
+//BTRecordFileMetadata *BTRecordFile::getMetadata() const
 //{
-//    return _recordListPtr;
+//    return _metadataPtr;
 //}
 
-//void BTRecordFile::setRecordList(DLL<IRecord *> *pListPtr)
+//void BTRecordFile::setMetadata(BTRecordFileMetadata *pMetadataPtr)
 //{
-//    _recordListPtr = pListPtr;
+//    _metadataPtr = (BTRecordFileMetadata)pMetadataPtr;
 //}
+
+DLL<IRecord *> *BTRecordFile::getRecordList() const
+{
+
+}
+
+void BTRecordFile::setRecordList(DLL<IRecord *> *pListPtr)
+{
+
+}
 
 void BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
 {
@@ -64,8 +64,8 @@ void BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     this->_counter++;   // aumenta la posición para insertar el siguiente dato
 }
 
-BTRecord *BTRecordFile::deleteRecord( BTRecord *pRecordPtr )
-{
+//BTRecord *BTRecordFile::deleteRecord( BTRecord *pRecordPtr )
+//{
 //    for ( int i = 0; i < _registryArray->getSize(); i++ ){
 //        ////NOTA hacer método para comparar OBJETOS
 //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
@@ -78,10 +78,10 @@ BTRecord *BTRecordFile::deleteRecord( BTRecord *pRecordPtr )
 //        }
 //    }
 //    cout << "¡No existe registro!" << endl;
-}
+//}
 
-BTRecord *BTRecordFile::searchRecord( BTRecord *pRecordPtr ) const
-{
+//BTRecord *BTRecordFile::searchRecord( BTRecord *pRecordPtr ) const
+//{
 //    for ( int i = 1; i < _registryArray->getSize(); i++ ){
 //        ////NOTA hacer método para comparar OBJETOS
 //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
@@ -90,7 +90,7 @@ BTRecord *BTRecordFile::searchRecord( BTRecord *pRecordPtr ) const
 //        }
 //    }
 //    cout << "¡No existe registro!" << endl;
-}
+//}
 
 unsigned short BTRecordFile::showFragmentation() const
 {

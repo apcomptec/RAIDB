@@ -19,13 +19,13 @@ public:
      * @brief getMetadataPtr
      * @return Puntero a metadatos
      */
-    virtual IMetadata *getMetadata() const = 0;
+//    virtual IMetadata *getMetadata() const = 0;
 
     /**
      * @brief setMetadataPtr
      * @param pMetadataPtr Nuevo puntero de metadatos
      */
-    virtual void setMetadata(IMetadata *pMetadataPtr) = 0;
+//    virtual void setMetadata(IMetadata *pMetadataPtr) = 0;
 
     /**
      * @brief getRecordListPtr
@@ -50,7 +50,7 @@ public:
      * @param pRecordPtr Registro a borrar
      * @return Puntero al registro eliminado
      */
-    virtual IRecord *deleteRecord(IRecord *pRecordPtr) = 0;
+//    virtual IRecord *deleteRecord(IRecord *pRecordPtr) = 0;
 
     /**
      * @brief searchRecordPtr
@@ -58,7 +58,7 @@ public:
      * @return Puntero al registro deseado. Si no se encuentra, retornará
      * nullptr
      */
-    virtual IRecord *searchRecord(IRecord *pRecordPtr) const = 0;
+//    virtual IRecord *searchRecord(IRecord *pRecordPtr) const = 0;
 
     /**
      * @brief showFragmentation

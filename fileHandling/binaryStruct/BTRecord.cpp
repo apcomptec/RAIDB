@@ -71,3 +71,9 @@ void BTRecord::setRightChildPtr(unsigned short pRightChildPtr)
 {
     _rightChildPtr = pRightChildPtr;
 }
+
+void BTRecord::printRecord() const
+{
+    std::cout << "Parent" << "LeftChild" << "RightChild" << "DataList\n";
+
+}

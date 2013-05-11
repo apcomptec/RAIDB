@@ -1,11 +1,13 @@
 #include <fstream>
 #include <iostream>
+#include "dataStructure/DLL.h"
+#include "fileHandling/binaryStruct/BTRecordFile.h"
 
 using namespace std;
 #define SizeBlock ((5<<20) - 1)
 
-//int main()
-//{
+int main()
+{
 //    ofstream ofs("output.raw", ios::out);
 //    ofs.write("Hola", 4);
 //    cout << SizeBlock << endl;
@@ -37,4 +39,10 @@ using namespace std;
 //        }
 //    ifs.close();
 //    return 0;
-//}
+    std::string name = "jojo", owner = "ko";
+    BTRecordFileMetadata *m = new BTRecordFileMetadata(nullptr, name, owner);
+    BTRecordFile *registro = new BTRecordFile(m);
+    DLL<IRecordDataType *> *listaUsuario = new DLL<IRecordDataType *>();
+
+    registro->insertRecord(listaUsuario);
+}

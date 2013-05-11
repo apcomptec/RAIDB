@@ -50,6 +50,8 @@ public:
     unsigned short getRightChildPtr() const;
     void setRightChildPtr(unsigned short pRightChildPtr);
 
+    void printRecord() const;
+
 private:
 
     /**
