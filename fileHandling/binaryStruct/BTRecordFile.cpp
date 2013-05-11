@@ -95,7 +95,7 @@ BTRecord *BTRecordFile::searchRecord( BTRecord *pRecordPtr ) const
 
 BTRecord *BTRecordFile::printArrayRecord() const
 {
-    cout << "Registro #" << setw( 15 ) << "Parent" << setw( 15 )
+    cout << "   Record #" << setw( 15 ) << "Parent" << setw( 15 )
          << "LeftChild" << setw( 15 ) << "RightChild" << endl;
     for ( int i = 1; i < this->getCounter(); i++ ){
          cout << setw( 7 ) << i << setw( 15 ) <<

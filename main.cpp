@@ -44,9 +44,10 @@ int main(){
 
     std::string name = "jojo", owner = "ko";
     BTRecordFileMetadata *m = new BTRecordFileMetadata(nullptr, name, owner);
+
+    cout << "Inserción de 10 registros sin mostrar el dato que almacena" << endl;
     BTRecordFile *registro = new BTRecordFile(m);
     DLL<IRecordDataType *> *listaUsuario = new DLL<IRecordDataType *>();
-
     registro->insertRecord(listaUsuario);
     registro->insertRecord(listaUsuario);
     registro->insertRecord(listaUsuario);
