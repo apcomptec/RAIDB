@@ -39,26 +39,26 @@ void BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     //// BTRecordFile
     BTRecord *newRecord = new BTRecord();
     newRecord->setDataList( pListPtr );
-    if ( this->_registryArray[1] == NULL ){  //arreglo vacío
-        ////this->_registryArray[0] = NULL;          // posición vacía
-        this->_registryArray[1] = newRecord;    // inicio en la posición 1
+    if ( this->_registryArray == NULL ){  //arreglo vacío
+        //this->_registryArray[0] = NULL;          // posición vacía
         newRecord->setParentPtr( 0 );  // puede ser 0 ó -1
         newRecord->setLeftChildPtr( 0 );
         newRecord->setRightChildPtr( 0 );
+        this->_registryArray[1] = *newRecord;    // inicio en la posición 1
     }
     else{
-        this->_registryArray[_counter] = *pListPtr;
+        this->_registryArray[_counter] = *newRecord;
         newRecord->setParentPtr( _counter / 2 );    //// setea el padre
         if ( (_counter % 2) == 0 ){   ////si el numero es par es hijo izquierdo
             newRecord->setLeftChildPtr( 0 );    //// no tiene hijos
-            ////this->_registryArray[newRecord->getParentPtr()]
-            ////->setLeftChildPtr( _counter );
+            (this->_registryArray[newRecord->getParentPtr()])
+                    .setLeftChildPtr( _counter );
             ////hay que hacer funcion q devuelva el objeto para cambiar los hijos
         }
         else{
             newRecord->setRightChildPtr( 0 );   //// no tiene hijos
-            ////this->_registryArray[newRecord->getParentPtr()]
-            ////->setRightChildPtr( _counter );
+            (this->_registryArray[newRecord->getParentPtr()])
+            .setRightChildPtr( _counter );
         }
     }
     this->_counter++;   // aumenta la posición para insertar el siguiente dato
@@ -80,9 +80,9 @@ BTRecord *BTRecordFile::deleteRecord( BTRecord *pRecordPtr )
 //    cout << "¡No existe registro!" << endl;
 }
 
-BTRecord *BTRecordFile::searchRecord(BTRecord *pRecordPtr) const // TODO
+BTRecord *BTRecordFile::searchRecord( BTRecord *pRecordPtr ) const
 {
-//    for ( int i = 0; i < _registryArray->getSize(); i++ ){
+//    for ( int i = 1; i < _registryArray->getSize(); i++ ){
 //        ////NOTA hacer método para comparar OBJETOS
 //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
 //            cout << "¡Registro encontrado!" << endl;
