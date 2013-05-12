@@ -2,9 +2,7 @@
 #include <iostream>
 #include "dataStructure/DLL.h"
 #include "fileHandling/binaryStruct/BTRecordFile.h"
-
-#include "dataStructure/DLL.h"
-#include "fileHandling/binaryStruct/BTRecordFile.h"
+#include "XMLParser.h"
 
 using namespace std;
 #define SizeBlock ((5<<20) - 1)
@@ -41,7 +39,7 @@ int main(){
 //        }
 //    ifs.close();
 //    return 0;
-
+/*
     std::string name = "jojo", owner = "ko";
     BTRecordFileMetadata *m = new BTRecordFileMetadata(nullptr, name, owner);
 
@@ -60,6 +58,13 @@ int main(){
     registro->insertRecord(listaUsuario);
     registro->printArrayRecord();
 
+    delete listaUsuario;
 
+    cout << "Parseo de un XML" << endl;
+    XMLParser *parse = new XMLParser();
+    //parse->readFile();
+    //parse->writeFile();
+    delete parse;
+*/
 
 }
