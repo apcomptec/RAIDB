@@ -32,7 +32,8 @@ SOURCES += \
     Client-Server/server.cpp \
     Client-Server/mainClient.cpp \
     Client-Server/client.cpp \
-    Client-Server/mainServer.cpp
+    Client-Server/mainServer.cpp \
+    raid/Disk.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -62,4 +63,5 @@ HEADERS += \
     example/fileManipulation/ex8/ClientData.h \
     Client-Server/threadserver.h \
     Client-Server/server.h \
-    Client-Server/client.h
+    Client-Server/client.h \
+    raid/Disk.h

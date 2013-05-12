@@ -19,7 +19,7 @@ public:
      * @brief getMetadataPtr
      * @return Puntero a metadatos
      */
-//    virtual IMetadata *getMetadata() const = 0;
+    virtual IMetadata *getMetadata() const = 0;
 
     /**
      * @brief setMetadataPtr
