@@ -2,9 +2,7 @@
 #include <iostream>
 #include "dataStructure/DLL.h"
 #include "fileHandling/binaryStruct/BTRecordFile.h"
-
-#include "dataStructure/DLL.h"
-#include "fileHandling/binaryStruct/BTRecordFile.h"
+#include "XMLParser.h"
 
 #include "raid/Disk.h"
 
@@ -43,7 +41,8 @@ int main()
 //            }
 //        }
 //    ifs.close();
-//    std::ofstream outfile;
+
+    //    std::ofstream outfile;
 //    outfile.open("test.txt");
 
 //    outfile.write("This is an apple", 16);
@@ -75,6 +74,34 @@ int main()
 //    registro->insertRecord(listaUsuario);
 //    registro->insertRecord(listaUsuario);
 //    registro->printArrayRecord();
+//    return 0;
+/*
+    std::string name = "jojo", owner = "ko";
+    BTRecordFileMetadata *m = new BTRecordFileMetadata(nullptr, name, owner);
+
+    cout << "Inserción de 10 registros sin mostrar el dato que almacena" << endl;
+    BTRecordFile *registro = new BTRecordFile(m);
+    DLL<IRecordDataType *> *listaUsuario = new DLL<IRecordDataType *>();
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->insertRecord(listaUsuario);
+    registro->printArrayRecord();
+
+    delete listaUsuario;
+
+    cout << "Parseo de un XML" << endl;
+    XMLParser *parse = new XMLParser();
+    //parse->readFile();
+    //parse->writeFile();
+    delete parse;
+*/
 
     unsigned short size = 9;
     Disk disk(4, 7, size);

@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG += qt
 QT +=  core
 QT += network
-Qt += xml
+QT += xml
 QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += \
@@ -40,7 +40,10 @@ OTHER_FILES += \
     doc/RAIDB_UML.pdf \
     doc/fileHandling.ods \
     doc/ProtocoloV1.0.pdf \
-    doc/recordExample.txt
+    doc/recordExample.txt \
+    doc/PruebaRegistro.xml \
+    doc/PruebaWriteRegistro.xml \
+    doc/PruebaReadRegistro.xml
 
 HEADERS += \
     raid/IRaid.h \
@@ -64,4 +67,5 @@ HEADERS += \
     Client-Server/threadserver.h \
     Client-Server/server.h \
     Client-Server/client.h \
-    raid/Disk.h
+    raid/Disk.h \
+    IParser.h
