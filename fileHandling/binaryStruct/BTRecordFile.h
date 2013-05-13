@@ -33,8 +33,6 @@ public:
 //    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
     virtual DLL<IRecord *> *getRecordList() const;
     virtual void setRecordList(DLL<IRecord *> *pListPtr);
-//    virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
-//    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual BTRecordFileMetadata *getMetadata() const;
     virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
     virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
@@ -47,7 +45,9 @@ public:
 // -----------------------------------------------------------------------------
 
     int getCounter() const;
-    void setCounter(int counter);
+    void setCounter( int counter );
+    unsigned short getListFreeBlocks() const;
+    void setListFreeBlocks( unsigned short pListFreeBlocks );
 
 private:
     /**
@@ -63,6 +63,7 @@ private:
 
     int _counter;       //llevará la cantidad de registros insertados
     BTRecord *_registryArray;
+    unsigned short _listFreeBlocks;
 
 
 };
