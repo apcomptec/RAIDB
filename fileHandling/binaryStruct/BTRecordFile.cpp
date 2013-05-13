@@ -7,10 +7,11 @@
 
 #include "BTRecordFile.h"
 
-BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
+BTRecordFile::BTRecordFile( BTRecordFileMetadata *pMetadata )
 {
     this->_registryArray = new BTRecord[100];
     this->_counter = 1;
+    this->_listFreeBlocks = 0; // lista de bloques libres está vacía
 }
 
 DLL<IRecord *> *BTRecordFile::getRecordList() const
@@ -63,34 +64,37 @@ void BTRecordFile::insertRecord( DLL<IRecordDataType *> *pListPtr )
     this->_counter++;   // aumenta la posición para insertar el siguiente dato
 }
 
-BTRecord *BTRecordFile::deleteRecord( BTRecord *pRecordPtr )
+BTRecord *BTRecordFile::deleteRecord( unsigned short pDatoBorrado )
 {
-    //    for ( int i = 0; i < _registryArray->getSize(); i++ ){
-    //        ////NOTA hacer método para comparar OBJETOS
-    //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
-    //            cout << "¡Registro encontrado!" << endl;
-    //            cout << "¡Procediendo a borrar registro!" << endl;
-
-
-
-    //            break;
-    //        }
-    //    }
-    //    cout << "¡No existe registro!" << endl;
+    if( this->getListFreeBlocks() == 0 ){// no bloques libres no hay ninguno borrado
+        cout << "--------------------------" << endl;
+        cout << "Borrando el registro # " << pDatoBorrado << endl;
+        cout << "--------------------------" << endl;
+        this->setListFreeBlocks( pDatoBorrado );
+        _registryArray[pDatoBorrado].setParentPtr( 0 );
+        _registryArray[pDatoBorrado].setLeftChildPtr( 0 );
+        this->setListFreeBlocks( pDatoBorrado );
+    }
+    else if ( this->getListFreeBlocks() != 0 ){ // ya hay registros borrados
+        cout << "--------------------------" << endl;
+        cout << "Borrando el registro # " << pDatoBorrado << endl;
+        cout << "--------------------------" << endl;
+        // setea el hijo izq del dato de _listFreeBlocks
+        unsigned short actual = this->_listFreeBlocks;
+        while( _registryArray[actual].getLeftChildPtr() != 0){
+            actual = _registryArray[actual].getLeftChildPtr();
+        }
+        this->_registryArray[actual].setLeftChildPtr( pDatoBorrado );
+        this->_registryArray[pDatoBorrado].setParentPtr( 0 );
+        this->_registryArray[pDatoBorrado].setLeftChildPtr( 0 );
+    }
+    else{
+        cout << "No existe registro para borrar." << endl;
+    }
 }
-
-
 
 BTRecord *BTRecordFile::searchRecord( BTRecord *pRecordPtr ) const
 {
-    //    for ( int i = 1; i < _registryArray->getSize(); i++ ){
-    //        ////NOTA hacer método para comparar OBJETOS
-    //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
-    //            cout << "¡Registro encontrado!" << endl;
-    //            break;
-    //        }
-    //    }
-    //    cout << "¡No existe registro!" << endl;
 }
 
 BTRecord *BTRecordFile::printArrayRecord() const
@@ -123,6 +127,11 @@ unsigned short BTRecordFile::getListFreeBlocks() const
 void BTRecordFile::setListFreeBlocks(unsigned short pListFreeBlocks)
 {
     this->_listFreeBlocks = pListFreeBlocks;
+}
+
+BTRecordFile::~BTRecordFile()
+{
+    delete []_registryArray;    // se borra el arreglo de registros
 }
 
 unsigned short BTRecordFile::showFragmentation() const
