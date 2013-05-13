@@ -115,6 +115,16 @@ void BTRecordFile::setCounter(int counter)
     _counter = counter;
 }
 
+unsigned short BTRecordFile::getListFreeBlocks() const
+{
+    return _listFreeBlocks;
+}
+
+void BTRecordFile::setListFreeBlocks(unsigned short pListFreeBlocks)
+{
+    this->_listFreeBlocks = pListFreeBlocks;
+}
+
 unsigned short BTRecordFile::showFragmentation() const
 {
     return 0; // TODO

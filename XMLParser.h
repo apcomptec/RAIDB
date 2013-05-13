@@ -3,27 +3,28 @@
 
 #include <iostream>
 #include <QtXml/QDomDocument>
-#include <QXmlStreamReader>
+#include <QStandardItem>
 #include <QFile>
 #include <QString>
 #include <QDebug>
+#include "IParser.h"
 
 using namespace std;
 
-class XMLParser{
+class XMLParser: public IParser{
 
 private:
-    QFile *_XMLfile;
-    QString _pathXMLFile;
-    QXmlStreamReader *_XMLReader;
+    QString _pathXMLFile;       // Archivo XML a leer
+    QString _wpathXMLFile;      // Archivo XML a escribir
 
 public:
-    XMLParser();
-    ~XMLParser();
-    void initXMLParserProcess();
-    void createFile();
-    void readFile();
-    void writeFile();
+    XMLParser();        // Constructor
+    ~XMLParser();       // Destructor
+
+// ----- MÉTODOS DE LA INTERFAZ IPARSER -----
+    virtual void createFile();  // Crea un XML
+    virtual void readFile();    // Lee un XML
+    virtual void writeFile();   // Escribe un XML
 
 };
 
