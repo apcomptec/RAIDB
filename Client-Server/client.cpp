@@ -10,9 +10,9 @@ Client::Client(QObject *parent) :
     QObject(parent)
 {
     //Se inicializa el socket de escucha
-    socket = new QTcpSocket(this);
+    _socket = new QTcpSocket(this);
     //Se conecta el socket
-    connect(socket, SIGNAL(connected()),
+    connect(_socket, SIGNAL(connected()),
             this, SLOT(on_connected()));
 }
 
@@ -37,10 +37,24 @@ void Client::on_connected()
         buffer[len] = '\n';
         buffer[len+1] = '\0';
         //Se escribe en el socket
-        socket->write(buffer);
-        socket->flush();
+        _socket->write(buffer);
+        _socket->flush();
     }
 
+}
+
+void Client::connectToMultipleServer(DLL<QString> * pListIP, int pPort)
+{
+    this->_socketArray = new QTcpSocket[pListIP->getSize()];
+    DLLNode<QString>* iP = pListIP->getHeadPtr();
+    for (int var = 0; var < pListIP->getSize(); ++var) {
+        //Convertir la ip de string a una direccion
+        QHostAddress address(iP->getData());
+        //Conectarse al socket
+        this->_socketArray[var].connectToHost(address, pPort);
+        //Iteracion sobre la lista
+        iP = iP->getNextPtr();
+    }
 }
 
 /**
@@ -53,5 +67,5 @@ void Client::connectToServer(QString pIp, int pPort)
     //Convertir la ip de string a una direccion
     QHostAddress address(pIp);
     //Conectarse al socket
-    socket->connectToHost(address, pPort);
+    _socket->connectToHost(address, pPort);
 }
