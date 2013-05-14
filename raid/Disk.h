@@ -23,7 +23,15 @@ public:
     Disk(unsigned const short &pId, unsigned const short &pSize,
          unsigned short &pBlockSize);
 
-    void write(const unsigned short &pLine, const char* pBuffer);
+    /**
+     * @brief write
+     * @param pLine
+     * @param pBuffer
+     */
+    void write(const unsigned short &pLine, const char *pBuffer);
+
+    char read(const unsigned &pLine, const unsigned short &pLineLength);
+//    const char* read(const unsigned &pLine);
 
 private:
 
@@ -46,6 +54,8 @@ private:
      * @brief create
      */
     void create();
+
+    unsigned short sizeOfChar(const char* pChar);
 };
 
 #endif // DISK_H
