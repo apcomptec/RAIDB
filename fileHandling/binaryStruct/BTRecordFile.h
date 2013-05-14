@@ -14,6 +14,7 @@
 #include "fileHandling/IRecordFile.h"
 #include <iostream>
 #include <iomanip>
+#include <QDebug>
 
 using namespace std;
 
@@ -36,13 +37,20 @@ public:
     virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
 //    virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
 //    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
+//    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
+    void insertRecordAUX( BTRecord *pNewRecord, unsigned short pHDer );
+    virtual BTRecord *deleteRecord(unsigned short pDatoBorrado);
+//    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual BTRecord *printArrayRecord() const;
     virtual unsigned short showFragmentation() const;
     virtual bool defragFile();
 // -----------------------------------------------------------------------------
 
     int getCounter() const;
-    void setCounter(int counter);
+    void setCounter( int counter );
+    unsigned short getListFreeBlocks() const;
+    void setListFreeBlocks( unsigned short pListFreeBlocks );
+    ~BTRecordFile();
 
 private:
     /**
@@ -58,6 +66,7 @@ private:
 
     int _counter;       //llevará la cantidad de registros insertados
     BTRecord *_registryArray;
+    unsigned short _listFreeBlocks;
 
 
 };

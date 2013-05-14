@@ -4,8 +4,8 @@
 
 XMLParser::XMLParser()
 {
-    this->_pathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/RAIDB/doc/PruebaReadRegistro.xml";
-    this->_wpathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/RAIDB/doc/PruebaWriteRegistro.xml";
+    this->_pathXMLFile = "doc/PruebaReadRegistro.xml";
+    this->_wpathXMLFile = "doc/PruebaWriteRegistro.xml";
 }
 
 
