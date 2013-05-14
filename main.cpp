@@ -66,6 +66,8 @@ int main(){
     registro->printArrayRecord();
     registro->deleteRecord(10);// se borra el registro 10
     registro->printArrayRecord();
+    registro->insertRecord(listaUsuario);
+    registro->printArrayRecord();
     delete listaUsuario;
     delete registro;
 /*

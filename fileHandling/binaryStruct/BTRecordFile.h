@@ -37,6 +37,7 @@ public:
     virtual BTRecordFileMetadata *getMetadata() const;
     virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
     virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
+    void insertRecordAUX( BTRecord *pNewRecord, unsigned short pHDer );
     virtual BTRecord *deleteRecord(unsigned short pDatoBorrado);
     virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual BTRecord *printArrayRecord() const;
