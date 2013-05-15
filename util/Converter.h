@@ -4,6 +4,8 @@
 #include <iostream>
 #include <QString>
 #include <QDebug>
+#include <bitset>
+#include <string>
 
 using namespace std;
 
@@ -13,9 +15,9 @@ public:
     Converter();
     ~Converter();
 
-    void string2Binary( QString pString );
+    void string2Binary( string pStringLetters );
     void binary2String2( QString pBinaryString );
-    void decimal2Binary(std::string pDecimalNumber );
+    void decimal2Binary( std::string pDecimalNumber );
 
 private:
 
