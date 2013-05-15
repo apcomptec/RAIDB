@@ -13,9 +13,9 @@ public:
     Converter();
     ~Converter();
 
-    void string2Binary();
-    void binary2String2();
-    void decimal2Binary();
+    void string2Binary( QString pString );
+    void binary2String2( QString pBinaryString );
+    void decimal2Binary(std::string pDecimalNumber );
 
 private:
 
