@@ -9,6 +9,7 @@
 #define DISK_H
 
 #include <string>
+#include "dataStructure/DLL.h"
 
 class Disk
 {
@@ -21,7 +22,7 @@ public:
      * @param pBlockSize Tamaño del bloque del disco en bytes
      */
     Disk(unsigned const short &pId, unsigned const short &pSize,
-         unsigned short &pBlockSize);
+         unsigned short pBlockSize);
 
     /**
      * @brief write
@@ -38,17 +39,26 @@ private:
     /**
      * @brief _id
      * @brief _size
-     * @brief _blockSize
+     * @brief _blockSize Tamaño de bloques en el disco en bytes
      */
     unsigned const short ID, SIZE, BLOCK_SIZE;
-
-    std::string _name;
 
     /**
      * @brief POTENCY Define la potencia de tamaño. Por ejemplo, si es 10, se
      * refiere a 2^10 B (o kB), o 20 (MB), ...
      */
     static const char POTENCY;
+    static const unsigned short BYTE_IN_MB;
+
+    /**
+     * @brief _name
+     */
+    std::string _name;
+
+    /**
+     * @brief _freeBlockList
+     */
+    DLL<unsigned short> _freeBlockList;
 
     /**
      * @brief create
@@ -56,6 +66,10 @@ private:
     void create();
 
     unsigned short sizeOfChar(const char* pChar);
+
+    void fillBlockList();
+
+    unsigned short computeNumberOfBlocks();
 };
 
 #endif // DISK_H

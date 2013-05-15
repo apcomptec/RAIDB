@@ -3,6 +3,7 @@
 #include "dataStructure/DLL.h"
 #include "fileHandling/binaryStruct/BTRecordFile.h"
 #include "XMLParser.h"
+#include "util/Converter.h"
 
 #include "raid/Disk.h"
 
@@ -10,8 +11,11 @@ using namespace std;
 
 //#define SizeBlock ((5<<20) - 1)
 
-//int main()
-//{
+int main()
+{
+    Converter *c = new Converter();
+    c->decimal2Binary();
+
 ////    ofstream ofs("output.raw", ios::out);
 ////    ofs.write("Hola", 4);
 ////    cout << SizeBlock << endl;
@@ -131,11 +135,19 @@ using namespace std;
 //    disk.write(9, "42398jf8j0jm");
 //    disk.write(20, "nvx,3458jd9865a");
 
+
 //    disk.write(98, "3333");
 //    disk.write(40, "jfihf98u498223");
 //    disk.write(80, "4324jfihf98u498223");
 //    disk.write(120, "dfdai7!+·q#¬½~@½½¬");
 //    disk.write(0, "FD$·DDMM;:&$·%·458437rjjfrjoo2985urjefjwrefFFR%%");
+//    disk.read(2, 10);
+//    disk.read(1, 2);
+//    disk.write(98, "3333");
+//    disk.write(40, "jfihf98u498223");
+//    disk.write(80, "4324jfihf98u498223");
+//    disk.write(120, "dfdai7!+·q#¬½~@½½¬");
+////    disk.write(0, "FD$·DDMM;:&$·%·458437rjjfrjoo2985urjefjwrefFFR%%");
 //    disk.read(2, 10);
 //    disk.read(1, 2);
 
@@ -317,4 +329,4 @@ using namespace std;
 //    file.seekp(5);
 //    std::cout << "\n\n" << file.tellg() << '\n' << file.tellp();
 
-//}
+}
