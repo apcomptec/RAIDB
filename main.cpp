@@ -1,8 +1,8 @@
 #include <fstream>
 #include <iostream>
-//#include "dataStructure/DLL.h"
-//#include "fileHandling/binaryStruct/BTRecordFile.h"
-//#include "XMLParser.h"
+#include "dataStructure/DLL.h"
+#include "fileHandling/binaryStruct/BTRecordFile.h"
+#include "XMLParser.h"
 
 #include "raid/Disk.h"
 
@@ -10,8 +10,8 @@ using namespace std;
 
 //#define SizeBlock ((5<<20) - 1)
 
-int main()
-{
+//int main()
+//{
 ////    ofstream ofs("output.raw", ios::out);
 ////    ofs.write("Hola", 4);
 ////    cout << SizeBlock << endl;
@@ -125,19 +125,19 @@ int main()
 
 //    myFile.close();
 
-    unsigned short size = 9;
-    Disk disk(4, 1, size);
-    disk.write(4, "turd");
-    disk.write(9, "42398jf8j0jm");
-    disk.write(20, "nvx,3458jd9865a");
+//    unsigned short size = 9;
+//    Disk disk(4, 1, size);
+//    disk.write(4, "turd");
+//    disk.write(9, "42398jf8j0jm");
+//    disk.write(20, "nvx,3458jd9865a");
 
-    disk.write(98, "3333");
-    disk.write(40, "jfihf98u498223");
-    disk.write(80, "4324jfihf98u498223");
-    disk.write(120, "dfdai7!+·q#¬½~@½½¬");
-    disk.write(0, "FD$·DDMM;:&$·%·458437rjjfrjoo2985urjefjwrefFFR%%");
-    disk.read(2, 10);
-    disk.read(1, 2);
+//    disk.write(98, "3333");
+//    disk.write(40, "jfihf98u498223");
+//    disk.write(80, "4324jfihf98u498223");
+//    disk.write(120, "dfdai7!+·q#¬½~@½½¬");
+//    disk.write(0, "FD$·DDMM;:&$·%·458437rjjfrjoo2985urjefjwrefFFR%%");
+//    disk.read(2, 10);
+//    disk.read(1, 2);
 
 ////    ifstream in("test.txt");
 
@@ -281,8 +281,8 @@ int main()
 
 //    myFile.close();
 
-    return 0;
-}
+//    return 0;
+//}
 
 
 //#include<iostream>
