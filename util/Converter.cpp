@@ -26,3 +26,11 @@ void Converter::decimal2Binary( std::string pDecimalNumber )
     qDebug() << binaryNumber1 << endl;  // "111"
 
 }
+
+
+void Converter::string2Binary( std::string pStringLetters )
+{
+    cout << pStringLetters << endl;
+    std::bitset<8> binaryStringLetters( pStringLetters );
+    cout << binaryStringLetters << endl;
+}
