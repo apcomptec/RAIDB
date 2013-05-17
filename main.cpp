@@ -16,6 +16,7 @@ int main()
 {
     Converter *c = new Converter();
     c->string2Binary("Hello World!");
+    c->decimal2Binary("3");
     c->binary2Decimal("10");
     c->binary2String("11");
 }
