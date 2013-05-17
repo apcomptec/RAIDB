@@ -57,3 +57,8 @@ void Converter::string2Binary( std::string pStringLetters )
 
 
 }
+
+void Converter::binary2String( std::string pBinaryString )
+{
+
+}
