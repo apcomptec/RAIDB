@@ -49,13 +49,21 @@ void Converter::string2Binary( std::string pStringLetters )
 {
     cout << pStringLetters << endl;
     for ( std::size_t i = 0; i < pStringLetters.size(); ++i){
-        cout << bitset<8>(pStringLetters.c_str()[i]) << endl;
+        cout << bitset<8>( pStringLetters.c_str()[i] ) << endl;
     }
 
 
 }
 
+/**
+ * @brief Converter::binary2String
+ * @param pBinaryString
+ * Conversión de binario a String
+ */
 void Converter::binary2String( std::string pBinaryString )
 {
-
+    QString hola = binary2Decimal( pBinaryString );
+    int asciiCharacter = hola.toInt();
+    char binaryToStringChar = asciiCharacter;
+    cout << binaryToStringChar << endl;
 }

@@ -18,7 +18,7 @@ int main()
     c->string2Binary("Hello World!");
     c->decimal2Binary("3");
     c->binary2Decimal("10");
-    c->binary2String("11");
+    c->binary2String("1001000");
 }
 
 ////    ofstream ofs("output.raw", ios::out);
