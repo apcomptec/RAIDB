@@ -15,7 +15,7 @@ using namespace std;
 int main()
 {
     Converter *c = new Converter();
-    c->decimal2Binary();
+    c->decimal2Binary("1031");
 
 ////    ofstream ofs("output.raw", ios::out);
 ////    ofs.write("Hola", 4);
@@ -238,8 +238,6 @@ int main()
     parse->writeFile();
     delete parse;
 */
-
-<<<<<<< HEAD
     N_aryRecordFile* nTree = new N_aryRecordFile();
     QString node, root;
     node = "home";
@@ -276,7 +274,6 @@ int main()
     std::cout << "Fin de la ejecución" << std::endl;
 
     return 0;
-=======
 ////    in.close();
 ////    std::ifstream file("test.txt");
 
@@ -368,5 +365,4 @@ int main()
 //    file.seekp(5);
 //    std::cout << "\n\n" << file.tellg() << '\n' << file.tellp();
 
->>>>>>> f976a2555aa7d5d99963103c08ff24fa28f108d3
 }
