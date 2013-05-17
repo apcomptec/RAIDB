@@ -3,6 +3,7 @@
 #include "dataStructure/DLL.h"
 #include "fileHandling/binaryStruct/BTRecordFile.h"
 #include "XMLParser.h"
+#include "util/Converter.h"
 
 #include "raid/Disk.h"
 
@@ -10,8 +11,11 @@ using namespace std;
 
 //#define SizeBlock ((5<<20) - 1)
 
-//int main()
-//{
+int main()
+{
+    Converter *c = new Converter();
+    c->string2Binary("Hello World!");
+}
 ////    ofstream ofs("output.raw", ios::out);
 ////    ofs.write("Hola", 4);
 ////    cout << SizeBlock << endl;

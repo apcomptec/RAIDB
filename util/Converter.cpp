@@ -27,10 +27,17 @@ void Converter::decimal2Binary( std::string pDecimalNumber )
 
 }
 
-
+/**
+ * @brief Converter::string2Binary
+ * @param pStringLetters
+ * Función para convertir std::string a binario
+ */
 void Converter::string2Binary( std::string pStringLetters )
 {
     cout << pStringLetters << endl;
-    std::bitset<8> binaryStringLetters( pStringLetters );
-    cout << binaryStringLetters << endl;
+    for ( std::size_t i = 0; i < pStringLetters.size(); ++i){
+        cout << bitset<8>(pStringLetters.c_str()[i]) << endl;
+    }
+
+
 }
