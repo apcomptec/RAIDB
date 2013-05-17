@@ -27,6 +27,11 @@ void Converter::decimal2Binary( std::string pDecimalNumber )
 
 }
 
+/**
+ * @brief Converter::binary2Decimal
+ * @param pBinaryString
+ * Convierte números de binario a decimal
+ */
 void Converter::binary2Decimal( std::string pBinaryString )
 {
     std::string str( pBinaryString ); // Convert from std::string 2 Qstring
