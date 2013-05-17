@@ -32,7 +32,8 @@ SOURCES += \
     Client-Server/server.cpp \
     Client-Server/mainClient.cpp \
     Client-Server/client.cpp \
-    Client-Server/mainServer.cpp
+    Client-Server/mainServer.cpp \
+    dataStructure/n_aryrecordfile.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -66,4 +67,5 @@ HEADERS += \
     Client-Server/threadserver.h \
     Client-Server/server.h \
     Client-Server/client.h \
-    IParser.h
+    IParser.h \
+    dataStructure/n_aryrecordfile.h

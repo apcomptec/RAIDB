@@ -7,7 +7,7 @@ template<typename DATATYPE>
  * @param pData
  * @param pParent
  */
-N_aryRecordFileNode<DATATYPE>::N_aryRecordFileNode(DATATYPE pData, IN_aryNode<DATATYPE> pParent)
+N_aryRecordFileNode<DATATYPE>::N_aryRecordFileNode(DATATYPE pData, IN_aryNode<DATATYPE> *pParent)
 {
     //Instancia del dato
     this->_data = pData;
@@ -16,7 +16,7 @@ N_aryRecordFileNode<DATATYPE>::N_aryRecordFileNode(DATATYPE pData, IN_aryNode<DA
     //Instancia de la lista de directorios
     this->_dirListPtr = new DLL<IN_aryNode<DATATYPE>*>();
     //Instancia de la lista de archivos
-    this->_fileListPtr = new DLL<IN_aryNode<DATATYPE>*>();
+    this->_fileListPtr = new DLL<IRecordFile*>();
 }
 
 template<typename DATATYPE>
@@ -137,6 +137,8 @@ template<typename DATATYPE>
  */
 IN_aryNode<DATATYPE>* N_aryRecordFileNode<DATATYPE>::deleteChildPtr(IN_aryNode<DATATYPE> * pNode)
 {
+    //Se borra el nodo buscado
+    return this->_dirListPtr->removeSpecific(pNode)->getData();
 }
 
 template<typename DATATYPE>
@@ -146,9 +148,10 @@ template<typename DATATYPE>
  * @param pFile
  * @return true or false;
  */
-bool N_aryRecordFileNode<DATATYPE>::addRecordFilePtr(int pFile){
+bool N_aryRecordFileNode<DATATYPE>::addRecordFilePtr(IRecordFile *pFile){
     //Se inserta el puntero al archivo
     this->_fileListPtr->insertAtBack(pFile);
+    return true;
 }
 
 template<typename DATATYPE>
@@ -158,7 +161,7 @@ template<typename DATATYPE>
  * @param pFile
  * @return _data
  */
-int N_aryRecordFileNode<DATATYPE>::searchRecordFilePtr(int pFile){
+IRecordFile* N_aryRecordFileNode<DATATYPE>::searchRecordFilePtr(IRecordFile *pFile){
     //Se busca y se devuelve el dato
     return this->_fileListPtr->searchNotInOrder(pFile)->getData();
 }
@@ -170,5 +173,6 @@ template<typename DATATYPE>
  * @param pFile
  * @return _data
  */
-int N_aryRecordFileNode<DATATYPE>::deleteRecordFilePtr(int pFile){
+IRecordFile* N_aryRecordFileNode<DATATYPE>::deleteRecordFilePtr(IRecordFile *pFile){
+    return this->_fileListPtr->removeSpecific(pFile);
 }

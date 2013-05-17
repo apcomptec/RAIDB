@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
-#include "dataStructure/DLL.h"
+#include "dataStructure/n_aryrecordfile.h"
+#include "dataStructure/n_aryrecordfile.cpp"
 #include "fileHandling/binaryStruct/BTRecordFile.h"
 #include "XMLParser.h"
 
@@ -26,7 +27,7 @@ int main(){
 //    else
 //        while(ifs.tellg() != SizeBlock)
 //        {
-////            ifs.getline(linea, sizeof(linea));
+//            ifs.getline(linea, sizeof(linea));
 //            ifs.seekg(contador, ios::beg);
 //            ifs.read(linea, sizeof(linea));
 //            cout << linea << endl;
@@ -62,9 +63,45 @@ int main(){
 
     cout << "Parseo de un XML" << endl;
     XMLParser *parse = new XMLParser();
-    //parse->readFile();
-    //parse->writeFile();
+    parse->readFile();
+    parse->writeFile();
     delete parse;
 */
 
+    N_aryRecordFile* nTree = new N_aryRecordFile();
+    QString node, root;
+    node = "home";
+    std::cout << nTree->insertDirPtr(node) << std::endl;
+    node = "tmp";
+    std::cout << nTree->insertDirPtr(node) << std::endl;
+    node = "bin";
+    std::cout << nTree->insertDirPtr(node) << std::endl;
+    root = "/home/";
+    node = "jose";
+    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+    root = "/home/";
+    node = "daniel";
+    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+    root = "/home/";
+    node = "badilla";
+    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+    root = "/home/jose/";
+    node = "dir";
+    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+    root = "/home/daniel/";
+    node = "nueva";
+    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+
+    std::cout << "Impresion del arbol" << std::endl;
+    nTree->printTree(nTree->getRoot());
+
+    root = "/home/daniel/nueva/";
+    std::cout << nTree->deleteDirPtr(root) << std::endl;
+
+    std::cout << "Impresion del arbol" << std::endl;
+    nTree->printTree(nTree->getRoot());
+
+    std::cout << "Fin de la ejecución" << std::endl;
+
+    return 0;
 }

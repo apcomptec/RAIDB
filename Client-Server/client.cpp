@@ -26,9 +26,10 @@ void Client::on_connected()
     std::cout << ("Connection established.\n");
     //Buffer de envio
     char buffer[1024];
+
+    bool flag = true;
     //Ciclo de envio
-    forever
-    {
+    while(flag){
         std::cout << (">> ");
         //Se obtiene el buffer a enviar desde consola
         gets(buffer);
@@ -37,24 +38,11 @@ void Client::on_connected()
         buffer[len] = '\n';
         buffer[len+1] = '\0';
         //Se escribe en el socket
+        flag = (buffer == "exit");
         _socket->write(buffer);
         _socket->flush();
     }
-
-}
-
-void Client::connectToMultipleServer(DLL<QString> * pListIP, int pPort)
-{
-    this->_socketArray = new QTcpSocket[pListIP->getSize()];
-    DLLNode<QString>* iP = pListIP->getHeadPtr();
-    for (int var = 0; var < pListIP->getSize(); ++var) {
-        //Convertir la ip de string a una direccion
-        QHostAddress address(iP->getData());
-        //Conectarse al socket
-        this->_socketArray[var].connectToHost(address, pPort);
-        //Iteracion sobre la lista
-        iP = iP->getNextPtr();
-    }
+    exit(0);
 }
 
 /**

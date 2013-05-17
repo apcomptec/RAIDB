@@ -6,7 +6,6 @@
 #include <QHostAddress>
 #include <cstdio>
 #include <iostream>
-#include "dataStructure/DLL.h"
 
 class QTcpSocket;
 
@@ -24,13 +23,10 @@ signals:
 public slots:
     //Estar conectado para enviar datos
     void on_connected();
-    void connectToMultipleServer(DLL<QString>*, int pPort);
 
 private:
     //Socket de envio
     QTcpSocket* _socket;
-    //Arreglo de sockets
-    QTcpSocket* _socketArray;
 };
 
 #endif // CLIENT_H
