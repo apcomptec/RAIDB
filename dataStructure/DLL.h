@@ -63,6 +63,12 @@ public:
     DLLNode<NODETYPE> *removeFromBack();
 
     /**
+     * @brief removeSpecific
+     * @return pointer to removed element. If it didn't, returns nullptr
+     */
+    DLLNode<NODETYPE> *removeSpecific(const NODETYPE &pData);
+
+    /**
      * @brief searchInOrder
      * @param pData Data to find out
      * @return Data (if was found) or nullptr (if was not found)
@@ -276,6 +282,48 @@ DLLNode<NODETYPE> *DLL<NODETYPE>::removeFromBack()
 }
 
 template<typename NODETYPE>
+DLLNode<NODETYPE> *DLL<NODETYPE>::removeSpecific(const NODETYPE &pData)
+{
+    DLLNode<NODETYPE> *deletedNode;
+
+    if ( this->isEmpty() )
+    {
+        deletedNode = nullptr;
+        return deletedNode;
+    }
+    else if(this->_headPtr->getData() == pData){
+        deletedNode = this->_headPtr;
+        if(this->_headPtr == this->_tailPtr){
+            _headPtr = _tailPtr = nullptr;
+        }else{
+            _headPtr->getNextPtr()->setPrevPtr(nullptr);
+            _headPtr = _headPtr->getNextPtr();
+        }
+    }
+    else if(_tailPtr->getData() == pData){
+        deletedNode = this->_tailPtr;
+        _tailPtr = _tailPtr->getPrevPtr();
+        _tailPtr->setNextPtr(nullptr);
+    }
+    else{
+        DLLNode<NODETYPE>* tmp = _headPtr;
+        while(tmp->getNextPtr() != nullptr && tmp->getNextPtr()->getData() != pData){
+            tmp = tmp->getNextPtr();
+        }if(tmp != _tailPtr){
+            deletedNode = tmp;
+            tmp->getNextPtr()->getNextPtr()->setPrevPtr(tmp);
+            tmp->setNextPtr(tmp->getNextPtr()->getNextPtr());
+        }
+        deletedNode = nullptr;
+    }
+
+    this->_size--;
+
+    return deletedNode;
+}
+
+
+template<typename NODETYPE>
 DLLNode<NODETYPE> *DLL<NODETYPE>::searchInOrder(const NODETYPE &pData)
 {
     DLLNode<NODETYPE> *result;
@@ -302,6 +350,7 @@ DLLNode<NODETYPE> *DLL<NODETYPE>::searchNotInOrder(const NODETYPE &pData)
 
     if (current == nullptr) {
         std::cout << "¡Valor no encontrado!\n\n";
+        return nullptr;
     }
 
     return current;

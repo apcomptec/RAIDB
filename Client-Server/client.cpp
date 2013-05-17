@@ -10,9 +10,9 @@ Client::Client(QObject *parent) :
     QObject(parent)
 {
     //Se inicializa el socket de escucha
-    socket = new QTcpSocket(this);
+    _socket = new QTcpSocket(this);
     //Se conecta el socket
-    connect(socket, SIGNAL(connected()),
+    connect(_socket, SIGNAL(connected()),
             this, SLOT(on_connected()));
 }
 
@@ -26,9 +26,10 @@ void Client::on_connected()
     std::cout << ("Connection established.\n");
     //Buffer de envio
     char buffer[1024];
+
+    bool flag = true;
     //Ciclo de envio
-    forever
-    {
+    while(flag){
         std::cout << (">> ");
         //Se obtiene el buffer a enviar desde consola
         gets(buffer);
@@ -37,10 +38,11 @@ void Client::on_connected()
         buffer[len] = '\n';
         buffer[len+1] = '\0';
         //Se escribe en el socket
-        socket->write(buffer);
-        socket->flush();
+        flag = (buffer == "exit");
+        _socket->write(buffer);
+        _socket->flush();
     }
-
+    exit(0);
 }
 
 /**
@@ -53,5 +55,5 @@ void Client::connectToServer(QString pIp, int pPort)
     //Convertir la ip de string a una direccion
     QHostAddress address(pIp);
     //Conectarse al socket
-    socket->connectToHost(address, pPort);
+    _socket->connectToHost(address, pPort);
 }

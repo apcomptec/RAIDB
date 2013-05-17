@@ -7,9 +7,9 @@ class IN_aryNode
 {
 public:
     //Constructor
-    IN_aryNode();
+    IN_aryNode(){}
     //Destructor
-    ~IN_aryNode();
+    virtual ~IN_aryNode(){}
 
     //SET Y GET DE LOS PARAMETROS
 
@@ -18,7 +18,7 @@ public:
     //Definir el dato almacenado
     virtual void setData(DATATYPE) = 0;
     //Obtener el nodo padre
-    virtual IN_aryNode<DATATYPE> getParentPtr() = 0;
+    virtual IN_aryNode<DATATYPE>* getParentPtr() = 0;
     //Definir el nodo padre
     virtual void setParentPtr(IN_aryNode<DATATYPE>*) = 0;
     //Obtener la lista de hijos

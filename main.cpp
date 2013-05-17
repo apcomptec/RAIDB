@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
-#include "dataStructure/DLL.h"
+#include "dataStructure/n_aryrecordfile.h"
+#include "dataStructure/n_aryrecordfile.cpp"
 #include "fileHandling/binaryStruct/BTRecordFile.h"
 #include "XMLParser.h"
 #include "util/Converter.h"
@@ -16,6 +17,7 @@ int main()
     Converter *c = new Converter();
     c->string2Binary("Hello World!");
 }
+
 ////    ofstream ofs("output.raw", ios::out);
 ////    ofs.write("Hola", 4);
 ////    cout << SizeBlock << endl;
@@ -135,11 +137,19 @@ int main()
 //    disk.write(9, "42398jf8j0jm");
 //    disk.write(20, "nvx,3458jd9865a");
 
+
 //    disk.write(98, "3333");
 //    disk.write(40, "jfihf98u498223");
 //    disk.write(80, "4324jfihf98u498223");
 //    disk.write(120, "dfdai7!+·q#¬½~@½½¬");
 //    disk.write(0, "FD$·DDMM;:&$·%·458437rjjfrjoo2985urjefjwrefFFR%%");
+//    disk.read(2, 10);
+//    disk.read(1, 2);
+//    disk.write(98, "3333");
+//    disk.write(40, "jfihf98u498223");
+//    disk.write(80, "4324jfihf98u498223");
+//    disk.write(120, "dfdai7!+·q#¬½~@½½¬");
+////    disk.write(0, "FD$·DDMM;:&$·%·458437rjjfrjoo2985urjefjwrefFFR%%");
 //    disk.read(2, 10);
 //    disk.read(1, 2);
 
@@ -178,7 +188,7 @@ int main()
 //    else
 //        while(ifs.tellg() != SizeBlock)
 //        {
-////            ifs.getline(linea, sizeof(linea));
+//            ifs.getline(linea, sizeof(linea));
 //            ifs.seekg(contador, ios::beg);
 //            ifs.read(linea, sizeof(linea));
 //            cout << linea << endl;
@@ -225,11 +235,46 @@ int main()
 /*
     cout << "Parseo de un XML" << endl;
     XMLParser *parse = new XMLParser();
-    //parse->readFile();
-    //parse->writeFile();
+    parse->readFile();
+    parse->writeFile();
     delete parse;
 */
+//    N_aryRecordFile* nTree = new N_aryRecordFile();
+//    QString node, root;
+//    node = "home";
+//    std::cout << nTree->insertDirPtr(node) << std::endl;
+//    node = "tmp";
+//    std::cout << nTree->insertDirPtr(node) << std::endl;
+//    node = "bin";
+//    std::cout << nTree->insertDirPtr(node) << std::endl;
+//    root = "/home/";
+//    node = "jose";
+//    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+//    root = "/home/";
+//    node = "daniel";
+//    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+//    root = "/home/";
+//    node = "badilla";
+//    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+//    root = "/home/jose/";
+//    node = "dir";
+//    std::cout << nTree->insertDirPtr(node, root) << std::endl;
+//    root = "/home/daniel/";
+//    node = "nueva";
+//    std::cout << nTree->insertDirPtr(node, root) << std::endl;
 
+//    std::cout << "Impresion del arbol" << std::endl;
+//    nTree->printTree(nTree->getRoot());
+
+//    root = "/home/daniel/nueva/";
+//    std::cout << nTree->deleteDirPtr(root) << std::endl;
+
+//    std::cout << "Impresion del arbol" << std::endl;
+//    nTree->printTree(nTree->getRoot());
+
+//    std::cout << "Fin de la ejecución" << std::endl;
+
+//    return 0;
 ////    in.close();
 ////    std::ifstream file("test.txt");
 
@@ -321,4 +366,4 @@ int main()
 //    file.seekp(5);
 //    std::cout << "\n\n" << file.tellg() << '\n' << file.tellp();
 
-//}
+

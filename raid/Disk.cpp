@@ -1,15 +1,17 @@
 #include <fstream>
 #include <iostream>
+#include <math.h>
 #include "Disk.h"
 
-const char Disk::POTENCY = 20;
+const char Disk::POTENCY = 20;  // se define el tamaño del disco en MB
 
 Disk::Disk(const unsigned short &pId, const unsigned short &pSize,
-           unsigned short &pBlockSize)
+           unsigned short pBlockSize = 512)
     : ID(pId), SIZE(pSize), BLOCK_SIZE(pBlockSize),
       _name(std::string("disk") + std::to_string(ID))
 {
     create();
+    fillBlockList();
 }
 
 void Disk::write(const unsigned short &pLine, const char *pBuffer)
@@ -25,25 +27,13 @@ char Disk::read(const unsigned &pLine, const unsigned short &pLineLength)
 {
     std::ifstream ifs(_name, std::fstream::binary | std::fstream::in);
 
-//    std::string line;
-//    getline(ifs, line);
-//    std::cout << line;
-//    fstream myFile("test.txt", ios::in | ios::out | ios::trunc);
-
-    // Add the characters "Hello World!" to the file
-//    ifs << "Hello World!";
-
-    // Seek to 6 characters from the beginning of the file
-//    std::cout << pLine * BLOCK_SIZE;
     ifs.seekg(pLine, std::ios::beg);
-//    std::cout << ifs.;
+
     char buffer[pLineLength + 1];
     ifs.read(buffer, pLineLength + 1);
 
-    // End the buffer with a null terminating character
     buffer[pLineLength + 1] = '\0';
 
-    // Output the contents read from the file and close it
     std::cout << buffer << std::endl;
 
     ifs.close();
@@ -62,4 +52,14 @@ unsigned short Disk::sizeOfChar(const char *pChar)
 {
     std::string string = pChar;
     return string.length();
+}
+
+void Disk::fillBlockList()
+{
+
+}
+
+unsigned short Disk::computeNumberOfBlocks()
+{
+    return SIZE * pow(2, 20) / BLOCK_SIZE;
 }

@@ -16,7 +16,7 @@ public:
     //Constructor
     explicit Client(QObject *parent = 0);
     //Conectar al servidor
-    void connectToServer(QString pIp, int pPort);
+    void connectToServer(QString pIp, int);
 
 signals:
 
@@ -26,7 +26,7 @@ public slots:
 
 private:
     //Socket de envio
-    QTcpSocket* socket;
+    QTcpSocket* _socket;
 };
 
 #endif // CLIENT_H
