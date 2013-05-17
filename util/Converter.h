@@ -17,8 +17,8 @@ public:
 
     void string2Binary( string pStringLetters );        // conversion de string a binario
     void binary2String( string pBinaryString );         // conversion
-    void decimal2Binary( std::string pDecimalNumber );  // conversion de decimal a binario
-    void binary2Decimal( string pBinaryString );        // conversion de binario a decimal
+    QString decimal2Binary( std::string pDecimalNumber );  // conversion de decimal a binario
+    QString binary2Decimal( string pBinaryString );        // conversion de binario a decimal
 
 private:
 

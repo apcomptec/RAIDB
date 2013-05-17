@@ -9,7 +9,7 @@ Converter::Converter()
  * @brief Converter::decimal2Binary
  * Convierte números (cadenas de strings) de una base a otra
  */
-void Converter::decimal2Binary( std::string pDecimalNumber )
+QString Converter::decimal2Binary( std::string pDecimalNumber )
 {
     std::string str( pDecimalNumber ); // Convert from std::string 2 Qstring
     QString qstrDecimalNumber( str.c_str() );   // donde qstr es el QString
@@ -19,6 +19,7 @@ void Converter::decimal2Binary( std::string pDecimalNumber )
     //  convierte un string de decimal a binario
     QString binaryNumber = QString::number(qstrDecimalNumber.toLongLong(&ok, 10), 2);
     qDebug() << binaryNumber << endl;  // "111"
+    return binaryNumber;
 
 }
 
@@ -27,7 +28,7 @@ void Converter::decimal2Binary( std::string pDecimalNumber )
  * @param pBinaryString
  * Convierte números de binario a decimal
  */
-void Converter::binary2Decimal( std::string pBinaryString )
+QString Converter::binary2Decimal( std::string pBinaryString )
 {
     std::string str( pBinaryString ); // Convert from std::string 2 Qstring
     QString qstrDecimalNumber( str.c_str() );   // donde qstr es el QString
@@ -36,6 +37,7 @@ void Converter::binary2Decimal( std::string pBinaryString )
     bool ok = false;
     QString decimalNumber = QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
     qDebug() << decimalNumber << endl;  // numero convertido a decimal
+    return decimalNumber;
 }
 
 /**
