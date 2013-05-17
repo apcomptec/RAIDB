@@ -11,7 +11,7 @@ Converter::Converter()
  */
 void Converter::decimal2Binary( std::string pDecimalNumber )
 {
-    std::string str(pDecimalNumber); // Convert from std::string 2 Qstring
+    std::string str( pDecimalNumber ); // Convert from std::string 2 Qstring
     QString qstrDecimalNumber( str.c_str() );   // donde qstr es el QString
     qDebug() << qstrDecimalNumber << endl;      // número decimal
     QString hexadecimalNumber = "0xDEADBEEF";   // número hexadecimal
@@ -25,6 +25,17 @@ void Converter::decimal2Binary( std::string pDecimalNumber )
     qDebug() << binaryNumber << endl;   // "11011110101011011011111011101111"
     qDebug() << binaryNumber1 << endl;  // "111"
 
+}
+
+void Converter::binary2Decimal( std::string pBinaryString )
+{
+    std::string str( pBinaryString ); // Convert from std::string 2 Qstring
+    QString qstrDecimalNumber( str.c_str() );   // donde qstr es el QString
+    qDebug() << qstrDecimalNumber << endl;      // número decimal
+
+    bool ok = false;
+    QString decimalNumber = QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
+    qDebug() << decimalNumber << endl;  // numero convertido a decimal
 }
 
 /**

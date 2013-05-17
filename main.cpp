@@ -16,6 +16,7 @@ int main()
 {
     Converter *c = new Converter();
     c->string2Binary("Hello World!");
+    c->binary2Decimal("10");
 }
 
 ////    ofstream ofs("output.raw", ios::out);
