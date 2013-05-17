@@ -14,6 +14,7 @@
 #include "fileHandling/IRecordFile.h"
 #include <iostream>
 #include <iomanip>
+#include <QDebug>
 
 using namespace std;
 
@@ -29,17 +30,18 @@ public:
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IRECORDFILE
 // -----------------------------------------------------------------------------
-//    virtual BTRecordFileMetadata *getMetadata() const;
+    virtual BTRecordFileMetadata *getMetadata() const;
 //    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
     virtual DLL<IRecord *> *getRecordList() const;
     virtual void setRecordList(DLL<IRecord *> *pListPtr);
-    virtual BTRecordFileMetadata *getMetadata() const;
-    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
     virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
-    virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
-    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
+//    virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
+//    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
+//    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
+    void insertRecordAUX( BTRecord *pNewRecord, unsigned short pHDer );
+    virtual BTRecord *deleteRecord(unsigned short pDatoBorrado);
+//    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual BTRecord *printArrayRecord() const;
-
     virtual unsigned short showFragmentation() const;
     virtual bool defragFile();
 // -----------------------------------------------------------------------------
@@ -48,6 +50,7 @@ public:
     void setCounter( int counter );
     unsigned short getListFreeBlocks() const;
     void setListFreeBlocks( unsigned short pListFreeBlocks );
+    ~BTRecordFile();
 
 private:
     /**
