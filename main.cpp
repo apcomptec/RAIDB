@@ -24,7 +24,7 @@ int main()
 //    cout << "--------------------" << endl;
 
     std::string name = "JUJU";
-    std::string data = "97782";
+    std::string data = "10";
     unsigned short size = 3;
     IRecordDataType * record324 = new RecordDataType<std::string>(name, data, size);
 

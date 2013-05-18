@@ -87,7 +87,6 @@ std::string BTRecord::castRecordToBinary()
         finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
         tmp = tmp->getNextPtr();
     }
-    cout << "El registro en BINARIO es: " << "\n"
-         << finalBinaryRecord << endl;
+    cout << "El registro en BINARIO es: " << "\n" << finalBinaryRecord << endl;
     return finalBinaryRecord;
 }
