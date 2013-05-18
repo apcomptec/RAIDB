@@ -41,6 +41,8 @@ public:
      */
     std::string binaryToDecimal(const std::string &pBinaryString);
 
+    std::string shortToString(const short &pShort);
+
 private:
 
     /**
