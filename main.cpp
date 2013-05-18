@@ -16,5 +16,5 @@ int main()
 
 //    c->binary2Decimal("1001000");
 //    c->binary2String("11");
-    std::cout << (c->binary2String("01001000011110110101010100011110")) << "\n";
+    std::cout << (c->binary2String("010001000110000101101110011010010110010101101100")) << "\n";
 }
