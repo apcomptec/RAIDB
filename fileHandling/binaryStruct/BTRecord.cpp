@@ -58,3 +58,8 @@ void BTRecord::printRecord() const
     std::cout << "Parent" << "LeftChild" << "RightChild" << "DataList\n";
 
 }
+
+std::string BTRecord::castRecordToBinary()
+{
+
+}

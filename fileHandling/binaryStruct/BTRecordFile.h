@@ -41,7 +41,6 @@ public:
     virtual BTRecord *printArrayRecord() const;
     virtual unsigned short showFragmentation() const;
     virtual bool defragFile();
-    std::string castRecordToBinary();
 // -----------------------------------------------------------------------------
 
     int getCounter() const;
