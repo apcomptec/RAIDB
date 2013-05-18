@@ -48,12 +48,15 @@ QString Converter::binary2Decimal(std::string pBinaryString)
  * @param pStringLetters
  * Función para convertir std::string a binario
  */
-void Converter::string2Binary(std::string pStringLetters)
+std::string Converter::string2Binary(std::string pStringLetters)
 {
-    cout << pStringLetters << endl;
+    std::string string;
     for (std::size_t i = 0; i < pStringLetters.size(); ++i) {
-        cout << bitset<8>(pStringLetters.c_str()[i]) << endl;
+        bitset<8> array(pStringLetters.c_str()[i]);
+        string += array.to_string();
     }
+
+    return string;
 }
 
 /**
@@ -82,8 +85,6 @@ std::string Converter::binary2String(std::string pBinaryString)
 
         pos += 8;
     }
-
-    std::cout << "\n";
 
     return result;
 }
