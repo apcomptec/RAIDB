@@ -3,6 +3,8 @@
 
 #include <string>
 
+using namespace std;
+
 class Converter
 {
 
@@ -41,6 +43,8 @@ public:
      */
     std::string binaryToDecimal(const std::string &pBinaryString);
 
+    string completeBinary(std::string pBinary);
+
 private:
 
     /**
@@ -49,6 +53,8 @@ private:
      * @return El valor ascii del char numérico en std::string
      */
     std::string numericCharToString(char &pChar);
+
+//    std::string completeBinary(std::string &pBinary);
 
 };
 
