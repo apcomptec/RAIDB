@@ -6,6 +6,7 @@
  ******************************************************************************/
 
 #include "BTRecord.h"
+#include "util/Converter.h"
 
 BTRecord::BTRecord()
 {
@@ -61,5 +62,15 @@ void BTRecord::printRecord() const
 
 std::string BTRecord::castRecordToBinary()
 {
+    Converter *conversion = new Converter();
+    conversion->decimalToBinary( _parentPtr );
+    conversion->decimalToBinary( _leftChildPtr );
+    conversion->decimalToBinary( _rightChildPtr );
+    DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
+    while ( tmp->getNextPtr() != nullptr ) {
+
+        conversion->stringToBinary( tmp->getData() );
+        tmp = tmp->getNextPtr();
+    }
 
 }

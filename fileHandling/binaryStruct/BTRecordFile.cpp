@@ -189,8 +189,3 @@ bool BTRecordFile::defragFile()
 {
     return false; // TODO
 }
-
-string BTRecordFile::castRecordToBinary()
-{
-
-}
