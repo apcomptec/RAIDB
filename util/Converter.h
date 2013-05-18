@@ -9,19 +9,21 @@
 
 using namespace std;
 
-class Converter{
+class Converter
+{
 
 public:
     Converter();
     ~Converter();
 
-    void string2Binary( string pStringLetters );        // conversion de string a binario
-    void binary2String( string pBinaryString );         // conversion de binario a string
-    QString decimal2Binary( std::string pDecimalNumber );  // conversion de decimal a binario
-    QString binary2Decimal( string pBinaryString );        // conversion de binario a decimal
+    void string2Binary(string pStringLetters);          // conversion de string a binario
+    string binary2String(string pBinaryString);           // conversion de binario a string
+    QString decimal2Binary(std::string pDecimalNumber);    // conversion de decimal a binario
+    QString binary2Decimal(string pBinaryString);          // conversion de binario a decimal
 
 private:
 
+    std::string convertNumericCharToString(char pChar);
 
 };
 

@@ -6,12 +6,17 @@
 const char Disk::POTENCY = 20;  // se define el tamaño del disco en MB
 
 Disk::Disk(const unsigned short &pId, const unsigned short &pSize,
-           unsigned short pBlockSize = 512)
+           unsigned short pBlockSize)
     : ID(pId), SIZE(pSize), BLOCK_SIZE(pBlockSize),
       _name(std::string("disk") + std::to_string(ID))
 {
-    create();
+    createDisk();
     fillBlockList();
+}
+
+unsigned int Disk::createFile()
+{
+    return _freeBlockList.removeFromFront()->getData();
 }
 
 void Disk::write(const unsigned short &pLine, const char *pBuffer)
@@ -40,7 +45,7 @@ char Disk::read(const unsigned &pLine, const unsigned short &pLineLength)
     return *buffer;
 }
 
-void Disk::create()
+void Disk::createDisk()
 {
     std::ofstream ofs(_name, std::ios::binary | std::ios::out);
     ofs.seekp(((SIZE << POTENCY) - 1));
@@ -56,10 +61,12 @@ unsigned short Disk::sizeOfChar(const char *pChar)
 
 void Disk::fillBlockList()
 {
-
+    for (unsigned int var = computeNumberOfBlocks(); var > 0; --var) {
+        _freeBlockList.insertAtFront(var);
+    }
 }
 
-unsigned short Disk::computeNumberOfBlocks()
+unsigned int Disk::computeNumberOfBlocks()
 {
-    return SIZE * pow(2, 20) / BLOCK_SIZE;
+    return SIZE * pow(2, POTENCY) / BLOCK_SIZE;
 }
