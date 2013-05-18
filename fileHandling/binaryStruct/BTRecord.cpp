@@ -63,9 +63,9 @@ void BTRecord::printRecord() const
 std::string BTRecord::castRecordToBinary()
 {
     Converter *conversion = new Converter();
-    conversion->decimalToBinary(_parentPtr);
-    conversion->decimalToBinary(_leftChildPtr);
-    conversion->decimalToBinary(_rightChildPtr);
+    conversion->decimalToBinary( std::to_string( _parentPtr ) );
+    conversion->decimalToBinary( std::to_string( _leftChildPtr ) );
+    conversion->decimalToBinary( std::to_string( _rightChildPtr ) );
     DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
     RecordDataType<std::string> *data;
     while (tmp->getNextPtr() != nullptr) {
