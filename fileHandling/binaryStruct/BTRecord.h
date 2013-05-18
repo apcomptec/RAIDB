@@ -13,6 +13,7 @@
 #include "dataStructure/DLL.h"
 #include "fileHandling/RecordDataType.h"
 #include "fileHandling/IRecord.h"
+#include <QString>
 
 using namespace std;
 

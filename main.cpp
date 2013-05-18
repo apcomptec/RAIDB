@@ -24,7 +24,7 @@ int main()
 //    cout << "--------------------" << endl;
 
     std::string name = "JUJU";
-    std::string data = "10";
+    std::string data = "2";
     unsigned short size = 3;
     IRecordDataType * record324 = new RecordDataType<std::string>(name, data, size);
 
@@ -40,9 +40,6 @@ int main()
    // list->insertAtFront(record325);
 //    list->insertAtFront(record325);
     record->setDataList(list);
-//    record->setParentPtr(0);
-//    record->setLeftChildPtr(0);
-//    record->setRightChildPtr(0);
 
     record->printRecord();
     record->castRecordToBinary();

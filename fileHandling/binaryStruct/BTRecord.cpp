@@ -86,6 +86,12 @@ std::string BTRecord::castRecordToBinary()
     RecordDataType<std::string> *data;
     while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
+        std::to_string(*data->getDataPtr());
+        std::string str(  ); // Convert from std::string 2 Qstring
+        QString qstrData(str.c_str()); // donde qstr es el QString
+        if (){
+
+        }
         finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
         tmp = tmp->getNextPtr();
     }
