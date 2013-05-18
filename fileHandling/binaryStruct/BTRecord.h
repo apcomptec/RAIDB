@@ -8,12 +8,16 @@
 #ifndef BTRECORD_H
 #define BTRECORD_H
 
+#include <iomanip>
+#include <iostream>
 #include "dataStructure/DLL.h"
 #include "fileHandling/RecordDataType.h"
 #include "fileHandling/IRecord.h"
 
-class BTRecord: public IRecord
-{
+using namespace std;
+
+class BTRecord: public IRecord{
+
 public:
 
     /**

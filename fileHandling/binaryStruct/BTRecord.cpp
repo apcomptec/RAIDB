@@ -56,7 +56,15 @@ void BTRecord::setRightChildPtr(unsigned short pRightChildPtr)
 
 void BTRecord::printRecord() const
 {
-    std::cout << "Parent" << "LeftChild" << "RightChild" << "DataList\n";
+    cout <<  "Parent" << setw(15) << "LeftChild" << setw(15) << "RightChild" << endl;
+    cout << setw(7) << _parentPtr << setw(15) << _leftChildPtr << setw(15) <<
+             _rightChildPtr << setw(15);
+    DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
+    while( tmp->getNextPtr() != nullptr ){
+        cout << tmp->getData() << setw(15) << endl;
+        tmp = tmp->getNextPtr();
+    }
+    cout << "\n";
 
 }
 
@@ -74,5 +82,7 @@ std::string BTRecord::castRecordToBinary()
         finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
         tmp = tmp->getNextPtr();
     }
+    cout << "El registro en BINARIO es: " << "\n"
+         << finalBinaryRecord << endl;
     return finalBinaryRecord;
 }
