@@ -7,6 +7,7 @@
 #include "raid/Disk.h"
 #include <string>
 
+<<<<<<< Updated upstream
 int main()
 {
     Converter *c = new Converter();
@@ -55,3 +56,13 @@ int main()
 
     return 0;
 }
+=======
+//int main()
+//{
+//    Converter *c = new Converter();
+//    cout << c->stringToBinary("Hello World!");
+
+//    std::cout << (c->binaryToString("0100010001100001011011100110"
+//                                    "10010110010101101100")) << "\n";
+//}
+>>>>>>> Stashed changes
