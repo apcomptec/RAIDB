@@ -30,7 +30,7 @@ std::string Converter::decimal2Binary(std::string pDecimalNumber)
  * @param pBinaryString
  * Convierte números de binario a decimal
  */
-QString Converter::binary2Decimal(std::string pBinaryString)
+std::string Converter::binary2Decimal(std::string pBinaryString)
 {
     std::string str(pBinaryString);   // Convert from std::string 2 Qstring
     QString qstrDecimalNumber(str.c_str());     // donde qstr es el QString
@@ -40,7 +40,7 @@ QString Converter::binary2Decimal(std::string pBinaryString)
     QString decimalNumber = QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
     qDebug() << decimalNumber << endl;  // numero convertido a decimal
     std::string stringDecimal = decimalNumber.toStdString();
-    return decimalNumber;
+    return stringDecimal;
 }
 
 /**
@@ -55,7 +55,7 @@ std::string Converter::string2Binary(std::string pStringLetters)
         bitset<8> array(pStringLetters.c_str()[i]);
         string += array.to_string();
     }
-
+    cout << string << endl;
     return string;
 }
 
@@ -76,7 +76,10 @@ std::string Converter::binary2String(std::string pBinaryString)
         temp = pBinaryString.substr(pos, 8);
         std::cout << "\nTemp: " << temp;
 
-        QString hola = binary2Decimal(temp);
+
+        std::string str(binary2Decimal(temp));   // Convert from std::string 2 Qstring
+        QString hola(str.c_str());     // donde qstr es el QString
+        //QString hola = binary2Decimal(temp);
 
         int asciiCharacter = hola.toInt();
         char binaryToStringChar = asciiCharacter;

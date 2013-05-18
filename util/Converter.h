@@ -19,7 +19,7 @@ public:
     string string2Binary(string pStringLetters);          // conversion de string a binario
     string binary2String(string pBinaryString);           // conversion de binario a string
     string decimal2Binary(std::string pDecimalNumber);    // conversion de decimal a binario
-    QString binary2Decimal(string pBinaryString);          // conversion de binario a decimal
+    string binary2Decimal(string pBinaryString);          // conversion de binario a decimal
 
 private:
 
