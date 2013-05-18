@@ -25,7 +25,7 @@ public:
      * @brief setMetadataPtr
      * @param pMetadataPtr Nuevo puntero de metadatos
      */
-//    virtual void setMetadata(IMetadata *pMetadataPtr) = 0;
+    virtual void setMetadata(IMetadata *pMetadataPtr) = 0;
 
     /**
      * @brief getRecordListPtr
@@ -43,7 +43,7 @@ public:
      * @brief insertRecord
      * @param pListPtr Registro que se insertará en el archivo
      */
-    virtual void insertRecord(DLL<IRecordDataType *> *pListPtr) = 0;
+    virtual IRecord *insertRecord(DLL<IRecordDataType *> *pListPtr) = 0;
 
     /**
      * @brief deleteRecord

@@ -14,13 +14,38 @@
 class BTRecordFileMetadata: public IMetadata
 {
 public:
-    BTRecordFileMetadata(DLL<std::string> *pRecordStructPtr,
-                         std::string &pFileName, std::string &pOwner);
+
+    /**
+     * @brief BTRecordFileMetadata Sobrecarga del constructor. Este se encarga
+     * de solicitar la información mediante consola
+     */
+    BTRecordFileMetadata();
+
+    /**
+     * @brief BTRecordFileMetadata Sobrecarga del constructor
+     * @param pRecordStructPtr
+     * @param pFileName
+     * @param pOwner
+     */
+    BTRecordFileMetadata(DLL<char> *pRecordStructPtr,
+                         const std::string &pFileName,
+                         const std::string &pOwner);
+
+// -----------------------------------------------------------------------------
+// PROTOTIPO DE CONSTANTES
+// -----------------------------------------------------------------------------
+    static const char STRING;
+    static const char CHAR;
+    static const char SHORT;
+    static const char INT;
+    static const char DOUBLE;
+    static const char BOOL;
+// -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IMETADATA
 // -----------------------------------------------------------------------------
-    virtual DLL<std::string> *getRecordStructPtr() const;
+    virtual DLL<char> *getRecordStructPtr() const;
     virtual std::string getFileName() const;
     virtual void setFileName(std::string &pFileName);
     virtual unsigned short getFileSize() const;
@@ -41,7 +66,7 @@ public:
 
 private:
 
-    DLL<std::string> *_recordStructPtr;
+    DLL<char> *_recordStructPtr;
     std::string _fileName;
     std::string _owner;
     unsigned short _fileSize;
@@ -50,6 +75,12 @@ private:
     DLL<unsigned short> *_usedBlockList;
     unsigned short *_borPtr;
     unsigned short *_eofPtr;
+
+    /**
+     * @brief constructMetadata Construye los metadatos solicitandolos por
+     * consola
+     */
+    void constructMetadata();
 };
 
 #endif // BTRECORDFILEMETADATA_H

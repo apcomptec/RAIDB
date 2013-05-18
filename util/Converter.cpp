@@ -1,98 +1,98 @@
 #include <sstream>
+#include <iostream>
+#include <QString>
+#include <QDebug>
+#include <bitset>
 #include "Converter.h"
 
 Converter::Converter()
 {
+    // vacío
 }
 
-
 /**
- * @brief Converter::decimal2Binary
+ * @brief Converter::decimalToBinary
  * Convierte números (cadenas de strings) de una base a otra
  */
-std::string Converter::decimal2Binary(std::string pDecimalNumber)
+std::string Converter::decimalToBinary(const std::string &pDecimalNumber)
 {
     std::string str(pDecimalNumber);   // Convert from std::string 2 Qstring
     QString qstrDecimalNumber(str.c_str());     // donde qstr es el QString
-    qDebug() << qstrDecimalNumber << endl;      // número decimal
+    qDebug() << qstrDecimalNumber; // << qDebugendl;      // número decimal
 
     bool ok = false;
+
     //  convierte un string de decimal a binario
-    QString binaryNumber = QString::number(qstrDecimalNumber.toLongLong(&ok, 10), 2);
-    qDebug() << binaryNumber << endl;  // "111"
+    QString binaryNumber =
+        QString::number(qstrDecimalNumber.toLongLong(&ok, 10), 2);
+    qDebug() << binaryNumber; // "111"
     std::string stringBinary = binaryNumber.toStdString();
     return stringBinary;
 
 }
 
 /**
- * @brief Converter::binary2Decimal
+ * @brief Converter::binaryToDecimal
  * @param pBinaryString
  * Convierte números de binario a decimal
  */
-std::string Converter::binary2Decimal(std::string pBinaryString)
+std::string Converter::binaryToDecimal(const std::string &pBinaryString)
 {
-    std::string str(pBinaryString);   // Convert from std::string 2 Qstring
-    QString qstrDecimalNumber(str.c_str());     // donde qstr es el QString
-    qDebug() << qstrDecimalNumber << endl;      // número decimal
+    std::string str(pBinaryString); // Convert from std::string 2 Qstring
+    QString qstrDecimalNumber(str.c_str()); // donde qstr es el QString
+    qDebug() << qstrDecimalNumber; // número decimal
 
     bool ok = false;
-    QString decimalNumber = QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
-    qDebug() << decimalNumber << endl;  // numero convertido a decimal
+    QString decimalNumber =
+        QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
+    qDebug() << decimalNumber; // número convertido a decimal
     std::string stringDecimal = decimalNumber.toStdString();
     return stringDecimal;
 }
 
 /**
- * @brief Converter::string2Binary
+ * @brief Converter::stringToBinary
  * @param pStringLetters
  * Función para convertir std::string a binario
  */
-std::string Converter::string2Binary(std::string pStringLetters)
+std::string Converter::stringToBinary(const std::string &pStringLetters)
 {
     std::string string;
     for (std::size_t i = 0; i < pStringLetters.size(); ++i) {
-        bitset<8> array(pStringLetters.c_str()[i]);
+        std::bitset<8> array(pStringLetters.c_str()[i]);
         string += array.to_string();
     }
-    cout << string << endl;
+
     return string;
 }
 
 /**
- * @brief Converter::binary2String
+ * @brief Converter::binaryToString
  * @param pBinaryString
  * Conversión de binario a String
  */
-std::string Converter::binary2String(std::string pBinaryString)
+std::string Converter::binaryToString(const std::string &pBinaryString)
 {
-    unsigned short counter = pBinaryString.length() / 8;
-    std::cout << "Counter: " << counter;
     std::string temp, result;
-    unsigned short pos = 0;
+    const char SIZEOFBINARY = 8;
 
-    for (; counter > 0; counter--) {
-        std::cout << "\npos: " << pos;
-        temp = pBinaryString.substr(pos, 8);
-        std::cout << "\nTemp: " << temp;
+    for (unsigned short counter = pBinaryString.length() / SIZEOFBINARY,
+         pos = 0; counter > 0; counter--, pos += SIZEOFBINARY) {
 
+        temp = pBinaryString.substr(pos, SIZEOFBINARY);
 
-        std::string str(binary2Decimal(temp));   // Convert from std::string 2 Qstring
-        QString hola(str.c_str());     // donde qstr es el QString
-        //QString hola = binary2Decimal(temp);
+        std::string str(binaryToDecimal(temp));
+        QString asciiCharacter(str.c_str());
 
-        int asciiCharacter = hola.toInt();
-        char binaryToStringChar = asciiCharacter;
+        char binaryToStringChar = asciiCharacter.toInt();
 
-        result.append(convertNumericCharToString(binaryToStringChar));
-
-        pos += 8;
+        result.append(numericCharToString(binaryToStringChar));
     }
 
     return result;
 }
 
-std::string Converter::convertNumericCharToString(char pChar)
+std::string Converter::numericCharToString(char &pChar)
 {
     std::stringstream ss;
     std::string string;

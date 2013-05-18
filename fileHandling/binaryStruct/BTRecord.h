@@ -16,17 +16,6 @@ class BTRecord: public IRecord
 {
 public:
 
-// -----------------------------------------------------------------------------
-// PROTOTIPO DE CONSTANTES
-// -----------------------------------------------------------------------------
-    static const char STRING;
-    static const char CHAR;
-    static const char SHORT;
-    static const char INT;
-    static const char DOUBLE;
-    static const char BOOL;
-// -----------------------------------------------------------------------------
-
     /**
      * @brief BTRecord Constructor
      */
@@ -37,8 +26,7 @@ public:
 // -----------------------------------------------------------------------------
     virtual DLL<IRecordDataType *> *getDataListPtr() const;
     virtual void setDataList(DLL<IRecordDataType *> *);
-    virtual unsigned short *getIndex() const;
-    virtual void setIndex(unsigned short *pIndexPtr);
+    virtual void printRecord() const;
 // -----------------------------------------------------------------------------
 
     unsigned short getParentPtr() const;
@@ -50,8 +38,6 @@ public:
     unsigned short getRightChildPtr() const;
     void setRightChildPtr(unsigned short pRightChildPtr);
 
-    void printRecord() const;
-
 private:
 
     /**
@@ -59,7 +45,7 @@ private:
      * @brief _leftChildPtr Puntero al hijo izquierdo del registro
      * @brief _rightChildPtr Puntero al hijo derecho del registro
      */
-    unsigned short *_indexPtr, _parentPtr, _leftChildPtr, _rightChildPtr;
+    unsigned short _parentPtr, _leftChildPtr, _rightChildPtr;
 
     /**
      * @brief _dataListPtr Lista con los elementos de datos del registro

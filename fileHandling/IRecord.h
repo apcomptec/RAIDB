@@ -1,7 +1,7 @@
 /*******************************************************************************
  * File: IRecord.h
  * Author: Brallan Aguilar
- * Description: Interfaz de un registro. Representa uno solo.
+ * Description: Interfaz de un registro. Representa un solo registro.
  * Reference:
  ******************************************************************************/
 
@@ -28,8 +28,11 @@ public:
      */
     virtual void setDataList(DLL<IRecordDataType *> *pListPtr) = 0;
 
-    virtual unsigned short *getIndex() const = 0;
-    virtual void setIndex(unsigned short *pIndexPtr) = 0;
+    /**
+     * @brief printRecord Se encarga de imprimir un registro en formato
+     * horizontal
+     */
+    virtual void printRecord() const = 0;
 };
 
 #endif // IRECORD_H

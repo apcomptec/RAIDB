@@ -1,6 +1,6 @@
 /*******************************************************************************
  * File: BTRecordFile.h
- * Author: Brallan Aguilar
+ * Author: Brallan Aguilar y Daniel Araya
  * Description: TODO
  * Reference:
  ******************************************************************************/
@@ -8,7 +8,6 @@
 #ifndef BTRECORDFILE_H
 #define BTRECORDFILE_H
 
-#include <vector>
 #include "fileHandling/binaryStruct/BTRecordFileMetadata.h"
 #include "fileHandling/binaryStruct/BTRecord.h"
 #include "fileHandling/IRecordFile.h"
@@ -18,7 +17,8 @@
 
 using namespace std;
 
-class BTRecordFile: public IRecordFile{
+class BTRecordFile: public IRecordFile
+{
 
 public:
 
@@ -31,14 +31,11 @@ public:
 // MÉTODOS DE LA INTERFAZ IRECORDFILE
 // -----------------------------------------------------------------------------
     virtual BTRecordFileMetadata *getMetadata() const;
-//    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
+    virtual void setMetadata(IMetadata *pMetadataPtr);
     virtual DLL<IRecord *> *getRecordList() const;
     virtual void setRecordList(DLL<IRecord *> *pListPtr);
-    virtual void insertRecord(DLL<IRecordDataType *> *pListPtr);
-//    virtual BTRecord *deleteRecord(BTRecord *pRecordPtr);
-//    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
-//    virtual void setMetadata(BTRecordFileMetadata *pMetadataPtr);
-    void insertRecordAUX( BTRecord *pNewRecord, unsigned short pHDer );
+    virtual BTRecord *insertRecord(DLL<IRecordDataType *> *pListPtr);
+//    virtual BTRecord *deleteRecord(IMetadata *pRecordPtr);
     virtual BTRecord *deleteRecord(unsigned short pDatoBorrado);
 //    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual BTRecord *printArrayRecord() const;
@@ -47,26 +44,25 @@ public:
 // -----------------------------------------------------------------------------
 
     int getCounter() const;
-    void setCounter( int counter );
+    void setCounter(int counter);
     unsigned short getListFreeBlocks() const;
-    void setListFreeBlocks( unsigned short pListFreeBlocks );
+    void setListFreeBlocks(unsigned short pListFreeBlocks);
     ~BTRecordFile();
 
 private:
+
     /**
      * @brief _metadataPtr
      */
     BTRecordFileMetadata *_metadataPtr;
 
-    /**
-     * @brief _recordList
-     */
-    std::vector<IRecord *> *_recordList;
     DLL<IRecord *> _recordListPtr;
 
     int _counter;       //llevará la cantidad de registros insertados
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;
+
+    void insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer);
 
 
 };

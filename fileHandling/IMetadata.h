@@ -18,7 +18,7 @@ public:
      * @brief getRecordStruct
      * @return
      */
-    virtual DLL<std::string> *getRecordStructPtr() const = 0;
+    virtual DLL<char> *getRecordStructPtr() const = 0;
 
     /**
      * @brief getFileName
