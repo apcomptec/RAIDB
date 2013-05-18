@@ -61,7 +61,7 @@ void BTRecord::printRecord() const
              _rightChildPtr << setw(15);
     DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
     while( tmp->getNextPtr() != nullptr ){
-        cout << tmp->getData() << setw(15) << endl;
+        cout << tmp->getData() << setw(15);
         tmp = tmp->getNextPtr();
     }
     cout << "\n";
