@@ -66,6 +66,7 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     } else {
         insertRecordAUX(newRecord, hDer);
     }
+    return newRecord;
 }
 
 void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
@@ -187,4 +188,9 @@ unsigned short BTRecordFile::showFragmentation() const
 bool BTRecordFile::defragFile()
 {
     return false; // TODO
+}
+
+string BTRecordFile::castRecordToBinary()
+{
+
 }
