@@ -7,25 +7,20 @@
 #include "raid/Disk.h"
 #include <string>
 
-<<<<<<< Updated upstream
+using namespace std;
+
 int main()
 {
     Converter *c = new Converter();
-//    std::cout << "--------------------\n";
-//    std::cout << c->decimalToBinary("97782");
-//    std::cout << "\n--------------------\n";
 
-    std::cout << "\n--------------------\n";
+    cout << "\n--------------------" << endl;
     c->binaryToDecimal("0111");
-    std::cout << "\n--------------------\n";
+    cout << "\n--------------------" << endl;
     c->decimalToBinary("7");
-    std::cout << "\n--------------------\n";
+    cout << "\n--------------------" << endl;
     c->binaryToString("01001000");
-    std::cout << "\n--------------------\n";
-    c->stringToBinary("Hello World!");
-
-//    std::cout << (c->binaryToString("0100010001100001011011100110"
-//                                    "10010110010101101100")) << "\n";
+    cout << "\n--------------------" << endl;
+    c->stringToBinary("Daniel");
 
 //    std::string name = "JUJU";
 //    std::string data = "97782";
@@ -56,13 +51,3 @@ int main()
 
     return 0;
 }
-=======
-//int main()
-//{
-//    Converter *c = new Converter();
-//    cout << c->stringToBinary("Hello World!");
-
-//    std::cout << (c->binaryToString("0100010001100001011011100110"
-//                                    "10010110010101101100")) << "\n";
-//}
->>>>>>> Stashed changes
