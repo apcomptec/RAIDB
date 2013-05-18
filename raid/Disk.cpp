@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <math.h>
+#include <sstream>
 #include "Disk.h"
 
 const char Disk::POTENCY = 20;  // se define el tamaño del disco en MB
@@ -70,3 +71,4 @@ unsigned int Disk::computeNumberOfBlocks()
 {
     return SIZE * pow(2, POTENCY) / BLOCK_SIZE;
 }
+
