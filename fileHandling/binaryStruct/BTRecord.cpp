@@ -79,7 +79,7 @@ std::string BTRecord::castRecordToBinary()
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _rightChildPtr ) );
     DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
     RecordDataType<std::string> *data;
-    while(tmp->getNextPtr() != nullptr){
+    while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
         finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
         tmp = tmp->getNextPtr();
