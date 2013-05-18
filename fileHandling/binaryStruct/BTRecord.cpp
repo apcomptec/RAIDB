@@ -18,7 +18,7 @@ DLL<IRecordDataType *> *BTRecord::getDataListPtr() const
     return _dataListPtr;
 }
 
-void BTRecord::setDataList(DLL<IRecordDataType *> *pDataListPtr)
+void BTRecord:: setDataList(DLL<IRecordDataType *> *pDataListPtr)
 {
     _dataListPtr = pDataListPtr;
 }
@@ -60,8 +60,10 @@ void BTRecord::printRecord() const
     cout << setw(7) << _parentPtr << setw(15) << _leftChildPtr << setw(15) <<
              _rightChildPtr << setw(15);
     DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
-    while( tmp->getNextPtr() != nullptr ){
-        cout << tmp->getData() << setw(15);
+    RecordDataType<std::string> *data;
+    while( tmp != nullptr ){
+        data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
+        cout << *data->getDataPtr() << setw(15);
         tmp = tmp->getNextPtr();
     }
     cout << "\n";
