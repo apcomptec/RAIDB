@@ -74,4 +74,5 @@ std::string BTRecord::castRecordToBinary()
         finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
         tmp = tmp->getNextPtr();
     }
+    return finalBinaryRecord;
 }
