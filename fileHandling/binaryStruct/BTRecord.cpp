@@ -10,7 +10,9 @@
 
 BTRecord::BTRecord()
 {
-    // vacío
+    this->_parentPtr = 0;
+    this->_leftChildPtr = 0;
+    this->_rightChildPtr = 0;
 }
 
 DLL<IRecordDataType *> *BTRecord::getDataListPtr() const

@@ -40,9 +40,9 @@ int main()
    // list->insertAtFront(record325);
 //    list->insertAtFront(record325);
     record->setDataList(list);
-    record->setParentPtr(0);
-    record->setLeftChildPtr(0);
-    record->setRightChildPtr(0);
+//    record->setParentPtr(0);
+//    record->setLeftChildPtr(0);
+//    record->setRightChildPtr(0);
 
     record->printRecord();
     record->castRecordToBinary();
