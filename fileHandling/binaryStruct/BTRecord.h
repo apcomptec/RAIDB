@@ -43,6 +43,7 @@ public:
     unsigned short getRightChildPtr() const;
     void setRightChildPtr(unsigned short pRightChildPtr);
     std::string castRecordToBinary();
+    bool verificaValidezInt( QString pDato );
 
 private:
 

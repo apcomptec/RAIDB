@@ -86,15 +86,32 @@ std::string BTRecord::castRecordToBinary()
     RecordDataType<std::string> *data;
     while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
-        std::to_string(*data->getDataPtr());
-        std::string str(  ); // Convert from std::string 2 Qstring
+        std::string str( *data->getDataPtr() ); // Convert from std::string 2 Qstring
         QString qstrData(str.c_str()); // donde qstr es el QString
-        if (){
 
+        if ( !verificaValidezInt( qstrData ) ){ // cadena no de numeros
+            finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
         }
-        finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
+        else{   // son solo numeros
+            finalBinaryRecord += conversion->decimalToBinary( *data->getDataPtr() );
+        }
         tmp = tmp->getNextPtr();
     }
     cout << "El registro en BINARIO es: " << "\n" << finalBinaryRecord << endl;
     return finalBinaryRecord;
+}
+
+bool BTRecord::verificaValidezInt( QString pDato ){
+    bool charValido;
+    int validaIntroduceNumeros;
+    for(int i = 0; i < 9; i++){
+        //validacion de que solo se introducen numeros(convierten qstring a int)
+        validaIntroduceNumeros = pDato.toInt(&charValido);
+        if(charValido == false){    //existe un caracter que no es número
+            return false;
+        }//fin del if interno
+        else{
+            return true;
+        }//fin if
+    }//fin del for
 }
