@@ -68,22 +68,6 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     }
 }
 
-//BTRecord *BTRecordFile::deleteRecord( BTRecord *pRecordPtr )
-//{
-//    //    for ( int i = 0; i < _registryArray->getSize(); i++ ){
-//    //        ////NOTA hacer método para comparar OBJETOS
-//    //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
-//    //            cout << "¡Registro encontrado!" << endl;
-//    //            cout << "¡Procediendo a borrar registro!" << endl;
-
-
-
-//    //            break;
-//    //        }
-//    //    }
-//    //    cout << "¡No existe registro!" << endl;
-//}
-
 void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
 {
     cout << "--------------------------" << endl;
