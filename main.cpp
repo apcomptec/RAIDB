@@ -28,22 +28,22 @@ int main()
     unsigned short size = 3;
     IRecordDataType * record1 = new RecordDataType<std::string>(name, data, size);
 
-    std::string name2 = "fueeeee";
-    std::string data2 = "576";
-    unsigned short size2 = 8;
-    IRecordDataType * record2 = new RecordDataType<std::string>(name2, data2, size2);
+//    std::string name2 = "fueeeee";
+//    std::string data2 = "576";
+//    unsigned short size2 = 8;
+//    IRecordDataType * record2 = new RecordDataType<std::string>(name2, data2, size2);
 
-    BTRecord * record = new BTRecord();
+//    BTRecord * record = new BTRecord();
 
-    DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(), *list2 = new DLL<IRecordDataType *>();
+    DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(); //, *list2 = new DLL<IRecordDataType *>();
 
     list1->insertAtFront(record1);
-    list1->insertAtFront(record2);
+//    list1->insertAtFront(record2);
 
-    std::string name3 = "fdsjnfs";
-    std::string data3 = "9834";
-    unsigned short size3 = 8576;
-    IRecordDataType * record3 = new RecordDataType<std::string>(name3, data3, size3);
+//    std::string name3 = "fdsjnfs";
+//    std::string data3 = "9834";
+//    unsigned short size3 = 8576;
+//    IRecordDataType * record3 = new RecordDataType<std::string>(name3, data3, size3);
 
     BTRecordFile *file = new BTRecordFile(nullptr);
 
@@ -55,6 +55,7 @@ int main()
     Disk *disk = new Disk(1,7);
 
     const char *test = file->getRegistryArray()[1].castRecordToBinary().c_str();
+    cout << "test: " << test << "\n";
     disk->write(0, test);
 
 //    disk->write(0,file->insertRecord(list1)->castRecordToBinary());

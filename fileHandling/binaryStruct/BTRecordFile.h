@@ -43,6 +43,8 @@ public:
     virtual bool defragFile();
 // -----------------------------------------------------------------------------
 
+    BTRecord *insertRecord();
+
     int getCounter() const;
     void setCounter(int counter);
     unsigned short getListFreeBlocks() const;
@@ -50,7 +52,7 @@ public:
     ~BTRecordFile();
 
     BTRecord *getRegistryArray() const;
-    void setRegistryArray(BTRecord *registryArray);
+    void setRegistryArray(BTRecord *pRegistryArray);
 
 private:
 
@@ -59,7 +61,7 @@ private:
      */
     BTRecordFileMetadata *_metadataPtr;
 
-    DLL<IRecord *> _recordListPtr;
+//    DLL<IRecord *> _recordListPtr;
 
     int _counter;       //llevará la cantidad de registros insertados
     BTRecord *_registryArray;
