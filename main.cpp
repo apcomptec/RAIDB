@@ -36,7 +36,7 @@ int main()
     DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>();//, *list2 = new DLL<IRecordDataType *>();
 
     list1->insertAtFront(record1);
-    //list2->insertAtFront(record2);
+//    list2->insertAtFront(record2);
 
 //    std::string name3 = "fdsjnfs";
 //    std::string data3 = "9834";
@@ -46,7 +46,7 @@ int main()
     BTRecordFile *file = new BTRecordFile(nullptr);
 
     file->insertRecord(list1);
-  //  file->insertRecord(list2);
+   // file->insertRecord(list2);
 
     file->printArrayRecord();
 
