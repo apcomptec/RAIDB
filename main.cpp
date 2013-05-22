@@ -57,19 +57,17 @@ int main()
     file->printArrayRecord();
 
     Disk *disk = new Disk(1, 7);
-    file->readRecordFromDiskTest(*disk, 1);
 
-//    const char *test = file->getRegistryArray()[1].castRecordToBinary().c_str();
+   // const char *test = file->getRegistryArray()[1].castRecordToBinary().c_str();
 
 //    const char *buffer = "12878789908";
 //    disk->write(0, buffer);
 //    cout << "\n\nLecura: " << disk->read(0, 4);
 
-//    disk->write(0,file->insertRecord(list1)->castRecordToBinary());
+    disk->write(0,file->insertRecord(list1)->castRecordToBinary().c_str());
+    file->readRecordFromDiskTest(*disk, 1);
 
-
-
-//    list->insertAtFront(record325);
+    //    list->insertAtFront(record325);
 //    record->setDataList(list1);
 
 //    record->printRecord();

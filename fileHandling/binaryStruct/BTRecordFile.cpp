@@ -241,13 +241,13 @@ BTRecord *BTRecordFile::insertRecord()
 }
 
 void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID ){
-    const char *padre = pDisk.read( 0, 15 );
-    const char *hizq = pDisk.read( 16, 31 );
-    const char *hder = pDisk.read( 32, 47 );
+    const char *padre = pDisk.read( 0, 7 );
+    const char *hizq = pDisk.read( 8, 15 );
+    const char *hder = pDisk.read( 16, 23 );
     std::string father(padre);       // obtiene el padre
     std::string HI(hizq);       // obtiene el hijo izq
     std::string HD(hder);       // obtiene el hijo der
-    unsigned short _sizeCounter = 48;       // inicio de la data
+    unsigned short _sizeCounter = 24;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStructPtr();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
     RecordDataType<std::string> *data;
@@ -259,9 +259,9 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     std::string PHD = conversion->binaryToDecimal(HD);
     cout << P << " " << PHI << " " << PHD << " ";
     while( tmp != nullptr ){
-        pDisk.read( _sizeCounter, (_sizeCounter +  (tmp->getData()->getSize() * 8)) - 1);
+        pDisk.read( _sizeCounter, (_sizeCounter +  (tmp->getData()->getSize()- 1) ));
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
-        _sizeCounter += (tmp->getData()->getSize() * 8);
+        _sizeCounter += (tmp->getData()->getSize() );
         cout << sortUserDataFromDisk( *data->getDataPtr(), conversion ) << " ";
         tmp = tmp->getNextPtr();
     }
