@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "BTRecordFileMetadata.h"
+#include "fileHandling/RecordDataType.h"
 
 // -----------------------------------------------------------------------------
 // DEFINICIÓN DE CONSTANTES
@@ -20,6 +21,7 @@ const char BTRecordFileMetadata::BOOL       = '5';
 // -----------------------------------------------------------------------------
 
 BTRecordFileMetadata::BTRecordFileMetadata()
+    : _recordStructPtr(new DLL<IRecordDataType*>())
 {
     constructMetadata();
 }
@@ -131,26 +133,37 @@ void BTRecordFileMetadata::constructMetadata()
     // CAMPOS DE REGISTRO
 
     char field;
+    unsigned short length;
+    std::string name;
+
+//    _recordStructPtr = new RecordDataType(_fileName,)
 
     do {
         std::cout << "Escriba los campos presentes en el registro "
-                  << "(0 para salir):\n"
-                  << "1. String\n"
-                  << "2. Char\n"
-                  << "3. Short\n"
-                  << "4. Int\n"
-                  << "5. Double\n"
-                  << "6. Bool\n"
-                  << "> ";
+        << "(0 para salir):\n"
+        << "1. String\n"
+        << "2. Char\n"
+        << "3. Short\n"
+        << "4. Int\n"
+        << "5. Double\n"
+        << "6. Bool\n"
+        << "> ";
 
         std::cin >> field;
 
+        std::cout << "\nDefina su tamaño (en B): ";
+
+        std::cin >> length;
+        RecordDataType<char> *data;
+
         switch (field) {
-//        case '0': // salir
-//            break;
-//        case '1': // String
-//            _recordStructPtr->insertAtBack(STRING);
-//            break;
+        case '0': // salir
+            break;
+        case '1': // String
+            name = "string";
+            data = new RecordDataType<char>(name, '1', length);
+            _recordStructPtr->insertAtBack(data);
+            break;
 //        case '2': // Char
 //            _recordStructPtr->insertAtBack(CHAR);
 //            break;
@@ -166,9 +179,9 @@ void BTRecordFileMetadata::constructMetadata()
 //        case '6': // Bool
 //            _recordStructPtr->insertAtBack(BOOL);
 //            break;
-//        default:
-//            std::cout << "\nNúmero incorrecto\n\n";
-//            break;
+        default:
+            std::cout << "\nNúmero incorrecto\n\n";
+            break;
         }
     } while (field != '0');
 }

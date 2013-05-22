@@ -43,9 +43,6 @@ void BTRecordFile::setDisk(Disk *pDisk)
     _disk = pDisk;
 }
 
-
-
-
 BTRecordFileMetadata *BTRecordFile::getMetadata() const
 {
     return _metadataPtr;
@@ -237,7 +234,10 @@ bool BTRecordFile::defragFile()
 
 BTRecord *BTRecordFile::insertRecord()
 {
-    printDataStructureByUser();
+    printDataStructureByUser(); // imprimir estructura del usuario
+
+    std::cout << "Escriba el dato: ";
+
 }
 
 void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID ){
