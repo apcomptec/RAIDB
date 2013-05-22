@@ -132,56 +132,68 @@ void BTRecordFileMetadata::constructMetadata()
 
     // CAMPOS DE REGISTRO
 
-    char field;
+    char field, data;
     unsigned short length;
     std::string name;
+    RecordDataType<char> *header;
+    bool flag = true;
 
 //    _recordStructPtr = new RecordDataType(_fileName,)
 
     do {
         std::cout << "Escriba los campos presentes en el registro "
-        << "(0 para salir):\n"
-        << "1. String\n"
-        << "2. Char\n"
-        << "3. Short\n"
-        << "4. Int\n"
-        << "5. Double\n"
-        << "6. Bool\n"
-        << "> ";
-
+                  << "(0 para salir):\n"
+                  << "1. String\n"
+                  << "2. Char\n"
+                  << "3. Short\n"
+                  << "4. Int\n"
+                  << "5. Double\n"
+                  << "6. Bool\n"
+                  << "> ";
         std::cin >> field;
 
-        std::cout << "\nDefina su tamaño (en B): ";
+        std::cout << "\nNombre del campo: ";
+        std::cin >> name;
 
+        std::cout << "\nDefina su tamaño (en B): ";
         std::cin >> length;
-        RecordDataType<char> *data;
 
         switch (field) {
         case '0': // salir
             break;
         case '1': // String
             name = "string";
-            data = new RecordDataType<char>(name, '1', length);
-            _recordStructPtr->insertAtBack(data);
+            data = STRING;
             break;
-//        case '2': // Char
-//            _recordStructPtr->insertAtBack(CHAR);
-//            break;
-//        case '3': // Short
-//            _recordStructPtr->insertAtBack(SHORT);
-//            break;
-//        case '4': // Int
-//            _recordStructPtr->insertAtBack(INT);
-//            break;
-//        case '5': // Double
-//            _recordStructPtr->insertAtBack(DOUBLE);
-//            break;
-//        case '6': // Bool
-//            _recordStructPtr->insertAtBack(BOOL);
-//            break;
+        case '2': // Char
+            name = "char";
+            data = CHAR;
+            break;
+        case '3': // Short
+            name = "short";
+            data = SHORT;
+            break;
+        case '4': // Int
+            name = "int";
+            data = INT;
+            break;
+        case '5': // Double
+            name = "double";
+            data = DOUBLE;
+            break;
+        case '6': // Bool
+            name = "bool";
+            data = BOOL;
+            break;
         default:
-            std::cout << "\nNúmero incorrecto\n\n";
-            break;
+            std::cout << "No existe el tipo especificado\n";
+            flag = false;
         }
+
+        if (flag) {
+            header = new RecordDataType<char>(name, data, length);
+            _recordStructPtr->insertAtBack(header);
+        }
+
     } while (field != '0');
 }
