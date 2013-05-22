@@ -9,6 +9,8 @@
 
 using namespace std;
 
+void sum(char pChar);
+
 int main()
 {
 //    Converter *c = new Converter();
@@ -47,13 +49,17 @@ int main()
 
     file->insertRecord(list1);
    // file->insertRecord(list2);
+    //  file->insertRecord(list2);
 
     file->printArrayRecord();
 
-    Disk *disk = new Disk(1,7);
+    Disk *disk = new Disk(1, 7);
 
-    const char *test = file->getRegistryArray()[1].castRecordToBinary().c_str();
-    disk->write(0, test);
+//    const char *test = file->getRegistryArray()[1].castRecordToBinary().c_str();
+
+    const char *buffer = "12878789908";
+    disk->write(0, buffer);
+    cout << "\n\nLecura: " << disk->read(0, 4);
 
 //    disk->write(0,file->insertRecord(list1)->castRecordToBinary());
 
@@ -69,5 +75,13 @@ int main()
 //    std::string b = "jujuj";
 //    std::string *r = &b;
 //    dll->insertAtBack(r);
-    return 0;
+
+// *****************************************************************************
+// PRUEBA PARA INSERTAR REGISTROS
+// *****************************************************************************
+
+//    BTRecordFile *_fileTest = new BTRecordFile();
+
+
+
 }

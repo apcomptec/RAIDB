@@ -25,7 +25,14 @@ class BTRecordFile: public IRecordFile
 public:
 
     /**
-     * @brief BTRecordFile Constructor
+     * @brief BTRecordFile sobrecarga del constructor. Se encarga de ir
+     * solicitando la información de metadatos
+     */
+    BTRecordFile();
+
+    /**
+     * @brief BTRecordFile sobrecarga de constructor
+     * @param pMetadata Lista con los metadatos proveidos por el usuario
      */
     BTRecordFile(BTRecordFileMetadata *pMetadata);
 
@@ -69,6 +76,12 @@ private:
     unsigned short _listFreeBlocks;
 
     void insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer);
+
+    /**
+     * @brief printDataStructureByUser imprime cómo está conformado el registro
+     * según los campos que ingresó el usuario
+     */
+    void printDataStructureByUser();
 
 
 };

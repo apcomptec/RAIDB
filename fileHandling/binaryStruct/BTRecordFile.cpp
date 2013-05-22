@@ -5,7 +5,14 @@
  * Reference:
  ******************************************************************************/
 
+#include <iomanip>
 #include "BTRecordFile.h"
+
+BTRecordFile::BTRecordFile()
+    : _metadataPtr(new BTRecordFileMetadata())
+{
+    _metadataPtr->getRecordStructPtr();
+}
 
 BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
     : _metadataPtr(pMetadata)
@@ -116,6 +123,42 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
             .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
 }
 
+void BTRecordFile::printDataStructureByUser()
+{
+    std::cout << "Los registros tienen la siguiente estructura: \n\n";
+
+    DLLNode<IRecordDataType *> *current =
+        _metadataPtr->getRecordStructPtr()->getHeadPtr();
+
+    char headerName;
+
+    do {
+        headerName = *current->getData()->getName().c_str();
+
+        if (headerName == BTRecordFileMetadata::STRING) {
+            std::cout << "string";
+        } else if (headerName == BTRecordFileMetadata::CHAR) {
+            std::cout << "char";
+        } else if (headerName == BTRecordFileMetadata::SHORT) {
+            std::cout << "short";
+        } else if (headerName == BTRecordFileMetadata::INT) {
+            std::cout << "int";
+        } else if (headerName == BTRecordFileMetadata::DOUBLE) {
+            std::cout << "double";
+        } else if (headerName == BTRecordFileMetadata::BOOL) {
+            std::cout << "bool";
+        } else {
+            std::cout << "El tipo de dato no es soportado";
+        }
+
+        //        current = current->getNextPtr();
+        current++;
+
+    } while (current != nullptr);
+
+    std::cout << "\n\n";
+}
+
 BTRecord *BTRecordFile::deleteRecord(unsigned short pDatoBorrado)
 {
     if (this->getListFreeBlocks() == 0) {// no bloques libres no hay ninguno borrado
@@ -194,29 +237,7 @@ bool BTRecordFile::defragFile()
 
 BTRecord *BTRecordFile::insertRecord()
 {
-    std::cout << "Los registros tienen la siguiente estructura: \n\n";
-
-    DLLNode<IRecordDataType *> *current = _metadataPtr->getRecordStructPtr()->getHeadPtr();
-    IRecordDataType *headerName;
-
-    do {
-        //        headerName = current->getData();
-        //        if (headerName == BTRecordFileMetadata::STRING) {
-        //            std::cout << "string";
-        //        } else if (headerName == BTRecordFileMetadata::CHAR) {
-        //            std::cout << "char";
-        //        } else if (headerName == BTRecordFileMetadata::SHORT) {
-        //            std::cout << "short";
-        //        } else if (headerName == BTRecordFileMetadata::INT) {
-        //            std::cout << "int";
-        //        } else if (headerName == BTRecordFileMetadata::DOUBLE) {
-        //            std::cout << "double";
-        //        }
-        //    } else if (headerName == BTRecordFileMetadata::BOOL) {
-        //        std::cout << "bool";
-        //    }
-    } while (current != nullptr);
-
+    printDataStructureByUser();
 }
 
 void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID ){
