@@ -15,6 +15,17 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
 
 }
 
+
+BTRecord *BTRecordFile::getRegistryArray() const
+{
+    return _registryArray;
+}
+
+void BTRecordFile::setRegistryArray(BTRecord *registryArray)
+{
+    _registryArray = registryArray;
+}
+
 BTRecordFileMetadata *BTRecordFile::getMetadata() const
 {
     return _metadataPtr;
@@ -54,12 +65,12 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
                 newRecord->setLeftChildPtr(0);      //// no tiene hijos
                 newRecord->setRightChildPtr(0);      //// no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                .setLeftChildPtr(_counter);
+                        .setLeftChildPtr(_counter);
             } else {
                 newRecord->setRightChildPtr(0);     //// no tiene hijos
                 newRecord->setLeftChildPtr(0);      //// no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                .setRightChildPtr(_counter);
+                        .setRightChildPtr(_counter);
             }
         }
         this->_counter++;   // aumenta la posición para insertar el siguiente dato
@@ -83,11 +94,11 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
 
     pNewRecord->setRightChildPtr(pHDer);
     (this->_registryArray[tmp])
-    .setRightChildPtr(pHDer);
+            .setRightChildPtr(pHDer);
 
     pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
     (this->_registryArray[tmp])
-    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+            .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
 }
 
 BTRecord *BTRecordFile::deleteRecord(unsigned short pDatoBorrado)
@@ -137,9 +148,9 @@ BTRecord *BTRecordFile::printArrayRecord() const
          << "LeftChild" << setw(15) << "RightChild" << endl;
     for (int i = 1; i < this->getCounter(); i++) {
         cout << setw(7) << i << setw(15) <<
-             _registryArray[i].getParentPtr() << setw(15) <<
-             _registryArray[i].getLeftChildPtr() << setw(15) <<
-             _registryArray[i].getRightChildPtr() << setw(15) << "\n";
+                _registryArray[i].getParentPtr() << setw(15) <<
+                _registryArray[i].getLeftChildPtr() << setw(15) <<
+                _registryArray[i].getRightChildPtr() << setw(15) << "\n";
     }
 }
 
@@ -151,18 +162,18 @@ int BTRecordFile::getCounter() const
 void BTRecordFile::setCounter(int counter)
 {
     _counter = counter;
-//    for ( int i = 0; i < _registryArray->getSize(); i++ ){
-//        ////NOTA hacer método para comparar OBJETOS
-//        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
-//            cout << "¡Registro encontrado!" << endl;
-//            cout << "¡Procediendo a borrar registro!" << endl;
+    //    for ( int i = 0; i < _registryArray->getSize(); i++ ){
+    //        ////NOTA hacer método para comparar OBJETOS
+    //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
+    //            cout << "¡Registro encontrado!" << endl;
+    //            cout << "¡Procediendo a borrar registro!" << endl;
 
 
 
-//            break;
-//        }
-//    }
-//    cout << "¡No existe registro!" << endl;
+    //            break;
+    //        }
+    //    }
+    //    cout << "¡No existe registro!" << endl;
 }
 
 unsigned short BTRecordFile::getListFreeBlocks() const

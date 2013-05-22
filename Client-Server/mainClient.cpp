@@ -25,23 +25,23 @@
 
 
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
-    Client c;
+//int main(int argc, char *argv[])
+//{
+//    QCoreApplication a(argc, argv);
+//    Client c;
 
 
-   // c.connectToServer("172.26.102.118", 1234);
-   // c.connectToServer("172.26.102.6", 1234);
-    c.ListAllconnection("172.26.102.219",1234);
-//    cout<<"puta"<<endl;
-    c.ListAllconnection("172.26.102.6",1234);
+//   // c.connectToServer("172.26.102.118", 1234);
+//   // c.connectToServer("172.26.102.6", 1234);
+//    c.ListAllconnection("172.26.102.219",1234);
+////    cout<<"puta"<<endl;
+//    c.ListAllconnection("172.26.102.6",1234);
 
 
-    c.ConnectToAllserver();
-      return a.exec();
+//    c.ConnectToAllserver();
+//      return a.exec();
 
-}
+//}
 
 //int main(){
 //    ListClient* p=new ListClient();

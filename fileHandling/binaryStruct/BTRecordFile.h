@@ -49,6 +49,9 @@ public:
     void setListFreeBlocks(unsigned short pListFreeBlocks);
     ~BTRecordFile();
 
+    BTRecord *getRegistryArray() const;
+    void setRegistryArray(BTRecord *registryArray);
+
 private:
 
     /**

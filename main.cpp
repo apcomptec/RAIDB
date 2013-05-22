@@ -48,7 +48,7 @@ int main()
     BTRecordFile *file = new BTRecordFile(nullptr);
 
     file->insertRecord(list1);
-    file->insertRecord(list2);
+    //file->insertRecord(list2);
 
     file->printArrayRecord();
 

@@ -29,6 +29,7 @@ void Disk::write(const unsigned short &pLine, const char *pBuffer)
     outfile.close();
 }
 
+// posicion donde empieza a leer, longitud del dato
 char Disk::read(const unsigned &pLine, const unsigned short &pLineLength)
 {
     std::ifstream ifs(_name, std::fstream::binary | std::fstream::in);
