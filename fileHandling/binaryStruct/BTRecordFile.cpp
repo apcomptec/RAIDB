@@ -162,18 +162,6 @@ int BTRecordFile::getCounter() const
 void BTRecordFile::setCounter(int counter)
 {
     _counter = counter;
-    //    for ( int i = 0; i < _registryArray->getSize(); i++ ){
-    //        ////NOTA hacer método para comparar OBJETOS
-    //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
-    //            cout << "¡Registro encontrado!" << endl;
-    //            cout << "¡Procediendo a borrar registro!" << endl;
-
-
-
-    //            break;
-    //        }
-    //    }
-    //    cout << "¡No existe registro!" << endl;
 }
 
 unsigned short BTRecordFile::getListFreeBlocks() const
