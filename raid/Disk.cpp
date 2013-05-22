@@ -20,31 +20,30 @@ unsigned int Disk::createFile()
     return _freeBlockList.removeFromFront()->getData();
 }
 
-void Disk::write(const unsigned short &pLine, const char *pBuffer)
+void Disk::write(const unsigned short &pPos, const char *pBuffer)
 {
     std::ofstream outfile;
     outfile.open(_name, std::fstream::binary | std::fstream::in);
-    outfile.seekp(pLine);
+    outfile.seekp(pPos);
     outfile.write(pBuffer, sizeOfChar(pBuffer));
     outfile.close();
 }
 
-// posicion donde empieza a leer, longitud del dato
-char Disk::read(const unsigned &pLine, const unsigned short &pLineLength)
+char *Disk::read(const unsigned &pPos, const unsigned short &pBufferLength)
 {
     std::ifstream ifs(_name, std::fstream::binary | std::fstream::in);
 
-    ifs.seekg(pLine, std::ios::beg);
+    ifs.seekg(pPos, std::ios::beg);
 
-    char buffer[pLineLength + 1];
-    ifs.read(buffer, pLineLength + 1);
+    char *buffer = new char(pBufferLength + 1);
+    ifs.read(buffer, pBufferLength + 1);
 
-    buffer[pLineLength + 1] = '\0';
+    buffer[pBufferLength + 1] = '\0';
 
     std::cout << buffer << std::endl;
 
     ifs.close();
-    return *buffer;
+    return buffer;
 }
 
 void Disk::createDisk()

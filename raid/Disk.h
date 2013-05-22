@@ -31,13 +31,20 @@ public:
          unsigned short pBlockSize = 512);
 
     /**
-     * @brief write
-     * @param pLine
+     * @brief write Ejecuta una lectura en disco
+     * @param pPos
      * @param pBuffer
      */
-    void write(const unsigned short &pLine, const char *pBuffer);
+    void write(const unsigned short &pPos, const char *pBuffer);
 
-    char read(const unsigned &pLine, const unsigned short &pLineLength);
+    /**
+     * @brief read Realiza una lectura en el disco
+     * @param pPos Posición donde se va a leer
+     * @param pBufferLength Tamaño del buffer de lectura
+     * @return Una cadena char que de pPos hasta pPos + pBufferLength (incluye
+     * los extremos)
+     */
+    char *read(const unsigned &pPos, const unsigned short &pBufferLength);
 
 private:
 
