@@ -89,7 +89,7 @@ std::string BTRecord::castRecordToBinary()
         std::string str( *data->getDataPtr() ); // Convert from std::string 2 Qstring
         QString qstrData(str.c_str()); // donde qstr es el QString
 
-        if ( !verificaValidezInt( qstrData ) ){ // cadena no de numeros
+        if ( !conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
             finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
         }
         else{   // son solo numeros
@@ -101,17 +101,17 @@ std::string BTRecord::castRecordToBinary()
     return finalBinaryRecord;
 }
 
-bool BTRecord::verificaValidezInt( QString pDato ){
-    bool charValido;
-    int validaIntroduceNumeros;
-    for(int i = 0; i < pDato.length() ; i++){
-        //validacion de que solo se introducen numeros(convierten qstring a int)
-        validaIntroduceNumeros = pDato.toInt(&charValido);
-        if(charValido == false){    //existe un caracter que no es número
-            return false;
-        }//fin del if interno
-        else{
-            return true;
-        }//fin if
-    }//fin del for
-}
+//bool BTRecord::verificaValidezInt( QString pDato ){
+//    bool charValido;
+//    int validaIntroduceNumeros;
+//    for(int i = 0; i < pDato.length() ; i++){
+//        //validacion de que solo se introducen numeros(convierten qstring a int)
+//        validaIntroduceNumeros = pDato.toInt(&charValido);
+//        if(charValido == false){    //existe un caracter que no es número
+//            return false;
+//        }//fin del if interno
+//        else{
+//            return true;
+//        }//fin if
+//    }//fin del for
+//}

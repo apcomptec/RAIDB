@@ -116,3 +116,19 @@ std::string Converter::completeBinary(std::string pBinary)
     cout << complete << endl;
     return complete;
 }
+
+
+bool Converter::verificaValidezInt( QString pDato ){
+    bool charValido;
+    int validaIntroduceNumeros;
+    for(int i = 0; i < pDato.length() ; i++){
+        //validacion de que solo se introducen numeros(convierten qstring a int)
+        validaIntroduceNumeros = pDato.toInt(&charValido);
+        if(charValido == false){    //existe un caracter que no es número
+            return false;
+        }//fin del if interno
+        else{
+            return true;
+        }//fin if
+    }//fin del for
+}

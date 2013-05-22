@@ -14,6 +14,8 @@
 #include <iostream>
 #include <iomanip>
 #include <QDebug>
+#include "raid/Disk.h"
+#include "util/Converter.h"
 
 using namespace std;
 
@@ -54,15 +56,14 @@ public:
     BTRecord *getRegistryArray() const;
     void setRegistryArray(BTRecord *pRegistryArray);
 
+    Disk *getDisk() const;
+    void setDisk( Disk *pDisk );
+    void readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID );
+    string sortUserDataFromDisk(std::string pData , Converter *pConversion);   //clasifica los datos en ints, strings, etc...
+
 private:
-
-    /**
-     * @brief _metadataPtr
-     */
     BTRecordFileMetadata *_metadataPtr;
-
-//    DLL<IRecord *> _recordListPtr;
-
+    Disk *_disk;
     int _counter;       //llevará la cantidad de registros insertados
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;

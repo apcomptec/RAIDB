@@ -2,6 +2,7 @@
 #define CONVERTER_H
 
 #include <string>
+#include <QString>
 
 using namespace std;
 
@@ -44,6 +45,8 @@ public:
     std::string binaryToDecimal(const std::string &pBinaryString);
 
     string completeBinary(std::string pBinary);
+
+    bool verificaValidezInt( QString pDato );
 
 private:
 
