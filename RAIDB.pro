@@ -35,7 +35,9 @@ SOURCES += \
     Client-Server/mainServer.cpp \
     dataStructure/n_aryrecordfile.cpp\
     raid/Disk.cpp \
-    util/Converter.cpp
+    util/Converter.cpp \
+    Client-Server/ClientNode.cpp \
+    Client-Server/ListClient.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -73,4 +75,6 @@ HEADERS += \
     dataStructure/n_aryrecordfile.h \
     raid/Disk.h \
     IParser.h \
-    util/Converter.h
+    util/Converter.h \
+    Client-Server/ClientNode.h \
+    Client-Server/ListClient.h

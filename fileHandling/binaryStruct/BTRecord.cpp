@@ -104,7 +104,7 @@ std::string BTRecord::castRecordToBinary()
 bool BTRecord::verificaValidezInt( QString pDato ){
     bool charValido;
     int validaIntroduceNumeros;
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < pDato.length() ; i++){
         //validacion de que solo se introducen numeros(convierten qstring a int)
         validaIntroduceNumeros = pDato.toInt(&charValido);
         if(charValido == false){    //existe un caracter que no es número
