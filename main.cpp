@@ -14,7 +14,7 @@ void sum(char pChar);
 int main()
 {
 //    Converter *c = new Converter();
-
+//nsodnanfapsofasnfos
 //    cout << "--------------------" << endl;
 //    c->binaryToDecimal("00111");
 //    cout << "--------------------" << endl;
