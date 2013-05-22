@@ -128,18 +128,6 @@ BTRecord *BTRecordFile::deleteRecord(unsigned short pDatoBorrado)
     }
 }
 
-//BTRecord *BTRecordFile::searchRecord( BTRecord *pRecordPtr ) const
-//{
-//    //    for ( int i = 1; i < _registryArray->getSize(); i++ ){
-//    //        ////NOTA hacer método para comparar OBJETOS
-//    //        if( pRecordPtr == _registryArray[i] ){    //encontró el registro
-//    //            cout << "¡Registro encontrado!" << endl;
-//    //            break;
-//    //        }
-//    //    }
-//    //    cout << "¡No existe registro!" << endl;
-//}
-
 BTRecord *BTRecordFile::printArrayRecord() const
 {
     // TODO pasar esta función para que ejecute a un solo registro y luego

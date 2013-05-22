@@ -32,12 +32,11 @@ int main()
 //    std::string data2 = "576";
 //    unsigned short size2 = 8;
 //    IRecordDataType * record2 = new RecordDataType<std::string>(name2, data2, size2);
-//    BTRecord * record = new BTRecord();
 
-    DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(); //, *list2 = new DLL<IRecordDataType *>();
+    DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>();//, *list2 = new DLL<IRecordDataType *>();
 
     list1->insertAtFront(record1);
-//    list1->insertAtFront(record2);
+    //list2->insertAtFront(record2);
 
 //    std::string name3 = "fdsjnfs";
 //    std::string data3 = "9834";
@@ -47,7 +46,7 @@ int main()
     BTRecordFile *file = new BTRecordFile(nullptr);
 
     file->insertRecord(list1);
-    //file->insertRecord(list2);
+  //  file->insertRecord(list2);
 
     file->printArrayRecord();
 
