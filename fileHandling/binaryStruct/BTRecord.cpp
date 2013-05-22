@@ -61,7 +61,7 @@ void BTRecord::printRecord() const
     cout <<  "Parent" << setw(15) << "LeftChild" << setw(15) << "RightChild" << endl;
     cout << setw(3) << _parentPtr << setw(15) << _leftChildPtr << setw(15) <<
              _rightChildPtr << setw(15);
-    DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
+    DLLNode<IRecordDataType*> *tmp = this->_dataListPtr->getHeadPtr();
     RecordDataType<std::string> *data;
     while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
