@@ -9,7 +9,6 @@
 #define BTRECORDFILEMETADATA_H
 
 #include "fileHandling/IMetadata.h"
-#include "fileHandling/IRecordDataType.h"
 
 class BTRecordFileMetadata: public IMetadata
 {
@@ -45,7 +44,7 @@ public:
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IMETADATA
 // -----------------------------------------------------------------------------
-    virtual DLL<char> *getRecordStructPtr() const;
+    virtual DLL<IRecordDataType *> *getRecordStructPtr() const;
     virtual std::string getFileName() const;
     virtual void setFileName(std::string &pFileName);
     virtual unsigned short getFileSize() const;
@@ -66,7 +65,7 @@ public:
 
 private:
 
-    DLL<char> *_recordStructPtr;
+    DLL<IRecordDataType *> *_recordStructPtr;
     std::string _fileName;
     std::string _owner;
     unsigned short _fileSize;
