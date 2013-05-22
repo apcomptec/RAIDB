@@ -24,7 +24,7 @@ BTRecordFileMetadata::BTRecordFileMetadata()
     constructMetadata();
 }
 
-BTRecordFileMetadata::BTRecordFileMetadata(DLL<char> *pRecordStructPtr,
+BTRecordFileMetadata::BTRecordFileMetadata(DLL<IRecordDataType *> *pRecordStructPtr,
         const std::string &pFileName, const std::string &pOwner)
     : _recordStructPtr(pRecordStructPtr),
       _fileName(pFileName),
@@ -146,29 +146,29 @@ void BTRecordFileMetadata::constructMetadata()
         std::cin >> field;
 
         switch (field) {
-        case '0': // salir
-            break;
-        case '1': // String
-            _recordStructPtr->insertAtBack(STRING);
-            break;
-        case '2': // Char
-            _recordStructPtr->insertAtBack(CHAR);
-            break;
-        case '3': // Short
-            _recordStructPtr->insertAtBack(SHORT);
-            break;
-        case '4': // Int
-            _recordStructPtr->insertAtBack(INT);
-            break;
-        case '5': // Double
-            _recordStructPtr->insertAtBack(DOUBLE);
-            break;
-        case '6': // Bool
-            _recordStructPtr->insertAtBack(BOOL);
-            break;
-        default:
-            std::cout << "\nNúmero incorrecto\n\n";
-            break;
+//        case '0': // salir
+//            break;
+//        case '1': // String
+//            _recordStructPtr->insertAtBack(STRING);
+//            break;
+//        case '2': // Char
+//            _recordStructPtr->insertAtBack(CHAR);
+//            break;
+//        case '3': // Short
+//            _recordStructPtr->insertAtBack(SHORT);
+//            break;
+//        case '4': // Int
+//            _recordStructPtr->insertAtBack(INT);
+//            break;
+//        case '5': // Double
+//            _recordStructPtr->insertAtBack(DOUBLE);
+//            break;
+//        case '6': // Bool
+//            _recordStructPtr->insertAtBack(BOOL);
+//            break;
+//        default:
+//            std::cout << "\nNúmero incorrecto\n\n";
+//            break;
         }
     } while (field != '0');
 }

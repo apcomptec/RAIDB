@@ -26,7 +26,7 @@ public:
      * @param pFileName
      * @param pOwner
      */
-    BTRecordFileMetadata(DLL<char> *pRecordStructPtr,
+    BTRecordFileMetadata(DLL<IRecordDataType *> *pRecordStructPtr,
                          const std::string &pFileName,
                          const std::string &pOwner);
 

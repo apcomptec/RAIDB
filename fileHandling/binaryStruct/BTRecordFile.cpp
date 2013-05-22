@@ -188,21 +188,21 @@ BTRecord *BTRecordFile::insertRecord()
     IRecordDataType *headerName;
 
     do {
-        headerName = current->getData();
-        if (headerName == BTRecordFileMetadata::STRING) {
-            std::cout << "string";
-        } else if (headerName == BTRecordFileMetadata::CHAR) {
-            std::cout << "char";
-        } else if (headerName == BTRecordFileMetadata::SHORT) {
-            std::cout << "short";
-        } else if (headerName == BTRecordFileMetadata::INT) {
-            std::cout << "int";
-        } else if (headerName == BTRecordFileMetadata::DOUBLE) {
-            std::cout << "double";
-        }
-    } else if (headerName == BTRecordFileMetadata::BOOL) {
-        std::cout << "bool";
-    }
+//        headerName = current->getData();
+//        if (headerName == BTRecordFileMetadata::STRING) {
+//            std::cout << "string";
+//        } else if (headerName == BTRecordFileMetadata::CHAR) {
+//            std::cout << "char";
+//        } else if (headerName == BTRecordFileMetadata::SHORT) {
+//            std::cout << "short";
+//        } else if (headerName == BTRecordFileMetadata::INT) {
+//            std::cout << "int";
+//        } else if (headerName == BTRecordFileMetadata::DOUBLE) {
+//            std::cout << "double";
+//        }
+//    } else if (headerName == BTRecordFileMetadata::BOOL) {
+//        std::cout << "bool";
+//    }
 } while (current != nullptr);
 
 }
