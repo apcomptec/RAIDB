@@ -24,25 +24,48 @@ int main()
 //    cout << "--------------------" << endl;
 
     std::string name = "JUJU";
-    std::string data = "2";
+    std::string data = "H";
     unsigned short size = 3;
-    IRecordDataType * record324 = new RecordDataType<std::string>(name, data, size);
+    IRecordDataType * record1 = new RecordDataType<std::string>(name, data, size);
 
-//    std::string name2 = "fueeeee";
-//    std::string data2 = "576";
-//    unsigned short size2 = 8;
-//    IRecordDataType * record325 = new RecordDataType<std::string>(name2, data2, size2);
+    std::string name2 = "fueeeee";
+    std::string data2 = "576";
+    unsigned short size2 = 8;
+    IRecordDataType * record2 = new RecordDataType<std::string>(name2, data2, size2);
 
     BTRecord * record = new BTRecord();
 
-    DLL<IRecordDataType * > *list = new DLL<IRecordDataType *>();
-    list->insertAtFront(record324);
-   // list->insertAtFront(record325);
-//    list->insertAtFront(record325);
-    record->setDataList(list);
+    DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(), *list2 = new DLL<IRecordDataType *>();
 
-    record->printRecord();
-    record->castRecordToBinary();
+    list1->insertAtFront(record1);
+    list1->insertAtFront(record2);
+
+    std::string name3 = "fdsjnfs";
+    std::string data3 = "9834";
+    unsigned short size3 = 8576;
+    IRecordDataType * record3 = new RecordDataType<std::string>(name3, data3, size3);
+
+    BTRecordFile *file = new BTRecordFile(nullptr);
+
+    file->insertRecord(list1);
+    file->insertRecord(list2);
+
+    file->printArrayRecord();
+
+    Disk *disk = new Disk(1,7);
+
+    const char *test = file->getRegistryArray()[1].castRecordToBinary().c_str();
+    disk->write(0, test);
+
+//    disk->write(0,file->insertRecord(list1)->castRecordToBinary());
+
+
+
+//    list->insertAtFront(record325);
+//    record->setDataList(list1);
+
+//    record->printRecord();
+//    record->castRecordToBinary();
 //    DLL<std::string * > *dll = new DLL<std::string* >();
 
 //    std::string b = "jujuj";
