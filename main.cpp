@@ -30,6 +30,9 @@ int main()
     unsigned short size = 3;
     IRecordDataType * record1 = new RecordDataType<std::string>(name, data, size);
 
+    BTRecordFileMetadata *p = new BTRecordFileMetadata();
+
+
 //    std::string name2 = "fueeeee";
 //    std::string data2 = "576";
 //    unsigned short size2 = 8;
@@ -45,7 +48,7 @@ int main()
 //    unsigned short size3 = 8576;
 //    IRecordDataType * record3 = new RecordDataType<std::string>(name3, data3, size3);
 
-    BTRecordFile *file = new BTRecordFile(nullptr);
+    BTRecordFile *file = new BTRecordFile(p);
 
     file->insertRecord(list1);
    // file->insertRecord(list2);
@@ -54,12 +57,13 @@ int main()
     file->printArrayRecord();
 
     Disk *disk = new Disk(1, 7);
+    file->readRecordFromDiskTest(*disk, 1);
 
 //    const char *test = file->getRegistryArray()[1].castRecordToBinary().c_str();
 
-    const char *buffer = "12878789908";
-    disk->write(0, buffer);
-    cout << "\n\nLecura: " << disk->read(0, 4);
+//    const char *buffer = "12878789908";
+//    disk->write(0, buffer);
+//    cout << "\n\nLecura: " << disk->read(0, 4);
 
 //    disk->write(0,file->insertRecord(list1)->castRecordToBinary());
 

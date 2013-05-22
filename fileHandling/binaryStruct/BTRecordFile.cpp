@@ -241,20 +241,22 @@ BTRecord *BTRecordFile::insertRecord()
 }
 
 void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID ){
-    std::string prueba = "s";
-    char padre = pDisk.read( 0, 15 );       // obtiene el padre
-    char hizq = pDisk.read( 16, 31 );       // obtiene el hijo izq
-    char hder = pDisk.read( 32, 47 );       // obtiene el hijo der
+    const char *padre = pDisk.read( 0, 15 );
+    const char *hizq = pDisk.read( 16, 31 );
+    const char *hder = pDisk.read( 32, 47 );
+    std::string father(padre);       // obtiene el padre
+    std::string HI(hizq);       // obtiene el hijo izq
+    std::string HD(hder);       // obtiene el hijo der
     unsigned short _sizeCounter = 48;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStructPtr();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
     RecordDataType<std::string> *data;
 
-    cout << "Binario " << padre << " " << hizq << " " << hder << endl;
+    cout << "Binario " << father << " " << HI << " " << HD << endl;
     Converter *conversion = new Converter();
-    std::string P = conversion->binaryToDecimal(prueba);
-    std::string PHI = conversion->binaryToDecimal(prueba);
-    std::string PHD = conversion->binaryToDecimal(prueba);
+    std::string P = conversion->binaryToDecimal(father);
+    std::string PHI = conversion->binaryToDecimal(HI);
+    std::string PHD = conversion->binaryToDecimal(HD);
     cout << P << " " << PHI << " " << PHD << " ";
     while( tmp != nullptr ){
         pDisk.read( _sizeCounter, (_sizeCounter +  (tmp->getData()->getSize() * 8)) - 1);
