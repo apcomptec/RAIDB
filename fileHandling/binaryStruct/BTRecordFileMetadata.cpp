@@ -138,20 +138,18 @@ void BTRecordFileMetadata::constructMetadata()
     RecordDataType<char> *header;
     bool flag = true;
 
-//    _recordStructPtr = new RecordDataType(_fileName,)
+    std::cout << "Escriba los campos presentes en el registro "
+              << "(0 para salir):\n"
+              << "1. String\n"
+              << "2. Char\n"
+              << "3. Short\n"
+              << "4. Int\n"
+              << "5. Double\n"
+              << "6. Bool\n"
+              << "> ";
+    std::cin >> field;
 
-    do {
-        std::cout << "Escriba los campos presentes en el registro "
-                  << "(0 para salir):\n"
-                  << "1. String\n"
-                  << "2. Char\n"
-                  << "3. Short\n"
-                  << "4. Int\n"
-                  << "5. Double\n"
-                  << "6. Bool\n"
-                  << "> ";
-        std::cin >> field;
-
+    while (field != '0') {
         std::cout << "\nNombre del campo: ";
         std::cin >> name;
 
@@ -195,5 +193,15 @@ void BTRecordFileMetadata::constructMetadata()
             _recordStructPtr->insertAtBack(header);
         }
 
-    } while (field != '0');
+        std::cout << "Escriba los campos presentes en el registro "
+                  << "(0 para salir):\n"
+                  << "1. String\n"
+                  << "2. Char\n"
+                  << "3. Short\n"
+                  << "4. Int\n"
+                  << "5. Double\n"
+                  << "6. Bool\n"
+                  << "> ";
+        std::cin >> field;
+    }
 }
