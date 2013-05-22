@@ -9,6 +9,7 @@
 #define IMETADATA_H
 
 #include "dataStructure/DLL.h"
+#include "fileHandling/IRecordDataType.h"
 
 class IMetadata
 {
@@ -18,7 +19,7 @@ public:
      * @brief getRecordStruct
      * @return
      */
-    virtual DLL<char> *getRecordStructPtr() const = 0;
+    virtual DLL<IRecordDataType *> *getRecordStructPtr() const = 0;
 
     /**
      * @brief getFileName

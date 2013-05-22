@@ -1,6 +1,6 @@
 /*******************************************************************************
  * File: BTRecordFile.cpp
- * Author: Brallan Aguilar
+ * Author: Brallan Aguilar y Daniel Araya
  * Description: TODO
  * Reference:
  ******************************************************************************/
@@ -8,6 +8,7 @@
 #include "BTRecordFile.h"
 
 BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
+    : _metadataPtr(pMetadata)
 {
     this->_registryArray = new BTRecord[100];
     this->_counter = 1;
@@ -21,9 +22,9 @@ BTRecord *BTRecordFile::getRegistryArray() const
     return _registryArray;
 }
 
-void BTRecordFile::setRegistryArray(BTRecord *registryArray)
+void BTRecordFile::setRegistryArray(BTRecord *pRegistryArray)
 {
-    _registryArray = registryArray;
+    _registryArray = pRegistryArray;
 }
 
 BTRecordFileMetadata *BTRecordFile::getMetadata() const
@@ -65,13 +66,15 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
                 newRecord->setLeftChildPtr(0);      //// no tiene hijos
                 newRecord->setRightChildPtr(0);      //// no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                        .setLeftChildPtr(_counter);
+                .setLeftChildPtr(_counter);
             } else {
                 newRecord->setRightChildPtr(0);     //// no tiene hijos
                 newRecord->setLeftChildPtr(0);      //// no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                        .setRightChildPtr(_counter);
+                .setRightChildPtr(_counter);
             }
+
+
         }
         this->_counter++;   // aumenta la posición para insertar el siguiente dato
     } else {
@@ -94,11 +97,11 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
 
     pNewRecord->setRightChildPtr(pHDer);
     (this->_registryArray[tmp])
-            .setRightChildPtr(pHDer);
+    .setRightChildPtr(pHDer);
 
     pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
     (this->_registryArray[tmp])
-            .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
 }
 
 BTRecord *BTRecordFile::deleteRecord(unsigned short pDatoBorrado)
@@ -136,9 +139,9 @@ BTRecord *BTRecordFile::printArrayRecord() const
          << "LeftChild" << setw(15) << "RightChild" << endl;
     for (int i = 1; i < this->getCounter(); i++) {
         cout << setw(7) << i << setw(15) <<
-                _registryArray[i].getParentPtr() << setw(15) <<
-                _registryArray[i].getLeftChildPtr() << setw(15) <<
-                _registryArray[i].getRightChildPtr() << setw(15) << "\n";
+             _registryArray[i].getParentPtr() << setw(15) <<
+             _registryArray[i].getLeftChildPtr() << setw(15) <<
+             _registryArray[i].getRightChildPtr() << setw(15) << "\n";
     }
 }
 
@@ -175,4 +178,31 @@ unsigned short BTRecordFile::showFragmentation() const
 bool BTRecordFile::defragFile()
 {
     return false; // TODO
+}
+
+BTRecord *BTRecordFile::insertRecord()
+{
+    std::cout << "Los registros tienen la siguiente estructura: \n\n";
+
+    DLLNode<IRecordDataType *> *current = _metadataPtr->getRecordStructPtr()->getHeadPtr();
+    IRecordDataType *headerName;
+
+    do {
+        headerName = current->getData();
+        if (headerName == BTRecordFileMetadata::STRING) {
+            std::cout << "string";
+        } else if (headerName == BTRecordFileMetadata::CHAR) {
+            std::cout << "char";
+        } else if (headerName == BTRecordFileMetadata::SHORT) {
+            std::cout << "short";
+        } else if (headerName == BTRecordFileMetadata::INT) {
+            std::cout << "int";
+        } else if (headerName == BTRecordFileMetadata::DOUBLE) {
+            std::cout << "double";
+        }
+    } else if (headerName == BTRecordFileMetadata::BOOL) {
+        std::cout << "bool";
+    }
+} while (current != nullptr);
+
 }

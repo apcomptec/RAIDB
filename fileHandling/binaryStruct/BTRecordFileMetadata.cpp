@@ -33,7 +33,7 @@ BTRecordFileMetadata::BTRecordFileMetadata(DLL<char> *pRecordStructPtr,
     // vacío
 }
 
-DLL<char> *BTRecordFileMetadata::getRecordStructPtr() const
+DLL<IRecordDataType *> *BTRecordFileMetadata::getRecordStructPtr() const
 {
     return _recordStructPtr;
 }
@@ -133,8 +133,8 @@ void BTRecordFileMetadata::constructMetadata()
     char field;
 
     do {
-        std::cout << "Escriba los campos presentes en el registro"
-                  << " (0 para salir):\n"
+        std::cout << "Escriba los campos presentes en el registro "
+                  << "(0 para salir):\n"
                   << "1. String\n"
                   << "2. Char\n"
                   << "3. Short\n"
