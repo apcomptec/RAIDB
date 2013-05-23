@@ -21,6 +21,11 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
     this->_listFreeBlocks = 0; // lista de bloques libres está vacía
 }
 
+/**
+ * @brief BTRecordFile::getRegistryArray
+ * @return _registryArray
+ * Obtiene el arreglo de los los registros insertados en RAM
+ */
 BTRecord *BTRecordFile::getRegistryArray() const
 {
     return _registryArray;
@@ -63,6 +68,12 @@ void BTRecordFile::setRecordList(DLL<IRecord *> *)
     // No es necesario establecer una lista de datos
 }
 
+/**
+ * @brief BTRecordFile::insertRecord
+ * @param pListPtr
+ * @return newRecord, nuevo registro insertado
+ * Función para insertar registros en la RAM
+ */
 BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
 {
     unsigned short hDer = this->_registryArray[3].getRightChildPtr();
@@ -100,6 +111,12 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     return newRecord;
 }
 
+/**
+ * @brief BTRecordFile::insertRecordAUX
+ * @param pNewRecord
+ * @param pHDer
+ * Función auxiliar que inserta registros en los espacios que han sido borrados
+ */
 void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
 {
     cout << "--------------------------" << endl;
@@ -121,6 +138,10 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
     .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
 }
 
+/**
+ * @brief printDataStructureByUser imprime cómo está conformado el registro
+ * según los campos que ingresó el usuario
+ */
 void BTRecordFile::printDataStructureByUser()
 {
     std::cout << "Los registros tienen la siguiente estructura: \n\n";
@@ -157,6 +178,13 @@ void BTRecordFile::printDataStructureByUser()
     std::cout << "\n\n";
 }
 
+/**
+ * @brief BTRecordFile::deleteRecord
+ * @param pDatoBorrado
+ * @return
+ * hace un borrado de un registro y "crea" una lista de espacios vacíos para ser
+ * ocupados después por otros nuevos registros
+ */
 BTRecord *BTRecordFile::deleteRecord(unsigned short pDatoBorrado)
 {
     if (this->getListFreeBlocks() == 0) {// no bloques libres no hay ninguno borrado
@@ -184,7 +212,12 @@ BTRecord *BTRecordFile::deleteRecord(unsigned short pDatoBorrado)
     }
 }
 
-BTRecord *BTRecordFile::printArrayRecord() const
+/**
+ * @brief BTRecordFile::printArrayRecord
+ * @return
+ * Imprime la constitución de los registros(padre,hijos)
+ */
+void BTRecordFile::printArrayRecord() const
 {
     // TODO pasar esta función para que ejecute a un solo registro y luego
     // aquí iterar sobre el arreglo
@@ -249,14 +282,20 @@ BTRecord *BTRecordFile::insertRecord()
     }
 }
 
+/**
+ * @brief BTRecordFile::readRecordFromDiskTest
+ * @param pDisk
+ * @param pRecordID
+ * Hace la lectura de un registro en la RAM
+ */
 void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
 {
-    const char *padre = pDisk.read(0, 7);
-    const char *hizq = pDisk.read(8, 7);
-    const char *hder = pDisk.read(16, 7);
-    std::string father(padre);       // obtiene el padre
-    std::string HI(hizq);       // obtiene el hijo izq
-    std::string HD(hder);       // obtiene el hijo der
+    const char *padre = pDisk.read( 0, 7 );
+    const char *hizq = pDisk.read( 8, 7 );
+    const char *hder = pDisk.read( 16, 7 );
+    std::string father(padre);          // obtiene el padre
+    std::string HI(hizq);               // obtiene el hijo izq
+    std::string HD(hder);               // obtiene el hijo der
     unsigned short _sizeCounter = 24;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
@@ -278,6 +317,15 @@ void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
     }
 }
 
+/**
+ * @brief BTRecordFile::sortUserDataFromDisk
+ * @param pData
+ * @param pConversion
+ * @param pTipo
+ * @return std::string finalBinaryRecord
+ * Clasifica los tipos de datos para poder ser leídos desde disco y casteados
+ * de buena manera
+ */
 std::string BTRecordFile::sortUserDataFromDisk(std::string pData,
         Converter *pConversion, char pTipo)
 {

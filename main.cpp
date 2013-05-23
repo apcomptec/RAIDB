@@ -36,8 +36,9 @@ int main()
     Disk *disk = new Disk(1, 7);
     const char *test1 = file->getRegistryArray()[1].castRecordToBinary().c_str();
     const char *test2 = file->getRegistryArray()[2].castRecordToBinary().c_str();
-    disk->write(0, test1);
+    disk->write(0, test1);  // Escritura de registro
     disk->write(0, test2);
+    file->readRecordFromDiskTest(*disk, 1); // Lectura de registro
 
 // *****************************************************************************
 // PRUEBA PARA INSERTAR y BORRAR REGISTROS

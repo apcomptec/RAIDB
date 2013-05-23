@@ -78,7 +78,6 @@ void BTRecord::printRecord() const
 std::string BTRecord::castRecordToBinary()
 {
     std::string finalBinaryRecord;  // concatenacion del registro
-    cout << "PADRE " << _parentPtr << endl;
     Converter *conversion = new Converter();
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _parentPtr ) );
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _leftChildPtr ) );
