@@ -109,6 +109,37 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
 }
 
 /**
+ * @brief BTRecordFile::insertRecordAUX
+ * @param pNewRecord
+ * @param pHDer
+ * Función auxiliar que inserta registros en los espacios que han sido borrados
+ */
+void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
+{
+    cout << "--------------------------" << endl;
+    cout << "ListFreeBlocks Antes " << this->getListFreeBlocks() << endl;
+    unsigned short tmp = this->getListFreeBlocks();
+    this->setListFreeBlocks(this->_registryArray[tmp].getLeftChildPtr());
+    cout << "ListFreeBlocks Después " << this->getListFreeBlocks() << endl;
+    cout << "--------------------------" << endl;
+    this->_registryArray[tmp] = *pNewRecord;
+    pNewRecord->setParentPtr(tmp / 2);      // setea el padre
+    (this->_registryArray[tmp]).setParentPtr(tmp / 2);
+
+    pNewRecord->setRightChildPtr(pHDer);
+    (this->_registryArray[tmp])
+    .setRightChildPtr(pHDer);
+
+    pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+    (this->_registryArray[tmp])
+    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+}
+
+
+//------------------------------------------------------------------------------
+//   INSERCION DE DATOS EN DISCO
+//------------------------------------------------------------------------------
+/**
  * @brief BTRecordFile::insertRecord2Disk
  * @param pListPtr
  * Función que se encargará de insertar los registros al disco
@@ -120,7 +151,7 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     Converter *conversion = new Converter();
     if( this->_disk == NULL ){
-        dataBinaryRecord  = "00000000"; // No tiene ni padre ni hijos
+        dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
     }
     else{ // se insertan otros registros después de haber uno
         unsigned short fatherPosition = posicionPrimerRegistro +
@@ -131,10 +162,9 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
         unsigned short padre = cantRegistros / 2;
         std::string parent = conversion->decimalToBinary( std::to_string(padre) );
         dataBinaryRecord += ( parent + leftChild + rightChild );
-
     }
-
-    const char* test1 = "Hello";
+    dataBinaryRecord += getUserRecordData( pListPtr );
+    const char* test1 = dataBinaryRecord.c_str();
     this->_disk->write( 0, test1 );
 }
 
@@ -184,32 +214,9 @@ void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
     }
 }
 
-/**
- * @brief BTRecordFile::insertRecordAUX
- * @param pNewRecord
- * @param pHDer
- * Función auxiliar que inserta registros en los espacios que han sido borrados
- */
-void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
-{
-    cout << "--------------------------" << endl;
-    cout << "ListFreeBlocks Antes " << this->getListFreeBlocks() << endl;
-    unsigned short tmp = this->getListFreeBlocks();
-    this->setListFreeBlocks(this->_registryArray[tmp].getLeftChildPtr());
-    cout << "ListFreeBlocks Después " << this->getListFreeBlocks() << endl;
-    cout << "--------------------------" << endl;
-    this->_registryArray[tmp] = *pNewRecord;
-    pNewRecord->setParentPtr(tmp / 2);      // setea el padre
-    (this->_registryArray[tmp]).setParentPtr(tmp / 2);
-
-    pNewRecord->setRightChildPtr(pHDer);
-    (this->_registryArray[tmp])
-    .setRightChildPtr(pHDer);
-
-    pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
-    (this->_registryArray[tmp])
-    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
-}
+//------------------------------------------------------------------------------
+//   FIN INSERCION DE DATOS EN DISCO
+//------------------------------------------------------------------------------
 
 /**
  * @brief printDataStructureByUser imprime cómo está conformado el registro
