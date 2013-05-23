@@ -9,9 +9,8 @@
 #include "BTRecordFile.h"
 
 BTRecordFile::BTRecordFile()
-    : _metadataPtr(new BTRecordFileMetadata())
 {
-    _metadataPtr->getRecordStructPtr();
+    mainMenu();
 }
 
 BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
@@ -21,7 +20,6 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
     this->_counter = 1;
     this->_listFreeBlocks = 0; // lista de bloques libres está vacía
 }
-
 
 BTRecord *BTRecordFile::getRegistryArray() const
 {
@@ -82,17 +80,17 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
                 newRecord->setLeftChildPtr(0);      //// no tiene hijos
                 newRecord->setRightChildPtr(0);      //// no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                        .setLeftChildPtr(_counter);
+                .setLeftChildPtr(_counter);
             } else {
                 newRecord->setRightChildPtr(0);     //// no tiene hijos
                 newRecord->setLeftChildPtr(0);      //// no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                        .setRightChildPtr(_counter);
+                .setRightChildPtr(_counter);
             }
         }
         cout << "El padre es: " << newRecord->getParentPtr() << endl;
         cout << "El padre1 es: " << (this->_registryArray[_counter]).getParentPtr() << endl;
-        cout << "El contador es: " << _counter/2 << endl;
+        cout << "El contador es: " << _counter / 2 << endl;
         this->_counter++;   // aumenta la posición para insertar el siguiente dato
     } else {
         insertRecordAUX(newRecord, hDer);
@@ -114,11 +112,11 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
 
     pNewRecord->setRightChildPtr(pHDer);
     (this->_registryArray[tmp])
-            .setRightChildPtr(pHDer);
+    .setRightChildPtr(pHDer);
 
     pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
     (this->_registryArray[tmp])
-            .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
 }
 
 void BTRecordFile::printDataStructureByUser()
@@ -192,9 +190,9 @@ BTRecord *BTRecordFile::printArrayRecord() const
          << "LeftChild" << setw(15) << "RightChild" << endl;
     for (int i = 1; i < this->getCounter(); i++) {
         cout << setw(7) << i << setw(15) <<
-                this->_registryArray[i].getParentPtr() << setw(15) <<
-                this->_registryArray[i].getLeftChildPtr() << setw(15) <<
-                this->_registryArray[i].getRightChildPtr() << setw(15) << "\n";
+             _registryArray[i].getParentPtr() << setw(15) <<
+             _registryArray[i].getLeftChildPtr() << setw(15) <<
+             _registryArray[i].getRightChildPtr() << setw(15) << "\n";
     }
 }
 
@@ -237,14 +235,23 @@ BTRecord *BTRecordFile::insertRecord()
 {
     printDataStructureByUser(); // imprimir estructura del usuario
 
-    std::cout << "Escriba el dato: ";
+    DLL<IRecordDataType*> *dataListByUser = new DLL<IRecordDataType*>();
+    RecordDataType<std::string> *data;
+    DLLNode<IRecordDataType *> *current =
+        _metadataPtr->getRecordStructPtr()->getHeadPtr();
 
+    while (current != nullptr) {
+        std::cout << "Escriba el dato: ";
+//        dataListByUser->insertAtBack(*data);
+
+    }
 }
 
-void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID ){
-    const char *padre = pDisk.read( 0, 7 );
-    const char *hizq = pDisk.read( 8, 7 );
-    const char *hder = pDisk.read( 16, 7 );
+void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
+{
+    const char *padre = pDisk.read(0, 7);
+    const char *hizq = pDisk.read(8, 7);
+    const char *hder = pDisk.read(16, 7);
     std::string father(padre);       // obtiene el padre
     std::string HI(hizq);       // obtiene el hijo izq
     std::string HD(hder);       // obtiene el hijo der
@@ -259,26 +266,57 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     std::string PHI = conversion->binaryToDecimal(HI);
     std::string PHD = conversion->binaryToDecimal(HD);
     cout << P << " " << PHI << " " << PHD << " ";
-    while( tmp != nullptr ){
+    while (tmp != nullptr) {
         data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
-        const char *DATO = pDisk.read( _sizeCounter, 7 );
+        const char *DATO = pDisk.read(_sizeCounter, 7);
         std::string DATOSTR(DATO);       // obtiene el padre
         _sizeCounter += 8;
-        cout << sortUserDataFromDisk( DATOSTR, conversion, *data ) << endl;
+        cout << sortUserDataFromDisk(DATOSTR, conversion, *data) << endl;
         tmp = tmp->getNextPtr();
     }
 }
 
-std::string BTRecordFile::sortUserDataFromDisk( std::string pData,
-                                                Converter *pConversion, char pTipo)
+std::string BTRecordFile::sortUserDataFromDisk(std::string pData,
+        Converter *pConversion, char pTipo)
 {
     std::string finalBinaryRecord;
-    if ( pTipo == '0' || pTipo == '1' ){ // cadena no de numeros
-        finalBinaryRecord = pConversion->binaryToString( pData );
+
+    if (pTipo == BTRecordFileMetadata::STRING ||
+        pTipo == BTRecordFileMetadata::CHAR) { // cadena no de numeros
+        finalBinaryRecord = pConversion->binaryToString(pData);
+    } else { // son solo numeros
+        finalBinaryRecord = pConversion->binaryToDecimal(pData);
     }
-    else{   // son solo numeros
-        finalBinaryRecord = pConversion->binaryToDecimal( pData );
-    }
+
     return finalBinaryRecord;
+}
+
+void BTRecordFile::mainMenu()
+{
+    std::cout << "¡Bienvenido!\n\n";
+
+    _metadataPtr = new BTRecordFileMetadata();
+
+    char option;
+
+    std::cout << "Escoga la acción a realizar con el archivo (0 para salir):\n"
+              << "1. Insertar registro\n"
+              << "2. Modificar registro\n"
+              << "3. Borrar registro\n"
+              << "> ";
+
+    std::cin >> option;
+
+    switch (option) {
+    case '0':
+        insertRecord();
+        break;
+    case '1':
+        std::cout << "Hola";
+        break;
+    default:
+        std::cout << "Incorrecto";
+        break;
+    }
 }
 

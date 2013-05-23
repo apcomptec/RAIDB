@@ -69,6 +69,8 @@ public:
     string sortUserDataFromDisk(std::string pData , Converter *pConversion
                                 , char pTipo );   //clasifica los datos en ints, strings, etc...
 
+    void mainMenu();
+
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;

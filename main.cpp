@@ -9,11 +9,8 @@
 
 using namespace std;
 
-void sum(char pChar);
-
 int main()
 {
-
 // *****************************************************************************
 // PRUEBA PARA ESCRIBIR REGISTRO EN DISCO
 // *****************************************************************************
@@ -39,8 +36,8 @@ int main()
     Disk *disk = new Disk(1, 7);
     const char *test1 = file->getRegistryArray()[1].castRecordToBinary().c_str();
     const char *test2 = file->getRegistryArray()[2].castRecordToBinary().c_str();
-    disk->write(0,test1);
-    disk->write(0,test2);
+    disk->write(0, test1);
+    disk->write(0, test2);
 
 // *****************************************************************************
 // PRUEBA PARA INSERTAR y BORRAR REGISTROS
@@ -80,7 +77,4 @@ int main()
     //    cout << "--------------------" << endl;
     //    c->stringToBinary("Daniel");
     //    cout << "--------------------" << endl;
-
-
-
 }
