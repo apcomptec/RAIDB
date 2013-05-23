@@ -47,7 +47,8 @@ OTHER_FILES += \
     doc/recordExample.txt \
     doc/PruebaRegistro.xml \
     doc/PruebaWriteRegistro.xml \
-    doc/PruebaReadRegistro.xml
+    doc/PruebaReadRegistro.xml \
+    doc/Ficheros.pdf
 
 HEADERS += \
     raid/IRaid.h \
