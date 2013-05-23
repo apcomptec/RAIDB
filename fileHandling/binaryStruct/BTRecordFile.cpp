@@ -165,7 +165,7 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     }
     dataBinaryRecord += getUserRecordData( pListPtr );
     const char* test1 = dataBinaryRecord.c_str();
-    this->_disk->write( 0, test1 );
+    this->_disk->write( 0, test1 ); // en vez de cero sería en EOF
 }
 
 /**
@@ -213,7 +213,6 @@ void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
         this->_disk->write( pChangePositon + 8, modifiedChildChar );
     }
 }
-
 //------------------------------------------------------------------------------
 //   FIN INSERCION DE DATOS EN DISCO
 //------------------------------------------------------------------------------
