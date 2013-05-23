@@ -250,7 +250,7 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     unsigned short _sizeCounter = 24;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStructPtr();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
-    RecordDataType<char> data;
+    const char *data;
 
     cout << "Binario " << father << " " << HI << " " << HD << endl;
     Converter *conversion = new Converter();
@@ -259,14 +259,14 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     std::string PHD = conversion->binaryToDecimal(HD);
     cout << P << " " << PHI << " " << PHD << " ";
     while( tmp != nullptr ){
-        data = *dynamic_cast<RecordDataType<std::string>*>(tmp->getData())->getDataPtr();
+        data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
         //std::string str( *data->getDataPtr() );
         cout << "-__--X "<< data << endl;
         //std::string data = "0";
         const char *DATO = pDisk.read( _sizeCounter, 7 );
         std::string DATOSTR(DATO);       // obtiene el padre
         _sizeCounter += 8;
-        cout << "juicy "<< sortUserDataFromDisk( DATOSTR, conversion, data ) << " ";
+        cout << "juicy "<< sortUserDataFromDisk( DATOSTR, conversion, *data ) << " ";
         tmp = tmp->getNextPtr();
     }
 }
