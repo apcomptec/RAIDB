@@ -63,6 +63,8 @@ public:
     virtual void setBORPtr(unsigned short *pBORPtr);
 // -----------------------------------------------------------------------------
 
+    unsigned short recordSize();
+
 private:
 
     DLL<IRecordDataType *> *_recordStructPtr;

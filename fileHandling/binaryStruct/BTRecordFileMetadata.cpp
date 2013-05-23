@@ -121,6 +121,10 @@ void BTRecordFileMetadata::setBORPtr(unsigned short *pBORPtr)
     _borPtr = pBORPtr;
 }
 
+unsigned short BTRecordFileMetadata::recordSize()
+{
+}
+
 void BTRecordFileMetadata::constructMetadata()
 {
     // NOMBRE DE ARCHIVO
@@ -204,4 +208,6 @@ void BTRecordFileMetadata::constructMetadata()
                   << "> ";
         std::cin >> field;
     }
+
+    std::cout << "\n\n";
 }
