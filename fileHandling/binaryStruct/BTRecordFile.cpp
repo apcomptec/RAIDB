@@ -247,7 +247,7 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     std::string father(padre);       // obtiene el padre
     std::string HI(hizq);       // obtiene el hijo izq
     std::string HD(hder);       // obtiene el hijo der
-    unsigned short _sizeCounter = 24;       // inicio de la data
+    //unsigned short _sizeCounter = 24;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStructPtr();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
     RecordDataType<std::string> *data;
@@ -258,13 +258,16 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     std::string PHI = conversion->binaryToDecimal(HI);
     std::string PHD = conversion->binaryToDecimal(HD);
     cout << P << " " << PHI << " " << PHD << " ";
-    while( tmp != nullptr ){
-        pDisk.read( _sizeCounter, (_sizeCounter +  (tmp->getData()->getSize()- 1) ));
-        data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
-        _sizeCounter += (tmp->getData()->getSize() );
-        cout << sortUserDataFromDisk( *data->getDataPtr(), conversion ) << " ";
-        tmp = tmp->getNextPtr();
-    }
+//    while( tmp != nullptr ){
+//        data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
+//        const char *DATO = pDisk.read( _sizeCounter, (_sizeCounter + data->getSize() - 1 ));
+//        std::string DATOSTR(DATO);       // obtiene el padre
+//        cout << "HOLA " << DATOSTR<< endl;
+
+//        _sizeCounter += 8;//(tmp->getData()->getSize() );
+//        cout << "juicy "<< sortUserDataFromDisk( DATOSTR, conversion ) << " ";
+//        tmp = tmp->getNextPtr();
+//    }
 }
 
 std::string BTRecordFile::sortUserDataFromDisk( std::string pData, Converter *pConversion )
@@ -274,9 +277,11 @@ std::string BTRecordFile::sortUserDataFromDisk( std::string pData, Converter *pC
     QString qstrData(str.c_str()); // donde qstr es el QString
 
     if ( !pConversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
+        cout << "opcion 1" << endl;
         finalBinaryRecord = pConversion->binaryToString( pData );
     }
     else{   // son solo numeros
+        cout << "opcion 2" << endl;
         finalBinaryRecord = pConversion->binaryToDecimal( pData );
     }
     return finalBinaryRecord;

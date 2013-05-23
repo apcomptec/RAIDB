@@ -79,6 +79,7 @@ std::string BTRecord::castRecordToBinary()
 {
     std::string finalBinaryRecord;  // concatenacion del registro
     Converter *conversion = new Converter();
+    cout << "andanfaofnodsnfos" << _parentPtr << endl;
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _parentPtr ) );
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _leftChildPtr ) );
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _rightChildPtr ) );
