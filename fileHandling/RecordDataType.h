@@ -24,8 +24,7 @@ public:
      * se le otorga un cero para así calcularlo automáticamente (en caso que
      * no sea un string)
      */
-    RecordDataType(std::string &pName, DATATYPE &pData,
-                   unsigned short pLength = 0);
+    RecordDataType(std::string &pName, DATATYPE &pData, unsigned short &pSize);
 
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IRECORDDATATYPE
@@ -72,10 +71,10 @@ private:
 
 template<typename DATATYPE>
 RecordDataType<DATATYPE>::RecordDataType(std::string &pName, DATATYPE &pData,
-        unsigned short pLength)
+        unsigned short &pSize)
     : _name(pName),
       _data(pData),
-      _size(pLength == 0 ? sizeof(DATATYPE) : pLength)
+      _size(pSize)
 {
     // vacío
 }

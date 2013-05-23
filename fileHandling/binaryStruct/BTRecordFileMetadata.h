@@ -22,9 +22,10 @@ public:
 
     /**
      * @brief BTRecordFileMetadata Sobrecarga del constructor
-     * @param pRecordStructPtr
-     * @param pFileName
-     * @param pOwner
+     * @param pRecordStructPtr Indica los datos que escogió el usuario que estén
+     * presentes en el registro
+     * @param pFileName Nombre del archivo
+     * @param pOwner Dueño del archivo
      */
     BTRecordFileMetadata(DLL<IRecordDataType *> *pRecordStructPtr,
                          const std::string &pFileName,
@@ -44,44 +45,72 @@ public:
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IMETADATA
 // -----------------------------------------------------------------------------
-    virtual DLL<IRecordDataType *> *getRecordStructPtr() const;
+    virtual DLL<IRecordDataType *> *getRecordStruct() const;
+    virtual unsigned short getRecordSize() const;
     virtual std::string getFileName() const;
     virtual void setFileName(std::string &pFileName);
     virtual unsigned short getFileSize() const;
-    virtual void setFileSize(unsigned short &pFileSize);
-    virtual unsigned short getBlockSize() const;
-    virtual void setBlockSize(unsigned short &pSize);
     virtual std::string getOwner() const;
     virtual void setOwner(std::string &pOwner);
-    virtual DLL<unsigned short> *getFreeBlockListPtr() const;
+    virtual DLL<unsigned short> *getFreeBlockList() const;
     virtual void setFreeBlockList(DLL<unsigned short> *pFreeBlockList);
-    virtual DLL<unsigned short> *getUsedBlockListPtr() const;
+    virtual DLL<unsigned short> *getUsedBlockList() const;
     virtual void setUsedBlockList(DLL<unsigned short> *pBlockUsedList);
-    virtual unsigned short *getEOFPtr() const;
-    virtual void setEOFPtr(unsigned short *pEOFPtr);
-    virtual unsigned short *getBORPtr() const;
-    virtual void setBORPtr(unsigned short *pBORPtr);
+    virtual unsigned short *getEOF() const;
+    virtual void setEOF(unsigned short *pEOF);
+    virtual unsigned short *getFirstRecordPos() const;
+    virtual void setFirstRecordPos(unsigned short *pPos);
 // -----------------------------------------------------------------------------
-
-    unsigned short recordSize();
 
 private:
 
+    /**
+     * @brief _recordStructPtr
+     */
     DLL<IRecordDataType *> *_recordStructPtr;
-    std::string _fileName;
-    std::string _owner;
-    unsigned short _fileSize;
-    unsigned short _blockSize;
-    DLL<unsigned short> *_freeBlockList;
-    DLL<unsigned short> *_usedBlockList;
-    unsigned short *_borPtr;
-    unsigned short *_eofPtr;
+
+    /**
+     * @brief _fileName Nombre del archivo
+     * @brief _owner Dueño del archivo
+     */
+    std::string _fileName, _owner;
+
+    /**
+     * @brief _recordSize Tamaño de un registro
+     * @brief _numberOfRecords Cantidad de registros presentes en el archivo
+     * @brief _fileSize Tamaño del archivo
+     * @brief _fr Indica dónde comienza el primer registro. Es una posición
+     * dentro del propio archivo equivalente a un desplazamiento en memoria. Se
+     * calcula mediante la posición exacta en disco
+     * @brief _eof Muestra dónde está el final de archivo // TODO ver si es una
+     * posición relativa en el disco o un equivalente de posición de registro
+     * en cuestión del archivo
+     */
+    unsigned short _recordSize, _numberOfRecords, _fileSize, *_fr, *_eof;
+
+    /**
+     * @brief _freeBlockList Lista con los bloques libres
+     * @brief _usedBlockList Lista con bloques usados
+     */
+    DLL<unsigned short> *_freeBlockList, *_usedBlockList;
+
+// -----------------------------------------------------------------------------
+// MÉTODOS UTILITARIOS
+// -----------------------------------------------------------------------------
 
     /**
      * @brief constructMetadata Construye los metadatos solicitandolos por
      * consola
      */
     void constructMetadata();
+
+    /**
+     * @brief computeRecordSize
+     * @return El tamaño de un registro, incluyendo al padre, hijo izquierdo,
+     * hijo derecho y demás proveidos por el usuario
+     */
+    unsigned short computeRecordSize();
+// -----------------------------------------------------------------------------
 };
 
 #endif // BTRECORDFILEMETADATA_H

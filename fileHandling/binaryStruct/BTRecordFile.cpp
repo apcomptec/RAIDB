@@ -53,12 +53,14 @@ void BTRecordFile::setMetadata(IMetadata *pMetadataPtr)
 
 DLL<IRecord *> *BTRecordFile::getRecordList() const
 {
+    // TODO Se encarga de reconstruir desde el disco todos los registros
 
+    return nullptr;
 }
 
-void BTRecordFile::setRecordList(DLL<IRecord *> *pListPtr)
+void BTRecordFile::setRecordList(DLL<IRecord *> *)
 {
-
+    // No es necesario establecer una lista de datos
 }
 
 BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
@@ -124,7 +126,7 @@ void BTRecordFile::printDataStructureByUser()
     std::cout << "Los registros tienen la siguiente estructura: \n\n";
 
     DLLNode<IRecordDataType *> *current =
-        _metadataPtr->getRecordStructPtr()->getHeadPtr();
+        _metadataPtr->getRecordStruct()->getHeadPtr();
 
     char headerName;
 
@@ -238,7 +240,7 @@ BTRecord *BTRecordFile::insertRecord()
     DLL<IRecordDataType*> *dataListByUser = new DLL<IRecordDataType*>();
     RecordDataType<std::string> *data;
     DLLNode<IRecordDataType *> *current =
-        _metadataPtr->getRecordStructPtr()->getHeadPtr();
+        _metadataPtr->getRecordStruct()->getHeadPtr();
 
     while (current != nullptr) {
         std::cout << "Escriba el dato: ";
@@ -256,7 +258,7 @@ void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
     std::string HI(hizq);       // obtiene el hijo izq
     std::string HD(hder);       // obtiene el hijo der
     unsigned short _sizeCounter = 24;       // inicio de la data
-    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStructPtr();
+    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
     const char *data;
 

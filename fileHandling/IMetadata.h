@@ -1,8 +1,8 @@
 /*******************************************************************************
  * File: IMetadata.h
  * Author: Brallan Aguilar
- * Description: TODO
- * Reference:
+ * Description: Representa cómo están estructurados los metadatos de un archivo
+ * de registro.
  ******************************************************************************/
 
 #ifndef IMETADATA_H
@@ -16,64 +16,52 @@ class IMetadata
 public:
 
     /**
-     * @brief getRecordStruct
-     * @return
-     */
-    virtual DLL<IRecordDataType *> *getRecordStructPtr() const = 0;
-
-    /**
      * @brief getFileName
-     * @return
+     * @return Devuelve el nombre del archivo
      */
     virtual std::string getFileName() const = 0;
 
     /**
-     * @brief setFileName
-     * @param pFileName
+     * @brief setFileName Establece el nombre de archivo
+     * @param pFileName Nuevo nombre de archivo
      */
     virtual void setFileName(std::string &pFileName) = 0;
 
     /**
-     * @brief getFileSize
-     * @return
-     */
-    virtual unsigned short getFileSize() const = 0;
-
-    /**
-     * @brief setFileSize
-     * @param pFileSize
-     */
-    virtual void setFileSize(unsigned short &pFileSize) = 0;
-
-    /**
-     * @brief getBlockSize
-     * @return
-     */
-    virtual unsigned short getBlockSize() const = 0;
-
-    /**
-     * @brief setBlockSize
-     * @param pSize
-     */
-    virtual void setBlockSize(unsigned short &pSize) = 0;
-
-    /**
      * @brief getOwner
-     * @return
+     * @return Dueño del archivo
      */
     virtual std::string getOwner() const = 0;
 
     /**
-     * @brief setOwner
-     * @param pOwner
+     * @brief setOwner Establece el dueño del archivo
+     * @param pOwner Nuevo dueño
      */
     virtual void setOwner(std::string &pOwner) = 0;
 
     /**
-     * @brief getFreeBlockList
-     * @return
+     * @brief getFileSize
+     * @return Devuelve el tamaño del archivo en bytes
      */
-    virtual DLL<unsigned short> *getFreeBlockListPtr() const = 0;
+    virtual unsigned short getFileSize() const = 0;
+
+    /**
+     * @brief getRecordStruct
+     * @return Devuelve cómo estableció el usuario los campos de registro
+     */
+    virtual DLL<IRecordDataType *> *getRecordStruct() const = 0;
+
+    /**
+     * @brief getBlockSize
+     * @return Devuelve el tamaño de un registro
+     */
+    virtual unsigned short getRecordSize() const = 0;
+
+    /**
+     * @brief getFreeBlockList
+     * @return Lista con bloques libres
+     */
+    virtual DLL<unsigned short> *getFreeBlockList() const = 0;
 
     /**
      * @brief setFreeBlockList
@@ -85,7 +73,7 @@ public:
      * @brief getBlockUsedList
      * @return
      */
-    virtual DLL<unsigned short> *getUsedBlockListPtr() const = 0;
+    virtual DLL<unsigned short> *getUsedBlockList() const = 0;
 
     /**
      * @brief setBlockUsedList
@@ -94,28 +82,24 @@ public:
     virtual void setUsedBlockList(DLL<unsigned short> *pBlockUsedList) = 0;
 
     /**
-     * @brief getEOFPtr
-     * @return
+     * @brief getEOF
+     * @return Posición relativa del archivo donde se encuentra el fin de este
+     * (es independiente de la ubicación del archivo)
      */
-    virtual unsigned short *getEOFPtr() const = 0;
+    virtual unsigned short *getEOF() const = 0;
 
     /**
-     * @brief setEOFPtr
-     * @param pEOFPtr
+     * @brief setEOF
+     * @param pEOF
      */
-    virtual void setEOFPtr(unsigned short *pEOFPtr) = 0;
+    virtual void setEOF(unsigned short *pEOF) = 0;
 
     /**
-     * @brief getBORPtr
-     * @return
+     * @brief getFirstRecordPos
+     * @return Posición relativa al archivo (independientemente de dónde se
+     * encuentre el archivo en disco) donde está el primer registro
      */
-    virtual unsigned short *getBORPtr() const = 0;
-
-    /**
-     * @brief setBORPtr
-     * @param pBORPtr
-     */
-    virtual void setBORPtr(unsigned short *pBORPtr) = 0;
+    virtual unsigned short *getFirstRecordPos() const = 0;
 };
 
 #endif // IMETADATA_H

@@ -26,16 +26,18 @@ BTRecordFileMetadata::BTRecordFileMetadata()
     constructMetadata();
 }
 
-BTRecordFileMetadata::BTRecordFileMetadata(DLL<IRecordDataType *> *pRecordStructPtr,
-        const std::string &pFileName, const std::string &pOwner)
+BTRecordFileMetadata::BTRecordFileMetadata(DLL<IRecordDataType *>
+        *pRecordStructPtr, const std::string &pFileName,
+        const std::string &pOwner)
     : _recordStructPtr(pRecordStructPtr),
       _fileName(pFileName),
-      _owner(pOwner)
+      _owner(pOwner),
+      _recordSize(computeRecordSize())
 {
     // vacío
 }
 
-DLL<IRecordDataType *> *BTRecordFileMetadata::getRecordStructPtr() const
+DLL<IRecordDataType *> *BTRecordFileMetadata::getRecordStruct() const
 {
     return _recordStructPtr;
 }
@@ -55,19 +57,9 @@ unsigned short BTRecordFileMetadata::getFileSize() const
     return _fileSize;
 }
 
-void BTRecordFileMetadata::setFileSize(unsigned short &pFileSize)
+void BTRecordFileMetadata::setRecordSize(unsigned short &)
 {
-    _fileSize = pFileSize;
-}
-
-unsigned short BTRecordFileMetadata::getBlockSize() const
-{
-    return _blockSize;
-}
-
-void BTRecordFileMetadata::setBlockSize(unsigned short &pSize)
-{
-    _blockSize = pSize;
+    // vacío
 }
 
 std::string BTRecordFileMetadata::getOwner() const
@@ -75,13 +67,12 @@ std::string BTRecordFileMetadata::getOwner() const
     return _owner;
 }
 
-
 void BTRecordFileMetadata::setOwner(std::string &pOwner)
 {
     _owner = pOwner;
 }
 
-DLL<unsigned short> *BTRecordFileMetadata::getFreeBlockListPtr() const
+DLL<unsigned short> *BTRecordFileMetadata::getFreeBlockList() const
 {
     return _freeBlockList;
 }
@@ -91,7 +82,7 @@ void BTRecordFileMetadata::setFreeBlockList(DLL<unsigned short> *pFreeBlockList)
     _freeBlockList = pFreeBlockList;
 }
 
-DLL<unsigned short> *BTRecordFileMetadata::getUsedBlockListPtr() const
+DLL<unsigned short> *BTRecordFileMetadata::getUsedBlockList() const
 {
     return _usedBlockList;
 }
@@ -101,28 +92,29 @@ void BTRecordFileMetadata::setUsedBlockList(DLL<unsigned short> *pBlockUsedList)
     _usedBlockList = pBlockUsedList;
 }
 
-unsigned short *BTRecordFileMetadata::getEOFPtr() const
+unsigned short *BTRecordFileMetadata::getEOF() const
 {
-    return _eofPtr;
+    return _eof;
 }
 
-void BTRecordFileMetadata::setEOFPtr(unsigned short *pEOFPtr)
+void BTRecordFileMetadata::setEOF(unsigned short *pEOF)
 {
-    _eofPtr = pEOFPtr;
+    _eof = pEOF;
 }
 
-unsigned short *BTRecordFileMetadata::getBORPtr() const
+unsigned short *BTRecordFileMetadata::getFirstRecordPos() const
 {
-    return _borPtr;
+    return _fr;
 }
 
-void BTRecordFileMetadata::setBORPtr(unsigned short *pBORPtr)
+void BTRecordFileMetadata::setFirstRecordPos(unsigned short *pPos)
 {
-    _borPtr = pBORPtr;
+    _fr = pPos;
 }
 
-unsigned short BTRecordFileMetadata::recordSize()
+unsigned short BTRecordFileMetadata::getRecordSize() const // TODO ¡PROBAR!
 {
+    return _recordSize;
 }
 
 void BTRecordFileMetadata::constructMetadata()
@@ -209,5 +201,31 @@ void BTRecordFileMetadata::constructMetadata()
         std::cin >> field;
     }
 
+    _recordSize = computeRecordSize();
+
     std::cout << "\n\n";
+}
+
+unsigned short BTRecordFileMetadata::computeRecordSize()
+{
+    // representa la cantidad de datos primarios en el registro que son padre,
+    // hijo izquierdo y derecho
+    const unsigned short NUMBER_OF_PRIMARY_DATA = 3;
+
+    // indica el tamaño en bytes de los datos padre, hijo izquierdo e hijo
+    // derecho en el registro
+    const unsigned short PRIMARY_DATA = 4;
+
+    // tamaño del registro
+    unsigned short size = NUMBER_OF_PRIMARY_DATA * PRIMARY_DATA;
+
+    DLLNode<IRecordDataType *> *currentDataByUser =
+        _recordStructPtr->getHeadPtr();
+
+    while (currentDataByUser != nullptr) {
+        size += currentDataByUser->getData()->getSize();
+        currentDataByUser++; // FIXME probar si sirve para pasar a siguiente nodo
+    }
+
+    return size;
 }

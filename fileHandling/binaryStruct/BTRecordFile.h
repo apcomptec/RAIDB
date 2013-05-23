@@ -42,7 +42,7 @@ public:
     virtual BTRecordFileMetadata *getMetadata() const;
     virtual void setMetadata(IMetadata *pMetadataPtr);
     virtual DLL<IRecord *> *getRecordList() const;
-    virtual void setRecordList(DLL<IRecord *> *pListPtr);
+    virtual void setRecordList(DLL<IRecord *> *);
     virtual BTRecord *insertRecord(DLL<IRecordDataType *> *pListPtr);
 //    virtual BTRecord *deleteRecord(IMetadata *pRecordPtr);
     virtual BTRecord *deleteRecord(unsigned short pDatoBorrado);
