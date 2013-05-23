@@ -78,6 +78,7 @@ void BTRecord::printRecord() const
 std::string BTRecord::castRecordToBinary()
 {
     std::string finalBinaryRecord;  // concatenacion del registro
+    cout << "PADRE " << _parentPtr << endl;
     Converter *conversion = new Converter();
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _parentPtr ) );
     finalBinaryRecord += conversion->decimalToBinary( std::to_string( _leftChildPtr ) );
@@ -100,18 +101,3 @@ std::string BTRecord::castRecordToBinary()
     cout << "El registro en BINARIO es: " << "\n" << finalBinaryRecord << endl;
     return finalBinaryRecord;
 }
-
-//bool BTRecord::verificaValidezInt( QString pDato ){
-//    bool charValido;
-//    int validaIntroduceNumeros;
-//    for(int i = 0; i < pDato.length() ; i++){
-//        //validacion de que solo se introducen numeros(convierten qstring a int)
-//        validaIntroduceNumeros = pDato.toInt(&charValido);
-//        if(charValido == false){    //existe un caracter que no es número
-//            return false;
-//        }//fin del if interno
-//        else{
-//            return true;
-//        }//fin if
-//    }//fin del for
-//}

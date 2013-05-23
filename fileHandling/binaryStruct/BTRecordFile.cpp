@@ -89,9 +89,10 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
                 (this->_registryArray[newRecord->getParentPtr()])
                         .setRightChildPtr(_counter);
             }
-
-
         }
+        cout << "El padre es: " << newRecord->getParentPtr() << endl;
+        cout << "El padre1 es: " << (this->_registryArray[_counter]).getParentPtr() << endl;
+        cout << "El contador es: " << _counter/2 << endl;
         this->_counter++;   // aumenta la posición para insertar el siguiente dato
     } else {
         insertRecordAUX(newRecord, hDer);
@@ -191,9 +192,9 @@ BTRecord *BTRecordFile::printArrayRecord() const
          << "LeftChild" << setw(15) << "RightChild" << endl;
     for (int i = 1; i < this->getCounter(); i++) {
         cout << setw(7) << i << setw(15) <<
-                _registryArray[i].getParentPtr() << setw(15) <<
-                _registryArray[i].getLeftChildPtr() << setw(15) <<
-                _registryArray[i].getRightChildPtr() << setw(15) << "\n";
+                this->_registryArray[i].getParentPtr() << setw(15) <<
+                this->_registryArray[i].getLeftChildPtr() << setw(15) <<
+                this->_registryArray[i].getRightChildPtr() << setw(15) << "\n";
     }
 }
 
@@ -260,13 +261,10 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     cout << P << " " << PHI << " " << PHD << " ";
     while( tmp != nullptr ){
         data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
-        //std::string str( *data->getDataPtr() );
-        cout << "-__--X "<< data << endl;
-        //std::string data = "0";
         const char *DATO = pDisk.read( _sizeCounter, 7 );
         std::string DATOSTR(DATO);       // obtiene el padre
         _sizeCounter += 8;
-        cout << "juicy "<< sortUserDataFromDisk( DATOSTR, conversion, *data ) << " ";
+        cout << sortUserDataFromDisk( DATOSTR, conversion, *data ) << endl;
         tmp = tmp->getNextPtr();
     }
 }
@@ -275,8 +273,6 @@ std::string BTRecordFile::sortUserDataFromDisk( std::string pData,
                                                 Converter *pConversion, char pTipo)
 {
     std::string finalBinaryRecord;
-    std::string str( pData ); // Convert from std::string 2 Qstring
-    cout << "HILA" << pTipo << endl;
     if ( pTipo == '0' || pTipo == '1' ){ // cadena no de numeros
         finalBinaryRecord = pConversion->binaryToString( pData );
     }
