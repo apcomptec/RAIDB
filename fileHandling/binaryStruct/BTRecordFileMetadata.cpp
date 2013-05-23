@@ -57,11 +57,6 @@ unsigned short BTRecordFileMetadata::getFileSize() const
     return _fileSize;
 }
 
-void BTRecordFileMetadata::setRecordSize(unsigned short &)
-{
-    // vacío
-}
-
 std::string BTRecordFileMetadata::getOwner() const
 {
     return _owner;
