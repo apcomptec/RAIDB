@@ -10,7 +10,6 @@ QMAKE_CXXFLAGS += -std=c++0x
 SOURCES += \
     example/fileManipulation/ex2.cpp \
     example/fileManipulation/ex1.cpp \
-    fileHandling/RecordData.cpp \
     dataStructure/n_aryrecordfilenode.cpp \
     example/fileManipulation/ex3.cpp \
     example/fileManipulation/ex4.cpp \
@@ -55,7 +54,6 @@ HEADERS += \
     dataStructure/DLLNode.h \
     dataStructure/DLL.h \
     fileHandling/IRecordDataType.h \
-    fileHandling/RecordData.h \
     fileHandling/RecordDataType.h \
     fileHandling/IRecord.h \
     XMLParser.h \
