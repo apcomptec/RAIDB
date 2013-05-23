@@ -47,7 +47,7 @@ public:
 //    virtual BTRecord *deleteRecord(IMetadata *pRecordPtr);
     virtual BTRecord *deleteRecord(unsigned short pDatoBorrado);
 //    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
-    virtual BTRecord *printArrayRecord() const;
+    virtual void printArrayRecord() const;
     virtual unsigned short showFragmentation() const;
     virtual bool defragFile();
 // -----------------------------------------------------------------------------
@@ -66,8 +66,6 @@ public:
     Disk *getDisk() const;
     void setDisk( Disk *pDisk );
     void readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID );
-    string sortUserDataFromDisk(std::string pData , Converter *pConversion
-                                , char pTipo );   //clasifica los datos en ints, strings, etc...
 
     void mainMenu();
 
@@ -77,14 +75,15 @@ private:
     int _counter;       //llevará la cantidad de registros insertados
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;
-
     void insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer);
-
     /**
      * @brief printDataStructureByUser imprime cómo está conformado el registro
      * según los campos que ingresó el usuario
      */
     void printDataStructureByUser();
+    string sortUserDataFromDisk(std::string pData , Converter *pConversion
+                                , char pTipo );   //clasifica los datos en ints, strings, etc...
+
 
 
 };
