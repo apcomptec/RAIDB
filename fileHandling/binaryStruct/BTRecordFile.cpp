@@ -21,6 +21,11 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
     this->_listFreeBlocks = 0; // lista de bloques libres está vacía
 }
 
+/**
+ * @brief BTRecordFile::getRegistryArray
+ * @return _registryArray
+ * Obtiene el arreglo de los los registros insertados en RAM
+ */
 BTRecord *BTRecordFile::getRegistryArray() const
 {
     return _registryArray;

@@ -54,17 +54,15 @@ public:
 
     BTRecord *insertRecord();
 
+    BTRecord *getRegistryArray() const;
+    void setRegistryArray(BTRecord *pRegistryArray);
+    Disk *getDisk() const;
+    void setDisk( Disk *pDisk );
     int getCounter() const;
     void setCounter(int counter);
     unsigned short getListFreeBlocks() const;
     void setListFreeBlocks(unsigned short pListFreeBlocks);
     ~BTRecordFile();
-
-    BTRecord *getRegistryArray() const;
-    void setRegistryArray(BTRecord *pRegistryArray);
-
-    Disk *getDisk() const;
-    void setDisk( Disk *pDisk );
     void readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID );
 
     void mainMenu();
@@ -76,10 +74,6 @@ private:
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;
     void insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer);
-    /**
-     * @brief printDataStructureByUser imprime cómo está conformado el registro
-     * según los campos que ingresó el usuario
-     */
     void printDataStructureByUser();
     string sortUserDataFromDisk(std::string pData , Converter *pConversion
                                 , char pTipo );   //clasifica los datos en ints, strings, etc...
