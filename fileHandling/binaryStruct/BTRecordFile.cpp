@@ -81,34 +81,107 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     newRecord->setDataList(pListPtr);
     if (this->getListFreeBlocks() == 0) {
         if (this->_registryArray == NULL) {   //arreglo vacío
-            newRecord->setParentPtr(0);    // puede ser 0 ó -1
+            newRecord->setParentPtr(0);
             newRecord->setLeftChildPtr(0);
             newRecord->setRightChildPtr(0);
             this->_registryArray[1] = *newRecord;    // inicio en la posición 1
         } else {
             this->_registryArray[_counter] = *newRecord;
-            newRecord->setParentPtr(_counter / 2);      //// setea el padre
+            newRecord->setParentPtr(_counter / 2);      // setea el padre
             (this->_registryArray[_counter]).setParentPtr(_counter / 2);
-            if ((_counter % 2) == 0) {    ////si el numero es par es hijo izquierdo
-                newRecord->setLeftChildPtr(0);      //// no tiene hijos
-                newRecord->setRightChildPtr(0);      //// no tiene hijos
+            if ((_counter % 2) == 0) {    //si el numero es par es hijo izquierdo
+                newRecord->setLeftChildPtr(0);      // no tiene hijos
+                newRecord->setRightChildPtr(0);     // no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
                 .setLeftChildPtr(_counter);
             } else {
-                newRecord->setRightChildPtr(0);     //// no tiene hijos
-                newRecord->setLeftChildPtr(0);      //// no tiene hijos
+                newRecord->setRightChildPtr(0);     // no tiene hijos
+                newRecord->setLeftChildPtr(0);      // no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
                 .setRightChildPtr(_counter);
             }
         }
-        cout << "El padre es: " << newRecord->getParentPtr() << endl;
-        cout << "El padre1 es: " << (this->_registryArray[_counter]).getParentPtr() << endl;
-        cout << "El contador es: " << _counter / 2 << endl;
         this->_counter++;   // aumenta la posición para insertar el siguiente dato
     } else {
         insertRecordAUX(newRecord, hDer);
     }
     return newRecord;
+}
+
+/**
+ * @brief BTRecordFile::insertRecord2Disk
+ * @param pListPtr
+ * Función que se encargará de insertar los registros al disco
+ */
+void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
+    unsigned short cantRegistros = 1;
+    unsigned short tamanoRegistro = 1;
+    unsigned short posicionPrimerRegistro = 1;
+    std::string dataBinaryRecord;  // concatenacion del registro a binario
+    Converter *conversion = new Converter();
+    if( this->_disk == NULL ){
+        dataBinaryRecord  = "00000000"; // No tiene ni padre ni hijos
+    }
+    else{ // se insertan otros registros después de haber uno
+        unsigned short fatherPosition = posicionPrimerRegistro +
+                ( (tamanoRegistro) * ( ( cantRegistros / 2) - 1) );
+        std::string leftChild = "00000000";       // obtiene el hijo izq
+        std::string rightChild = "00000000";      // obtiene el hijo der
+        modifyLastTreeRegistry( cantRegistros, fatherPosition, conversion ); // cambia datos del registro padre
+        unsigned short padre = cantRegistros / 2;
+        std::string parent = conversion->decimalToBinary( std::to_string(padre) );
+        dataBinaryRecord += ( parent + leftChild + rightChild );
+
+    }
+
+    const char* test1 = "Hello";
+    this->_disk->write( 0, test1 );
+}
+
+/**
+ * @brief BTRecordFile::getUserRecordData
+ * Itera sobre la DLL de los datos que el usuario introduce
+ */
+std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPtr ){
+    std::string finalBinaryRecord;  // concatenacion del registro
+    DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
+    RecordDataType<std::string> *data;
+    Converter *conversion = new Converter();
+    while( tmp != nullptr ){
+        data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
+        std::string str( *data->getDataPtr() ); // Convert from std::string 2 Qstring
+        QString qstrData(str.c_str()); // donde qstr es el QString
+
+        if ( !conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
+            finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
+        }
+        else{   // son solo numeros
+            finalBinaryRecord += conversion->decimalToBinary( *data->getDataPtr() );
+        }
+        tmp = tmp->getNextPtr();
+    }
+    cout << "El registro en BINARIO es: " << "\n" << finalBinaryRecord << endl;
+    return finalBinaryRecord;
+}
+
+/**
+ * @brief BTRecordFile::modifyLastTreeRegistry
+ * modifica el padre y los hijos del regsitro anterior para construir el arbol
+ * de informacion
+ * @param pRecordNumber;# numero de registro que sirve para actualizar los datos
+ * del Arbol de Registros (cambia padres e hijos) de registros anteriores
+ * @param
+ */
+void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
+                 unsigned short pChangePositon, Converter *pConversion){
+    std::string modifiedChild = pConversion->decimalToBinary( std::to_string(pRecordNumber) );
+    const char *modifiedChildChar = modifiedChild.c_str();
+    if (pRecordNumber % 2 == 0){    // registro es par modifica hizq
+        this->_disk->write( pChangePositon + 8, modifiedChildChar );
+    }
+    else{       // registro es impar modifica hder
+        this->_disk->write( pChangePositon + 8, modifiedChildChar );
+    }
 }
 
 /**

@@ -67,6 +67,12 @@ public:
 
     void mainMenu();
 
+    void insertRecord2Disk( DLL<IRecordDataType *> *pListPtr );
+    void modifyLastTreeRegistry(unsigned short pRecordNumber,
+                                unsigned short pChangePositon, Converter *pConversion);
+    std::string getUserRecordData( DLL<IRecordDataType *> *pListPtr );
+
+
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
