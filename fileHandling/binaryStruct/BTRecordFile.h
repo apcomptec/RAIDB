@@ -66,7 +66,8 @@ public:
     Disk *getDisk() const;
     void setDisk( Disk *pDisk );
     void readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID );
-    string sortUserDataFromDisk(std::string pData , Converter *pConversion);   //clasifica los datos en ints, strings, etc...
+    string sortUserDataFromDisk(std::string pData , Converter *pConversion
+                                , char pTipo );   //clasifica los datos en ints, strings, etc...
 
 private:
     BTRecordFileMetadata *_metadataPtr;

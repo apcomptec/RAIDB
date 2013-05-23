@@ -242,15 +242,15 @@ BTRecord *BTRecordFile::insertRecord()
 
 void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID ){
     const char *padre = pDisk.read( 0, 7 );
-    const char *hizq = pDisk.read( 8, 15 );
-    const char *hder = pDisk.read( 16, 23 );
+    const char *hizq = pDisk.read( 8, 7 );
+    const char *hder = pDisk.read( 16, 7 );
     std::string father(padre);       // obtiene el padre
     std::string HI(hizq);       // obtiene el hijo izq
     std::string HD(hder);       // obtiene el hijo der
-    //unsigned short _sizeCounter = 24;       // inicio de la data
+    unsigned short _sizeCounter = 24;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStructPtr();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
-    RecordDataType<std::string> *data;
+    RecordDataType<char> data;
 
     cout << "Binario " << father << " " << HI << " " << HD << endl;
     Converter *conversion = new Converter();
@@ -258,30 +258,29 @@ void BTRecordFile::readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID 
     std::string PHI = conversion->binaryToDecimal(HI);
     std::string PHD = conversion->binaryToDecimal(HD);
     cout << P << " " << PHI << " " << PHD << " ";
-//    while( tmp != nullptr ){
-//        data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
-//        const char *DATO = pDisk.read( _sizeCounter, (_sizeCounter + data->getSize() - 1 ));
-//        std::string DATOSTR(DATO);       // obtiene el padre
-//        cout << "HOLA " << DATOSTR<< endl;
-
-//        _sizeCounter += 8;//(tmp->getData()->getSize() );
-//        cout << "juicy "<< sortUserDataFromDisk( DATOSTR, conversion ) << " ";
-//        tmp = tmp->getNextPtr();
-//    }
+    while( tmp != nullptr ){
+        data = *dynamic_cast<RecordDataType<std::string>*>(tmp->getData())->getDataPtr();
+        //std::string str( *data->getDataPtr() );
+        cout << "-__--X "<< data << endl;
+        //std::string data = "0";
+        const char *DATO = pDisk.read( _sizeCounter, 7 );
+        std::string DATOSTR(DATO);       // obtiene el padre
+        _sizeCounter += 8;
+        cout << "juicy "<< sortUserDataFromDisk( DATOSTR, conversion, data ) << " ";
+        tmp = tmp->getNextPtr();
+    }
 }
 
-std::string BTRecordFile::sortUserDataFromDisk( std::string pData, Converter *pConversion )
+std::string BTRecordFile::sortUserDataFromDisk( std::string pData,
+                                                Converter *pConversion, char pTipo)
 {
     std::string finalBinaryRecord;
     std::string str( pData ); // Convert from std::string 2 Qstring
-    QString qstrData(str.c_str()); // donde qstr es el QString
-
-    if ( !pConversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
-        cout << "opcion 1" << endl;
+    cout << "HILA" << pTipo << endl;
+    if ( pTipo == '0' || pTipo == '1' ){ // cadena no de numeros
         finalBinaryRecord = pConversion->binaryToString( pData );
     }
     else{   // son solo numeros
-        cout << "opcion 2" << endl;
         finalBinaryRecord = pConversion->binaryToDecimal( pData );
     }
     return finalBinaryRecord;
