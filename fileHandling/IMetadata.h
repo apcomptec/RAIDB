@@ -25,7 +25,7 @@ public:
      * @brief setFileName Establece el nombre de archivo
      * @param pFileName Nuevo nombre de archivo
      */
-    virtual void setFileName(std::string &pFileName) = 0;
+    virtual void setFileName(const std::string &pFileName) = 0;
 
     /**
      * @brief getOwner
@@ -37,7 +37,7 @@ public:
      * @brief setOwner Establece el dueño del archivo
      * @param pOwner Nuevo dueño
      */
-    virtual void setOwner(std::string &pOwner) = 0;
+    virtual void setOwner(const std::string &pOwner) = 0;
 
     /**
      * @brief getFileSize
@@ -56,6 +56,19 @@ public:
      * @return Devuelve el tamaño de un registro
      */
     virtual unsigned short getRecordSize() const = 0;
+
+    /**
+     * @brief getNumberOfRecords
+     * @return Devuelve el número de registros presentes en el registro. En caso
+     * de borrarse alguno, debe disminuir su cantidad
+     */
+    virtual unsigned short getNumberOfRecords() const = 0;
+
+    /**
+     * @brief setNumberOfRecords Establece el número de registros
+     * @param pNumber Nuevo número de registros
+     */
+    virtual void setNumberOfRecords(const unsigned short &pNumber) = 0;
 
     /**
      * @brief getFreeBlockList
@@ -86,20 +99,27 @@ public:
      * @return Posición relativa del archivo donde se encuentra el fin de este
      * (es independiente de la ubicación del archivo)
      */
-    virtual unsigned short *getEOF() const = 0;
+    virtual unsigned short getEOF() const = 0;
 
     /**
      * @brief setEOF
      * @param pEOF
      */
-    virtual void setEOF(unsigned short *pEOF) = 0;
+    virtual void setEOF(const unsigned short &pEOF) = 0;
 
     /**
      * @brief getFirstRecordPos
      * @return Posición relativa al archivo (independientemente de dónde se
      * encuentre el archivo en disco) donde está el primer registro
      */
-    virtual unsigned short *getFirstRecordPos() const = 0;
+    virtual unsigned short getFirstRecordPos() const = 0;
+
+    /**
+     * @brief setFirstRecordPos Cambia la posición relativa en el archivo del
+     * primer registro
+     * @param pPos Nueva posición de inicio del primer registo
+     */
+    virtual void setFirstRecordPos(const unsigned short &pPos) = 0;
 };
 
 #endif // IMETADATA_H

@@ -47,19 +47,21 @@ public:
 // -----------------------------------------------------------------------------
     virtual DLL<IRecordDataType *> *getRecordStruct() const;
     virtual unsigned short getRecordSize() const;
+    virtual unsigned short getNumberOfRecords() const;
+    virtual void setNumberOfRecords(const unsigned short &pNumber);
     virtual std::string getFileName() const;
-    virtual void setFileName(std::string &pFileName);
+    virtual void setFileName(const std::string &pFileName);
     virtual unsigned short getFileSize() const;
     virtual std::string getOwner() const;
-    virtual void setOwner(std::string &pOwner);
-    virtual DLL<unsigned short> *getFreeBlockList() const;
+    virtual void setOwner(const std::string &pOwner);
+    virtual DLL<unsigned short> *getFreeBlockList() const; // TODO no puntero y no lista doble
     virtual void setFreeBlockList(DLL<unsigned short> *pFreeBlockList);
     virtual DLL<unsigned short> *getUsedBlockList() const;
     virtual void setUsedBlockList(DLL<unsigned short> *pBlockUsedList);
-    virtual unsigned short *getEOF() const;
-    virtual void setEOF(unsigned short *pEOF);
-    virtual unsigned short *getFirstRecordPos() const;
-    virtual void setFirstRecordPos(unsigned short *pPos);
+    virtual unsigned short getEOF() const;
+    virtual void setEOF(const unsigned short &pEOF);
+    virtual unsigned short getFirstRecordPos() const;
+    virtual void setFirstRecordPos(const unsigned short &pPos);
 // -----------------------------------------------------------------------------
 
 private:
@@ -86,7 +88,7 @@ private:
      * posición relativa en el disco o un equivalente de posición de registro
      * en cuestión del archivo
      */
-    unsigned short _recordSize, _numberOfRecords, _fileSize, *_fr, *_eof;
+    unsigned short _recordSize, _numberOfRecords, _fileSize, _fr, _eof;
 
     /**
      * @brief _freeBlockList Lista con los bloques libres
