@@ -21,9 +21,13 @@ const char BTRecordFileMetadata::BOOL       = '5';
 // -----------------------------------------------------------------------------
 
 BTRecordFileMetadata::BTRecordFileMetadata()
-    : _recordStructPtr(new DLL<IRecordDataType*>())
+    //: _recordStructPtr(new DLL<IRecordDataType*>())
 {
-    constructMetadata();
+    this->_numberOfRecords = 1;
+    this->_recordSize = 32;
+    this->_eof = 0;
+    this->_fr = 0;
+    //constructMetadata();
 }
 
 BTRecordFileMetadata::BTRecordFileMetadata(DLL<IRecordDataType *>
@@ -34,7 +38,6 @@ BTRecordFileMetadata::BTRecordFileMetadata(DLL<IRecordDataType *>
       _owner(pOwner),
       _recordSize(computeRecordSize())
 {
-    // vacío
 }
 
 DLL<IRecordDataType *> *BTRecordFileMetadata::getRecordStruct() const
@@ -107,17 +110,19 @@ void BTRecordFileMetadata::setFirstRecordPos(const unsigned short &pPos)
     _fr = pPos;
 }
 
-unsigned short BTRecordFileMetadata::getRecordSize() const // TODO ¡PROBAR!
+unsigned short BTRecordFileMetadata::getRecordSize() const
 {
     return _recordSize;
 }
 
 unsigned short BTRecordFileMetadata::getNumberOfRecords() const
 {
+    return _numberOfRecords;
 }
 
 void BTRecordFileMetadata::setNumberOfRecords(const unsigned short &pNumber)
 {
+    this->_numberOfRecords = pNumber;
 }
 
 void BTRecordFileMetadata::constructMetadata()

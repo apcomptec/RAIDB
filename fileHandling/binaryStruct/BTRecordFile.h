@@ -72,6 +72,7 @@ private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
     int _counter;       //llevará la cantidad de registros insertados
+    Converter *_conversion;
 
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;
@@ -82,7 +83,7 @@ private:
 
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN DE REGISTROS EN DISCO
     void modifyLastTreeRegistry(unsigned short pRecordNumber,
-                                unsigned short pChangePositon, Converter *pConversion);
+                                unsigned short pChangePositon);
     std::string getUserRecordData( DLL<IRecordDataType *> *pListPtr );
 //..............................................................................
 

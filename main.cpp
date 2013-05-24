@@ -14,6 +14,7 @@ int main()
 // *****************************************************************************
 // PRUEBA PARA ESCRIBIR REGISTRO EN DISCO
 // *****************************************************************************
+    //Disk *disk = new Disk(1,7);
     std::string name = "JUJU";
     std::string data = "H";
     unsigned short size = 3;
@@ -21,7 +22,7 @@ int main()
     BTRecordFileMetadata *p = new BTRecordFileMetadata();
 //------------------------------------
     std::string name2 = "fueeeee";
-    std::string data2 = "576";
+    std::string data2 = "R";
     unsigned short size2 = 8;
     IRecordDataType * record2 = new RecordDataType<std::string>(name2, data2, size2);
     DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(), *list2 = new DLL<IRecordDataType *>();
@@ -29,10 +30,11 @@ int main()
     list2->insertAtFront(record2);
 //------------------------------------
     BTRecordFile *file = new BTRecordFile(p);
-    file->insertRecord(list1);
-    file->insertRecord(list2);
-    file->printArrayRecord();
+//    file->insertRecord(list1);
+//    file->insertRecord(list2);
+//    file->printArrayRecord();
     file->insertRecord2Disk(list1);
+    file->insertRecord2Disk(list2);
 //------------------------------------
 //    Disk *disk = new Disk(1, 7);
 //    const char *test1 = file->getRegistryArray()[1].castRecordToBinary().c_str();

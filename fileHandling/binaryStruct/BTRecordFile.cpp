@@ -148,26 +148,33 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     unsigned short tamanoRegistro = this->_metadataPtr->getRecordSize();
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
-    Converter *conversion = new Converter();
     if( this->_disk == NULL ){
+        this->_disk = new Disk( 1,7 );
         dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
     }
     else{ // se insertan otros registros después de haber uno
+        cout << "CANTIDAD DE REGISTROS--> " << cantRegistros << endl;
         unsigned short fatherPosition = posicionPrimerRegistro +
                 ( (tamanoRegistro) * ( ( cantRegistros / 2) - 1) );
         std::string leftChild = "00000000";       // obtiene el hijo izq
         std::string rightChild = "00000000";      // obtiene el hijo der
-        modifyLastTreeRegistry( cantRegistros, fatherPosition, conversion ); // cambia datos del registro padre
+        modifyLastTreeRegistry( cantRegistros, fatherPosition ); // cambia datos del registro padre
         unsigned short padre = cantRegistros / 2;
-        std::string parent = conversion->decimalToBinary( std::to_string(padre) );
+        cout << "LALALA----------->" << padre << endl;
+        std::string parent = _conversion->decimalToBinary( std::to_string(padre) );
         dataBinaryRecord += ( parent + leftChild + rightChild );
     }
     dataBinaryRecord += getUserRecordData( pListPtr );
-    const char* test1 = dataBinaryRecord.c_str();
-    this->_disk->write( this->_metadataPtr->getEOF() , test1 ); // en vez de cero sería en EOF
+    const char* buffer = dataBinaryRecord.c_str();
+    cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
+    this->_disk->write( this->_metadataPtr->getEOF() , buffer ); // en vez de cero sería en EOF
+    cout << "Escritura a disco finalizada" << endl;
+
     //  Actualiza el tamaño de EOF y la cantidad de registros insertados
     this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
-    this->_metadataPtr->setNumberOfRecords( cantRegistros++);
+    this->_metadataPtr->setNumberOfRecords( ++cantRegistros );
+    cout << "Actualizacion" << endl;
+    this->_disk->read(0, this->_metadataPtr->getEOF());
 }
 
 /**
@@ -178,17 +185,16 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
     std::string finalBinaryRecord;  // concatenacion del registro
     DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
     RecordDataType<std::string> *data;
-    Converter *conversion = new Converter();
     while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
         std::string str( *data->getDataPtr() ); // Convert from std::string 2 Qstring
         QString qstrData(str.c_str()); // donde qstr es el QString
 
-        if ( !conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
-            finalBinaryRecord += conversion->stringToBinary( *data->getDataPtr() );
+        if ( !_conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
+            finalBinaryRecord += _conversion->stringToBinary( *data->getDataPtr() );
         }
         else{   // son solo numeros
-            finalBinaryRecord += conversion->decimalToBinary( *data->getDataPtr() );
+            finalBinaryRecord += _conversion->decimalToBinary( *data->getDataPtr() );
         }
         tmp = tmp->getNextPtr();
     }
@@ -205,8 +211,8 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
  * @param
  */
 void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
-                 unsigned short pChangePositon, Converter *pConversion){
-    std::string modifiedChild = pConversion->decimalToBinary( std::to_string(pRecordNumber) );
+                 unsigned short pChangePositon){
+    std::string modifiedChild = _conversion->decimalToBinary( std::to_string(pRecordNumber) );
     const char *modifiedChildChar = modifiedChild.c_str();
     if (pRecordNumber % 2 == 0){    // registro es par modifica hizq
         this->_disk->write( pChangePositon + 8, modifiedChildChar );
