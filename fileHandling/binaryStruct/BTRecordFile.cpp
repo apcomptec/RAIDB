@@ -221,8 +221,8 @@ void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
 }
 
 void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
-    unsigned short BOF = this->_metadataPtr->getEOF();
-    unsigned short recordSize = this->_metadataPtr->getNumberOfRecords();
+    unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
+    unsigned short recordSize = this->_metadataPtr->getRecordSize();
     unsigned short ListFreeBlocks = this->_metadataPtr->getFreeBlockList();
     // formula para detectar el lugar del registro por borrar
     unsigned short erasedRecordSpace = BOF + ( recordSize * (recordID - 1) );
@@ -232,6 +232,7 @@ void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
 
     if( ListFreeBlocks == 0 ){  // no bloques libres no hay ninguno borrado
         this->_metadataPtr->setFreeBlockList( recordID );
+        cout << "ENTRANDO PERRAS" << erasedRecordSpace<<endl;
         this->_disk->write(erasedRecordSpace, "00000000");  // setea el padre
         this->_disk->write(erasedRecordSpace + 8, "00000000");  // setea el hizq
     }

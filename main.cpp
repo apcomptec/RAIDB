@@ -90,6 +90,9 @@ int main()
 
     file->readALLRecordsFromDisk();
 
+    file->deleteRecordFromDisk(3);
+    file->readALLRecordsFromDisk();
+
 //------------------------------------
 //    Disk *disk = new Disk(1, 7);
 //    const char *test1 = file->getRegistryArray()[1].castRecordToBinary().c_str();
