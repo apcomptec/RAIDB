@@ -17,6 +17,34 @@ public:
     Converter();
 
     /**
+     * @brief fromString2Short
+     * @param pSTDString
+     * @return
+     */
+    unsigned short fromString2Short( const std::string &pSTDString );
+
+    /**
+     * @brief fromConstChar2String
+     * @param pConstChar
+     * @return
+     */
+    std::string fromConstChar2String( const char *pConstChar );
+
+    /**
+     * @brief fromStringToQString
+     * @param pSTDString
+     * @return
+     */
+    QString fromStringToQString( const std::string &pSTDString);
+
+    /**
+     * @brief FromStringToConstChar
+     * @param pDecimalNumber
+     * @return
+     */
+    const char* fromStringToConstChar(const std::string &pSTDString);
+
+    /**
      * @brief stringToBinary Conversion de string a binario
      * @param pStringLetters
      * @return

@@ -67,6 +67,7 @@ public:
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO
     void insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ); // INSERCION DE REGISTROS EN DISCO
     void deleteRecordFromDisk(unsigned short recordID );
+    unsigned short getLeftChildErase(unsigned short pNextLeftChild);
 
 private:
     BTRecordFileMetadata *_metadataPtr;

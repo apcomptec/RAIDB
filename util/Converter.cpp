@@ -11,6 +11,53 @@ Converter::Converter()
 }
 
 /**
+ * @brief Converter::fromString2Short
+ * @param pSTDString
+ * @return shortNumber
+ * Conversió de std::string a unsigned short
+ */
+unsigned short Converter::fromString2Short( const std::string &pSTDString )
+{
+    QString qstString = this->fromStringToQString( pSTDString );
+    unsigned short shortNumber = qstString.toShort();
+    return shortNumber;
+}
+/**
+ * @brief Converter::fromConstChar2String
+ * @param pConstChar
+ * @return STDString;
+ * Conversión de const char* a std::string
+ */
+std::string Converter::fromConstChar2String( const char *pConstChar )
+{
+    std::string STDString(pConstChar);
+    return STDString;
+}
+/**
+ * @brief Converter::fromStringToQString
+ * @param pSTDString
+ * @return
+ * Conversion de std::string a QString
+ */
+QString Converter::fromStringToQString(const std::string &pSTDString)
+{
+    QString qstrData(pSTDString.c_str()); // donde qstr es el QString
+    return qstrData;
+}
+
+/**
+ * @brief Converter::FromStringToConstChar
+ * @param pDecimalNumber
+ * @return constChar
+ * Conversión de std::string a const char*
+ */
+const char* Converter::fromStringToConstChar(const std::string &pSTDString)
+{
+    const char* constChar = pSTDString.c_str();
+    return constChar;
+}
+
+/**
  * @brief Converter::decimalToBinary
  * Convierte números (cadenas de strings) de una base a otra
  */

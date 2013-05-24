@@ -14,7 +14,6 @@ int main()
 // *****************************************************************************
 // PRUEBA PARA ESCRIBIR REGISTRO EN DISCO
 // *****************************************************************************
-    //Disk *disk = new Disk(1,7);
     std::string name = "JUJU";
     std::string data = "H";
     unsigned short size = 3;
@@ -71,7 +70,8 @@ int main()
 // PRUEBA PARA HACER CONVERSIONES DE DATOS DE BINARIO A NORMAL Y VICEVERSA
 // *****************************************************************************
     //    Converter *c = new Converter();
-    //nsodnanfapsofasnfos
+    //    cout << "--------------------" << endl;
+    //    cout << c->fromString2Short("3") << endl;
     //    cout << "--------------------" << endl;
     //    c->binaryToDecimal("00111");
     //    cout << "--------------------" << endl;

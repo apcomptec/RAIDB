@@ -27,6 +27,7 @@ BTRecordFileMetadata::BTRecordFileMetadata()
     this->_recordSize = 32;
     this->_eof = 0;
     this->_fr = 0;
+    this->_freeBlockList = 0;
     //constructMetadata();
 }
 
@@ -70,12 +71,12 @@ void BTRecordFileMetadata::setOwner(const std::string &pOwner)
     _owner = pOwner;
 }
 
-DLL<unsigned short> *BTRecordFileMetadata::getFreeBlockList() const
+unsigned short BTRecordFileMetadata::getFreeBlockList() const
 {
     return _freeBlockList;
 }
 
-void BTRecordFileMetadata::setFreeBlockList(DLL<unsigned short> *pFreeBlockList)
+void BTRecordFileMetadata::setFreeBlockList(unsigned short pFreeBlockList)
 {
     _freeBlockList = pFreeBlockList;
 }

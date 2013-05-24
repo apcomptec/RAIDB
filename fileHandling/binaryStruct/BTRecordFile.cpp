@@ -165,9 +165,9 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
         dataBinaryRecord += ( parent + leftChild + rightChild );
     }
     dataBinaryRecord += getUserRecordData( pListPtr );
-    const char* buffer = dataBinaryRecord.c_str();
+    //const char* buffer = dataBinaryRecord.c_str();
     cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
-    this->_disk->write( this->_metadataPtr->getEOF() , buffer ); // en vez de cero sería en EOF
+    this->_disk->write( this->_metadataPtr->getEOF() , _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
     cout << "Escritura a disco finalizada" << endl;
 
     //  Actualiza el tamaño de EOF y la cantidad de registros insertados
@@ -187,10 +187,10 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
     RecordDataType<std::string> *data;
     while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
-        std::string str( *data->getDataPtr() ); // Convert from std::string 2 Qstring
-        QString qstrData(str.c_str()); // donde qstr es el QString
-
-        if ( !_conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
+        QString qstrData= _conversion->fromStringToQString(*data->getDataPtr());
+//        std::string str( *data->getDataPtr() ); // Convert from std::string 2 Qstring
+//        QString qstrData(str.c_str()); // donde qstr es el QString
+       if ( !_conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
             finalBinaryRecord += _conversion->stringToBinary( *data->getDataPtr() );
         }
         else{   // son solo numeros
@@ -223,10 +223,9 @@ void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
 }
 
 void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
-    unsigned short BOF = 0;
-    unsigned short recordSize = 0;
-    unsigned short ListFreeBlocks = 0;
-    Converter *conversion = new Converter();
+    unsigned short BOF = this->_metadataPtr->getEOF();
+    unsigned short recordSize = this->_metadataPtr->getNumberOfRecords();
+    unsigned short ListFreeBlocks = this->_metadataPtr->getFreeBlockList();
     // formula para detectar el lugar del registro por borrar
     unsigned short erasedRecordSpace = BOF + ( recordSize * (recordID - 1) );
     cout << "--------------------------" << endl;
@@ -234,11 +233,15 @@ void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
     cout << "--------------------------" << endl;
 
     if( ListFreeBlocks == 0 ){  // no bloques libres no hay ninguno borrado
-        //setsetListFreeBlocks(erasedRecordSpace + 8);
+        this->_metadataPtr->setFreeBlockList( recordID );
+        this->_disk->write(erasedRecordSpace, "00000000");  // setea el padre
+        this->_disk->write(erasedRecordSpace + 8, "00000000");  // setea el hizq
     }
-    else if(ListFreeBlocks != 0){   // no existe ningún registro borrado
+    else if( ListFreeBlocks != 0 ){   // no existe ningún registro borrado
         // setea el hijo izq del dato de _listFreeBlocks
         unsigned short actual = ListFreeBlocks;
+//        std::string bufferRead = _conversion->fromConstChar2String(
+//                    this->_disk->read( erasedRecordSpace + 8, 7 ) );
         const char *hizq = this->_disk->read( erasedRecordSpace + 8, 7 ); //lee espacio del hIZQ
         std::string father(hizq);
 
@@ -248,15 +251,26 @@ void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
         }
 //        this->_registryArray[actual].setLeftChildPtr(pDatoBorrado);
 //        conversion->decimalToBinary(recordID);
-        this->_disk->write( actual + 16, "00000000" );  // setea el padre a 0
+        this->_disk->write( actual + 8, "00000000" );  // setea el padre a 0
         this->_disk->write( erasedRecordSpace, "00000000" );  // setea el padre a 0
-        this->_disk->write( erasedRecordSpace + 16, "00000000" );  // setea hIZQ a 0
-
-
+        this->_disk->write( erasedRecordSpace + 8, "00000000" );  // setea hIZQ a 0
     }
     else{
-        cout << "No existe registro para borrar." << endl;
+        cout << "No existe registro para borrar o.O" << endl;
     }
+}
+
+unsigned short BTRecordFile::getLeftChildErase(unsigned short pNextLeftChild){
+//    unsigned short BOF = this->_metadataPtr->getEOF();
+//    unsigned short recordSize = this->_metadataPtr->getNumberOfRecords();
+//    unsigned short ListFreeBlocks = this->_metadataPtr->getFreeBlockList();
+//    unsigned short erasedRecordSpace = BOF + ( recordSize * (pNextLeftChild - 1) );
+//    const char *hizq = this->_disk->read( erasedRecordSpace + 8, 7 ); //lee espacio del hIZQ
+//    std::string HI(hizq);
+//    std::stoi( this->_conversion->binaryToDecimal(HI));
+
+//    return stoi;
+
 }
 //------------------------------------------------------------------------------
 //   FIN INSERCION DE DATOS EN DISCO
