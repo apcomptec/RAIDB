@@ -14,26 +14,33 @@ int main()
 // *****************************************************************************
 // PRUEBA PARA ESCRIBIR REGISTRO EN DISCO
 // *****************************************************************************
-    std::string name = "JUJU";
+    std::string name = "file1";
     std::string data = "H";
     unsigned short size = 3;
-    IRecordDataType * record1 = new RecordDataType<std::string>(name, data, size);
+    IRecordDataType *record1 = new RecordDataType<std::string>(name, data, size);
     BTRecordFileMetadata *p = new BTRecordFileMetadata();
 //------------------------------------
-    std::string name2 = "fueeeee";
+    std::string name2 = "file2";
     std::string data2 = "R";
-    unsigned short size2 = 8;
-    IRecordDataType * record2 = new RecordDataType<std::string>(name2, data2, size2);
-    DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(), *list2 = new DLL<IRecordDataType *>();
+    unsigned short size2 = 3;
+    IRecordDataType *record2 = new RecordDataType<std::string>(name2, data2, size2);
+//------------------------------------
+    std::string name3 = "file3";
+    std::string data3 = "D";
+    unsigned short size3 = 3;
+    IRecordDataType *record3 = new RecordDataType<std::string>(name3, data3, size3);
+
+    DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(), *list2 = new DLL<IRecordDataType *>(),
+            *list3 = new DLL<IRecordDataType *>();
     list1->insertAtFront(record1);
     list2->insertAtFront(record2);
+    list3->insertAtFront(record3);
 //------------------------------------
+
     BTRecordFile *file = new BTRecordFile(p);
-//    file->insertRecord(list1);
-//    file->insertRecord(list2);
-//    file->printArrayRecord();
     file->insertRecord2Disk(list1);
     file->insertRecord2Disk(list2);
+    file->insertRecord2Disk(list3);
 
     file->readALLRecordsFromDisk();
 

@@ -160,7 +160,6 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
         std::string rightChild = "00000000";      // obtiene el hijo der
         modifyLastTreeRegistry( cantRegistros, fatherPosition ); // cambia datos del registro padre
         unsigned short padre = cantRegistros / 2;
-        cout << "LALALA----------->" << padre << endl;
         std::string parent = _conversion->decimalToBinary( std::to_string(padre) );
         dataBinaryRecord += ( parent + leftChild + rightChild );
     }
@@ -168,13 +167,12 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     //const char* buffer = dataBinaryRecord.c_str();
     cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
     this->_disk->write( this->_metadataPtr->getEOF() , _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
-    cout << "Escritura a disco finalizada" << endl;
-
+    cout << "-----------------------------------------------------------------" << endl;
+    cout << "$$$$$$$$$$ Escritura a disco finalizada $$$$$$$$$$" << endl;
+    cout << "-----------------------------------------------------------------" << endl;
     //  Actualiza el tamaño de EOF y la cantidad de registros insertados
     this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
     this->_metadataPtr->setNumberOfRecords( ++cantRegistros );
-    cout << "Actualizacion" << endl;
-    this->_disk->read(0, this->_metadataPtr->getEOF());
 }
 
 /**
@@ -283,6 +281,9 @@ unsigned short BTRecordFile::getLeftChildErase(unsigned short pNextLeftChild){
  */
 void BTRecordFile::readALLRecordsFromDisk()
 {
+    cout << "-----------------------------------------------------------------" << endl;
+    cout << "$$$$$$$$$$ Lectura de disco $$$$$$$$$$" << endl;
+    cout << "-----------------------------------------------------------------" << endl;
     unsigned short contador = 1;
     unsigned short inicio = this->_metadataPtr->getFirstRecordPos();
     cout << this->_metadataPtr->getFirstRecordPos() << endl;
@@ -310,7 +311,7 @@ void BTRecordFile::readALLRecordsFromDisk()
         inicio += this->_metadataPtr->getRecordSize();
         contador++;
     }
-    cout << "Fin de los datos en el disco!!" << endl;
+    cout << "-------- Fin de los datos en el disco!! --------" << endl;
 }
 
 //------------------------------------------------------------------------------
