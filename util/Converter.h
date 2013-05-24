@@ -16,6 +16,9 @@ public:
      */
     Converter();
 
+    std::string fromShort2String( unsigned short pShortNumber );
+
+
     /**
      * @brief fromString2Short
      * @param pSTDString

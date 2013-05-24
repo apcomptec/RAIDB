@@ -34,6 +34,9 @@ int main()
 //    file->printArrayRecord();
     file->insertRecord2Disk(list1);
     file->insertRecord2Disk(list2);
+
+    file->readALLRecordsFromDisk();
+
 //------------------------------------
 //    Disk *disk = new Disk(1, 7);
 //    const char *test1 = file->getRegistryArray()[1].castRecordToBinary().c_str();

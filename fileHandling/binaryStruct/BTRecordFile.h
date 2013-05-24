@@ -68,6 +68,7 @@ public:
     void insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ); // INSERCION DE REGISTROS EN DISCO
     void deleteRecordFromDisk(unsigned short recordID );
     unsigned short getLeftChildErase(unsigned short pNextLeftChild);
+    void readALLRecordsFromDisk();
 
 private:
     BTRecordFileMetadata *_metadataPtr;

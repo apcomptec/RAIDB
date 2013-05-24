@@ -11,6 +11,16 @@ Converter::Converter()
 }
 
 /**
+ * @brief Converter::fromShort2String
+ * @param pShortNumber
+ * @return
+ * Conversión de unsigned short a std::string
+ */
+std::string Converter::fromShort2String( unsigned short pShortNumber ){
+    return std::to_string(pShortNumber);
+}
+
+/**
  * @brief Converter::fromString2Short
  * @param pSTDString
  * @return shortNumber
@@ -73,7 +83,7 @@ std::string Converter::decimalToBinary(const std::string &pDecimalNumber)
 
     std::string stringBinary = binaryNumber.toStdString();
     stringBinary.length() == 8 ? stringBinary : completeBinary(stringBinary);
-    cout << "Conversión de " << pDecimalNumber << " a " << completeBinary(stringBinary) << endl;
+    //cout << "Conversión de " << pDecimalNumber << " a " << completeBinary(stringBinary) << endl;
     return completeBinary(stringBinary);
 
 }
@@ -93,7 +103,7 @@ std::string Converter::binaryToDecimal(const std::string &pBinaryString)
         QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
     //qDebug() << decimalNumber; // número convertido a decimal
     std::string stringDecimal = decimalNumber.toStdString();
-    cout << "Conversión de " << pBinaryString << " a " << stringDecimal << endl;
+    //cout << "Conversión de " << pBinaryString << " a " << stringDecimal << endl;
     return stringDecimal;
 }
 
@@ -109,7 +119,7 @@ std::string Converter::stringToBinary(const std::string &pStringLetters)
         std::bitset<8> array(pStringLetters.c_str()[i]);
         string += array.to_string();
     }
-    cout << "Conversión de " << pStringLetters << " a \n" << string << endl;
+    //cout << "Conversión de " << pStringLetters << " a \n" << string << endl;
     return string;
 }
 
@@ -135,7 +145,7 @@ std::string Converter::binaryToString(const std::string &pBinaryString)
 
         result.append(numericCharToString(binaryToStringChar));
     }
-    cout << "Conversión de " << pBinaryString << " a " << result << endl;
+    //cout << "Conversión de " << pBinaryString << " a " << result << endl;
     return result;
 }
 
@@ -160,7 +170,7 @@ std::string Converter::completeBinary(std::string pBinary)
         complete += "0";
     }
     complete += pBinary;
-    cout << complete << endl;
+    //cout << complete << endl;
     return complete;
 }
 
