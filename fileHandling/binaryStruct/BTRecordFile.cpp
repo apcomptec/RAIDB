@@ -144,9 +144,9 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
  * Función que se encargará de insertar los registros al disco
  */
 void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
-    unsigned short cantRegistros = 1;
-    unsigned short tamanoRegistro = 1;
-    unsigned short posicionPrimerRegistro = 1;
+    unsigned short cantRegistros = this->_metadataPtr->getNumberOfRecords();
+    unsigned short tamanoRegistro = this->_metadataPtr->getRecordSize();
+    unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     Converter *conversion = new Converter();
     if( this->_disk == NULL ){
@@ -164,7 +164,10 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     }
     dataBinaryRecord += getUserRecordData( pListPtr );
     const char* test1 = dataBinaryRecord.c_str();
-    this->_disk->write( 0, test1 ); // en vez de cero sería en EOF
+    this->_disk->write( this->_metadataPtr->getEOF() , test1 ); // en vez de cero sería en EOF
+    //  Actualiza el tamaño de EOF y la cantidad de registros insertados
+    this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
+    this->_metadataPtr->setNumberOfRecords( cantRegistros++);
 }
 
 /**
@@ -237,8 +240,8 @@ void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
             actual = _registryArray[actual].getLeftChildPtr();
             this->_disk->read( actual + 8, 7 );
         }
-        this->_registryArray[actual].setLeftChildPtr(pDatoBorrado);
-        conversion->decimalToBinary(recordID);
+//        this->_registryArray[actual].setLeftChildPtr(pDatoBorrado);
+//        conversion->decimalToBinary(recordID);
         this->_disk->write( actual + 16, "00000000" );  // setea el padre a 0
         this->_disk->write( erasedRecordSpace, "00000000" );  // setea el padre a 0
         this->_disk->write( erasedRecordSpace + 16, "00000000" );  // setea hIZQ a 0
