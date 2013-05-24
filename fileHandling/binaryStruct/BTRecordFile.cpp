@@ -10,7 +10,6 @@
 
 BTRecordFile::BTRecordFile()
 {
-    mainMenu();
 }
 
 BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
@@ -382,22 +381,6 @@ bool BTRecordFile::defragFile()
     return false; // TODO
 }
 
-BTRecord *BTRecordFile::insertRecord()
-{
-    printDataStructureByUser(); // imprimir estructura del usuario
-
-    DLL<IRecordDataType*> *dataListByUser = new DLL<IRecordDataType*>();
-    RecordDataType<std::string> *data;
-    DLLNode<IRecordDataType *> *current =
-        _metadataPtr->getRecordStruct()->getHeadPtr();
-
-    while (current != nullptr) {
-        std::cout << "Escriba el dato: ";
-//        dataListByUser->insertAtBack(*data);
-
-    }
-}
-
 /**
  * @brief BTRecordFile::readRecordFromDiskTest
  * @param pDisk
@@ -456,33 +439,3 @@ std::string BTRecordFile::sortUserDataFromDisk(std::string pData,
 
     return finalBinaryRecord;
 }
-
-void BTRecordFile::mainMenu()
-{
-    std::cout << "¡Bienvenido!\n\n";
-
-    _metadataPtr = new BTRecordFileMetadata();
-
-    char option;
-
-    std::cout << "Escoga la acción a realizar con el archivo (0 para salir):\n"
-              << "1. Insertar registro\n"
-              << "2. Modificar registro\n"
-              << "3. Borrar registro\n"
-              << "> ";
-
-    std::cin >> option;
-
-    switch (option) {
-    case '0':
-        insertRecord();
-        break;
-    case '1':
-        std::cout << "Hola";
-        break;
-    default:
-        std::cout << "Incorrecto";
-        break;
-    }
-}
-

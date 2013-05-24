@@ -52,7 +52,6 @@ public:
     virtual bool defragFile();
 // -----------------------------------------------------------------------------
 
-    BTRecord *insertRecord();
     BTRecord *getRegistryArray() const;
     void setRegistryArray(BTRecord *pRegistryArray);
     Disk *getDisk() const;
@@ -64,7 +63,7 @@ public:
     ~BTRecordFile();
     void readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID );
 
-    void mainMenu();
+
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO
     void insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ); // INSERCION DE REGISTROS EN DISCO
     void deleteRecordFromDisk(unsigned short recordID );
