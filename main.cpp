@@ -60,12 +60,17 @@ int main()
     unsigned short size9 = 3;
     IRecordDataType *record9 = new RecordDataType<std::string>(name9, data9, size9);
 
+    std::string name10 = "file3";
+    std::string data10 = "Z";
+    unsigned short size10 = 3;
+    IRecordDataType *record10 = new RecordDataType<std::string>(name10, data10, size10);
+
 
     DLL<IRecordDataType * > *list1 = new DLL<IRecordDataType *>(), *list2 = new DLL<IRecordDataType *>(),
             *list3 = new DLL<IRecordDataType *>(), *list4 = new DLL<IRecordDataType *>()
             , *list5 = new DLL<IRecordDataType *>(), *list6 = new DLL<IRecordDataType *>()
             , *list7 = new DLL<IRecordDataType *>(), *list8 = new DLL<IRecordDataType *>()
-            , *list9 = new DLL<IRecordDataType *>();
+            , *list9 = new DLL<IRecordDataType *>(), *list10 = new DLL<IRecordDataType *>();
     list1->insertAtFront(record1);
     list2->insertAtFront(record2);
     list3->insertAtFront(record3);
@@ -75,10 +80,11 @@ int main()
     list7->insertAtFront(record7);
     list8->insertAtFront(record8);
     list9->insertAtFront(record9);
+    list10->insertAtFront(record10);
     //------------------------------------
 
     BTRecordFile *file = new BTRecordFile(p);
-    file->insertRecord2Disk(list1);
+    file->insertRecord2Disk(list1); // inserta datos en disco
     file->insertRecord2Disk(list2);
     file->insertRecord2Disk(list3);
     file->insertRecord2Disk(list4);
@@ -87,10 +93,9 @@ int main()
     file->insertRecord2Disk(list7);
     file->insertRecord2Disk(list8);
     file->insertRecord2Disk(list9);
-
-    file->readALLRecordsFromDisk();
+    file->readALLRecordsFromDisk();     // imprime los datos que están en disco
 // PRUEBAS DE BORRADO DE DATOS EN EL DISCO
-    file->deleteRecordFromDisk(3);
+    file->deleteRecordFromDisk(3);  // borra datos en disco
     file->readALLRecordsFromDisk();
     file->deleteRecordFromDisk(5);
     file->readALLRecordsFromDisk();
@@ -98,6 +103,14 @@ int main()
     file->readALLRecordsFromDisk();
     file->deleteRecordFromDisk(2);
     file->readALLRecordsFromDisk();
+
+    file->insertRecord2Disk(list3);
+    file->readALLRecordsFromDisk();
+    file->insertRecord2Disk(list10);
+    file->readALLRecordsFromDisk();
+
+    file->readOneRecordFromDisk(3);
+
 
 
 //------------------------------------

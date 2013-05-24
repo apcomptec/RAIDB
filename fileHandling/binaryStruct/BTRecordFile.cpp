@@ -148,31 +148,83 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     unsigned short tamanoRegistro = this->_metadataPtr->getRecordSize();
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
-    if( this->_disk == NULL ){
-        this->_disk = new Disk( 1,7 );
-        dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
-    }
-    else{ // se insertan otros registros después de haber uno
-        cout << "CANTIDAD DE REGISTROS--> " << cantRegistros << endl;
-        unsigned short fatherPosition = posicionPrimerRegistro +
+    if (this->_metadataPtr->getFreeBlockList() == 0){
+        if( this->_disk == NULL ){
+            this->_disk = new Disk( 1,7 );
+            dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
+        }
+        else{ // se insertan otros registros después de haber uno
+            cout << "CANTIDAD DE REGISTROS--> " << cantRegistros << endl;
+            unsigned short fatherPosition = posicionPrimerRegistro +
                 ( (tamanoRegistro) * ( ( cantRegistros / 2) - 1) );
-        std::string leftChild = "00000000";       // obtiene el hijo izq
-        std::string rightChild = "00000000";      // obtiene el hijo der
-        modifyLastTreeRegistry( cantRegistros, fatherPosition ); // cambia datos del registro padre
-        unsigned short padre = cantRegistros / 2;
-        std::string parent = _conversion->decimalToBinary( std::to_string(padre) );
-        dataBinaryRecord += ( parent + leftChild + rightChild );
+            std::string leftChild = "00000000";       // obtiene el hijo izq
+            std::string rightChild = "00000000";      // obtiene el hijo der
+            modifyLastTreeRegistry( cantRegistros, fatherPosition ); // cambia datos del registro padre
+            unsigned short padre = cantRegistros / 2;
+            std::string parent = _conversion->decimalToBinary( std::to_string(padre) );
+            dataBinaryRecord += ( parent + leftChild + rightChild );
+        }
+        dataBinaryRecord += getUserRecordData( pListPtr );
+        cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
+        this->_disk->write( this->_metadataPtr->getEOF() ,
+                        _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
+    //  Actualiza el tamaño de EOF y la cantidad de registros insertados
+        this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
+        this->_metadataPtr->setNumberOfRecords( ++cantRegistros );
     }
-    dataBinaryRecord += getUserRecordData( pListPtr );
-    //const char* buffer = dataBinaryRecord.c_str();
-    cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
-    this->_disk->write( this->_metadataPtr->getEOF() , _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
+    else{
+        cout << "$$$$$$$$$$ Insertando en espacio... $$$$$$$$$$" << endl;
+        aux_InsertRecord2Disk( pListPtr );
+        }
     cout << "-----------------------------------------------------------------" << endl;
     cout << "$$$$$$$$$$ Escritura a disco finalizada $$$$$$$$$$" << endl;
     cout << "-----------------------------------------------------------------" << endl;
-    //  Actualiza el tamaño de EOF y la cantidad de registros insertados
-    this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
-    this->_metadataPtr->setNumberOfRecords( ++cantRegistros );
+}
+
+/**
+ * @brief BTRecordFile::insertRecordAUX
+ * @param pNewRecord
+ * @param pHDer
+ * Función auxiliar que inserta registros en los espacios que han sido borrados
+ */
+void BTRecordFile::aux_InsertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
+    unsigned short hIzq;
+    unsigned short recordSize = this->_metadataPtr->getRecordSize();
+    unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
+    cout << "--------------------------" << endl;
+    cout << "ListFreeBlocks Antes " << this->_metadataPtr->getFreeBlockList() << endl;
+    unsigned short tmp = this->_metadataPtr->getFreeBlockList();
+    this->_metadataPtr->setFreeBlockList( getLeftChildErase( tmp ) );
+    cout << "ListFreeBlocks Después " << this->_metadataPtr->getFreeBlockList() << endl;
+    cout << "--------------------------" << endl;
+    unsigned short path2Write = BOF + ( recordSize * ( tmp - 1 ) );
+    unsigned short dato = ( tmp / 2);
+    std::string datoStr = _conversion->fromShort2String( dato );
+    std::string datoStrBinary = _conversion->decimalToBinary( datoStr );
+    this->_disk->write( path2Write, _conversion->fromStringToConstChar( datoStrBinary ) ); //setea el padre
+    cout << "El padre es ......... " << this->_disk->read( path2Write, 7 ) << endl;
+
+    const char* hDer = this->_disk->read( path2Write + 16, 7 ); //se obtiene el hDer para calcular el hIzq
+    std::string hDerString = _conversion->fromConstChar2String( hDer );
+    cout << "El hder será ......... " << hDerString << endl;
+    std::string hDerStringDecimal = _conversion->binaryToDecimal( hDerString );
+
+    if (hDerString.compare("00000000")){    // TIENE HIJO DERECHO!!!!
+        hIzq = _conversion->fromString2Short( hDerStringDecimal ) - 1;// se obtiene hIzq del registro
+    }
+    else{   // HIJO DERECHO ES 0, NO TIENE HIJO DERECHO!!!
+        hIzq = tmp * 2;// se obtiene hIzq del registro
+    }
+    cout << "El hIzq será ......... " << hIzq << endl;
+    std::string hIzqString = _conversion->fromShort2String( hIzq );
+    std::string hIzqStringBinary = _conversion->decimalToBinary( hIzqString );
+    this->_disk->write( path2Write + 8, _conversion->fromStringToConstChar( hIzqStringBinary ) );
+    std::string dataBinaryRecord;  // concatenacion del registro a binario
+    dataBinaryRecord += getUserRecordData( pListPtr );
+    this->_disk->write( path2Write + 24 ,
+                    _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
+
+    cout << "......... Registro insertado ........." << endl;
 }
 
 /**
@@ -316,8 +368,43 @@ void BTRecordFile::readALLRecordsFromDisk()
     cout << "-------- Fin de los datos en el disco!! --------" << endl;
 }
 
+/**
+ * @brief BTRecordFile::readOneRecordFromDisk
+ * @param recordID
+ * Lee solo un registro desde disco
+ */
+void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
+{
+    if( recordID <= this->_metadataPtr->getNumberOfRecords() ){
+    unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
+    unsigned short recordSize = this->_metadataPtr->getRecordSize();
+    unsigned short recordSpace = BOF + ( recordSize * ( recordID - 1 ) );
+    const char* padre = this->_disk->read( recordSpace, 7 );
+    std::string stringData1 = _conversion->fromConstChar2String( padre );
+    const char* Hizq = this->_disk->read( recordSpace + 8, 7 );
+    std::string stringData2 = _conversion->fromConstChar2String( Hizq );
+    const char* Hder = this->_disk->read( recordSpace + 16, 7 );
+    std::string stringData3 = _conversion->fromConstChar2String( Hder );
+    const char* data = this->_disk->read( recordSpace + 24, 7 );
+    std::string stringData4 = _conversion->fromConstChar2String( data );
+
+    cout << "----- LEYEDO SOLO EL REGISTRO # " << recordID << " -----" << endl;
+    cout << "Padre--> ";
+    cout << _conversion->binaryToDecimal(stringData1);
+    cout << " hIzq--> ";
+    cout << _conversion->binaryToDecimal(stringData2);
+    cout << " hDer--> ";
+    cout << _conversion->binaryToDecimal(stringData3);
+    cout << " Dato--> ";
+    cout << _conversion->binaryToString(stringData4) << endl;
+    }
+    else{
+        cout << "Error: No existe registro!" << endl;
+    }
+}
+
 //------------------------------------------------------------------------------
-//   FIN INSERCION Y BORRADO DE DATOS EN DISCO
+//   FIN INSERCION, LECTURA Y BORRADO DE DATOS EN DISCO
 //------------------------------------------------------------------------------
 
 /**
