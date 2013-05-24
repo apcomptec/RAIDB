@@ -210,7 +210,44 @@ void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
         this->_disk->write( pChangePositon + 8, modifiedChildChar );
     }
     else{       // registro es impar modifica hder
-        this->_disk->write( pChangePositon + 8, modifiedChildChar );
+        this->_disk->write( pChangePositon + 16, modifiedChildChar );
+    }
+}
+
+void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
+    unsigned short BOF = 0;
+    unsigned short recordSize = 0;
+    unsigned short ListFreeBlocks = 0;
+    Converter *conversion = new Converter();
+    // formula para detectar el lugar del registro por borrar
+    unsigned short erasedRecordSpace = BOF + ( recordSize * (recordID - 1) );
+    cout << "--------------------------" << endl;
+    cout << "Borrando el registro # " << recordID << endl;
+    cout << "--------------------------" << endl;
+
+    if( ListFreeBlocks == 0 ){  // no bloques libres no hay ninguno borrado
+        //setsetListFreeBlocks(erasedRecordSpace + 8);
+    }
+    else if(ListFreeBlocks != 0){   // no existe ningún registro borrado
+        // setea el hijo izq del dato de _listFreeBlocks
+        unsigned short actual = ListFreeBlocks;
+        const char *hizq = this->_disk->read( erasedRecordSpace + 8, 7 ); //lee espacio del hIZQ
+        std::string father(hizq);
+
+        while (_registryArray[actual].getLeftChildPtr() != 0) {
+            actual = _registryArray[actual].getLeftChildPtr();
+            this->_disk->read( actual + 8, 7 );
+        }
+        this->_registryArray[actual].setLeftChildPtr(pDatoBorrado);
+        conversion->decimalToBinary(recordID);
+        this->_disk->write( actual + 16, "00000000" );  // setea el padre a 0
+        this->_disk->write( erasedRecordSpace, "00000000" );  // setea el padre a 0
+        this->_disk->write( erasedRecordSpace + 16, "00000000" );  // setea hIZQ a 0
+
+
+    }
+    else{
+        cout << "No existe registro para borrar." << endl;
     }
 }
 //------------------------------------------------------------------------------
