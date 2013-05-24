@@ -89,9 +89,16 @@ int main()
     file->insertRecord2Disk(list9);
 
     file->readALLRecordsFromDisk();
-
+// PRUEBAS DE BORRADO DE DATOS EN EL DISCO
     file->deleteRecordFromDisk(3);
     file->readALLRecordsFromDisk();
+    file->deleteRecordFromDisk(5);
+    file->readALLRecordsFromDisk();
+    file->deleteRecordFromDisk(6);
+    file->readALLRecordsFromDisk();
+    file->deleteRecordFromDisk(2);
+    file->readALLRecordsFromDisk();
+
 
 //------------------------------------
 //    Disk *disk = new Disk(1, 7);

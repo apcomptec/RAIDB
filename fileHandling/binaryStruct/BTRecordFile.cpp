@@ -232,7 +232,6 @@ void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
 
     if( ListFreeBlocks == 0 ){  // no bloques libres no hay ninguno borrado
         this->_metadataPtr->setFreeBlockList( recordID );
-        cout << "ENTRANDO PERRAS" << erasedRecordSpace<<endl;
         this->_disk->write(erasedRecordSpace, "00000000");  // setea el padre
         this->_disk->write(erasedRecordSpace + 8, "00000000");  // setea el hizq
     }
@@ -245,7 +244,9 @@ void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
         }
         std::string stringID = _conversion->fromShort2String( recordID );
         std::string datoBorrado = _conversion->decimalToBinary( stringID );
-        this->_disk->write( actual, _conversion->fromStringToConstChar( datoBorrado ) );                  // setea el padre a 0
+        unsigned short erasedRecordSpace1 = BOF + ( recordSize * (actual - 1) );
+
+        this->_disk->write( erasedRecordSpace1 + 8, _conversion->fromStringToConstChar( datoBorrado ) );// setea el padre a 0
         this->_disk->write( erasedRecordSpace, "00000000" );        // setea el padre a 0
         this->_disk->write( erasedRecordSpace + 8, "00000000" );    // setea hIZQ a 0
     }
@@ -261,8 +262,8 @@ void BTRecordFile::deleteRecordFromDisk( unsigned short recordID ){
  * Devuelve la proxima posición de el hijo izquierdo que ha sido borrado
  */
 unsigned short BTRecordFile::getLeftChildErase(unsigned short pNextLeftChild){
-    unsigned short BOF = this->_metadataPtr->getEOF();
-    unsigned short recordSize = this->_metadataPtr->getNumberOfRecords();
+    unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
+    unsigned short recordSize = this->_metadataPtr->getRecordSize();
     // se obtiene al hijo IZQ del dato borrado
     unsigned short erasedRecordSpace = BOF + ( recordSize * (pNextLeftChild - 1) );
     // conversion de const char* a std::string
