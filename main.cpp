@@ -1,16 +1,19 @@
 #include <fstream>
 #include <iostream>
+#include <string>
 #include "fileHandling/binaryStruct/BTRecordFile.h"
 #include "fileHandling/binaryStruct/BTRecordFileMetadata.h"
 #include "fileHandling/RecordDataType.h"
 #include "util/Converter.h"
 #include "raid/Disk.h"
-#include <string>
+#include "XMLParser.h"
 
 using namespace std;
 
 int main()
 {
+    XMLParser *p = new XMLParser();
+    p->readFile();
 
 
 // *****************************************************************************
