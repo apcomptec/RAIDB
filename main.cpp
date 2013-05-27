@@ -1,18 +1,21 @@
 #include <fstream>
 #include <iostream>
+#include <string>
 #include "fileHandling/binaryStruct/BTRecordFile.h"
 #include "fileHandling/binaryStruct/BTRecordFileMetadata.h"
 #include "fileHandling/RecordDataType.h"
 #include "util/Converter.h"
 #include "raid/Disk.h"
-#include <string>
-#include "dataStructure/IN_aryTree.h"
+#include "XMLParser.h"
 #include "dataStructure/n_aryrecordfile.h"
 
 using namespace std;
 
 int main()
 {
+    XMLParser *p = new XMLParser();
+    p->readFile();
+
     N_aryRecordFile* nTree = new N_aryRecordFile();
     nTree->insertDirPtr("home");
     nTree->insertDirPtr("tmp");
