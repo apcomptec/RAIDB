@@ -62,10 +62,14 @@ public:
     void insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ); // INSERCION DE REGISTROS EN DISCO
     void deleteRecordFromDisk(unsigned short recordID );
 
+    void readALLRecordsFromDisk();
+    void readOneRecordFromDisk( unsigned short recordID );
+
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
     int _counter;       //llevará la cantidad de registros insertados
+    Converter *_conversion;
 
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;
@@ -74,10 +78,13 @@ private:
     string sortUserDataFromDisk(std::string pData , Converter *pConversion
                                 , char pTipo );   //clasifica los datos en ints, strings, etc...
 
-// MÉTODOS QUE SIRVEN PARA LA INSERCIÓN DE REGISTROS EN DISCO
+// MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO
     void modifyLastTreeRegistry(unsigned short pRecordNumber,
-                                unsigned short pChangePositon, Converter *pConversion);
+                                unsigned short pChangePositon);
     std::string getUserRecordData( DLL<IRecordDataType *> *pListPtr );
+    unsigned short getLeftChildErase(unsigned short pNextLeftChild);
+    void aux_InsertRecord2Disk(DLL<IRecordDataType *> *pListPtr);
+
 //..............................................................................
 
 };

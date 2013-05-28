@@ -40,7 +40,8 @@ public:
     //Busqueda especial para directorios
     IN_aryNode<QString>* searchDirPtr(IN_aryNode<QString>*, QStringList);
     //Impresion del arbol n-ario
-    void printTree(IN_aryNode<QString>*);
+    void printTree();
+    void printTreeAux(IN_aryNode<QString>*, QString);
 };
 
 #endif // N_ARYRECORDFILE_H

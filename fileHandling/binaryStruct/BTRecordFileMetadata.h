@@ -49,8 +49,8 @@ public:
     virtual unsigned short getFileSize() const;
     virtual std::string getOwner() const;
     virtual void setOwner(const std::string &pOwner);
-    virtual DLL<unsigned short> *getFreeBlockList() const; // TODO no puntero y no lista doble
-    virtual void setFreeBlockList(DLL<unsigned short> *pFreeBlockList);
+    virtual unsigned short getFreeBlockList() const; // TODO no puntero y no lista doble
+    virtual void setFreeBlockList(unsigned short pFreeBlockList);
     virtual DLL<unsigned short> *getUsedBlockList() const;
     virtual void setUsedBlockList(DLL<unsigned short> *pBlockUsedList);
     virtual unsigned short getEOF() const;
@@ -83,13 +83,13 @@ private:
      * posición relativa en el disco o un equivalente de posición de registro
      * en cuestión del archivo
      */
-    unsigned short _recordSize, _numberOfRecords, _fileSize, _fr, _eof;
+    unsigned short _recordSize, _numberOfRecords, _fileSize, _fr, _eof, _freeBlockList;
 
     /**
      * @brief _freeBlockList Lista con los bloques libres
      * @brief _usedBlockList Lista con bloques usados
      */
-    DLL<unsigned short> *_freeBlockList, *_usedBlockList;
+    DLL<unsigned short>  *_usedBlockList;
 
 // -----------------------------------------------------------------------------
 // MÉTODOS UTILITARIOS

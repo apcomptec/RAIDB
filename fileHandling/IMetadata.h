@@ -80,13 +80,13 @@ public:
      * @brief getFreeBlockList
      * @return Lista con bloques libres
      */
-    virtual DLL<unsigned short> *getFreeBlockList() const = 0;
+    virtual unsigned short getFreeBlockList() const = 0;
 
     /**
      * @brief setFreeBlockList
      * @param pFreeBlockList
      */
-    virtual void setFreeBlockList(DLL<unsigned short> *pFreeBlockList) = 0;
+    virtual void setFreeBlockList(unsigned short pFreeBlockList) = 0;
 
     /**
      * @brief getBlockUsedList

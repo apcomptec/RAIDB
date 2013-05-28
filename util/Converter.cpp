@@ -11,6 +11,63 @@ Converter::Converter()
 }
 
 /**
+ * @brief Converter::fromShort2String
+ * @param pShortNumber
+ * @return
+ * Conversión de unsigned short a std::string
+ */
+std::string Converter::fromShort2String( unsigned short pShortNumber ){
+    return std::to_string(pShortNumber);
+}
+
+/**
+ * @brief Converter::fromString2Short
+ * @param pSTDString
+ * @return shortNumber
+ * Conversió de std::string a unsigned short
+ */
+unsigned short Converter::fromString2Short( const std::string &pSTDString )
+{
+    QString qstString = this->fromStringToQString( pSTDString );
+    unsigned short shortNumber = qstString.toShort();
+    return shortNumber;
+}
+/**
+ * @brief Converter::fromConstChar2String
+ * @param pConstChar
+ * @return STDString;
+ * Conversión de const char* a std::string
+ */
+std::string Converter::fromConstChar2String( const char *pConstChar )
+{
+    std::string STDString(pConstChar);
+    return STDString;
+}
+/**
+ * @brief Converter::fromStringToQString
+ * @param pSTDString
+ * @return
+ * Conversion de std::string a QString
+ */
+QString Converter::fromStringToQString(const std::string &pSTDString)
+{
+    QString qstrData(pSTDString.c_str()); // donde qstr es el QString
+    return qstrData;
+}
+
+/**
+ * @brief Converter::FromStringToConstChar
+ * @param pDecimalNumber
+ * @return constChar
+ * Conversión de std::string a const char*
+ */
+const char* Converter::fromStringToConstChar(const std::string &pSTDString)
+{
+    const char* constChar = pSTDString.c_str();
+    return constChar;
+}
+
+/**
  * @brief Converter::decimalToBinary
  * Convierte números (cadenas de strings) de una base a otra
  */
@@ -26,7 +83,7 @@ std::string Converter::decimalToBinary(const std::string &pDecimalNumber)
 
     std::string stringBinary = binaryNumber.toStdString();
     stringBinary.length() == 8 ? stringBinary : completeBinary(stringBinary);
-    cout << "Conversión de " << pDecimalNumber << " a " << completeBinary(stringBinary) << endl;
+    //cout << "Conversión de " << pDecimalNumber << " a " << completeBinary(stringBinary) << endl;
     return completeBinary(stringBinary);
 
 }
@@ -46,7 +103,7 @@ std::string Converter::binaryToDecimal(const std::string &pBinaryString)
         QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
     //qDebug() << decimalNumber; // número convertido a decimal
     std::string stringDecimal = decimalNumber.toStdString();
-    cout << "Conversión de " << pBinaryString << " a " << stringDecimal << endl;
+    //cout << "Conversión de " << pBinaryString << " a " << stringDecimal << endl;
     return stringDecimal;
 }
 
@@ -62,7 +119,7 @@ std::string Converter::stringToBinary(const std::string &pStringLetters)
         std::bitset<8> array(pStringLetters.c_str()[i]);
         string += array.to_string();
     }
-    cout << "Conversión de " << pStringLetters << " a \n" << string << endl;
+    //cout << "Conversión de " << pStringLetters << " a \n" << string << endl;
     return string;
 }
 
@@ -88,7 +145,7 @@ std::string Converter::binaryToString(const std::string &pBinaryString)
 
         result.append(numericCharToString(binaryToStringChar));
     }
-    cout << "Conversión de " << pBinaryString << " a " << result << endl;
+    //cout << "Conversión de " << pBinaryString << " a " << result << endl;
     return result;
 }
 
@@ -113,7 +170,7 @@ std::string Converter::completeBinary(std::string pBinary)
         complete += "0";
     }
     complete += pBinary;
-    cout << complete << endl;
+    //cout << complete << endl;
     return complete;
 }
 
