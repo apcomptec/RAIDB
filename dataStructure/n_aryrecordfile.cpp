@@ -245,14 +245,24 @@ void N_aryRecordFile::printTreeAux(IN_aryNode<QString>* pRoot, QString pPath)
     //Se imprime la raiz
     qDebug() << pPath;
     //Se obtiene la lista de nodos hijos
-    DLL<IN_aryNode<QString>*>* list = pRoot->getChildList();
+    DLL<IN_aryNode<QString>*>* listFolder = pRoot->getChildList();
     //Se obtiene el primer nodo de la lista
-    DLLNode<IN_aryNode<QString>*>* tmpNode = list->getHeadPtr();
+    DLLNode<IN_aryNode<QString>*>* tmpNode = listFolder->getHeadPtr();
     //Ciclo para imprimir los hijos
-    for (int var = 0; var < list->getSize(); ++var) {
+    for (int var = 0; var < listFolder->getSize(); ++var) {
         QString Path = pPath + tmpNode->getData()->getData()+ "/";
         //LLamada recursiva para imprimir los datoS
         this->printTreeAux(tmpNode->getData(), Path);
+
+        DLL<IRecordFile*>* listFiles = ((N_aryRecordFileNode<QString>*)tmpNode->getData())->getRecordFileListPtr();
+        DLLNode<IRecordFile*>* nodeFile = listFiles->getHeadPtr();
+
+        for (int i = 0; i < listFiles->getSize(); ++i) {
+            std::cout << Path.toAscii().data();
+            std::cout << nodeFile->getData()->getMetadata()->getFileName() << std::endl;
+            nodeFile = nodeFile->getNextPtr();
+        }
+
         //Se mueven las referencias
         tmpNode = tmpNode->getNextPtr();
     }

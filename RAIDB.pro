@@ -36,7 +36,8 @@ SOURCES += \
     raid/Disk.cpp \
     util/Converter.cpp \
     Client-Server/ClientNode.cpp \
-    Client-Server/ListClient.cpp
+    Client-Server/ListClient.cpp \
+    raid/raid0.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -76,4 +77,5 @@ HEADERS += \
     IParser.h \
     util/Converter.h \
     Client-Server/ClientNode.h \
-    Client-Server/ListClient.h
+    Client-Server/ListClient.h \
+    raid/raid0.h
