@@ -58,6 +58,12 @@ public:
     virtual unsigned short getRecordSize() const = 0;
 
     /**
+     * @brief setRecordSize Establece el tamaño de registro
+     * @param pSize Nuevo tamaño de registro
+     */
+    virtual void setRecordSize(const unsigned short &pSize) = 0;
+
+    /**
      * @brief getNumberOfRecords
      * @return Devuelve el número de registros presentes en el registro. En caso
      * de borrarse alguno, debe disminuir su cantidad

@@ -25,16 +25,10 @@ class BTRecordFile: public IRecordFile
 public:
 
     /**
-     * @brief BTRecordFile sobrecarga del constructor. Se encarga de ir
-     * solicitando la información de metadatos
-     */
-    BTRecordFile();
-
-    /**
      * @brief BTRecordFile sobrecarga de constructor
      * @param pMetadata Lista con los metadatos proveidos por el usuario
      */
-    BTRecordFile(BTRecordFileMetadata *pMetadata);
+    BTRecordFile(BTRecordFileMetadata * const pMetadata);
 
 // -----------------------------------------------------------------------------
 // MÉTODOS DE LA INTERFAZ IRECORDFILE

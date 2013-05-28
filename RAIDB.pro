@@ -17,7 +17,6 @@ SOURCES += \
     fileHandling/binaryStruct/BTRecord.cpp \
     fileHandling/binaryStruct/BTRecordFile.cpp \
     fileHandling/binaryStruct/BTRecordFileMetadata.cpp \
-    XMLParser.cpp \
     dataStructure/n_aryrecordfilenode.cpp \
     example/fileManipulation/ex5.cpp \
     example/fileManipulation/ex6.cpp \
@@ -36,7 +35,12 @@ SOURCES += \
     raid/Disk.cpp \
     util/Converter.cpp \
     Client-Server/ClientNode.cpp \
-    Client-Server/ListClient.cpp
+    Client-Server/ListClient.cpp \
+    simulation/ARecordSimulable.cpp \
+    simulation/recordType/BTRFLocalSimulation.cpp \
+    simulation/recordType/BTRFSimulation.cpp \
+    util/parser/XMLParser.cpp \
+    util/parser/FileSystemParser.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -56,7 +60,6 @@ HEADERS += \
     fileHandling/IRecordDataType.h \
     fileHandling/RecordDataType.h \
     fileHandling/IRecord.h \
-    XMLParser.h \
     dataStructure/IN_aryNode.h \
     dataStructure/IN_aryTree.h \
     dataStructure/n_aryrecordfilenode.h \
@@ -70,10 +73,16 @@ HEADERS += \
     Client-Server/threadserver.h \
     Client-Server/server.h \
     Client-Server/client.h \
-    IParser.h \
     dataStructure/n_aryrecordfile.h \
     raid/Disk.h \
-    IParser.h \
     util/Converter.h \
     Client-Server/ClientNode.h \
-    Client-Server/ListClient.h
+    Client-Server/ListClient.h \
+    simulation/ASimulable.h \
+    simulation/ARecordSimulable.h \
+    simulation/LocalSimulation.h \
+    simulation/recordType/BTRFSimulation.h \
+    simulation/recordType/BTRFLocalSimulation.h \
+    util/parser/IParser.h \
+    util/parser/XMLParser.h \
+    util/parser/FileSystemParser.h

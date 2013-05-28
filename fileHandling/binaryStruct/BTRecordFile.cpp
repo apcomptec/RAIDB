@@ -8,11 +8,7 @@
 #include <iomanip>
 #include "BTRecordFile.h"
 
-BTRecordFile::BTRecordFile()
-{
-}
-
-BTRecordFile::BTRecordFile(BTRecordFileMetadata *pMetadata)
+BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     : _metadataPtr(pMetadata)
 {
     this->_registryArray = new BTRecord[100];
