@@ -234,9 +234,12 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
     while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
         QString qstrData= _conversion->fromStringToQString(*data->getDataPtr());
-//        std::string str( *data->getDataPtr() ); // Convert from std::string 2 Qstring
-//        QString qstrData(str.c_str()); // donde qstr es el QString
-       if ( !_conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
+        // VERIFICACION DE SI EL DATO ES DEL TIPO DOUBLE
+        if ( _conversion->verificaValidezDouble( qstrData ) ){
+            finalBinaryRecord += _conversion->fromDoubleString2BinaryString(*data->getDataPtr());
+        }
+
+        else if ( !_conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
             finalBinaryRecord += _conversion->stringToBinary( *data->getDataPtr() );
         }
         else{   // son solo numeros
@@ -578,11 +581,14 @@ std::string BTRecordFile::sortUserDataFromDisk(std::string pData,
         Converter *pConversion, char pTipo)
 {
     std::string finalBinaryRecord;
-
+    if (pTipo == BTRecordFileMetadata::DOUBLE) { // Double
+        finalBinaryRecord = pConversion->fromBinaryString2DoubleString(pData);  // CONVERSION DE BINARIO A DOUBLE
+    }
     if (pTipo == BTRecordFileMetadata::STRING ||
-        pTipo == BTRecordFileMetadata::CHAR) { // cadena no de numeros
+        pTipo == BTRecordFileMetadata::CHAR) { // string o char
         finalBinaryRecord = pConversion->binaryToString(pData);
-    } else { // son solo numeros
+    }
+    else { // son solo numeros
         finalBinaryRecord = pConversion->binaryToDecimal(pData);
     }
 
