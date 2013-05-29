@@ -243,10 +243,25 @@ std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString 
     return entero + decimal;
 }
 
+std::string fromBinaryString2DoubleString( std::string pBinaryString ){}
+
 std::string Converter::fromInt2String( int pIntNumber )
 {
     std::string stringIntNumber = std::to_string( pIntNumber );
     return stringIntNumber;
+}
+
+/**
+ * @brief Converter::fromString2Int
+ * @param pIntString
+ * @return
+ * Conversión de std::string a int
+ */
+int Converter::fromString2Int( std::string pIntString )
+{
+    int intNumber = atoi( pIntString.c_str() );
+    //cout << intNumber << endl;
+    return intNumber;
 }
 
 

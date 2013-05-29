@@ -195,6 +195,7 @@ int main()
 
     //    c->fromString2Double("0.6");
     //    c->fromDouble2String(456.7);
-        c->fromDoubleString2BinaryString("7.3");
+        //c->fromDoubleString2BinaryString("7.3");
+        c->fromString2Int("25");
 
 }
