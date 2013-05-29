@@ -191,4 +191,7 @@ int main()
     //    c->verificaValidezDouble("18.5"); // prueba si es double
     //    c->verificaValidezDouble("A");    // prueba si es double
     //    c->verificaValidezDouble("185");  // prueba si es double
+
+    //    c->fromString2Double("0.6");
+    //    c->fromDouble2String(456.7);
 }

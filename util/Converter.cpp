@@ -174,6 +174,32 @@ std::string Converter::completeBinary(std::string pBinary)
     return complete;
 }
 
+/**
+ * @brief Converter::fromString2Double
+ * @param pDoubleString
+ * @return
+ * Funcion que convierte un std::string a double
+ */
+double Converter::fromString2Double( std::string pDoubleString )
+{
+    double doubleNumber = ::atof( pDoubleString.c_str() );
+    return doubleNumber;
+}
+
+/**
+ * @brief Converter::fromDouble2String
+ * @param pDoubleNumber
+ * @return
+ * Funcion que convierte un double a std::string
+ */
+std::string Converter::fromDouble2String( double pDoubleNumber )
+{
+    QString QstrDouble = QString::number(pDoubleNumber);
+    std::string pDoubleString = QstrDouble.toStdString();
+    cout << pDoubleString << endl;
+    return pDoubleString;
+}
+
 
 /**
  * @brief Converter::verificaValidezInt

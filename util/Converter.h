@@ -81,6 +81,10 @@ public:
 
     bool verificaValidezDouble( QString pDato );
 
+    double fromString2Double( std::string pDoubleString );
+
+    string fromDouble2String( double pDoubleNumber );
+
 private:
 
     /**
