@@ -49,7 +49,7 @@ public:
     virtual unsigned short getFileSize() const;
     virtual std::string getOwner() const;
     virtual void setOwner(const std::string &pOwner);
-    virtual unsigned short getFreeBlockList() const; // TODO no puntero y no lista doble
+    virtual unsigned short getFreeBlockList() const;
     virtual void setFreeBlockList(unsigned short pFreeBlockList);
     virtual DLL<unsigned short> *getUsedBlockList() const;
     virtual void setUsedBlockList(DLL<unsigned short> *pBlockUsedList);
@@ -91,23 +91,7 @@ private:
      */
     DLL<unsigned short>  *_usedBlockList;
 
-// -----------------------------------------------------------------------------
-// MÉTODOS UTILITARIOS
-// -----------------------------------------------------------------------------
-
-    /**
-     * @brief constructMetadata Construye los metadatos solicitandolos por
-     * consola
-     */
-    void constructMetadata();
-
-    /**
-     * @brief computeRecordSize
-     * @return El tamaño de un registro, incluyendo al padre, hijo izquierdo,
-     * hijo derecho y demás proveidos por el usuario
-     */
-    unsigned short computeRecordSize();
-// -----------------------------------------------------------------------------
+    virtual unsigned short computeRecordSize();
 };
 
 #endif // BTRECORDFILEMETADATA_H
