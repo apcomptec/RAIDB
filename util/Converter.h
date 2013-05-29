@@ -79,6 +79,8 @@ public:
 
     bool verificaValidezInt( QString pDato );
 
+    bool verificaValidezDouble( QString pDato );
+
 private:
 
     /**

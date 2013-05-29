@@ -13,26 +13,26 @@ using namespace std;
 
 int main()
 {
-    XMLParser *p = new XMLParser();
-    p->readFile();
+//    XMLParser *p = new XMLParser();
+//    p->createFile();
 
-    N_aryRecordFile* nTree = new N_aryRecordFile();
-    nTree->insertDirPtr("home");
-    nTree->insertDirPtr("tmp");
-    nTree->insertDirPtr("bin");
-    nTree->insertDirPtr("jose", "/home/");
-    nTree->insertDirPtr("daniel", "/home/");
-    nTree->insertDirPtr("badilla", "/home/");
-    nTree->insertDirPtr("dir", "/home/jose/");
-    nTree->insertDirPtr("nueva", "/home/daniel/");
+//    N_aryRecordFile* nTree = new N_aryRecordFile();
+//    nTree->insertDirPtr("home");
+//    nTree->insertDirPtr("tmp");
+//    nTree->insertDirPtr("bin");
+//    nTree->insertDirPtr("jose", "/home/");
+//    nTree->insertDirPtr("daniel", "/home/");
+//    nTree->insertDirPtr("badilla", "/home/");
+//    nTree->insertDirPtr("dir", "/home/jose/");
+//    nTree->insertDirPtr("nueva", "/home/daniel/");
 
-    std::cout << "\nImpresion del arbol" << std::endl;
-    nTree->printTree();
+//    std::cout << "\nImpresion del arbol" << std::endl;
+//    nTree->printTree();
 
-    nTree->deleteDirPtr("/home/daniel/nueva/");
-    std::cout << "\nImpresion del arbol" << std::endl;
-    nTree->printTree();
-    std::cout << "Fin de la ejecución" << std::endl;
+//    nTree->deleteDirPtr("/home/daniel/nueva/");
+//    std::cout << "\nImpresion del arbol" << std::endl;
+//    nTree->printTree();
+//    std::cout << "Fin de la ejecución" << std::endl;
 
     // *****************************************************************************
     // LECTURA DEL ARBOL DE CARPETA Y ARCHIVO N-ARIO
@@ -187,4 +187,8 @@ int main()
     //    cout << "--------------------" << endl;
     //    c->stringToBinary("Daniel");
     //    cout << "--------------------" << endl;
+
+    //    c->verificaValidezDouble("18.5"); // prueba si es double
+    //    c->verificaValidezDouble("A");    // prueba si es double
+    //    c->verificaValidezDouble("185");  // prueba si es double
 }

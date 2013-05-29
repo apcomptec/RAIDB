@@ -237,7 +237,7 @@ void N_aryRecordFile::printTree()
 
 /**
  * @brief N_aryRecordFile::printTree
- *  Metodo auxiliar para imprimir los datos de la raiz y sus hijos
+ * Metodo auxiliar para imprimir los datos de la raiz y sus hijos
  * @param pRoot
  */
 void N_aryRecordFile::printTreeAux(IN_aryNode<QString>* pRoot, QString pPath)
@@ -251,8 +251,10 @@ void N_aryRecordFile::printTreeAux(IN_aryNode<QString>* pRoot, QString pPath)
     //Ciclo para imprimir los hijos
     for (int var = 0; var < list->getSize(); ++var) {
         QString Path = pPath + tmpNode->getData()->getData()+ "/";
+
         //LLamada recursiva para imprimir los datoS
         this->printTreeAux(tmpNode->getData(), Path);
+
         //Se mueven las referencias
         tmpNode = tmpNode->getNextPtr();
     }

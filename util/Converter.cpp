@@ -175,6 +175,12 @@ std::string Converter::completeBinary(std::string pBinary)
 }
 
 
+/**
+ * @brief Converter::verificaValidezInt
+ * @param pDato
+ * @return
+ * Función que indica si un string es un entero (true) o son letras (false)
+ */
 bool Converter::verificaValidezInt( QString pDato ){
     bool charValido;
     int validaIntroduceNumeros;
@@ -188,4 +194,33 @@ bool Converter::verificaValidezInt( QString pDato ){
             return true;
         }//fin if
     }//fin del for
+}
+
+/**
+ * @brief Converter::verificaValidezDouble
+ * @param pDato
+ * @return
+ * Función que indica si un string es un double (true) o son letras o entero (false)
+ */
+bool Converter::verificaValidezDouble( QString pDato ){
+    bool charValido;
+    double validaIntroduceNumeros;
+    if( !verificaValidezInt( pDato ) ){     // si no es string(numero entero)
+        for(int i = 0; i < pDato.length() ; i++){
+            //validacion de que solo se introducen numeros(convierten qstring a int)
+            validaIntroduceNumeros = pDato.toDouble(&charValido);
+            if(charValido == false){    //existe un caracter que no es número
+                cout << "No es double! " << validaIntroduceNumeros << endl;
+                return false;
+            }//fin del if interno
+            else{
+                cout << "Es un double! " << validaIntroduceNumeros << endl;
+                return true;
+            }//fin if
+        }//fin del for
+    }
+    else{
+        cout << "Es numero entero" << endl;
+        return false;   // pues es un numero entero
+    }
 }
