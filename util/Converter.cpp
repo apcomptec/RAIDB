@@ -201,6 +201,22 @@ std::string Converter::fromDouble2String( double pDoubleNumber )
 }
 
 
+//http://forums.codeguru.com/showthread.php?482074-Binary-String-to-Double-Conversion
+/**
+ * @brief Converter::fromBinayDouble2String
+ * @param pDoubleString
+ * @return
+ * Función que convierte un std::string Double BINARIO a Double std::string
+ */
+std::string Converter::fromBinaryDouble2String( std::string pDoubleString )
+{
+    std::bitset<64> Bitset64( pDoubleString );
+    double doubleNumber = Bitset64.to_ulong();
+    //cout << doubleNumber << endl;
+    return fromDouble2String(doubleNumber);
+}
+
+
 /**
  * @brief Converter::verificaValidezInt
  * @param pDato

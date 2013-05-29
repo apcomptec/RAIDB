@@ -8,6 +8,7 @@
 #include "raid/Disk.h"
 #include "util/parser/XMLParser.h"
 #include "dataStructure/n_aryrecordfile.h"
+#include <bitset>
 
 using namespace std;
 
@@ -194,4 +195,9 @@ int main()
 
     //    c->fromString2Double("0.6");
     //    c->fromDouble2String(456.7);
+
+    std::bitset<64> Bitset64(std::string("0000010100100100111001100010000100000010100001010011100110011111"));
+
+       double value = Bitset64.to_ulong();
+       std::cout << value;
 }

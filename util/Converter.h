@@ -85,6 +85,8 @@ public:
 
     string fromDouble2String( double pDoubleNumber );
 
+    std::string fromBinaryDouble2String( std::string pDoubleString );
+
 private:
 
     /**
