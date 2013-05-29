@@ -234,8 +234,8 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
     while( tmp != nullptr ){
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
         QString qstrData= _conversion->fromStringToQString(*data->getDataPtr());
-        // VERIFICACION DE SI EL DATO ES DEL TIPO DOUBLE
-        if ( _conversion->verificaValidezDouble( qstrData ) ){
+
+        if ( _conversion->verificaValidezDouble( qstrData ) ){                  // VERIFICACION DE SI EL DATO ES DEL TIPO DOUBLE
             finalBinaryRecord += _conversion->fromDoubleString2BinaryString(*data->getDataPtr());
         }
 
@@ -402,9 +402,72 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
     }
 }
 
+
 //------------------------------------------------------------------------------
 //   FIN INSERCION, LECTURA Y BORRADO DE DATOS EN DISCO
 //------------------------------------------------------------------------------
+
+/**
+ * @brief BTRecordFile::readRecordFromDiskTest
+ * @param pDisk
+ * @param pRecordID
+ * Hace la lectura de un registro en la RAM
+ */
+void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
+{
+    const char *padre = pDisk.read( 0, 7 );
+    const char *hizq = pDisk.read( 8, 7 );
+    const char *hder = pDisk.read( 16, 7 );
+    std::string father(padre);          // obtiene el padre
+    std::string HI(hizq);               // obtiene el hijo izq
+    std::string HD(hder);               // obtiene el hijo der
+    unsigned short _sizeCounter = 24;       // inicio de la data
+    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
+    DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
+    const char *data;
+
+    cout << "Binario " << father << " " << HI << " " << HD << endl;
+    std::string P = _conversion->binaryToDecimal(father);
+    std::string PHI = _conversion->binaryToDecimal(HI);
+    std::string PHD = _conversion->binaryToDecimal(HD);
+    cout << P << " " << PHI << " " << PHD << " ";
+    while (tmp != nullptr) {
+        data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
+        const char *DATO = pDisk.read(_sizeCounter, 7);
+        std::string DATOSTR(DATO);       // obtiene el padre
+        _sizeCounter += 8;
+        cout << sortUserDataFromDisk( DATOSTR, _conversion, *data ) << endl;
+        tmp = tmp->getNextPtr();
+    }
+}
+
+/**
+ * @brief BTRecordFile::sortUserDataFromDisk
+ * @param pData
+ * @param pConversion
+ * @param pTipo
+ * @return std::string finalBinaryRecord
+ * Clasifica los tipos de datos para poder ser leídos desde disco y casteados
+ * de buena manera
+ */
+std::string BTRecordFile::sortUserDataFromDisk(std::string pData,
+        Converter *pConversion, char pTipo)
+{
+    std::string finalBinaryRecord;
+    if (pTipo == BTRecordFileMetadata::DOUBLE) { // Double
+        finalBinaryRecord = pConversion->fromBinaryString2DoubleString( pData );  // CONVERSION DE BINARIO A DOUBLE
+    }
+    if (pTipo == BTRecordFileMetadata::STRING ||
+        pTipo == BTRecordFileMetadata::CHAR) { // string o char
+        finalBinaryRecord = pConversion->binaryToString( pData );
+    }
+    else { // son solo numeros
+        finalBinaryRecord = pConversion->binaryToDecimal( pData );
+    }
+    return finalBinaryRecord;   // retorna conversion a decimal
+}
+
+
 
 /**
  * @brief printDataStructureByUser imprime cómo está conformado el registro
@@ -534,63 +597,3 @@ bool BTRecordFile::defragFile()
     return false; // TODO
 }
 
-/**
- * @brief BTRecordFile::readRecordFromDiskTest
- * @param pDisk
- * @param pRecordID
- * Hace la lectura de un registro en la RAM
- */
-void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
-{
-    const char *padre = pDisk.read( 0, 7 );
-    const char *hizq = pDisk.read( 8, 7 );
-    const char *hder = pDisk.read( 16, 7 );
-    std::string father(padre);          // obtiene el padre
-    std::string HI(hizq);               // obtiene el hijo izq
-    std::string HD(hder);               // obtiene el hijo der
-    unsigned short _sizeCounter = 24;       // inicio de la data
-    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
-    DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
-    const char *data;
-
-    cout << "Binario " << father << " " << HI << " " << HD << endl;
-    std::string P = _conversion->binaryToDecimal(father);
-    std::string PHI = _conversion->binaryToDecimal(HI);
-    std::string PHD = _conversion->binaryToDecimal(HD);
-    cout << P << " " << PHI << " " << PHD << " ";
-    while (tmp != nullptr) {
-        data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
-        const char *DATO = pDisk.read(_sizeCounter, 7);
-        std::string DATOSTR(DATO);       // obtiene el padre
-        _sizeCounter += 8;
-        cout << sortUserDataFromDisk(DATOSTR, _conversion, *data) << endl;
-        tmp = tmp->getNextPtr();
-    }
-}
-
-/**
- * @brief BTRecordFile::sortUserDataFromDisk
- * @param pData
- * @param pConversion
- * @param pTipo
- * @return std::string finalBinaryRecord
- * Clasifica los tipos de datos para poder ser leídos desde disco y casteados
- * de buena manera
- */
-std::string BTRecordFile::sortUserDataFromDisk(std::string pData,
-        Converter *pConversion, char pTipo)
-{
-    std::string finalBinaryRecord;
-    if (pTipo == BTRecordFileMetadata::DOUBLE) { // Double
-        finalBinaryRecord = pConversion->fromBinaryString2DoubleString(pData);  // CONVERSION DE BINARIO A DOUBLE
-    }
-    if (pTipo == BTRecordFileMetadata::STRING ||
-        pTipo == BTRecordFileMetadata::CHAR) { // string o char
-        finalBinaryRecord = pConversion->binaryToString(pData);
-    }
-    else { // son solo numeros
-        finalBinaryRecord = pConversion->binaryToDecimal(pData);
-    }
-
-    return finalBinaryRecord;
-}
