@@ -63,72 +63,6 @@ void BTRecordFile::setRecordList(DLL<IRecord *> *)
     // No es necesario establecer una lista de datos
 }
 
-/**
- * @brief BTRecordFile::insertRecord
- * @param pListPtr
- * @return newRecord, nuevo registro insertado
- * Función para insertar registros en la RAM
- */
-BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
-{
-    unsigned short hDer = this->_registryArray[3].getRightChildPtr();
-    BTRecord *newRecord = new BTRecord();
-    newRecord->setDataList(pListPtr);
-    if (this->getListFreeBlocks() == 0) {
-        if (this->_registryArray == NULL) {   //arreglo vacío
-            newRecord->setParentPtr(0);
-            newRecord->setLeftChildPtr(0);
-            newRecord->setRightChildPtr(0);
-            this->_registryArray[1] = *newRecord;    // inicio en la posición 1
-        } else {
-            this->_registryArray[_counter] = *newRecord;
-            newRecord->setParentPtr(_counter / 2);      // setea el padre
-            (this->_registryArray[_counter]).setParentPtr(_counter / 2);
-            if ((_counter % 2) == 0) {    //si el numero es par es hijo izquierdo
-                newRecord->setLeftChildPtr(0);      // no tiene hijos
-                newRecord->setRightChildPtr(0);     // no tiene hijos
-                (this->_registryArray[newRecord->getParentPtr()])
-                .setLeftChildPtr(_counter);
-            } else {
-                newRecord->setRightChildPtr(0);     // no tiene hijos
-                newRecord->setLeftChildPtr(0);      // no tiene hijos
-                (this->_registryArray[newRecord->getParentPtr()])
-                .setRightChildPtr(_counter);
-            }
-        }
-        this->_counter++;   // aumenta la posición para insertar el siguiente dato
-    } else {
-        insertRecordAUX(newRecord, hDer);
-    }
-    return newRecord;
-}
-
-/**
- * @brief BTRecordFile::insertRecordAUX
- * @param pNewRecord
- * @param pHDer
- * Función auxiliar que inserta registros en los espacios que han sido borrados
- */
-void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
-{
-    cout << "--------------------------" << endl;
-    cout << "ListFreeBlocks Antes " << this->getListFreeBlocks() << endl;
-    unsigned short tmp = this->getListFreeBlocks();
-    this->setListFreeBlocks(this->_registryArray[tmp].getLeftChildPtr());
-    cout << "ListFreeBlocks Después " << this->getListFreeBlocks() << endl;
-    cout << "--------------------------" << endl;
-    this->_registryArray[tmp] = *pNewRecord;
-    pNewRecord->setParentPtr(tmp / 2);      // setea el padre
-    (this->_registryArray[tmp]).setParentPtr(tmp / 2);
-
-    pNewRecord->setRightChildPtr(pHDer);
-    (this->_registryArray[tmp])
-    .setRightChildPtr(pHDer);
-
-    pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
-    (this->_registryArray[tmp])
-    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
-}
 
 
 //------------------------------------------------------------------------------
@@ -406,6 +340,74 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
 //------------------------------------------------------------------------------
 //   FIN INSERCION, LECTURA Y BORRADO DE DATOS EN DISCO
 //------------------------------------------------------------------------------
+
+/**
+ * @brief BTRecordFile::insertRecord
+ * @param pListPtr
+ * @return newRecord, nuevo registro insertado
+ * Función para insertar registros en la RAM
+ */
+BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
+{
+    unsigned short hDer = this->_registryArray[3].getRightChildPtr();
+    BTRecord *newRecord = new BTRecord();
+    newRecord->setDataList(pListPtr);
+    if (this->getListFreeBlocks() == 0) {
+        if (this->_registryArray == NULL) {   //arreglo vacío
+            newRecord->setParentPtr(0);
+            newRecord->setLeftChildPtr(0);
+            newRecord->setRightChildPtr(0);
+            this->_registryArray[1] = *newRecord;    // inicio en la posición 1
+        } else {
+            this->_registryArray[_counter] = *newRecord;
+            newRecord->setParentPtr(_counter / 2);      // setea el padre
+            (this->_registryArray[_counter]).setParentPtr(_counter / 2);
+            if ((_counter % 2) == 0) {    //si el numero es par es hijo izquierdo
+                newRecord->setLeftChildPtr(0);      // no tiene hijos
+                newRecord->setRightChildPtr(0);     // no tiene hijos
+                (this->_registryArray[newRecord->getParentPtr()])
+                .setLeftChildPtr(_counter);
+            } else {
+                newRecord->setRightChildPtr(0);     // no tiene hijos
+                newRecord->setLeftChildPtr(0);      // no tiene hijos
+                (this->_registryArray[newRecord->getParentPtr()])
+                .setRightChildPtr(_counter);
+            }
+        }
+        this->_counter++;   // aumenta la posición para insertar el siguiente dato
+    } else {
+        insertRecordAUX(newRecord, hDer);
+    }
+    return newRecord;
+}
+
+/**
+ * @brief BTRecordFile::insertRecordAUX
+ * @param pNewRecord
+ * @param pHDer
+ * Función auxiliar que inserta registros en los espacios que han sido borrados
+ */
+void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
+{
+    cout << "--------------------------" << endl;
+    cout << "ListFreeBlocks Antes " << this->getListFreeBlocks() << endl;
+    unsigned short tmp = this->getListFreeBlocks();
+    this->setListFreeBlocks(this->_registryArray[tmp].getLeftChildPtr());
+    cout << "ListFreeBlocks Después " << this->getListFreeBlocks() << endl;
+    cout << "--------------------------" << endl;
+    this->_registryArray[tmp] = *pNewRecord;
+    pNewRecord->setParentPtr(tmp / 2);      // setea el padre
+    (this->_registryArray[tmp]).setParentPtr(tmp / 2);
+
+    pNewRecord->setRightChildPtr(pHDer);
+    (this->_registryArray[tmp])
+    .setRightChildPtr(pHDer);
+
+    pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+    (this->_registryArray[tmp])
+    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+}
+
 
 /**
  * @brief BTRecordFile::readRecordFromDiskTest
