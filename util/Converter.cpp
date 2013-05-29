@@ -196,7 +196,7 @@ std::string Converter::fromDouble2String( double pDoubleNumber )
 {
     QString QstrDouble = QString::number(pDoubleNumber);
     std::string pDoubleString = QstrDouble.toStdString();
-    cout << pDoubleString << endl;
+    //cout << pDoubleString << endl;
     return pDoubleString;
 }
 
@@ -243,7 +243,36 @@ std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString 
     return entero + decimal;
 }
 
-std::string fromBinaryString2DoubleString( std::string pBinaryString ){}
+/**
+ * @brief Converter::fromBinaryString2DoubleString
+ * @param pBinaryString
+ * @return
+ * Función para convertir desde string binario a string Double
+ */
+std::string Converter::fromBinaryString2DoubleString( std::string pBinaryString )
+{
+   std::string decimal;
+   std::string entero;
+   // conversion parte entera
+   for(int i = (pBinaryString.length() - 8); i < pBinaryString.length() ; i++){
+        decimal += pBinaryString.at(i);
+   }
+   //cout << decimal << endl;
+   //cout << binaryToDecimal( decimal ) << endl;
+   for(int i = 0; i < (pBinaryString.length() - 8) ; i++){// conversion parte entera
+        entero += pBinaryString.at(i);
+   }
+    //cout << entero << endl;
+    //cout << binaryToDecimal( entero ) << endl;
+
+    int decimalIntNumber = fromString2Int( binaryToDecimal( decimal ) );
+    int enteroIntNumber = fromString2Int( binaryToDecimal( entero ) );
+
+    double final = enteroIntNumber * ( pow( 10, (-decimalIntNumber) ) );
+    //cout << final << endl;
+    cout << fromDouble2String( final ) << endl;
+   return fromDouble2String( final );
+}
 
 std::string Converter::fromInt2String( int pIntNumber )
 {
