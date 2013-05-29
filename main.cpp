@@ -9,6 +9,7 @@
 #include "util/parser/XMLParser.h"
 #include "dataStructure/n_aryrecordfile.h"
 #include <bitset>
+#include "simulation/recordType/BTRFLocalSimulation.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ int main()
 {
 //    XMLParser *p = new XMLParser();
 //    p->createFile();
+//    p->readFile();
 
 //    N_aryRecordFile* nTree = new N_aryRecordFile();
 //    nTree->insertDirPtr("home");
@@ -177,6 +179,7 @@ int main()
     // PRUEBA PARA HACER CONVERSIONES DE DATOS DE BINARIO A NORMAL Y VICEVERSA
     // *****************************************************************************
 //       Converter *c = new Converter();
+//        Converter *c = new Converter();
     //    cout << "--------------------" << endl;
     //    cout << c->fromString2Short("3") << endl;
     //    cout << "--------------------" << endl;
@@ -199,4 +202,43 @@ int main()
     //    c->fromString2Int("25");
 //        c->fromBinaryString2DoubleString("0100100100000001");
 
+//        c->fromDoubleString2BinaryString("7.3");
+
+//    std::bitset<64> Bitset64(std::string("0000010100100100111001100010000100000010100001010011100110011111"));
+
+//       double value = Bitset64.to_ulong();
+//       std::cout << value;
+// *****************************************************************************
+// PRUEBA SIMULADOR LOCAL
+// *****************************************************************************
+
+//    BTRFLocalSimulation *simulation = new BTRFLocalSimulation();
+//    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
+//    std::string name = "12", owner = "u";
+//   DLL<IRecordDataType*> *record = new DLL<IRecordDataType*>();
+//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata(name, owner, record);
+//    std::cout << "Dun";
+//        std::cout << "------------------------------------------------------\n|";
+//        std::cout << "   Tipo   |"
+//                  << "          Nombre          |"
+//                  << "  Tamaño (B)  |\n";
+//        std::cout << "------------------------------------------------------\n";
+
+//        std::cout << std::left << std::setw(4) << "Hola" << std::setw(13) << "jaja\n";
+
+    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
+    std::string name1 = "LOL";
+    char char1 = 'h';
+    unsigned short size1 = 4;
+    RecordDataType<char> *data1 = new RecordDataType<char>(name1, char1, size1);
+    list1->insertAtBack(data1);
+
+    std::string name2 = "YOP";
+    char char2 = 'R';
+    unsigned short size2 = 8;
+    RecordDataType<char> *data2 = new RecordDataType<char>(name2, char2, size2);
+    list1->insertAtBack(data2);
+
+    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Brallan", "YO", list1);
+    std::cout << "Tamaño registro (B): " << metadata->getRecordSize();
 }
