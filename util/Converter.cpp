@@ -7,7 +7,17 @@
 
 Converter::Converter()
 {
-    // vacío
+    this->_fillData = 0;    // no hay relleno de datos
+}
+
+unsigned short Converter::getFillData() const
+{
+    return _fillData;
+}
+
+void Converter::setFillData( unsigned short fillData )
+{
+    this->_fillData = fillData;
 }
 
 /**
@@ -79,7 +89,7 @@ std::string Converter::decimalToBinary(const std::string &pDecimalNumber)
     bool ok = false;
     //  convierte un string de decimal a binario
     QString binaryNumber =
-        QString::number(qstrDecimalNumber.toLongLong(&ok, 10), 2);
+            QString::number(qstrDecimalNumber.toLongLong(&ok, 10), 2);
 
     std::string stringBinary = binaryNumber.toStdString();
     stringBinary.length() == 8 ? stringBinary : completeBinary(stringBinary);
@@ -100,7 +110,7 @@ std::string Converter::binaryToDecimal(const std::string &pBinaryString)
     //qDebug() << qstrDecimalNumber; // número decimal
     bool ok = false;
     QString decimalNumber =
-        QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
+            QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
     //qDebug() << decimalNumber; // número convertido a decimal
     std::string stringDecimal = decimalNumber.toStdString();
     //cout << "Conversión de " << pBinaryString << " a " << stringDecimal << endl;
@@ -251,17 +261,17 @@ std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString 
  */
 std::string Converter::fromBinaryString2DoubleString( std::string pBinaryString )
 {
-   std::string decimal;
-   std::string entero;
-   // conversion parte entera
-   for(int i = (pBinaryString.length() - 8); i < pBinaryString.length() ; i++){
+    std::string decimal;
+    std::string entero;
+    // conversion parte entera
+    for(int i = (pBinaryString.length() - 8); i < pBinaryString.length() ; i++){
         decimal += pBinaryString.at(i);
-   }
-   //cout << decimal << endl;
-   //cout << binaryToDecimal( decimal ) << endl;
-   for(int i = 0; i < (pBinaryString.length() - 8) ; i++){// conversion parte entera
+    }
+    //cout << decimal << endl;
+    //cout << binaryToDecimal( decimal ) << endl;
+    for(int i = 0; i < (pBinaryString.length() - 8) ; i++){// conversion parte entera
         entero += pBinaryString.at(i);
-   }
+    }
     //cout << entero << endl;
     //cout << binaryToDecimal( entero ) << endl;
 
@@ -271,7 +281,7 @@ std::string Converter::fromBinaryString2DoubleString( std::string pBinaryString 
     double final = enteroIntNumber * ( pow( 10, (-decimalIntNumber) ) );
     //cout << final << endl;
     cout << fromDouble2String( final ) << endl;
-   return fromDouble2String( final );
+    return fromDouble2String( final );
 }
 
 std::string Converter::fromInt2String( int pIntNumber )
