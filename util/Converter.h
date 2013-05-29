@@ -89,6 +89,9 @@ public:
     int fromString2Int( std::string pIntString );
     std::string fromBinaryString2DoubleString( std::string pBinaryString );
 
+    unsigned short getFillData() const;
+    void setFillData(unsigned short fillData);
+
 private:
 
     /**
@@ -97,6 +100,7 @@ private:
      * @return El valor ascii del char numérico en std::string
      */
     std::string numericCharToString(char &pChar);
+    unsigned short _fillData;   // rellena el tamaño de los datos
 
 //    std::string completeBinary(std::string &pBinary);
 
