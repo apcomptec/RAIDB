@@ -176,7 +176,7 @@ int main()
     // *****************************************************************************
     // PRUEBA PARA HACER CONVERSIONES DE DATOS DE BINARIO A NORMAL Y VICEVERSA
     // *****************************************************************************
-        Converter *c = new Converter();
+//       Converter *c = new Converter();
     //    cout << "--------------------" << endl;
     //    cout << c->fromString2Short("3") << endl;
     //    cout << "--------------------" << endl;
@@ -195,6 +195,8 @@ int main()
 
     //    c->fromString2Double("0.6");
     //    c->fromDouble2String(456.7);
-        c->fromDoubleString2BinaryString("7.3");
+    //    c->fromDoubleString2BinaryString("7.3");
+    //    c->fromString2Int("25");
+//        c->fromBinaryString2DoubleString("0100100100000001");
 
 }

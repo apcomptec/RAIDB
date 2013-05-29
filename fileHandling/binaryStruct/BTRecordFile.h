@@ -57,14 +57,13 @@ public:
     ~BTRecordFile();
     void readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID );
 
-
+// -----------------------------------------------------------------------------
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO
     void insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ); // INSERCION DE REGISTROS EN DISCO
-    void deleteRecordFromDisk(unsigned short recordID );
-
-    void readALLRecordsFromDisk();
-    void readOneRecordFromDisk( unsigned short recordID );
-
+    void deleteRecordFromDisk(unsigned short recordID );        // BORRADO DE UN REGISTRO
+    void readALLRecordsFromDisk();                              // LECTURA DE TODOS LOS REGISTROS
+    void readOneRecordFromDisk( unsigned short recordID );      // LECTURA DE UN REGISTRO
+// -----------------------------------------------------------------------------
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
@@ -78,14 +77,14 @@ private:
     string sortUserDataFromDisk(std::string pData , Converter *pConversion
                                 , char pTipo );   //clasifica los datos en ints, strings, etc...
 
+// -----------------------------------------------------------------------------
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO
     void modifyLastTreeRegistry(unsigned short pRecordNumber,
                                 unsigned short pChangePositon);
     std::string getUserRecordData( DLL<IRecordDataType *> *pListPtr );
     unsigned short getLeftChildErase(unsigned short pNextLeftChild);
     void aux_InsertRecord2Disk(DLL<IRecordDataType *> *pListPtr);
-
-//..............................................................................
+// -----------------------------------------------------------------------------
 
 };
 
