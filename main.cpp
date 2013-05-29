@@ -176,7 +176,7 @@ int main()
     // *****************************************************************************
     // PRUEBA PARA HACER CONVERSIONES DE DATOS DE BINARIO A NORMAL Y VICEVERSA
     // *****************************************************************************
-    //    Converter *c = new Converter();
+        Converter *c = new Converter();
     //    cout << "--------------------" << endl;
     //    cout << c->fromString2Short("3") << endl;
     //    cout << "--------------------" << endl;
@@ -195,9 +195,6 @@ int main()
 
     //    c->fromString2Double("0.6");
     //    c->fromDouble2String(456.7);
+        c->fromDoubleString2BinaryString("7.3");
 
-    std::bitset<64> Bitset64(std::string("0000010100100100111001100010000100000010100001010011100110011111"));
-
-       double value = Bitset64.to_ulong();
-       std::cout << value;
 }

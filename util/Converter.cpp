@@ -200,10 +200,9 @@ std::string Converter::fromDouble2String( double pDoubleNumber )
     return pDoubleString;
 }
 
-
 //http://forums.codeguru.com/showthread.php?482074-Binary-String-to-Double-Conversion
 /**
- * @brief Converter::fromBinayDouble2String
+ * @brief Converter::fromBinaryDouble2String
  * @param pDoubleString
  * @return
  * Función que convierte un std::string Double BINARIO a Double std::string
@@ -214,6 +213,40 @@ std::string Converter::fromBinaryDouble2String( std::string pDoubleString )
     double doubleNumber = Bitset64.to_ulong();
     //cout << doubleNumber << endl;
     return fromDouble2String(doubleNumber);
+}
+
+/**
+ * @brief Converter::fromDoubleString2BinaryString
+ * @param pDoubleString
+ * @return
+ * Funcion para convertir un string double en string binario
+ * Por ej: 7.3 -> 73 (01001001) y contador - 1 (00000001) que es cantidad
+ * de espacios después del punto 10 ** (contador - 1)
+ */
+std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString )
+{
+    int contador = 0;
+    double doubleNumber = fromString2Double( pDoubleString );
+    for(int i = pDoubleString.find("."); i < pDoubleString.length() ; i++){
+        contador++;
+    }
+    int intDoubleNumber = doubleNumber * ( pow( 10, (contador - 1) ) );
+    //cout << contador - 1 << endl;
+    //cout << pDoubleString.find(".") << endl;
+    cout << doubleNumber << endl;
+    cout << intDoubleNumber << endl;
+    std::string entero = decimalToBinary( fromInt2String(intDoubleNumber) );
+    cout << entero << endl;
+    std::string decimal = decimalToBinary( fromInt2String(contador - 1) );
+    cout << decimal << endl;
+    cout << entero + decimal << endl;
+    return entero + decimal;
+}
+
+std::string Converter::fromInt2String( int pIntNumber )
+{
+    std::string stringIntNumber = std::to_string( pIntNumber );
+    return stringIntNumber;
 }
 
 

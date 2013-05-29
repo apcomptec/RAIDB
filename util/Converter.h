@@ -3,6 +3,8 @@
 
 #include <string>
 #include <QString>
+#include <math.h>
+#include <iostream>
 
 using namespace std;
 
@@ -78,14 +80,14 @@ public:
     string completeBinary(std::string pBinary);
 
     bool verificaValidezInt( QString pDato );
-
     bool verificaValidezDouble( QString pDato );
-
     double fromString2Double( std::string pDoubleString );
-
     string fromDouble2String( double pDoubleNumber );
-
     std::string fromBinaryDouble2String( std::string pDoubleString );
+    std::string fromDoubleString2BinaryString( std::string pDoubleString );
+    std::string fromInt2String( int pIntNumber );
+    std::string fromString2Int( std::string pIntString );
+    std::string fromBinaryString2DoubleString( std::string pBinaryString );
 
 private:
 
