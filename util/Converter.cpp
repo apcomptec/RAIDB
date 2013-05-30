@@ -291,7 +291,7 @@ std::string Converter::fromBinaryString2DoubleString( std::string pBinaryString 
 
     double final = enteroIntNumber * ( pow( 10, (-decimalIntNumber) ) );
     //cout << final << endl;
-    cout << fromDouble2String( final ) << endl;
+    //cout << fromDouble2String( final ) << endl;
     return fromDouble2String( final );
 }
 

@@ -64,6 +64,7 @@ public:
     void readALLRecordsFromDisk();                              // LECTURA DE TODOS LOS REGISTROS
     void readOneRecordFromDisk( unsigned short recordID );      // LECTURA DE UN REGISTRO
 // -----------------------------------------------------------------------------
+
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
@@ -74,8 +75,7 @@ private:
     unsigned short _listFreeBlocks;
     void insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer);
     void printDataStructureByUser();
-    string sortUserDataFromDisk(std::string pData , Converter *pConversion
-                                , char pTipo );   //clasifica los datos en ints, strings, etc...
+    string sortUserDataFromDisk(std::string pData , char pTipo );   //clasifica los datos en ints, strings, etc...
 
 // -----------------------------------------------------------------------------
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO

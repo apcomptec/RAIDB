@@ -235,7 +235,6 @@ int main()
 // SE CREA EL DISCO
 // *****************************************************************************
 
-    Disk *disk = new Disk(1, 10);
 
 // *****************************************************************************
 // ESTRUCTURA METADATOS
@@ -287,34 +286,37 @@ int main()
         file->insertRecord2Disk(record1);
     }
 
-//// *****************************************************************************
-//// REGISTRO 2
-//// *****************************************************************************
-//    {
-//        // CAMPO 'APELLIDO'
-//        std::string apellido2 = "Z";
-//        RecordDataType<std::string> *apellido2Data =
-//            new RecordDataType<std::string>(name1, apellido2 , size1);
+// *****************************************************************************
+// REGISTRO 2
+// *****************************************************************************
+    {
+        // CAMPO 'APELLIDO'
+        std::string apellido2 = "Z";
+        RecordDataType<std::string> *apellido2Data =
+            new RecordDataType<std::string>(name1, apellido2 , size1);
 
-//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-//        DLL<IRecordDataType *> *record2 = new DLL<IRecordDataType*>();
-//        record2->insertAtBack(apellido2Data);
+        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+        DLL<IRecordDataType *> *record2 = new DLL<IRecordDataType*>();
+        record2->insertAtBack(apellido2Data);
 
-//        // CAMPO 'GÉNERO'
-//        std::string genero2 = "1";
-//        RecordDataType<std::string> *genero2Data =
-//            new RecordDataType<std::string>(name2, genero2 , size2);
+        // CAMPO 'GÉNERO'
+        std::string genero2 = "1";
+        RecordDataType<std::string> *genero2Data =
+            new RecordDataType<std::string>(name2, genero2 , size2);
 
-//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-//        record2->insertAtBack(genero2Data);
+        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+        record2->insertAtBack(genero2Data);
 
-//        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
-//        file->insertRecord(record2);
+        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
+        file->insertRecord(record2);
 
-//        // ESCRIBE A DISCO EL REGISTRO 2
-//        file->insertRecord2Disk(record2);
-//    }
+        // ESCRIBE A DISCO EL REGISTRO 2
+        file->insertRecord2Disk(record2);
+    }
 
+    file->readOneRecordFromDisk( 1 );
+    file->readOneRecordFromDisk( 2 );
+    //file->readALLRecordsFromDisk();
 //// *****************************************************************************
 //// REGISTRO 3
 //// *****************************************************************************
