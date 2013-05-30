@@ -13,7 +13,8 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
 {
     this->_registryArray = new BTRecord[100];
     this->_counter = 1;
-    this->_listFreeBlocks = 0; // lista de bloques libres está vacía
+    this->_listFreeBlocks = 0; // lista de bloques libres está vacía}
+    this->_conversion = new Converter();
 }
 
 /**
@@ -80,7 +81,7 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     if (this->_metadataPtr->getFreeBlockList() == 0){
         if( this->_disk == NULL ){
-            this->_disk = new Disk( 1,7 );
+            this->_disk = new Disk( 1, 7 );
             dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
         }
         else{ // se insertan otros registros después de haber uno
@@ -96,10 +97,15 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
         }
         dataBinaryRecord += getUserRecordData( pListPtr );
         cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
+//        cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
+//        cout << "tamanoRegistro " << _metadataPtr->getRecordSize() << endl;
+
         this->_disk->write( this->_metadataPtr->getEOF() ,
                         _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
     //  Actualiza el tamaño de EOF y la cantidad de registros insertados
         this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
+//        cout << "EOF  " << this->_metadataPtr->getEOF()  << endl;
+//        cout << "BOF  " << this->_metadataPtr->getFirstRecordPos()  << endl;
         this->_metadataPtr->setNumberOfRecords( ++cantRegistros );
     }
     else{
@@ -169,15 +175,18 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
         data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
         QString qstrData= _conversion->fromStringToQString(*data->getDataPtr());
 
-        if ( _conversion->verificaValidezDouble( qstrData ) ){                  // VERIFICACION DE SI EL DATO ES DEL TIPO DOUBLE
+        if ( _conversion->verificaValidezDouble( qstrData ) == true){                  // VERIFICACION DE SI EL DATO ES DEL TIPO DOUBLE
+            _conversion->setFillData( (data->getSize() * 8) );
             finalBinaryRecord += _conversion->fromDoubleString2BinaryString(*data->getDataPtr());
         }
 
-        else if ( !_conversion->verificaValidezInt( qstrData ) ){ // cadena no de numeros
-            finalBinaryRecord += _conversion->stringToBinary( *data->getDataPtr() );
-        }
-        else{   // son solo numeros
+        else if ( _conversion->verificaValidezInt( qstrData ) == true){ // cadena no de numeros
+            _conversion->setFillData( (data->getSize() * 8) );
             finalBinaryRecord += _conversion->decimalToBinary( *data->getDataPtr() );
+        }
+        else{   // letras
+            _conversion->setFillData( (data->getSize() * 8) );
+            finalBinaryRecord += _conversion->stringToBinary( *data->getDataPtr() );
         }
         tmp = tmp->getNextPtr();
     }

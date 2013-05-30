@@ -90,7 +90,7 @@ public:
     std::string fromBinaryString2DoubleString( std::string pBinaryString );
 
     unsigned short getFillData() const;
-    void setFillData(unsigned short fillData);
+    void setFillData(unsigned short pFillData);
 
 private:
 
