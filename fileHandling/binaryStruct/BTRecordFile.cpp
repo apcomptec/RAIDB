@@ -282,7 +282,8 @@ void BTRecordFile::readALLRecordsFromDisk()
     cout << "-----------------------------------------------------------------" << endl;
     cout << "$$$$$$$$$$ Lectura de disco $$$$$$$$$$" << endl;
     cout << "-----------------------------------------------------------------" << endl;
-    while(contador != _metadataPtr->getEOF()){
+    while(contador <= _metadataPtr->getEOF()){
+        //cout << "EOF" << _metadataPtr->getEOF()<< endl;
         readOneRecordFromDisk( contador );
         ++contador;
     }
@@ -296,7 +297,7 @@ void BTRecordFile::readALLRecordsFromDisk()
  */
 void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
 {
-    if( recordID <= this->_metadataPtr->getNumberOfRecords() ){
+    if( recordID <= this->_metadataPtr->getNumberOfRecords() -1 ){
         unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
         unsigned short recordSize = this->_metadataPtr->getRecordSize();
         unsigned short recordSpace = BOF + ( recordSize * ( recordID - 1 ) );
@@ -308,13 +309,14 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
         const char* Hder = this->_disk->read( recordSpace + 16, 7 );
         std::string stringData3 = _conversion->fromConstChar2String( Hder );
 
-        cout << "----- LEYENDO SOLO EL REGISTRO # " << recordID << " -----" << endl;
+        cout << "Registro #" << recordID << " " ;
         cout << "Padre: ";
         cout << _conversion->binaryToDecimal(stringData1);
         cout << " hIzq: ";
         cout << _conversion->binaryToDecimal(stringData2);
         cout << " hDer: ";
         cout << _conversion->binaryToDecimal(stringData3);
+        cout << endl;
 
         DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
         DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
@@ -323,18 +325,14 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
         while (tmp != nullptr) {
             cout << " " << tmp->getData()->getName() << ": " ;
             data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
-            const char *DATO = _disk->read( recordSpace, (tmp->getData()->getSize() * 8) -1) ;
+            const char *DATO = _disk->read( recordSpace, tmp->getData()->getSize()*8 - 1 );
             std::string DATOSTR(DATO);
             cout << sortUserDataFromDisk( DATOSTR, *data );
             recordSpace +=  (tmp->getData()->getSize() * 8);
             tmp = tmp->getNextPtr();
         }
         cout << endl;
-        cout << recordSpace << endl;
-        cout << _metadataPtr->getEOF() << endl;
-    }
-    else{
-        cout << "Error: No existe registro!" << endl;
+        cout << "-----------------------------------------------------"<<endl;
     }
 }
 

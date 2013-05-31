@@ -243,7 +243,7 @@ int main()
     DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
     std::string name1 = "Apellido";
     char dataType1 = '0';
-    unsigned short size1 = 4;
+    unsigned short size1 = 1;
     RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
     list1->insertAtBack(data1);
 
@@ -315,35 +315,36 @@ int main()
     }
 
 
-//// *****************************************************************************
-//// REGISTRO 3
-//// *****************************************************************************
-//    {
-//        // CAMPO 'APELLIDO'
-//        std::string apellido3 = "L";
-//        RecordDataType<std::string> *apellido3Data =
-//            new RecordDataType<std::string>(name1, apellido3 , size1);
+// *****************************************************************************
+// REGISTRO 3
+// *****************************************************************************
+    {
+        // CAMPO 'APELLIDO'
+        std::string apellido3 = "L";
+        RecordDataType<std::string> *apellido3Data =
+            new RecordDataType<std::string>(name1, apellido3 , size1);
 
-//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-//        DLL<IRecordDataType *> *record3 = new DLL<IRecordDataType*>();
-//        record3->insertAtBack(apellido3Data);
+        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+        DLL<IRecordDataType *> *record3 = new DLL<IRecordDataType*>();
+        record3->insertAtBack(apellido3Data);
 
-//        // CAMPO 'GÉNERO'
-//        std::string genero3 = "1";
-//        RecordDataType<std::string> *genero3Data =
-//            new RecordDataType<std::string>(name2, genero3 , size2);
+        // CAMPO 'GÉNERO'
+        std::string genero3 = "1";
+        RecordDataType<std::string> *genero3Data =
+            new RecordDataType<std::string>(name2, genero3 , size2);
 
-//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-//        record3->insertAtBack(genero3Data);
+        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+        record3->insertAtBack(genero3Data);
 
-//        // ESCRIBE A DISCO EL REGISTRO 1
-//        file->insertRecord2Disk(record3);
+        // ESCRIBE A DISCO EL REGISTRO 1
+        file->insertRecord2Disk(record3);
 
-//    }
+    }
 
-    file->readOneRecordFromDisk( 2 );
-   // file->readOneRecordFromDisk( 2 );
-    //file->readALLRecordsFromDisk();
+//    file->readOneRecordFromDisk( 1 );
+//    file->readOneRecordFromDisk( 2 );
+//    file->readOneRecordFromDisk( 3 );
+    file->readALLRecordsFromDisk();
 
 //// *****************************************************************************
 //// REGISTRO 4
