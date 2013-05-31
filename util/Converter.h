@@ -3,6 +3,8 @@
 
 #include <string>
 #include <QString>
+#include <math.h>
+#include <iostream>
 
 using namespace std;
 
@@ -78,6 +80,17 @@ public:
     string completeBinary(std::string pBinary);
 
     bool verificaValidezInt( QString pDato );
+    bool verificaValidezDouble( QString pDato );
+    double fromString2Double( std::string pDoubleString );
+    string fromDouble2String( double pDoubleNumber );
+    std::string fromBinaryDouble2String( std::string pDoubleString );
+    std::string fromDoubleString2BinaryString( std::string pDoubleString );
+    std::string fromInt2String( int pIntNumber );
+    int fromString2Int( std::string pIntString );
+    std::string fromBinaryString2DoubleString( std::string pBinaryString );
+
+    unsigned short getFillData() const;
+    void setFillData(unsigned short pFillData);
 
 private:
 
@@ -87,6 +100,7 @@ private:
      * @return El valor ascii del char numérico en std::string
      */
     std::string numericCharToString(char &pChar);
+    unsigned short _fillData;   // rellena el tamaño de los datos
 
 //    std::string completeBinary(std::string &pBinary);
 

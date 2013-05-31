@@ -1,5 +1,6 @@
 #ifndef N_ARYRECORDFILE_H
 #define N_ARYRECORDFILE_H
+
 #include "IN_aryTree.h"
 #include "dataStructure/n_aryrecordfilenode.h"
 #include "dataStructure/n_aryrecordfilenode.cpp"
@@ -11,6 +12,7 @@ class N_aryRecordFile: public IN_aryTree<QString>
 {
 private:
     IN_aryNode<QString>* _root;
+
 public:
     //Constructor y Destructor
     N_aryRecordFile();

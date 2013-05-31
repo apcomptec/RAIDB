@@ -40,7 +40,7 @@ char *Disk::read(const unsigned &pPos, const unsigned short &pBufferLength)
 
     buffer[pBufferLength + 1] = '\0';
 
-    std::cout << buffer << std::endl;
+    //std::cout << buffer << std::endl;
 
     ifs.close();
     return buffer;

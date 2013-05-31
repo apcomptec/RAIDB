@@ -126,6 +126,10 @@ public:
      * @param pPos Nueva posición de inicio del primer registo
      */
     virtual void setFirstRecordPos(const unsigned short &pPos) = 0;
+
+private:
+
+    virtual unsigned short computeRecordSize() = 0;
 };
 
 #endif // IMETADATA_H

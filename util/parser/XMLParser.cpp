@@ -8,11 +8,6 @@ XMLParser::XMLParser()
     this->_wpathXMLFile = "doc/PruebaWriteRegistro.xml";
 }
 
-
-void XMLParser::createFile()
-{
-}
-
 /**
  * @brief XMLParser::readFile
  * Lee un XML
@@ -77,6 +72,14 @@ void XMLParser::writeFile()
     file.close();
     qDebug() << "Archivo Guardado";
 }
+
+void XMLParser::createFile()
+{
+    // crea un nodo root
+
+}
+
+
 
 /**
  * @brief XMLParser::~XMLParser

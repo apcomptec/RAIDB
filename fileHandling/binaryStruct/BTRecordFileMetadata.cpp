@@ -24,14 +24,14 @@ BTRecordFileMetadata::BTRecordFileMetadata(const std::string &pFileName,
         const std::string &pOwner, DLL<IRecordDataType *> *pRecordStruct)
     : _recordStructPtr(pRecordStruct),
       _fileName(pFileName),
-      _owner(pOwner),
-      _recordSize(computeRecordSize())
+      _owner(pOwner)
 {
     this->_numberOfRecords = 1;
-    this->_recordSize = 32;
+    this->_recordSize = 24 + ( 8 * computeRecordSize() );   // tamaño en bits de todo el registro
     this->_eof = 0;
     this->_fr = 0;
     this->_freeBlockList = 0;
+
 }
 
 DLL<IRecordDataType *> *BTRecordFileMetadata::getRecordStruct() const
@@ -114,6 +114,22 @@ void BTRecordFileMetadata::setRecordSize(const unsigned short &pSize)
     _recordSize = pSize;
 }
 
+unsigned short BTRecordFileMetadata::computeRecordSize()
+{
+    // tamaño del registro
+    unsigned short size = 0;
+
+    DLLNode<IRecordDataType *> *currentDataByUser =
+        _recordStructPtr->getHeadPtr();
+
+    while (currentDataByUser != nullptr) {
+        size += currentDataByUser->getData()->getSize();
+        currentDataByUser = currentDataByUser->getNextPtr();
+    }
+
+    return size;
+}
+
 unsigned short BTRecordFileMetadata::getNumberOfRecords() const
 {
     return _numberOfRecords;
@@ -122,117 +138,4 @@ unsigned short BTRecordFileMetadata::getNumberOfRecords() const
 void BTRecordFileMetadata::setNumberOfRecords(const unsigned short &pNumber)
 {
     this->_numberOfRecords = pNumber;
-}
-
-void BTRecordFileMetadata::constructMetadata()
-{
-//    // NOMBRE DE ARCHIVO
-//    std::cout << "Escriba el nombre del archivo: ";
-//    std::cin >> _fileName;
-
-//    // DUEÑO DEL ARCHIVO
-//    // TODO
-
-//    // CAMPOS DE REGISTRO
-
-//    char field, data;
-//    unsigned short length;
-//    std::string name;
-//    RecordDataType<char> *header;
-//    bool flag = true;
-
-//    std::cout << "Escriba los campos presentes en el registro "
-//              << "(0 para salir):\n"
-//              << "1. String\n"
-//              << "2. Char\n"
-//              << "3. Short\n"
-//              << "4. Int\n"
-//              << "5. Double\n"
-//              << "6. Bool\n"
-//              << "> ";
-//    std::cin >> field;
-
-//    while (field != '0') {
-//        std::cout << "\nNombre del campo: ";
-//        std::cin >> name;
-
-//        std::cout << "\nDefina su tamaño (en B): ";
-//        std::cin >> length;
-
-//        switch (field) {
-//        case '0': // salir
-//            break;
-//        case '1': // String
-//            name = "string";
-//            data = STRING;
-//            break;
-//        case '2': // Char
-//            name = "char";
-//            data = CHAR;
-//            break;
-//        case '3': // Short
-//            name = "short";
-//            data = SHORT;
-//            break;
-//        case '4': // Int
-//            name = "int";
-//            data = INT;
-//            break;
-//        case '5': // Double
-//            name = "double";
-//            data = DOUBLE;
-//            break;
-//        case '6': // Bool
-//            name = "bool";
-//            data = BOOL;
-//            break;
-//        default:
-//            std::cout << "No existe el tipo especificado\n";
-//            flag = false;
-//        }
-
-//        if (flag) {
-//            header = new RecordDataType<char>(name, data, length);
-//            _recordStructPtr->insertAtBack(header);
-//        }
-
-//        std::cout << "Escriba los campos presentes en el registro "
-//                  << "(0 para salir):\n"
-//                  << "1. String\n"
-//                  << "2. Char\n"
-//                  << "3. Short\n"
-//                  << "4. Int\n"
-//                  << "5. Double\n"
-//                  << "6. Bool\n"
-//                  << "> ";
-//        std::cin >> field;
-//    }
-
-//    _recordSize = computeRecordSize();
-
-//    std::cout << "\n\n";
-}
-
-unsigned short BTRecordFileMetadata::computeRecordSize() // TODO PROBAR
-{
-//    // representa la cantidad de datos primarios en el registro que son padre,
-//    // hijo izquierdo y derecho
-//    const unsigned short NUMBER_OF_PRIMARY_DATA = 3;
-
-//    // indica el tamaño en bytes de los datos padre, hijo izquierdo e hijo
-//    // derecho en el registro
-//    const unsigned short PRIMARY_DATA = 4;
-
-//    // tamaño del registro
-//    unsigned short size = NUMBER_OF_PRIMARY_DATA * PRIMARY_DATA;
-
-//    DLLNode<IRecordDataType *> *currentDataByUser =
-//        _recordStructPtr->getHeadPtr();
-
-//    while (currentDataByUser != nullptr) {
-//        size += currentDataByUser->getData()->getSize();
-//        currentDataByUser++; // FIXME probar si sirve para pasar a siguiente nodo
-//    }
-
-//    return size;
 }
