@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int mainb()
+int main()
 {
 //    XMLParser *p = new XMLParser();
 //    p->createFile();
@@ -314,9 +314,7 @@ int mainb()
         file->insertRecord2Disk(record2);
     }
 
-    file->readOneRecordFromDisk( 1 );
-    file->readOneRecordFromDisk( 2 );
-    //file->readALLRecordsFromDisk();
+
 //// *****************************************************************************
 //// REGISTRO 3
 //// *****************************************************************************
@@ -342,6 +340,10 @@ int mainb()
 //        file->insertRecord2Disk(record3);
 
 //    }
+
+    file->readOneRecordFromDisk( 2 );
+   // file->readOneRecordFromDisk( 2 );
+    //file->readALLRecordsFromDisk();
 
 //// *****************************************************************************
 //// REGISTRO 4
