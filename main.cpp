@@ -243,7 +243,7 @@ int main()
     DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
     std::string name1 = "Apellido";
     char dataType1 = '0';
-    unsigned short size1 = 1;
+    unsigned short size1 = 1;       // aguanta un tamaño de 3
     RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
     list1->insertAtBack(data1);
 
