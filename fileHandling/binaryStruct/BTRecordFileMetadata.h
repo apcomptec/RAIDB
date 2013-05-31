@@ -15,21 +15,15 @@ class BTRecordFileMetadata: public IMetadata
 public:
 
     /**
-     * @brief BTRecordFileMetadata Sobrecarga del constructor. Este se encarga
-     * de solicitar la información mediante consola
-     */
-    BTRecordFileMetadata();
-
-    /**
      * @brief BTRecordFileMetadata Sobrecarga del constructor
-     * @param pRecordStructPtr Indica los datos que escogió el usuario que estén
-     * presentes en el registro
      * @param pFileName Nombre del archivo
      * @param pOwner Dueño del archivo
+     * @param pRecordStruct Indica los datos que escogió el usuario que estén
+     * presentes en el registro
      */
-    BTRecordFileMetadata(DLL<IRecordDataType *> *pRecordStructPtr,
-                         const std::string &pFileName,
-                         const std::string &pOwner);
+    BTRecordFileMetadata(const std::string &pFileName,
+                         const std::string &pOwner,
+                         DLL<IRecordDataType *> *pRecordStruct);
 
 // -----------------------------------------------------------------------------
 // PROTOTIPO DE CONSTANTES
@@ -47,6 +41,7 @@ public:
 // -----------------------------------------------------------------------------
     virtual DLL<IRecordDataType *> *getRecordStruct() const;
     virtual unsigned short getRecordSize() const;
+    virtual void setRecordSize(const unsigned short &pSize);
     virtual unsigned short getNumberOfRecords() const;
     virtual void setNumberOfRecords(const unsigned short &pNumber);
     virtual std::string getFileName() const;

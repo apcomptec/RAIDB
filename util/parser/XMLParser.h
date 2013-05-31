@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * File: XMLParser.h
+ * Author: Daniel Araya
+ * Description: TODO
+ * Reference:
+ ******************************************************************************/
+
 #ifndef XMLPARSER_H
 #define XMLPARSER_H
 
