@@ -3,6 +3,7 @@
 
 #include "simulation/LocalSimulation.h"
 #include "simulation/recordType/BTRFSimulation.h"
+#include "dataStructure/n_aryrecordfile.h"
 
 class BTRFLocalSimulation: public LocalSimulation
 {
@@ -12,6 +13,8 @@ public:
      * @brief BTRLocalSimulation
      */
     BTRFLocalSimulation();
+
+    N_aryRecordFile fileSystem;
 
 // -----------------------------------------------------------------------------
 // MÉTODOS PÚBLICOS DE LA CLASE ABSTRACTA ISIMULABLE
@@ -31,6 +34,8 @@ private:
      * @brief _fileSimulation
      */
     BTRFSimulation *_fileSimulation;
+
+
 
 // -----------------------------------------------------------------------------
 // MÉTODO PRIVADO DE LA INTEFAZ ISIMULABLE

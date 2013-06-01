@@ -12,8 +12,10 @@ public:
     virtual void insert();
     void dataStructureByUser();
 
-    IMetadata* getMetadata();
+    IMetadata *getMetadata();
     void setMetadata(IMetadata * const pMetadata);
+
+    IRecord *getFile();
 
 protected:
     IRecordFile * const _file;

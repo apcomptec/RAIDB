@@ -4,14 +4,12 @@
 #include <sstream>
 #include "Disk.h"
 
-char *a = new char('2');
-
 const char Disk::POTENCY = 20;  // se define el tamaño del disco en MB
 
 Disk::Disk(const unsigned short &pId, const unsigned short &pSize,
            unsigned short pBlockSize)
     : ID(pId), SIZE(pSize), BLOCK_SIZE(pBlockSize),
-      _name(std::string("disk") + std::to_string(ID))
+      NAME(std::string("disk") + std::to_string(ID))
 {
     createDisk();
     fillBlockList();
@@ -22,36 +20,70 @@ unsigned int Disk::createFile()
     return _freeBlockList.removeFromFront()->getData();
 }
 
-void Disk::write(const unsigned short &pPos, const char *pBuffer)
+void Disk::write(const unsigned short &pPos, const char *pBuffer,
+                 unsigned short pBlock)
 {
     std::ofstream outfile;
-    outfile.open(_name, std::fstream::binary | std::fstream::in);
-    outfile.seekp(pPos);
-    outfile.write(pBuffer, sizeOfChar(pBuffer));
-    outfile.close();
+    outfile.open(NAME, std::fstream::binary | std::fstream::in);
+    if (outfile) {
+        outfile.seekp(pPos * pBlock);
+        outfile.write(pBuffer, sizeOfChar(pBuffer));
+        outfile.close();
+    } else {
+        std::cout << "Hubo un error al abrir el disco " << NAME << "\n";
+    }
 }
 
-char *Disk::read(const unsigned &pPos, const unsigned short &pBufferLength)
+char *Disk::read(const unsigned &pPos, const unsigned short &pBufferLength,
+                 unsigned short pBlock)
 {
-    std::ifstream ifs(_name, std::ifstream::binary);
+    std::ifstream ifs(NAME, std::ifstream::binary);
+    char *buffer;
 
-    char *buffer = new char[pBufferLength + 1];
-    ifs.seekg(pPos, ifs.beg);
-    ifs.read(buffer, pBufferLength + 1);
+    if (ifs) {
+        buffer = new char[pBufferLength + 1];
+        buffer[pBufferLength + 1] = '\0';
+        ifs.seekg(pPos * pBlock, ifs.beg);
+        ifs.read(buffer, pBufferLength + 1);
+        if (!ifs) {
+            std::cout << "ERROR: solo " << ifs.gcount()
+                      << " caracteres fueron leídos";
+        }
 
-    buffer[pBufferLength + 1] = '\0';
-
-    ifs.close();
+        ifs.close();
+    } else {
+        std::cout << "Hubo un error al abrir el disco " << NAME << "\n";
+        buffer = nullptr;
+    }
 
     return buffer;
 }
 
+unsigned short Disk::getID()
+{
+    return ID;
+}
+
+unsigned short Disk::getBlockSize()
+{
+    return BLOCK_SIZE;
+}
+
+std::string Disk::getName()
+{
+    return NAME;
+}
+
 void Disk::createDisk()
 {
-    std::ofstream ofs(_name, std::ios::binary | std::ios::out);
-    ofs.seekp(((SIZE << POTENCY) - 1));
-    ofs.write("", 1);
-    ofs.close();
+    std::ofstream ofs(NAME, std::ios::binary | std::ios::out);
+    if (ofs) {
+        ofs.seekp(((SIZE << POTENCY) - 1));
+        ofs.write("", 1);
+        ofs.close();
+    } else {
+        std::cout << "Hubo un error al crear el disco " << NAME << "\n";
+    }
 }
 
 unsigned short Disk::sizeOfChar(const char *pChar)
@@ -71,4 +103,3 @@ unsigned int Disk::computeNumberOfBlocks()
 {
     return SIZE * pow(2, POTENCY) / BLOCK_SIZE;
 }
-

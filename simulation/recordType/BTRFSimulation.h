@@ -13,7 +13,6 @@ public:
     virtual void insert(DLL<IRecordDataType *> *pList);
 
 private:
-//    BTRecordFile *_file;
 };
 
 #endif // BTRFSIMULATION_H

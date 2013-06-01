@@ -11,13 +11,8 @@
 #include <string>
 #include "dataStructure/DLL.h"
 
-class BTRecordFile;
-
 class Disk
 {
-
-    friend class BTRecordFile;
-
 public:
 
     /**
@@ -32,26 +27,51 @@ public:
 
     /**
      * @brief write Ejecuta una lectura en disco
-     * @param pPos
-     * @param pBuffer
+     * @param pPos Posición inicial donde hará la escritura
+     * @param pBuffer Buffer de escritura de cualquier tamaño
+     * @param pBlock Bloque donde hará la escritura. Por defecto se hará en el
+     * primero
      */
-    void write(const unsigned short &pPos, const char *pBuffer);
+    void write(const unsigned short &pPos, const char *pBuffer,
+               unsigned short pBlock = 1);
 
     /**
      * @brief read Realiza una lectura en el disco
      * @param pPos Posición donde se va a leer
      * @param pBufferLength Tamaño del buffer de lectura
+     * @param pBlock Bloque donde hará la lectura. Por defecto se hará en el
+     * primero
      * @return Una cadena char que de pPos hasta pPos + pBufferLength (incluye
-     * los extremos)
+     * los extremos). Al no poder abrir el archivo, devuelve un puntero nulo
+     *
      */
-    char *read(const unsigned &pPos, const unsigned short &pBufferLength);
+    char *read(const unsigned &pPos, const unsigned short &pBufferLength,
+               unsigned short pBlock = 1);
+
+    /**
+     * @brief getID
+     * @return Devuelve el identificador numérico del disco
+     */
+    unsigned short getID();
+
+    /**
+     * @brief getBlockSize
+     * @return Devuelve el tamaño de bloque del diso
+     */
+    unsigned short getBlockSize();
+
+    /**
+     * @brief getName
+     * @return Devuelve el nombre del disco (disk + id)
+     */
+    std::string getName();
 
 private:
 
     /**
-     * @brief _id ID del disco
-     * @brief _size Tamaño del disco en MB
-     * @brief _blockSize Tamaño de bloques en el disco en bytes
+     * @brief ID ID del disco
+     * @brief SIZE Tamaño del disco en MB
+     * @brief BLOCK_SIZE Tamaño de bloques en el disco en bytes
      */
     unsigned const short ID, SIZE, BLOCK_SIZE;
 
@@ -65,7 +85,7 @@ private:
     /**
      * @brief _name Nombre del disco
      */
-    std::string _name;
+    const std::string NAME;
 
     /**
      * @brief _freeBlockList Contiene la lista de bloques libres en el disco
@@ -78,6 +98,9 @@ private:
      */
     void createDisk();
 
+// -----------------------------------------------------------------------------
+// FUNCIONES AUXILIARES
+// -----------------------------------------------------------------------------
     /**
      * @brief createFile
      * @return Bloque que le corresponde al archivo
@@ -91,6 +114,7 @@ private:
     unsigned int computeNumberOfBlocks();
 
     std::string convertNumericCharToString(char pChar);
+// -----------------------------------------------------------------------------
 };
 
 #endif // DISK_H

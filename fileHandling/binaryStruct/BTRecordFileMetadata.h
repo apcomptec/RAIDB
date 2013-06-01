@@ -79,9 +79,7 @@ private:
      * @brief _fr Indica dónde comienza el primer registro. Es una posición
      * dentro del propio archivo equivalente a un desplazamiento en memoria. Se
      * calcula mediante la posición exacta en disco
-     * @brief _eof Muestra dónde está el final de archivo // TODO ver si es una
-     * posición relativa en el disco o un equivalente de posición de registro
-     * en cuestión del archivo
+     * @brief _eof Muestra dónde está el final de archivo
      */
     unsigned short _recordSize, _numberOfRecords, _fileSize, _fr, _eof, _freeBlockList;
 

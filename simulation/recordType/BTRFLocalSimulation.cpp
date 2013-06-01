@@ -9,6 +9,7 @@ BTRFLocalSimulation::BTRFLocalSimulation()
 void BTRFLocalSimulation::createFile()
 {
     _fileSimulation = new BTRFSimulation(createMetadata());
+//    fileSystem.insertFilePtr("/", _fileSimulation->)
     _fileSimulation->dataStructureByUser();
 }
 
