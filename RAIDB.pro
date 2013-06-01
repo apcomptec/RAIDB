@@ -54,7 +54,8 @@ OTHER_FILES += \
     doc/PruebaReadRegistro.xml \
     doc/Ficheros.pdf \
     doc/manejoArchivos2.JPG \
-    doc/manejoArchivos1.JPG
+    doc/manejoArchivos1.JPG \
+    doc/InformacionServidor.xml
 
 HEADERS += \
     raid/IRaid.h \

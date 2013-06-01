@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+
+ <root>
+   <disks>
+     <disk>
+       <id>0</id>
+       <host>192.168.45.63</host>
+       <size>10</size>
+       <blockSize>512</blockSize>
+       <usedBlocks>0 54 1031 579 831 74 981 764</usedBlocks>
+     </disk>
+     <disk>
+       <id>1</id>
+       <host>192.168.87.1</host>
+       <size>20</size>
+       <blockSize>512</blockSize>
+       <usedBlocks>975 439 613 863 98 41 80 524</usedBlocks>
+     </disk>
+     <disk>
+       <id>2</id>
+       <host>192.168.2.74</host>
+       <size>16</size>
+       <blockSize>512</blockSize>
+       <usedBlocks>8 42 414 863 980 612 839 764</usedBlocks>
+     </disk>
+     <disk>
+       <id>3</id>
+       <host>192.168.212.4</host>
+       <size>15</size>
+       <blockSize>512</blockSize>
+       <usedBlocks>62 84 864 159 62 972 137 921</usedBlocks>
+     </disk>
+     <disk>
+       <id>4</id>
+       <host>192.168.2.5</host>
+       <size>42</size>
+       <blockSize>512</blockSize>
+       <usedBlocks>945 69 426 7432 7421 84</usedBlocks>
+     </disk>
+     <disk>
+       <id>5</id>
+       <host>192.168.103.41</host>
+       <size>27</size>
+       <blockSize>512</blockSize>
+       <usedBlocks>2469 9675 4 99 134</usedBlocks>
+     </disk>
+   </disks>
+   
+   <diskGroups>
+     <diskGroup>
+       <id>0</id>
+       <disks>
+	 <id>0</id>
+	 <id>3</id>
+	 <id>5</id>
+       </disks>
+       <raid>5</raid>
+       <size>10</size>
+       <blockSize>512</blockSize>
+     </diskGroup>
+     <diskGroup>
+       <id>3</id>
+       <disks>
+	 <id>1</id>
+	 <id>2</id>
+	 <id>4</id>
+       </disks>
+       <raid>1</raid>
+       <size>20</size>
+       <blockSize>512</blockSize>
+     </diskGroup>
+   </diskGroups>
+   
+   <users>
+     <user>
+       <id>0</id>
+       <name>Paco</name>
+       <pass>md5</pass>
+       <diskGroup>0</diskGroup>
+     </user>
+     <user>
+       <id>1</id>
+       <name>Julio</name>
+       <pass>md5</pass>
+       <diskGroup>3</diskGroup>
+     </user>
+   </users>
+   
+   <fileSystem>
+     <user>
+       <id>0</id>
+       <root>
+	 <tmp>
+	   <file1>
+	     <block>400</block>
+	   </file1>
+	 </tmp>
+	 <bin>
+	   <emptyFolder>
+	   </emptyFolder>
+	 </bin>
+       </root>
+     </user>
+   </fileSystem>
+ </root>
