@@ -52,7 +52,9 @@ OTHER_FILES += \
     doc/PruebaRegistro.xml \
     doc/PruebaWriteRegistro.xml \
     doc/PruebaReadRegistro.xml \
-    doc/Ficheros.pdf
+    doc/Ficheros.pdf \
+    doc/manejoArchivos2.JPG \
+    doc/manejoArchivos1.JPG
 
 HEADERS += \
     raid/IRaid.h \

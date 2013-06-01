@@ -33,38 +33,17 @@ void Disk::write(const unsigned short &pPos, const char *pBuffer)
 
 char *Disk::read(const unsigned &pPos, const unsigned short &pBufferLength)
 {
-    std::ifstream ifs(_name, std::fstream::binary);
+    std::ifstream ifs(_name, std::ifstream::binary);
 
     char *buffer = new char[pBufferLength + 1];
-    if (ifs) {
-        ifs.seekg(pPos, ifs.beg);
-        std::cout << "\n ******TELLG INICIAL: " << ifs.tellg() << "\n";
-
-
-        ifs.read(buffer, pBufferLength + 1);
-        if (ifs) {
-            std::cout << "JAJAJA";
-        } else {
-            std::cout << "horror";
-        }
-        std::cout << "all characters read successfully.";
-    } else {
-        std::cout << "error: only " << ifs.gcount() << " could be read";
-    }
+    ifs.seekg(pPos, ifs.beg);
+    ifs.read(buffer, pBufferLength + 1);
 
     buffer[pBufferLength + 1] = '\0';
 
-    //std::cout << buffer << std::endl;
-
-//    ifs.seekg(0);
-    std::cout << "\n *****TELLG Final: " << ifs.tellg() << "\n";
     ifs.close();
 
-    std::cout << buffer;
-
-    delete[] buffer;
-
-    return a;
+    return buffer;
 }
 
 void Disk::createDisk()
