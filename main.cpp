@@ -13,32 +13,32 @@
 
 using namespace std;
 
-char* read(int pos)
-{
-    std::ifstream is("test.txt", std::ifstream::binary);
-    if (is) {
-        // get length of file:
-        is.seekg(0, is.end);
-        int length = is.tellg();
-        is.seekg(pos, is.beg);
+//char* read(int pos)
+//{
+//    std::ifstream is("test.txt", std::ifstream::binary);
+//    if (is) {
+//        // get length of file:
+//        is.seekg(0, is.end);
+//        int length = is.tellg();
+//        is.seekg(pos, is.beg);
 
-        char * buffer = new char [length];
+//        char * buffer = new char [length];
 
-        std::cout << "Reading " << length << " characters... ";
-        // read data as a block:
-        is.read(buffer, length);
+//        std::cout << "Reading " << length << " characters... ";
+//        // read data as a block:
+//        is.read(buffer, length);
 
-        if (is)
-            std::cout << "all characters read successfully.";
-        else
-            std::cout << "error: only " << is.gcount() << " could be read";
-        is.close();
+//        if (is)
+//            std::cout << "all characters read successfully.";
+//        else
+//            std::cout << "error: only " << is.gcount() << " could be read";
+//        is.close();
 
-        // ...buffer contains the entire file...
+//        // ...buffer contains the entire file...
 
-        return buffer;
-    }
-}
+//        return buffer;
+//    }
+//}
 
 
 int main()
@@ -429,7 +429,6 @@ int main()
 //// *****************************************************************************
 
     BTRecordFile *file = new BTRecordFile(metadata);
-//    file->setDisk(disk);
 
 //// *****************************************************************************
 //// REGISTRO 1
@@ -493,141 +492,132 @@ int main()
 //        RecordDataType<std::string> *apellido3Data =
 //            new RecordDataType<std::string>(name1, apellido3 , size1);
 
-// *****************************************************************************
-// REGISTRO 3
-// *****************************************************************************
-    {
-        // CAMPO 'APELLIDO'
-        std::string apellido3 = "L";
-        RecordDataType<std::string> *apellido3Data =
-            new RecordDataType<std::string>(name1, apellido3 , size1);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        DLL<IRecordDataType *> *record3 = new DLL<IRecordDataType*>();
+//        record3->insertAtBack(apellido3Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        DLL<IRecordDataType *> *record3 = new DLL<IRecordDataType*>();
-        record3->insertAtBack(apellido3Data);
+//        // CAMPO 'GÉNERO'
+//        std::string genero3 = "1";
+//        RecordDataType<std::string> *genero3Data =
+//            new RecordDataType<std::string>(name2, genero3 , size2);
 
-        // CAMPO 'GÉNERO'
-        std::string genero3 = "1";
-        RecordDataType<std::string> *genero3Data =
-            new RecordDataType<std::string>(name2, genero3 , size2);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        record3->insertAtBack(genero3Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        record3->insertAtBack(genero3Data);
+//        // ESCRIBE A DISCO EL REGISTRO 1
+//        file->insertRecord2Disk(record3);
 
-        // ESCRIBE A DISCO EL REGISTRO 1
-        file->insertRecord2Disk(record3);
+//    }
 
-    }
+//// *****************************************************************************
+//// REGISTRO 4
+//// *****************************************************************************
+//    {
+//        // CAMPO 'APELLIDO'
+//        std::string apellido4 = "R";
+//        RecordDataType<std::string> *apellido4Data =
+//            new RecordDataType<std::string>(name1, apellido4 , size1);
 
-// *****************************************************************************
-// REGISTRO 4
-// *****************************************************************************
-    {
-        // CAMPO 'APELLIDO'
-        std::string apellido4 = "R";
-        RecordDataType<std::string> *apellido4Data =
-            new RecordDataType<std::string>(name1, apellido4 , size1);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        DLL<IRecordDataType *> *record4 = new DLL<IRecordDataType*>();
+//        record4->insertAtBack(apellido4Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        DLL<IRecordDataType *> *record4 = new DLL<IRecordDataType*>();
-        record4->insertAtBack(apellido4Data);
+//        // CAMPO 'GÉNERO'
+//        std::string genero4 = "0";
+//        RecordDataType<std::string> *genero4Data =
+//            new RecordDataType<std::string>(name2, genero4 , size2);
 
-        // CAMPO 'GÉNERO'
-        std::string genero4 = "0";
-        RecordDataType<std::string> *genero4Data =
-            new RecordDataType<std::string>(name2, genero4 , size2);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        record4->insertAtBack(genero4Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        record4->insertAtBack(genero4Data);
+//        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
+//        file->insertRecord(record4);
 
-        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
-        file->insertRecord(record4);
+//        // ESCRIBE A DISCO EL REGISTRO 2
+//        file->insertRecord2Disk(record4);
+//    }
 
-        // ESCRIBE A DISCO EL REGISTRO 2
-        file->insertRecord2Disk(record4);
-    }
+//// *****************************************************************************
+//// REGISTRO 5
+//// *****************************************************************************
+//    {
+//        // CAMPO 'APELLIDO'
+//        std::string apellido5 = "P";
+//        RecordDataType<std::string> *apellido5Data =
+//            new RecordDataType<std::string>(name1, apellido5 , size1);
 
-// *****************************************************************************
-// REGISTRO 5
-// *****************************************************************************
-    {
-        // CAMPO 'APELLIDO'
-        std::string apellido5 = "P";
-        RecordDataType<std::string> *apellido5Data =
-            new RecordDataType<std::string>(name1, apellido5 , size1);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        DLL<IRecordDataType *> *record5 = new DLL<IRecordDataType*>();
+//        record5->insertAtBack(apellido5Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        DLL<IRecordDataType *> *record5 = new DLL<IRecordDataType*>();
-        record5->insertAtBack(apellido5Data);
+//        // CAMPO 'GÉNERO'
+//        std::string genero5 = "0";
+//        RecordDataType<std::string> *genero5Data =
+//            new RecordDataType<std::string>(name2, genero5 , size2);
 
-        // CAMPO 'GÉNERO'
-        std::string genero5 = "0";
-        RecordDataType<std::string> *genero5Data =
-            new RecordDataType<std::string>(name2, genero5 , size2);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        record5->insertAtBack(genero5Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        record5->insertAtBack(genero5Data);
+//        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
+//        file->insertRecord(record5);
 
-        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
-        file->insertRecord(record5);
+//        // ESCRIBE A DISCO EL REGISTRO 2
+//        file->insertRecord2Disk(record5);
+//    }
 
-        // ESCRIBE A DISCO EL REGISTRO 2
-        file->insertRecord2Disk(record5);
-    }
+//// *****************************************************************************
+//// REGISTRO 6
+//// *****************************************************************************
+//    {
+//        // CAMPO 'APELLIDO'
+//        std::string apellido6 = "Y";
+//        RecordDataType<std::string> *apellido6Data =
+//            new RecordDataType<std::string>(name1, apellido6 , size1);
 
-// *****************************************************************************
-// REGISTRO 6
-// *****************************************************************************
-    {
-        // CAMPO 'APELLIDO'
-        std::string apellido6 = "Y";
-        RecordDataType<std::string> *apellido6Data =
-            new RecordDataType<std::string>(name1, apellido6 , size1);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        DLL<IRecordDataType *> *record6 = new DLL<IRecordDataType*>();
+//        record6->insertAtBack(apellido6Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        DLL<IRecordDataType *> *record6 = new DLL<IRecordDataType*>();
-        record6->insertAtBack(apellido6Data);
+//        // CAMPO 'GÉNERO'
+//        std::string genero6 = "1";
+//        RecordDataType<std::string> *genero6Data =
+//            new RecordDataType<std::string>(name2, genero6 , size2);
 
-        // CAMPO 'GÉNERO'
-        std::string genero6 = "1";
-        RecordDataType<std::string> *genero6Data =
-            new RecordDataType<std::string>(name2, genero6 , size2);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        record6->insertAtBack(genero6Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        record6->insertAtBack(genero6Data);
+//        // ESCRIBE A DISCO EL REGISTRO 1
+//        file->insertRecord2Disk(record6);
 
-        // ESCRIBE A DISCO EL REGISTRO 1
-        file->insertRecord2Disk(record6);
+//    }
 
-    }
+//// *****************************************************************************
+//// REGISTRO 7
+//// *****************************************************************************
+//    {
+//        // CAMPO 'APELLIDO'
+//        std::string apellido7 = "q";
+//        RecordDataType<std::string> *apellido7Data =
+//            new RecordDataType<std::string>(name1, apellido7 , size1);
 
-// *****************************************************************************
-// REGISTRO 7
-// *****************************************************************************
-    {
-        // CAMPO 'APELLIDO'
-        std::string apellido7 = "q";
-        RecordDataType<std::string> *apellido7Data =
-            new RecordDataType<std::string>(name1, apellido7 , size1);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        DLL<IRecordDataType *> *record7 = new DLL<IRecordDataType*>();
+//        record7->insertAtBack(apellido7Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        DLL<IRecordDataType *> *record7 = new DLL<IRecordDataType*>();
-        record7->insertAtBack(apellido7Data);
+//        // CAMPO 'GÉNERO'
+//        std::string genero7 = "1";
+//        RecordDataType<std::string> *genero7Data =
+//            new RecordDataType<std::string>(name2, genero7 , size2);
 
-        // CAMPO 'GÉNERO'
-        std::string genero7 = "1";
-        RecordDataType<std::string> *genero7Data =
-            new RecordDataType<std::string>(name2, genero7 , size2);
+//        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
+//        record7->insertAtBack(genero7Data);
 
-        // INSERTA EL VALOR DEL CAMPO EN LA LISTA DE DATOS DE USUARIO
-        record7->insertAtBack(genero7Data);
+//        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
+//        file->insertRecord(record7);
 
-        // SE INSERTA EL REGISTRO 2 EN EL ARCHIVO DE REGISTROS
-        file->insertRecord(record7);
-
-        // ESCRIBE A DISCO EL REGISTRO 2
-        file->insertRecord2Disk(record7);
-    }
+//        // ESCRIBE A DISCO EL REGISTRO 2
+//        file->insertRecord2Disk(record7);
+//    }
 
     //file->readALLRecordsFromDisk();
     file->saveMetadata2Disk();

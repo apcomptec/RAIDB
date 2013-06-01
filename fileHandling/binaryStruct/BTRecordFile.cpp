@@ -15,6 +15,7 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_counter = 1;
     this->_listFreeBlocks = 0; // lista de bloques libres está vacía}
     this->_conversion = new Converter();
+    _disk = new Disk(1,7);
 }
 
 /**
@@ -362,11 +363,11 @@ void BTRecordFile::saveMetadata2Disk()
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
 
-    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
-    DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
-    std::string UserDataLength =  _conversion->fromShort2String( tmp1->getSize() ) ;
-    metadataBinary += _conversion->decimalToBinary( UserDataLength );
-    cout << _conversion->decimalToBinary( UserDataLength ) << endl;
+//    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
+//    DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
+//    std::string UserDataLength =  _conversion->fromShort2String( tmp1->getSize() ) ;
+//    metadataBinary += _conversion->decimalToBinary( UserDataLength );
+//    cout << _conversion->decimalToBinary( UserDataLength ) << endl;
 //    _conversion->setFillData( 24 );
 
 //    metadataBinary += _conversion->stringToBinary( tmp->getData()->getName() );
@@ -396,10 +397,11 @@ void BTRecordFile::loadMetadata()
     int contador = 0;
     const char* data;
     std::string strData;
-    while( contador != 96 ){
-        data = _disk->read( contador, contador + 15 );
+    while( contador != 80 ){
+        data = _disk->read( contador, 15 );
         strData = _conversion->fromConstChar2String( data );
-        cout << _conversion->binaryToDecimal( strData ) << " ";
+        cout << " str " << strData << " ";
+        cout << _conversion->binaryToDecimal( strData ) << endl;
         contador += 16;
     }
     cout << endl;
