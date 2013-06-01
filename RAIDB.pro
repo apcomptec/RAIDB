@@ -5,6 +5,8 @@ CONFIG += qt
 QT +=  core
 QT += network
 QT += xml
+QT += testlib
+
 QMAKE_CXXFLAGS += -std=c++0x
 
 SOURCES += \
@@ -41,7 +43,8 @@ SOURCES += \
     util/parser/XMLParser.cpp \
     util/parser/FileSystemParser.cpp \
     Client-Server/clientmultiple.cpp \
-    util/parser/Logs.cpp
+    util/parser/Logs.cpp \
+    UnitTestCase/unittesting.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -87,4 +90,5 @@ HEADERS += \
     util/parser/XMLParser.h \
     util/parser/FileSystemParser.h \
     Client-Server/clientmultiple.h \
-    util/parser/Logs.h
+    util/parser/Logs.h \
+    UnitTestCase/unittesting.h
