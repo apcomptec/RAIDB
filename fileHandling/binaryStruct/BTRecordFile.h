@@ -63,6 +63,8 @@ public:
     void deleteRecordFromDisk(unsigned short recordID );        // BORRADO DE UN REGISTRO
     void readALLRecordsFromDisk();                              // LECTURA DE TODOS LOS REGISTROS
     void readOneRecordFromDisk( unsigned short recordID );      // LECTURA DE UN REGISTRO
+    void saveMetadata2Disk();                                   // GUARDA LA METADATA ACTUAL
+    void loadMetadata();                                        // CARGA LA METADATA ACTUAL
 // -----------------------------------------------------------------------------
 
 private:

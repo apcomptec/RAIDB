@@ -34,13 +34,14 @@ SOURCES += \
     dataStructure/n_aryrecordfile.cpp\
     raid/Disk.cpp \
     util/Converter.cpp \
-    Client-Server/ClientNode.cpp \
-    Client-Server/ListClient.cpp \
+    raid/raid0.cpp\
     simulation/ARecordSimulable.cpp \
     simulation/recordType/BTRFLocalSimulation.cpp \
     simulation/recordType/BTRFSimulation.cpp \
     util/parser/XMLParser.cpp \
-    util/parser/FileSystemParser.cpp
+    util/parser/FileSystemParser.cpp \
+    Client-Server/clientmultiple.cpp \
+    util/parser/Logs.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -76,8 +77,7 @@ HEADERS += \
     dataStructure/n_aryrecordfile.h \
     raid/Disk.h \
     util/Converter.h \
-    Client-Server/ClientNode.h \
-    Client-Server/ListClient.h \
+    raid/raid0.h\
     simulation/ASimulable.h \
     simulation/ARecordSimulable.h \
     simulation/LocalSimulation.h \
@@ -85,4 +85,6 @@ HEADERS += \
     simulation/recordType/BTRFLocalSimulation.h \
     util/parser/IParser.h \
     util/parser/XMLParser.h \
-    util/parser/FileSystemParser.h
+    util/parser/FileSystemParser.h \
+    Client-Server/clientmultiple.h \
+    util/parser/Logs.h

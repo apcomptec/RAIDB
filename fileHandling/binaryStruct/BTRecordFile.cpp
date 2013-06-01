@@ -278,47 +278,16 @@ unsigned short BTRecordFile::getLeftChildErase(unsigned short pNextLeftChild){
  */
 void BTRecordFile::readALLRecordsFromDisk()
 {
+    int contador = 1;
     cout << "-----------------------------------------------------------------" << endl;
     cout << "$$$$$$$$$$ Lectura de disco $$$$$$$$$$" << endl;
     cout << "-----------------------------------------------------------------" << endl;
-    unsigned short contador = 1;
-    unsigned short inicio = this->_metadataPtr->getFirstRecordPos();
-    cout << this->_metadataPtr->getFirstRecordPos() << endl;
-    cout << this->_metadataPtr->getEOF() << endl;
-    unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
-    unsigned short recordSize = this->_metadataPtr->getRecordSize();
-
-    while( contador < this->_metadataPtr->getNumberOfRecords() ){
-        cout << "----- REGISTRO # " << contador << " -----" << endl;
-        unsigned short recordSpace = BOF + ( recordSize * ( contador - 1 ) );
-        const char* padre = this->_disk->read( recordSpace, 7 );
-        std::string stringData1 = _conversion->fromConstChar2String( padre );
-        const char* Hizq = this->_disk->read( recordSpace + 8, 7 );
-        std::string stringData2 = _conversion->fromConstChar2String( Hizq );
-        const char* Hder = this->_disk->read( recordSpace + 16, 7 );
-        std::string stringData3 = _conversion->fromConstChar2String( Hder );
-        cout << "Padre: " << _conversion->binaryToDecimal(stringData1);
-        cout << " hIzq: " << _conversion->binaryToDecimal(stringData2);
-        cout << " hDer: " << _conversion->binaryToDecimal(stringData3);
-
-        DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
-        DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
-        const char *data;
-        recordSpace += 24;
-        while (tmp != nullptr) {
-            cout << " " << tmp->getData()->getName() << ": " ;
-            data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
-            const char *DATO = _disk->read( recordSpace, (tmp->getData()->getSize() * 8) );
-            std::string DATOSTR(DATO);
-            cout << sortUserDataFromDisk( DATOSTR, *data );
-            recordSpace += ( (tmp->getData()->getSize() * 8) - 1);
-            tmp = tmp->getNextPtr();
-        }
-        cout << endl;
-        inicio += this->_metadataPtr->getRecordSize();
-        contador++;
+    while(contador <= _metadataPtr->getEOF()){
+        //cout << "EOF" << _metadataPtr->getEOF()<< endl;
+        readOneRecordFromDisk( contador );
+        ++contador;
     }
-    cout << "-------- Fin de los datos en el disco!! --------" << endl;
+
 }
 
 /**
@@ -328,7 +297,7 @@ void BTRecordFile::readALLRecordsFromDisk()
  */
 void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
 {
-    if( recordID <= this->_metadataPtr->getNumberOfRecords() ){
+    if( recordID <= this->_metadataPtr->getNumberOfRecords() -1 ){
         unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
         unsigned short recordSize = this->_metadataPtr->getRecordSize();
         unsigned short recordSpace = BOF + ( recordSize * ( recordID - 1 ) );
@@ -340,13 +309,14 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
         const char* Hder = this->_disk->read( recordSpace + 16, 7 );
         std::string stringData3 = _conversion->fromConstChar2String( Hder );
 
-        cout << "----- LEYENDO SOLO EL REGISTRO # " << recordID << " -----" << endl;
+        cout << "Registro #" << recordID << " " ;
         cout << "Padre: ";
         cout << _conversion->binaryToDecimal(stringData1);
         cout << " hIzq: ";
         cout << _conversion->binaryToDecimal(stringData2);
         cout << " hDer: ";
         cout << _conversion->binaryToDecimal(stringData3);
+        cout << endl;
 
         DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
         DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
@@ -355,19 +325,85 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
         while (tmp != nullptr) {
             cout << " " << tmp->getData()->getName() << ": " ;
             data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
-            const char *DATO = _disk->read( recordSpace, (tmp->getData()->getSize() * 8));
+            const char *DATO = _disk->read( recordSpace, tmp->getData()->getSize()*8 - 1 );
             std::string DATOSTR(DATO);
             cout << sortUserDataFromDisk( DATOSTR, *data );
-            recordSpace += ( (tmp->getData()->getSize() * 8) - 1);
+            recordSpace +=  (tmp->getData()->getSize() * 8);
             tmp = tmp->getNextPtr();
         }
         cout << endl;
-    }
-    else{
-        cout << "Error: No existe registro!" << endl;
+        cout << "-----------------------------------------------------"<<endl;
     }
 }
 
+/**
+ * @brief BTRecordFile::saveMetadata2Disk
+ * Guarda los metadatos antes de cerrar sesión y los escribirá en disco
+ */
+void BTRecordFile::saveMetadata2Disk()
+{
+    std::string metadataBinary;
+    std::string tamanoRegistro = _conversion->fromShort2String( _metadataPtr->getRecordSize() );
+    std::string BOF = _conversion->fromShort2String( _metadataPtr->getFirstRecordPos() );
+    std::string cantidadRegistro = _conversion->fromShort2String( _metadataPtr->getNumberOfRecords() );
+    std::string ENDOF = _conversion->fromShort2String( _metadataPtr->getEOF() );
+    std::string freeBlocks = _conversion->fromShort2String( _metadataPtr->getFreeBlockList() );
+    _conversion->setFillData( 16 ); // hace los datos de tamaño 16 en binario
+    metadataBinary += _conversion->decimalToBinary( tamanoRegistro );
+    cout << _conversion->decimalToBinary( tamanoRegistro ) << endl;
+    metadataBinary += _conversion->decimalToBinary( BOF );
+    cout << _conversion->decimalToBinary( BOF ) << endl;
+    metadataBinary += _conversion->decimalToBinary( cantidadRegistro );
+    cout << _conversion->decimalToBinary( cantidadRegistro ) << endl;
+    metadataBinary += _conversion->decimalToBinary( ENDOF );
+    cout << _conversion->decimalToBinary( ENDOF ) << endl;
+    metadataBinary += _conversion->decimalToBinary( freeBlocks );
+    cout << _conversion->decimalToBinary( freeBlocks ) << endl;
+    cout << "Metadatos: " << metadataBinary << endl;
+    cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
+
+    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
+    DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
+    std::string UserDataLength =  _conversion->fromShort2String( tmp1->getSize() ) ;
+    metadataBinary += _conversion->decimalToBinary( UserDataLength );
+    cout << _conversion->decimalToBinary( UserDataLength ) << endl;
+//    _conversion->setFillData( 24 );
+
+//    metadataBinary += _conversion->stringToBinary( tmp->getData()->getName() );
+//    cout << _conversion->stringToBinary( tmp->getData()->getName() ) << endl;
+//    metadataBinary += _conversion->stringToBinary( _metadataPtr->getFileName() );
+//    cout << _conversion->stringToBinary( _metadataPtr->getFileName() ) << endl;
+//    metadataBinary += _conversion->stringToBinary( _metadataPtr->getOwner() );
+//    cout << _conversion->stringToBinary( _metadataPtr->getOwner() ) << endl;
+
+    cout << "Metadatos: " << metadataBinary << endl;
+    cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
+    _disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) );
+
+//    const char *data;
+//    while (tmp != nullptr) {
+//        std::string tamanoUserData =  _conversion->fromShort2String( tmp->getData()->getSize()) ;
+//        metadataBinary += _conversion->decimalToBinary( tamanoUserData );
+//        cout << _conversion->decimalToBinary( tamanoUserData ) << endl;
+//        data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
+//        tmp = tmp->getNextPtr();
+//    }
+//    return metadataBinary;
+}
+
+void BTRecordFile::loadMetadata()
+{
+    int contador = 0;
+    const char* data;
+    std::string strData;
+    while( contador != 96 ){
+        data = _disk->read( contador, contador + 15 );
+        strData = _conversion->fromConstChar2String( data );
+        cout << _conversion->binaryToDecimal( strData ) << " ";
+        contador += 16;
+    }
+    cout << endl;
+}
 
 /**
  * @brief BTRecordFile::sortUserDataFromDisk

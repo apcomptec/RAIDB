@@ -102,6 +102,18 @@ void N_aryRecordFileNode<DATATYPE>::setChildList(DLL<IN_aryNode<DATATYPE> *> * p
 
 template<typename DATATYPE>
 /**
+ * @brief N_aryRecordFileNode<DATATYPE>::getRecordFileListPtr
+ *  Metodo para obtener la lista de archivos
+ * @return _fileList
+ */
+DLL<IRecordFile*>* N_aryRecordFileNode<DATATYPE>::getRecordFileListPtr()
+{
+    //Se retorna la lista
+    return this->_fileListPtr;
+}
+
+template<typename DATATYPE>
+/**
  * @brief N_aryRecordFileNode<DATATYPE>::addChildPtr
  *  Metodo para añadir un nodo hijo al nodo actual
  * @param pChild
