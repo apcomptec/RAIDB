@@ -14,6 +14,8 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_registryArray = new BTRecord[100];
     this->_counter = 1;
     this->_listFreeBlocks = 0; // lista de bloques libres está vacía}
+    this->_sizeOwner_FileName = 24;
+    this->_cantidadDatosUser = -1; // no hay
     this->_conversion = new Converter();
     _disk = new Disk(1,7);
 }
@@ -363,48 +365,124 @@ void BTRecordFile::saveMetadata2Disk()
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
 
-//    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
-//    DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
-//    std::string UserDataLength =  _conversion->fromShort2String( tmp1->getSize() ) ;
-//    metadataBinary += _conversion->decimalToBinary( UserDataLength );
-//    cout << _conversion->decimalToBinary( UserDataLength ) << endl;
-//    _conversion->setFillData( 24 );
+    DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
+    DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
+    std::string size = _conversion->fromShort2String(tmp->getData()->getSize());// numero de datos de usuario
+    metadataBinary += _conversion->stringToBinary( size );// cantidad de datos usuario
 
-//    metadataBinary += _conversion->stringToBinary( tmp->getData()->getName() );
-//    cout << _conversion->stringToBinary( tmp->getData()->getName() ) << endl;
-//    metadataBinary += _conversion->stringToBinary( _metadataPtr->getFileName() );
-//    cout << _conversion->stringToBinary( _metadataPtr->getFileName() ) << endl;
-//    metadataBinary += _conversion->stringToBinary( _metadataPtr->getOwner() );
-//    cout << _conversion->stringToBinary( _metadataPtr->getOwner() ) << endl;
+    _conversion->setFillData( _sizeOwner_FileName );//24
+    metadataBinary += _conversion->stringToBinary( _metadataPtr->getFileName() );
+    cout << _conversion->stringToBinary( _metadataPtr->getFileName() ) << endl;
+    metadataBinary += _conversion->stringToBinary( _metadataPtr->getOwner() );
+    cout << _conversion->stringToBinary( _metadataPtr->getOwner() ) << endl;
 
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
-    _disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) );
 
-//    const char *data;
-//    while (tmp != nullptr) {
-//        std::string tamanoUserData =  _conversion->fromShort2String( tmp->getData()->getSize()) ;
-//        metadataBinary += _conversion->decimalToBinary( tamanoUserData );
-//        cout << _conversion->decimalToBinary( tamanoUserData ) << endl;
-//        data = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
-//        tmp = tmp->getNextPtr();
-//    }
+    unsigned short data1;
+    std::string data2;
+    std::string data3;
+    std::string datos;
+    while ( tmp != nullptr ) {
+        data1 = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getSize();
+        data2 = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
+        data3 = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getName(); // titulo
+        std::string tamanoDato = _conversion->fromShort2String( data1 );
+        _conversion->setFillData( 8 );
+        datos += _conversion->decimalToBinary( tamanoDato );
+        _conversion->setFillData( 16 );
+        datos += _conversion->decimalToBinary( data2 );
+        _conversion->setFillData( _sizeOwner_FileName );//24
+        datos += _conversion->stringToBinary( data3 );
+        cout << "MUSR1: " << data1 << " " << _conversion->decimalToBinary( tamanoDato ) << endl;
+        cout << "MUSR2: " << data2 << " " << _conversion->decimalToBinary( data2 ) << endl;
+        cout << "MUSR3: " << data3 << " " << _conversion->stringToBinary( data3 )<< endl;
+        cout << "MetadatosUSR: " << datos << endl;
+        cout << "Tamaño MetadatosUSR: " << datos.length() << endl;
+        tmp = tmp->getNextPtr();
+    }
+    metadataBinary += datos;
+    cout << "Metadatos: " << metadataBinary << endl;
+    cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
+    _disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
 //    return metadataBinary;
 }
 
 void BTRecordFile::loadMetadata()
 {
+    std::string *DatosUsuario = new std::string[6];
+    DLL<IRecordDataType*> *tmp1 = new DLL<IRecordDataType*>();
     int contador = 0;
     const char* data;
     std::string strData;
-    while( contador != 80 ){
+    while( contador != 96 ){
         data = _disk->read( contador, 15 );
         strData = _conversion->fromConstChar2String( data );
-        cout << " str " << strData << " ";
-        cout << _conversion->binaryToDecimal( strData ) << endl;
+        cout << "-->"<<_conversion->binaryToDecimal( strData ) <<  endl;
+        DatosUsuario[contador/16] = strData;
         contador += 16;
     }
     cout << endl;
+
+//    while ( contador != 128 ){// lectura del Owner nombreArchivo (tamaño 24)
+//        data = _disk->read( contador, _sizeOwner_FileName - 1 );
+//        strData = _conversion->fromConstChar2String( data );
+//        cout << "-->"<<_conversion->binaryToString( strData ) <<  endl;
+//        contador += _sizeOwner_FileName;
+//    }
+
+    dataClassification( DatosUsuario );
+}
+
+/**
+ * @brief BTRecordFile::dataClassification
+ * @param pDatosUsuario
+ * Clasificación de metadatos, se setean datos
+ */
+void BTRecordFile::dataClassification( std::string *pDatosUsuario )
+{
+    std::string tamanoRegistro = _conversion->binaryToDecimal( pDatosUsuario[0] );
+    unsigned short numero0 = _conversion->fromString2Short( tamanoRegistro );
+    _metadataPtr->setRecordSize( numero0 );
+
+    std::string BOF = _conversion->binaryToDecimal( pDatosUsuario[1] );
+    unsigned short numero1 = _conversion->fromString2Short( BOF );
+    _metadataPtr->setFirstRecordPos( numero1 );
+
+    std::string cantidadRegistro = _conversion->binaryToDecimal( pDatosUsuario[2] );
+    unsigned short numero2 = _conversion->fromString2Short( cantidadRegistro );
+    _metadataPtr->setFirstRecordPos( numero2 );
+
+    std::string pEOF = _conversion->binaryToDecimal( pDatosUsuario[3] );
+    unsigned short numero3 = _conversion->fromString2Short( pEOF );
+    _metadataPtr->setEOF( numero3 );
+
+    std::string freeBlocks = _conversion->binaryToDecimal( pDatosUsuario[4] );
+    unsigned short numero4 = _conversion->fromString2Short( freeBlocks);
+    _metadataPtr->setFreeBlockList( numero4 );
+
+    std::string userdataLength = _conversion->binaryToDecimal( pDatosUsuario[5] );
+    unsigned short numero5 = _conversion->fromString2Short( userdataLength );
+    this->_cantidadDatosUser = numero5;
+}
+
+/**
+ * @brief BTRecordFile::loadUserInfo
+ * @param pTmp1
+ * @param pTipo
+ * @param pTamano
+ * @param pTitulo
+ * Clasificación de los datos de usuario se guardan datos
+ */
+void BTRecordFile::loadUserInfo(DLL<IRecordDataType*> *pTmp1, std::string pTipo,
+                                std::string pTamano, std::string pTitulo)
+{
+    std::string  tipo = _conversion->binaryToDecimal( pTipo );
+    std::string  titulo = _conversion->binaryToString( pTitulo );
+    char p = tipo[1];
+    unsigned short size = _conversion->fromString2Short( pTamano );
+    RecordDataType<char> *tmp = new RecordDataType<char>( titulo , p , size );
+    pTmp1->insertAtBack( tmp );
 }
 
 /**
