@@ -14,7 +14,7 @@ public:
     BTRFLocalSimulation();
 
 // -----------------------------------------------------------------------------
-// MÉTODOS PÚBLICOS DE LA CLASE ABSTRACTA ASIMULABLE
+// MÉTODOS PÚBLICOS DE LA CLASE ABSTRACTA ISIMULABLE
 // -----------------------------------------------------------------------------
     virtual void createFile();
 
@@ -33,13 +33,19 @@ private:
     BTRFSimulation *_fileSimulation;
 
 // -----------------------------------------------------------------------------
-// MÉTODO PRIVADO DE LA CLASE ABSTRACTA ASIMULABLE
+// MÉTODO PRIVADO DE LA INTEFAZ ISIMULABLE
 // -----------------------------------------------------------------------------
     virtual BTRecordFileMetadata *createMetadata() const;
     virtual void mainMenu();
 // -----------------------------------------------------------------------------
 
-    IMetadata *getMetadata() const;
+// -----------------------------------------------------------------------------
+// MÉTODOS AUXILIARES
+// -----------------------------------------------------------------------------
+        IMetadata *getMetadata() const;
+        void modifyFile();
+// -----------------------------------------------------------------------------
+
 };
 
 #endif // BTRFLOCALSIMULATION_H

@@ -1,3 +1,4 @@
+#include <typeinfo>
 #include "BTRFLocalSimulation.h"
 
 BTRFLocalSimulation::BTRFLocalSimulation()
@@ -8,6 +9,7 @@ BTRFLocalSimulation::BTRFLocalSimulation()
 void BTRFLocalSimulation::createFile()
 {
     _fileSimulation = new BTRFSimulation(createMetadata());
+    _fileSimulation->dataStructureByUser();
 }
 
 void BTRFLocalSimulation::insertRecord()
@@ -37,7 +39,7 @@ void BTRFLocalSimulation::insertRecord()
 
         dataList->insertAtBack(recordList);
 
-        current++;
+        current = current->getNextPtr();
     }
 
     _fileSimulation->insert(dataList);
@@ -55,7 +57,7 @@ BTRecordFileMetadata *BTRFLocalSimulation::createMetadata() const
 {
     unsigned short length;
     std::string name, fileName, owner = "LOCAL";
-    char field;
+    char field, option;
     RecordDataType<char> *header;
     DLL<IRecordDataType*> *recordStruct = new DLL<IRecordDataType*>();
 
@@ -65,7 +67,35 @@ BTRecordFileMetadata *BTRFLocalSimulation::createMetadata() const
 
     // CAMPOS DE REGISTRO
 
-    do {
+    std::cout << "Escriba los campos presentes en el registro "
+              << "(0 para salir):\n"
+              << "1. String\n"
+              << "2. Char\n"
+              << "3. Short\n"
+              << "4. Int\n"
+              << "5. Double\n"
+              << "6. Bool\n"
+              << "> ";
+
+    std::cin >> option;
+
+    while (option != '0') {
+        if (option > '0' && option < '7') {
+            std::cout << "\nNombre del campo: ";
+            std::cin >> name;
+
+            std::cout << "\nDefina su tamaño (en B): ";
+            std::cin >> length;
+
+            // resta uno a field para que sean compatibles con las
+            // constantes ya declaradas
+            field = option - 1;
+            header = new RecordDataType<char>(name, field, length);
+            recordStruct->insertAtBack(header);
+        } else {
+            std::cout << "No existe el tipo especificado";
+        }
+
         std::cout << "Escriba los campos presentes en el registro "
                   << "(0 para salir):\n"
                   << "1. String\n"
@@ -75,25 +105,9 @@ BTRecordFileMetadata *BTRFLocalSimulation::createMetadata() const
                   << "5. Double\n"
                   << "6. Bool\n"
                   << "> ";
-        std::cin >> field;
 
-        if (field == '0') {
-            break;
-        } else if (field > '0' && field < '7') {
-            header = new RecordDataType<char>(name, field, length);
-            recordStruct->insertAtBack(header);
-
-            std::cout << "\nNombre del campo: ";
-            std::cin >> name;
-
-            std::cout << "\nDefina su tamaño (en B): ";
-            std::cin >> length;
-        } else {
-            std::cout << "No existe el tipo especificado\n";
-        }
-    } while (field != '0');
-
-    std::cout << "\n\n";
+        std::cin >> option;
+    }
 
     return new BTRecordFileMetadata(fileName, owner, recordStruct);
 }
@@ -126,21 +140,23 @@ void BTRFLocalSimulation::mainMenu()
             createFile();
             break;
         case '7': // modificar archivo
-
+            modifyFile();
+            break;
         default:
             std::cout << "Escogió una opción incorrecta";
             break;
         }
 
         std::cout << "\n\n";
-        // FIXME PONER UN CLEANER AL OPTION PARA CUANDO SE PONGA CERO EN OTROS
-        // MENÚ, NO AFECTAR EL DE AQUÍ Y PONERLO TAMBIÉN EN CERO
     } while (option != '0');
-
-    std::cout << "\n\n";
 }
 
 IMetadata *BTRFLocalSimulation::getMetadata() const
 {
     return _fileSimulation->getMetadata();
+}
+
+void BTRFLocalSimulation::modifyFile()
+{
+
 }

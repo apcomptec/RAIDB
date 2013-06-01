@@ -4,6 +4,8 @@
 #include <sstream>
 #include "Disk.h"
 
+char *a = new char('2');
+
 const char Disk::POTENCY = 20;  // se define el tamaño del disco en MB
 
 Disk::Disk(const unsigned short &pId, const unsigned short &pSize,
@@ -31,18 +33,16 @@ void Disk::write(const unsigned short &pPos, const char *pBuffer)
 
 char *Disk::read(const unsigned &pPos, const unsigned short &pBufferLength)
 {
-    std::ifstream ifs(_name, std::fstream::binary | std::fstream::in);
+    std::ifstream ifs(_name, std::ifstream::binary);
 
-    ifs.seekg(pPos, std::ios::beg);
-
-    char *buffer = new char(pBufferLength + 1);
+    char *buffer = new char[pBufferLength + 1];
+    ifs.seekg(pPos, ifs.beg);
     ifs.read(buffer, pBufferLength + 1);
 
     buffer[pBufferLength + 1] = '\0';
 
-    //std::cout << buffer << std::endl;
-
     ifs.close();
+
     return buffer;
 }
 

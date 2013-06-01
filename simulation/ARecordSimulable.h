@@ -7,7 +7,7 @@
 class ARecordSimulable
 {
 public:
-    ARecordSimulable();
+    ARecordSimulable(IRecordFile * const pFile);
 
     virtual void insert();
     void dataStructureByUser();
@@ -15,11 +15,8 @@ public:
     IMetadata* getMetadata();
     void setMetadata(IMetadata * const pMetadata);
 
-private:
-
-    const IRecordFile *_file;
-
-    virtual unsigned short computeRecordSize() const = 0;
+protected:
+    IRecordFile * const _file;
 };
 
 #endif // ARECORDSIMULABLE_H

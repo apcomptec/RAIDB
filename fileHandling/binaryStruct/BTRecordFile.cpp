@@ -546,7 +546,7 @@ void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
  * @brief printDataStructureByUser imprime cómo está conformado el registro
  * según los campos que ingresó el usuario
  */
-void BTRecordFile::printDataStructureByUser()
+void BTRecordFile::printDataStructureByUser() // TODO ver que hay duplicado
 {
     std::cout << "Los registros tienen la siguiente estructura: \n\n";
 
