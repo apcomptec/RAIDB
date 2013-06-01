@@ -40,7 +40,8 @@ SOURCES += \
     simulation/recordType/BTRFSimulation.cpp \
     util/parser/XMLParser.cpp \
     util/parser/FileSystemParser.cpp \
-    Client-Server/clientmultiple.cpp
+    Client-Server/clientmultiple.cpp \
+    util/parser/Logs.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -85,4 +86,5 @@ HEADERS += \
     util/parser/IParser.h \
     util/parser/XMLParser.h \
     util/parser/FileSystemParser.h \
-    Client-Server/clientmultiple.h
+    Client-Server/clientmultiple.h \
+    util/parser/Logs.h
