@@ -13,14 +13,7 @@ public:
     virtual void insert(DLL<IRecordDataType *> *pList);
 
 private:
-    BTRecordFile *_file;
-
-// -----------------------------------------------------------------------------
-// MÉTODO PRIVADO DE LA CLASE ABSTRACTA ARECORDSIMULABLE
-// -----------------------------------------------------------------------------
-    virtual unsigned short computeRecordSize() const;
-// -----------------------------------------------------------------------------
-
+//    BTRecordFile *_file;
 };
 
 #endif // BTRFSIMULATION_H

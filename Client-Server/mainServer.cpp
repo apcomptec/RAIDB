@@ -1,13 +1,13 @@
-//#include <QCoreApplication>
-//#include "server.h"
+#include <QCoreApplication>
+#include "server.h"
 
-//int mainServer(int argc, char *argv[])
-////int main(int argc, char *argv[])
-//{
-//    QCoreApplication a(argc, argv);
+int mainServer(int argc, char *argv[])
+//int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
 
-//    Server server;
-//    server.startServer();
+    Server server;
+    server.startServer();
     
-//    return a.exec();
-//}
+    return a.exec();
+}
