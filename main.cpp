@@ -311,5 +311,7 @@ int main()
         file->insertRecord2Disk(record7);
     }
 
-    file->readALLRecordsFromDisk();
+    //file->readALLRecordsFromDisk();
+    file->saveMetadata2Disk();
+    file->loadMetadata();
 }
