@@ -65,6 +65,8 @@ public:
     void readOneRecordFromDisk( unsigned short recordID );      // LECTURA DE UN REGISTRO
     void saveMetadata2Disk();                                   // GUARDA LA METADATA ACTUAL
     void loadMetadata();                                        // CARGA LA METADATA ACTUAL
+    void dataClassification( std::string *pDatosUsuario );
+    void loadUserInfo(DLL<IRecordDataType *> *pTmp1, std::string pTipo, std::string pTamano, std::string pTitulo);
 // -----------------------------------------------------------------------------
 
 private:
@@ -72,6 +74,8 @@ private:
     Disk *_disk;
     int _counter;       //llevará la cantidad de registros insertados
     Converter *_conversion;
+    int _sizeOwner_FileName;
+    unsigned short _cantidadDatosUser;
 
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;
