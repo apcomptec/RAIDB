@@ -15,7 +15,7 @@ public:
     IMetadata *getMetadata();
     void setMetadata(IMetadata * const pMetadata);
 
-    IRecord *getFile();
+    IRecordFile *getFile();
 
 protected:
     IRecordFile * const _file;

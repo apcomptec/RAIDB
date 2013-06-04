@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int main()
+int main7()
 {
 //    std::cout << read(5);
 //    std::cout << read(90);

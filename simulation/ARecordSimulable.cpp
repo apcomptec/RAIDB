@@ -62,8 +62,7 @@ IMetadata *ARecordSimulable::getMetadata()
     return _file->getMetadata();
 }
 
-
-IRecord *ARecordSimulable::getFile()
+IRecordFile *ARecordSimulable::getFile()
 {
-//    return _file;
+    return _file;
 }
