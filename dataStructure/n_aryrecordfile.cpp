@@ -46,11 +46,11 @@ bool N_aryRecordFile::insertNodePtr(IN_aryNode<QString> * pFolder, IN_aryNode<QS
     if(pRoot == nullptr)
     {
         this->_root = pFolder;
-        std::cout << "Root inserted..." << std::endl;
+        qDebug() << "Root inserted...";
         return true;
     }
     pRoot->addChildPtr(pFolder);
-    std::cout << "Child inserted..." << std::endl;
+    qDebug() << "Child inserted...";
     return true;
 }
 
@@ -86,7 +86,7 @@ bool N_aryRecordFile::insertDirPtr(QString pNewDir, QString pRoot)
             nNode->setParentPtr(current);
             return current->addChildPtr(nNode);
         }else{
-            std::cout << "No existe el directorio" << std::endl;
+            qDebug() << "Invalid directory...";
             return false;
         }
     }
@@ -96,25 +96,30 @@ bool N_aryRecordFile::insertFilePtr(QString pPath, IRecordFile *pFile)
 {
     if(pPath == "Root")
     {
-        ((N_aryRecordFileNode<QString>*)this->_root)->addRecordFilePtr(pFile);
+        (dynamic_cast<N_aryRecordFileNode<QString>*>(this->_root))->addRecordFilePtr(pFile);
         return true;
     }else
     {
+        qDebug() << "En proceso de insercion";
         //Se obtiene los directorios
         QStringList listPath;
         listPath = pPath.split(QRegExp("/"));
         listPath.removeFirst();
 
+        qDebug() << "En proceso de insercion";
+
         //Se busca el nodo padre donde se inserta el nuevo nodo
         IN_aryNode<QString>* current = this->searchDirPtr(this->_root, listPath);
 
+        qDebug() << "En proceso de insercion";
+        qDebug() << current;
         //Se verifica si el directorio es valido
         if(current != nullptr)
         {
-            ((N_aryRecordFileNode<QString>*)current)->addRecordFilePtr(pFile);
+            (dynamic_cast<N_aryRecordFileNode<QString>*>(current))->addRecordFilePtr(pFile);
             return true;
         }else{
-            std::cout << "No existe el directorio" << std::endl;
+            qDebug() << "Invalid directory...";
             return false;
         }
     }
@@ -244,27 +249,52 @@ void N_aryRecordFile::printTreeAux(IN_aryNode<QString>* pRoot, QString pPath)
 {
     //Se imprime la raiz
     qDebug() << pPath;
+
+    DLL<IRecordFile*>* listFiles = (dynamic_cast<N_aryRecordFileNode<QString>*>(pRoot))->getRecordFileListPtr();
+    DLLNode<IRecordFile*>* nodeFile = listFiles->getHeadPtr();
+
+    for (int i = 0; i < listFiles->getSize(); ++i) {
+        std::cout << pPath.toAscii().data() << nodeFile->getData()->getMetadata()->getFileName() << std::endl;
+        nodeFile = nodeFile->getNextPtr();
+    }
+
     //Se obtiene la lista de nodos hijos
     DLL<IN_aryNode<QString>*>* listFolder = pRoot->getChildList();
     //Se obtiene el primer nodo de la lista
     DLLNode<IN_aryNode<QString>*>* tmpNode = listFolder->getHeadPtr();
+
     //Ciclo para imprimir los hijos
     for (int var = 0; var < listFolder->getSize(); ++var) {
         QString Path = pPath + tmpNode->getData()->getData()+ "/";
 
-        //LLamada recursiva para imprimir los datoS
+        //LLamada recursiva para imprimir los datos
         this->printTreeAux(tmpNode->getData(), Path);
-
-        DLL<IRecordFile*>* listFiles = ((N_aryRecordFileNode<QString>*)tmpNode->getData())->getRecordFileListPtr();
-        DLLNode<IRecordFile*>* nodeFile = listFiles->getHeadPtr();
-
-        for (int i = 0; i < listFiles->getSize(); ++i) {
-            std::cout << Path.toAscii().data();
-            std::cout << nodeFile->getData()->getMetadata()->getFileName() << std::endl;
-            nodeFile = nodeFile->getNextPtr();
-        }
 
         //Se mueven las referencias
         tmpNode = tmpNode->getNextPtr();
     }
 }
+
+void N_aryRecordFile::printContentOf(QString pPath)
+{
+    IN_aryNode<QString>* tmpNode = this->searchDir(pPath);
+
+    DLL<IN_aryNode<QString>*>* folderList = tmpNode->getChildList();
+    DLLNode<IN_aryNode<QString>*>* nodeFolder = folderList->getHeadPtr();
+
+    for (int var = 0; var < folderList->getSize(); ++var)
+    {
+        qDebug() << nodeFolder->getData()->getData() + "/";
+        nodeFolder = nodeFolder->getNextPtr();
+    }
+
+    DLL<IRecordFile*>* fileList = (dynamic_cast<N_aryRecordFileNode<QString>*>(tmpNode))->getRecordFileListPtr();
+    DLLNode<IRecordFile*>* nodeFile = fileList->getHeadPtr();
+
+    for (int var = 0; var < fileList->getSize(); ++var)
+    {
+        std::cout << nodeFile->getData()->getMetadata()->getFileName() << std::endl;
+        nodeFile = nodeFile->getNextPtr();
+    }
+}
+

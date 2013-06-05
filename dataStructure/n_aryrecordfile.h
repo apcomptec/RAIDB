@@ -44,6 +44,8 @@ public:
     //Impresion del arbol n-ario
     void printTree();
     void printTreeAux(IN_aryNode<QString>*, QString);
+    //Impresion de los archivos y carpetas de una direccion especifica
+    void printContentOf(QString);
 };
 
 #endif // N_ARYRECORDFILE_H

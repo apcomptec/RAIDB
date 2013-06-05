@@ -109,6 +109,7 @@ template<typename DATATYPE>
 DLL<IRecordFile*>* N_aryRecordFileNode<DATATYPE>::getRecordFileListPtr()
 {
     //Se retorna la lista
+    std::cout << this->_fileListPtr->getSize() << std::endl;
     return this->_fileListPtr;
 }
 
