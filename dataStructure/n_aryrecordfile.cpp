@@ -250,11 +250,14 @@ void N_aryRecordFile::printTreeAux(IN_aryNode<QString>* pRoot, QString pPath)
     //Se imprime la raiz
     qDebug() << pPath;
 
+    //Se obtienen la lista de archivos
     DLL<IRecordFile*>* listFiles = (dynamic_cast<N_aryRecordFileNode<QString>*>(pRoot))->getRecordFileListPtr();
     DLLNode<IRecordFile*>* nodeFile = listFiles->getHeadPtr();
 
     for (int i = 0; i < listFiles->getSize(); ++i) {
+        //Se imprime el path del archivo
         std::cout << pPath.toAscii().data() << nodeFile->getData()->getMetadata()->getFileName() << std::endl;
+        //Se mueven las referencias
         nodeFile = nodeFile->getNextPtr();
     }
 
@@ -275,26 +278,41 @@ void N_aryRecordFile::printTreeAux(IN_aryNode<QString>* pRoot, QString pPath)
     }
 }
 
+/**
+ * @brief N_aryRecordFile::printContentOf
+ *  Metodo para el cual se imprimen archivos y carpetas de una path especifico
+ * @param pPath
+ */
 void N_aryRecordFile::printContentOf(QString pPath)
 {
+    //Se obtiene el nodo
     IN_aryNode<QString>* tmpNode = this->searchDir(pPath);
 
+    qDebug() << "Path: " << tmpNode->getData();
+
+    //Se obtiene la lista de carpetas
     DLL<IN_aryNode<QString>*>* folderList = tmpNode->getChildList();
     DLLNode<IN_aryNode<QString>*>* nodeFolder = folderList->getHeadPtr();
 
+    //Se itera sobre la lista
     for (int var = 0; var < folderList->getSize(); ++var)
     {
+        //Se imprime el nombre de la carpeta
         qDebug() << nodeFolder->getData()->getData() + "/";
+        //Se mueve la referencia
         nodeFolder = nodeFolder->getNextPtr();
     }
 
+    //Se obtiene la lista de archivos
     DLL<IRecordFile*>* fileList = (dynamic_cast<N_aryRecordFileNode<QString>*>(tmpNode))->getRecordFileListPtr();
     DLLNode<IRecordFile*>* nodeFile = fileList->getHeadPtr();
 
+    //Se itera sobre la lista de archivos
     for (int var = 0; var < fileList->getSize(); ++var)
     {
+        //Se imprime el nombre del archivo
         std::cout << nodeFile->getData()->getMetadata()->getFileName() << std::endl;
+        //Se mueve la referencia
         nodeFile = nodeFile->getNextPtr();
     }
 }
-

@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int main7()
+int main()
 {
 //    std::cout << read(5);
 //    std::cout << read(90);
@@ -84,6 +84,9 @@ int main7()
 //    nTree->deleteDirPtr("/home/daniel/nueva/");
 //    std::cout << "\nImpresion del arbol" << std::endl;
 //    nTree->printTree();
+
+//    std::cout << "\n" << std::endl;
+//    nTree->printContentOf("/home/");
 //    std::cout << "Fin de la ejecución" << std::endl;
 
 // *****************************************************************************
@@ -265,20 +268,20 @@ int main7()
 //// PRUEBA SIMULADOR LOCAL
 //// *****************************************************************************
 
-//    BTRFLocalSimulation *simulation = new BTRFLocalSimulation();
+    BTRFLocalSimulation *simulation = new BTRFLocalSimulation();
 
-//    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
-//    std::string name = "12", owner = "u";
-//   DLL<IRecordDataType*> *record = new DLL<IRecordDataType*>();
-//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata(name, owner, record);
-//    std::cout << "Dun";
-//        std::cout << "------------------------------------------------------\n|";
-//        std::cout << "   Tipo   |"
-//                  << "          Nombre          |"
-//                  << "  Tamaño (B)  |\n";
-//        std::cout << "------------------------------------------------------\n";
+    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
+    std::string name = "12", owner = "u";
+   DLL<IRecordDataType*> *record = new DLL<IRecordDataType*>();
+    BTRecordFileMetadata *metadata = new BTRecordFileMetadata(name, owner, record);
+    std::cout << "Dun";
+        std::cout << "------------------------------------------------------\n|";
+        std::cout << "   Tipo   |"
+                  << "          Nombre          |"
+                  << "  Tamaño (B)  |\n";
+        std::cout << "------------------------------------------------------\n";
 
-//        std::cout << std::left << std::setw(4) << "Hola" << std::setw(13) << "jaja\n";
+        std::cout << std::left << std::setw(4) << "Hola" << std::setw(13) << "jaja\n";
 
 /// ############################################################################
 /// ESCRITURA DE REGISTROS EN EL DISCO
@@ -381,26 +384,26 @@ int main7()
 //// ESTRUCTURA METADATOS
 //// *****************************************************************************
 
-    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
-    std::string name1 = "DAV";
-    char dataType1 = '0';
-    unsigned short size1 = 4;
-    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
-    list1->insertAtBack(data1);
+//    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
+//    std::string name1 = "DAV";
+//    char dataType1 = '0';
+//    unsigned short size1 = 4;
+//    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
+//    list1->insertAtBack(data1);
 
-    std::string name2 = "IMO";
-    char dataType2 = '5';
-    unsigned short size2 = 2;
-    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
-    list1->insertAtBack(data2);
+//    std::string name2 = "IMO";
+//    char dataType2 = '5';
+//    unsigned short size2 = 2;
+//    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
+//    list1->insertAtBack(data2);
 
-    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
+//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
 
 //// *****************************************************************************
 //// CREACIÓN ARCHIVO BINARIO
 //// *****************************************************************************
 
-    BTRecordFile *file = new BTRecordFile(metadata);
+//    BTRecordFile *file = new BTRecordFile(metadata);
 
 //// *****************************************************************************
 //// REGISTRO 1
@@ -592,6 +595,6 @@ int main7()
 //    }
 
     //file->readALLRecordsFromDisk();
-    file->saveMetadata2Disk();
+//    file->saveMetadata2Disk();
    // file->loadMetadata();
 }
