@@ -96,11 +96,11 @@ int main()
 // *****************************************************************************
 // PRUEBA PARA ESCRIBIR REGISTRO EN DISCO
 // *****************************************************************************
-    std::string name = "file1";
-    std::string data = "H";
-    unsigned short size = 3;
-    IRecordDataType *record1 = new RecordDataType<std::string>(name, data, size);
-    BTRecordFileMetadata *p = new BTRecordFileMetadata();
+//    std::string name = "file1";
+//    std::string data = "H";
+//    unsigned short size = 3;
+//    IRecordDataType *record1 = new RecordDataType<std::string>(name, data, size);
+//    BTRecordFileMetadata *p = new BTRecordFileMetadata();
 ////------------------------------------
 //    std::string name2 = "file2";
 //    std::string data2 = "R";
@@ -165,7 +165,7 @@ int main()
 //    list10->insertAtFront(record10);
 //    //------------------------------------
 
-    BTRecordFile *file = new BTRecordFile(p);
+//    BTRecordFile *file = new BTRecordFile(p);
 //    file->insertRecord2Disk(list1); // inserta datos en disco
 //    file->insertRecord2Disk(list2);
 //    file->insertRecord2Disk(list3);
@@ -292,26 +292,26 @@ int main()
 //// *****************************************************************************
 
 
-//    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
-//    std::string name1 = "Apellido";
-//    char dataType1 = '0';
-//    unsigned short size1 = 4;
-//    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
-//    list1->insertAtBack(data1);
+    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
+    std::string name1 = "Apellido";
+    char dataType1 = '0';
+    unsigned short size1 = 4;
+    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
+    list1->insertAtBack(data1);
 
-//    std::string name2 = "Género";
-//    char dataType2 = '3';
-//    unsigned short size2 = 2;
-//    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
-//    list1->insertAtBack(data2);
+    std::string name2 = "Género";
+    char dataType2 = '3';
+    unsigned short size2 = 2;
+    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
+    list1->insertAtBack(data2);
 
-//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("File1", "YO", list1);
+    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("File1", "YO", list1);
 
 //// *****************************************************************************
 //// CREACIÓN ARCHIVO BINARIO
 //// *****************************************************************************
 
-//    BTRecordFile *file = new BTRecordFile(metadata);
+    BTRecordFile *file = new BTRecordFile(metadata);
 
 //// *****************************************************************************
 //// REGISTRO 1
