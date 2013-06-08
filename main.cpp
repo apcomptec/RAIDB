@@ -96,11 +96,11 @@ int main()
 // *****************************************************************************
 // PRUEBA PARA ESCRIBIR REGISTRO EN DISCO
 // *****************************************************************************
-//    std::string name = "file1";
-//    std::string data = "H";
-//    unsigned short size = 3;
-//    IRecordDataType *record1 = new RecordDataType<std::string>(name, data, size);
-//    BTRecordFileMetadata *p = new BTRecordFileMetadata();
+    std::string name = "file1";
+    std::string data = "H";
+    unsigned short size = 3;
+    IRecordDataType *record1 = new RecordDataType<std::string>(name, data, size);
+    BTRecordFileMetadata *p = new BTRecordFileMetadata();
 ////------------------------------------
 //    std::string name2 = "file2";
 //    std::string data2 = "R";
@@ -165,7 +165,7 @@ int main()
 //    list10->insertAtFront(record10);
 //    //------------------------------------
 
-//    BTRecordFile *file = new BTRecordFile(p);
+    BTRecordFile *file = new BTRecordFile(p);
 //    file->insertRecord2Disk(list1); // inserta datos en disco
 //    file->insertRecord2Disk(list2);
 //    file->insertRecord2Disk(list3);
@@ -268,20 +268,20 @@ int main()
 //// PRUEBA SIMULADOR LOCAL
 //// *****************************************************************************
 
-    BTRFLocalSimulation *simulation = new BTRFLocalSimulation();
+//    BTRFLocalSimulation *simulation = new BTRFLocalSimulation();
 
-    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
-    std::string name = "12", owner = "u";
-   DLL<IRecordDataType*> *record = new DLL<IRecordDataType*>();
-    BTRecordFileMetadata *metadata = new BTRecordFileMetadata(name, owner, record);
-    std::cout << "Dun";
-        std::cout << "------------------------------------------------------\n|";
-        std::cout << "   Tipo   |"
-                  << "          Nombre          |"
-                  << "  Tamaño (B)  |\n";
-        std::cout << "------------------------------------------------------\n";
+//    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
+//    std::string name = "12", owner = "u";
+//   DLL<IRecordDataType*> *record = new DLL<IRecordDataType*>();
+//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata(name, owner, record);
+//    std::cout << "Dun";
+//        std::cout << "------------------------------------------------------\n|";
+//        std::cout << "   Tipo   |"
+//                  << "          Nombre          |"
+//                  << "  Tamaño (B)  |\n";
+//        std::cout << "------------------------------------------------------\n";
 
-        std::cout << std::left << std::setw(4) << "Hola" << std::setw(13) << "jaja\n";
+//        std::cout << std::left << std::setw(4) << "Hola" << std::setw(13) << "jaja\n";
 
 /// ############################################################################
 /// ESCRITURA DE REGISTROS EN EL DISCO
@@ -595,6 +595,6 @@ int main()
 //    }
 
     //file->readALLRecordsFromDisk();
-//    file->saveMetadata2Disk();
-   // file->loadMetadata();
+    file->saveMetadata2Disk();
+    file->loadMetadata();
 }
