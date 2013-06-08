@@ -367,8 +367,8 @@ void BTRecordFile::saveMetadata2Disk()
 
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
-    std::string size = _conversion->fromShort2String(tmp->getData()->getSize());// numero de datos de usuario
-    metadataBinary += _conversion->stringToBinary( size );// cantidad de datos usuario
+    std::string size = _conversion->fromShort2String( tmp1->getSize() );// numero de datos de usuario
+    metadataBinary += _conversion->decimalToBinary( size );// cantidad de datos usuario
 
     _conversion->setFillData( _sizeOwner_FileName );//24
     metadataBinary += _conversion->stringToBinary( _metadataPtr->getFileName() );
@@ -388,11 +388,9 @@ void BTRecordFile::saveMetadata2Disk()
         data2 = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getDataPtr();
         data3 = (dynamic_cast<RecordDataType<char>*>(tmp->getData()))->getName(); // titulo
         std::string tamanoDato = _conversion->fromShort2String( data1 );
-        _conversion->setFillData( 8 );
-        datos += _conversion->decimalToBinary( tamanoDato );
-        _conversion->setFillData( 16 );
-        datos += _conversion->decimalToBinary( data2 );
         _conversion->setFillData( _sizeOwner_FileName );//24
+        datos += _conversion->decimalToBinary( tamanoDato );
+        datos += _conversion->decimalToBinary( data2 );
         datos += _conversion->stringToBinary( data3 );
         cout << "MUSR1: " << data1 << " " << _conversion->decimalToBinary( tamanoDato ) << endl;
         cout << "MUSR2: " << data2 << " " << _conversion->decimalToBinary( data2 ) << endl;
@@ -424,13 +422,28 @@ void BTRecordFile::loadMetadata()
     }
     cout << endl;
 
-//    while ( contador != 128 ){// lectura del Owner nombreArchivo (tamaño 24)
-//        data = _disk->read( contador, _sizeOwner_FileName - 1 );
-//        strData = _conversion->fromConstChar2String( data );
-//        cout << "-->"<<_conversion->binaryToString( strData ) <<  endl;
-//        contador += _sizeOwner_FileName;
-//    }
-
+    while ( contador != 144 ){// lectura del Owner nombreArchivo (tamaño 24)
+        data = _disk->read( contador, _sizeOwner_FileName - 1 );
+        strData = _conversion->fromConstChar2String( data );
+        cout << "-->"<<_conversion->binaryToString( strData ) <<  endl;
+        contador += _sizeOwner_FileName;
+    }
+    const char* data0;
+    const char* data1;
+    const char* data2;
+    unsigned short contador2 = 0;
+    std::string p = _conversion->binaryToDecimal( DatosUsuario[5] );
+    _conversion->fromString2Short( p );
+    //while( contador2 != _conversion->fromString2Short(p) ){
+        data0 =  _disk->read( contador, 22 );                                  // lectura del tipo de dato
+        data1 =  _disk->read( contador , 22 );                            // lectura del tamaño de dato
+        data2 =  _disk->read( contador , 22 );    // lectura del titulo de dato
+        loadUserInfo( tmp1, data0, data1, data2 );
+//        contador2++;
+//        contador += ( _sizeOwner_FileName );
+        cout << "data0: " << data0 << endl;
+        cout << "data1: " << data1  << endl;
+        cout << "data2: " << data2  << endl;
     dataClassification( DatosUsuario );
 }
 
@@ -484,6 +497,7 @@ void BTRecordFile::loadUserInfo(DLL<IRecordDataType*> *pTmp1, std::string pTipo,
     RecordDataType<char> *tmp = new RecordDataType<char>( titulo , p , size );
     pTmp1->insertAtBack( tmp );
 }
+
 
 /**
  * @brief BTRecordFile::sortUserDataFromDisk

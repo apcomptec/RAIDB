@@ -292,26 +292,26 @@ int main()
 //// *****************************************************************************
 
 
-    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
-    std::string name1 = "Apellido";
-    char dataType1 = '0';
-    unsigned short size1 = 4;
-    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
-    list1->insertAtBack(data1);
+//    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
+//    std::string name1 = "Apellido";
+//    char dataType1 = '0';
+//    unsigned short size1 = 4;
+//    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
+//    list1->insertAtBack(data1);
 
-    std::string name2 = "Género";
-    char dataType2 = '3';
-    unsigned short size2 = 2;
-    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
-    list1->insertAtBack(data2);
+//    std::string name2 = "Género";
+//    char dataType2 = '3';
+//    unsigned short size2 = 2;
+//    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
+//    list1->insertAtBack(data2);
 
-    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("File1", "YO", list1);
+//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("File1", "YO", list1);
 
 //// *****************************************************************************
 //// CREACIÓN ARCHIVO BINARIO
 //// *****************************************************************************
 
-    BTRecordFile *file = new BTRecordFile(metadata);
+//    BTRecordFile *file = new BTRecordFile(metadata);
 
 //// *****************************************************************************
 //// REGISTRO 1
@@ -384,26 +384,26 @@ int main()
 //// ESTRUCTURA METADATOS
 //// *****************************************************************************
 
-//    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
-//    std::string name1 = "DAV";
-//    char dataType1 = '0';
-//    unsigned short size1 = 4;
-//    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
-//    list1->insertAtBack(data1);
+    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
+    std::string name1 = "DAV";
+    char dataType1 = '0';
+    unsigned short size1 = 4;
+    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
+    list1->insertAtBack(data1);
 
-//    std::string name2 = "IMO";
-//    char dataType2 = '5';
-//    unsigned short size2 = 2;
-//    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
-//    list1->insertAtBack(data2);
+    std::string name2 = "IMO";
+    char dataType2 = '5';
+    unsigned short size2 = 2;
+    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
+    list1->insertAtBack(data2);
 
-//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
+    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
 
 //// *****************************************************************************
 //// CREACIÓN ARCHIVO BINARIO
 //// *****************************************************************************
 
-//    BTRecordFile *file = new BTRecordFile(metadata);
+    BTRecordFile *file = new BTRecordFile(metadata);
 
 //// *****************************************************************************
 //// REGISTRO 1
