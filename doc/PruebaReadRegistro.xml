@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Blocks>
+	<Record ID="1" Parent="0" LeftChild="2" RightChild="3" int="11" char="a" string="daniel1" bool="0"/>
+	<Record ID="2" Parent="1" LeftChild="4" RightChild="5" int="22" char="b" string="daniel2" bool="1"/>
+	<Record ID="3" Parent="1" LeftChild="6" RightChild="7" int="33" char="c" string="daniel3" bool="0"/>
+	<Record ID="4" Parent="2" LeftChild="8" RightChild="9" int="44" char="d" string="daniel4" bool="1"/>
+	<Record ID="5" Parent="2" LeftChild="10" RightChild="0" int="55" char="e" string="daniel5" bool="0"/>
+	<Record ID="6" Parent="3" LeftChild="0" RightChild="0" int="66" char="f" string="daniel6" bool="1"/>
+	<Record ID="7" Parent="3" LeftChild="0" RightChild="0" int="77" char="g" string="daniel7" bool="0"/>
+	<Record ID="8" Parent="4" LeftChild="0" RightChild="0" int="89" char="h" string="daniel8" bool="1"/>
+	<Record ID="9" Parent="4" LeftChild="0" RightChild="0" int="99" char="i" string="daniel9" bool="0"/>
+	<Record ID="10" Parent="5" LeftChild="0" RightChild="0" int="1010" char="j" string="daniel10" bool="1"/>
+</Blocks>
