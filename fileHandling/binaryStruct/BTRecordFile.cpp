@@ -434,16 +434,18 @@ void BTRecordFile::loadMetadata()
     unsigned short contador2 = 0;
     std::string p = _conversion->binaryToDecimal( DatosUsuario[5] );
     _conversion->fromString2Short( p );
-    //while( contador2 != _conversion->fromString2Short(p) ){
+    while( contador2 != _conversion->fromString2Short(p) ){
         data0 =  _disk->read( contador, 23 );                                  // lectura del tipo de dato
         data1 =  _disk->read( contador + 24 , 23 );                            // lectura del tamaño de dato
         data2 =  _disk->read( contador + 48, 23 );    // lectura del titulo de dato
         loadUserInfo( tmp1, data0, data1, data2 );
-//        contador2++;
-//        contador += ( _sizeOwner_FileName );
+        contador2++;
+        contador += ( _sizeOwner_FileName * 3 );
         cout << "data0: " << data0 << endl;
         cout << "data1: " << data1  << endl;
         cout << "data2: " << data2  << endl;
+    }
+
     dataClassification( DatosUsuario );
 }
 
