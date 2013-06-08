@@ -59,7 +59,7 @@ OTHER_FILES += \
     doc/manejoArchivos2.JPG \
     doc/manejoArchivos1.JPG \
     doc/InformacionServidor.xml \
-    doc/CROGRAMAFINAL.pdf
+    doc/PALMADAS.pdf
 
 HEADERS += \
     raid/IRaid.h \
