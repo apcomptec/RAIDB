@@ -49,11 +49,28 @@ void ThreadServer::readyRead()
     //Array de datos
     QByteArray Data = this->_socket->readAll();
 
+
     qDebug() << this->_socketDescriptor << "Data in: " << Data;
 
-    //Se escribe en el socket
-    this->_socket->write(Data);
+    this->answerProtocol("true");
+
 }
+
+void ThreadServer::answerProtocol(QString pMessage)
+{
+    //Se escribe en el socket
+    try{
+        this->_socket->write((pMessage+"\n").toAscii());
+    }catch(char e){
+        qDebug() << e;
+    }
+
+    while(_socket->flush())
+    {
+        qDebug() << "Flush";
+    }
+}
+
 
 /**
  * @brief ThreadServer::disconnect
