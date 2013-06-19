@@ -14,7 +14,7 @@
 
 using namespace std;
 
-int main()
+int main7()
 {
 //    Encryption *p = new Encryption();
 //    p->passwordEncryption("Daniel");
