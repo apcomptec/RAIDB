@@ -10,11 +10,14 @@
 #include "dataStructure/n_aryrecordfile.h"
 #include <bitset>
 #include "simulation/recordType/BTRFLocalSimulation.h"
+#include "util/Encryption.h"
 
 using namespace std;
 
 int main()
 {
+//    Encryption *p = new Encryption();
+//    p->passwordEncryption("Daniel");
 //    std::cout << read(5);
 //    std::cout << read(90);
 
