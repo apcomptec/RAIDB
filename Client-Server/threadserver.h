@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include <QTcpSocket>
+#include <QDataStream>
 
 
 class ThreadServer : public QThread
@@ -13,6 +14,7 @@ public:
     explicit ThreadServer(int ID, QObject *parent = 0);
     //Ejecucion del hilo
     void run();
+    void answerProtocol(QString);
 
 signals:
     //Error

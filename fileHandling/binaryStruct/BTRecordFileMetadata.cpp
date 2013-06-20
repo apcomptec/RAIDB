@@ -21,7 +21,7 @@ const char BTRecordFileMetadata::BOOL       = '5';
 // -----------------------------------------------------------------------------
 
 BTRecordFileMetadata::BTRecordFileMetadata(const std::string &pFileName,
-        const std::string &pOwner, DLL<IRecordDataType *> *pRecordStruct)
+                                           const std::string &pOwner, DLL<IRecordDataType *> *pRecordStruct)
     : _recordStructPtr(pRecordStruct),
       _fileName(pFileName),
       _owner(pOwner)
@@ -31,8 +31,19 @@ BTRecordFileMetadata::BTRecordFileMetadata(const std::string &pFileName,
     this->_eof = 0;
     this->_fr = 0;
     this->_freeBlockList = 0;
-
+    this->_pointerNextBlock = 0;    // dice si tiene un puntero hacia otro bloque
 }
+
+unsigned short BTRecordFileMetadata::getPointerNextBlock() const
+{
+    return _pointerNextBlock;
+}
+
+void BTRecordFileMetadata::setPointerNextBlock(unsigned short pointerNextBlock)
+{
+    _pointerNextBlock = pointerNextBlock;
+}
+
 
 DLL<IRecordDataType *> *BTRecordFileMetadata::getRecordStruct() const
 {
@@ -120,7 +131,7 @@ unsigned short BTRecordFileMetadata::computeRecordSize()
     unsigned short size = 0;
 
     DLLNode<IRecordDataType *> *currentDataByUser =
-        _recordStructPtr->getHeadPtr();
+            _recordStructPtr->getHeadPtr();
 
     while (currentDataByUser != nullptr) {
         size += currentDataByUser->getData()->getSize();

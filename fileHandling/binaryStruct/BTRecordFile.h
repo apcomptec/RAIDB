@@ -69,6 +69,12 @@ public:
     void loadUserInfo(DLL<IRecordDataType *> *pTmp1, std::string pTipo, std::string pTamano, std::string pTitulo);
 // -----------------------------------------------------------------------------
 
+    std::string getIdNextBlock() const;
+    void setIdNextBlock(const std::string &idNextBlock);
+    unsigned short computeMaxSizeOfRegistryInBlock(); // calcula max cantidad de registros por bloque
+    unsigned short getMaxSizeOfRegistryInBlock() const;
+    void setMaxSizeOfRegistryInBlock(unsigned short maxSizeOfRegistryInBlock);
+
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
@@ -76,6 +82,8 @@ private:
     Converter *_conversion;
     int _sizeOwner_FileName;
     unsigned short _cantidadDatosUser;
+    std::string _idNextBlock;
+    unsigned short _maxSizeOfRegistryInBlock;   // dice cual es la cantidad máxima de registros en un bloque
 
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;

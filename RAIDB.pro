@@ -44,7 +44,10 @@ SOURCES += \
     util/parser/FileSystemParser.cpp \
     Client-Server/clientmultiple.cpp \
     util/parser/Logs.cpp \
-    UnitTestCase/unittesting.cpp
+    UnitTestCase/unittesting.cpp \
+    Client-Server/masterserver.cpp \
+    util/Encryption.cpp \
+    util/randomnumber.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -59,7 +62,8 @@ OTHER_FILES += \
     doc/manejoArchivos2.JPG \
     doc/manejoArchivos1.JPG \
     doc/InformacionServidor.xml \
-    doc/PALMADAS.pdf
+    doc/PALMADAS.pdf \
+    doc/DibujoProgra.jpg
 
 HEADERS += \
     raid/IRaid.h \
@@ -95,4 +99,7 @@ HEADERS += \
     util/parser/FileSystemParser.h \
     Client-Server/clientmultiple.h \
     util/parser/Logs.h \
-    UnitTestCase/unittesting.h
+    UnitTestCase/unittesting.h \
+    Client-Server/masterserver.h \
+    util/Encryption.h \
+    util/randomnumber.h

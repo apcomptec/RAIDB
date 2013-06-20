@@ -20,7 +20,10 @@ public slots:
     
 protected:
     //Recibe conexiones
-    void incomingConnection(int pSocketDescriptor);
+    virtual void incomingConnection(int pSocketDescriptor) = 0;
+
+private:
+    ThreadServer *thread;
 };
 
 #endif // SERVER_H

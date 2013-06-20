@@ -31,6 +31,7 @@ public:
     IN_aryNode<DATATYPE>* searchChildPtr(IN_aryNode<DATATYPE> *);
 
     //METODOS ARBOL N-ARIO DE ARCHIVOS
+    IN_aryNode<DATATYPE>* searchDirInto(IN_aryNode<DATATYPE> *);
     DLL<IRecordFile*>* getRecordFileListPtr();
     void setRecordFileListPtr(DLL<IRecordFile*>*);
     bool addRecordFilePtr(IRecordFile*);
