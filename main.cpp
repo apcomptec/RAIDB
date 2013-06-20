@@ -14,7 +14,7 @@
 
 using namespace std;
 
-int main7()
+int main()
 {
 //    Encryption *p = new Encryption();
 //    p->passwordEncryption("Daniel");
@@ -598,6 +598,6 @@ int main7()
 //    }
 
     //file->readALLRecordsFromDisk();
-    file->saveMetadata2Disk();
-    file->loadMetadata();
+//    file->saveMetadata2Disk();
+//    file->loadMetadata();
 }
