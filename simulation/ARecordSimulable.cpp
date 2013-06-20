@@ -6,7 +6,7 @@
 ARecordSimulable::ARecordSimulable(IRecordFile * const pFile)
     : _file(pFile)
 {
-    // vacío
+    // empty body
 }
 
 void ARecordSimulable::insert()

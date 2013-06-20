@@ -40,7 +40,7 @@ public:
      * @param pSTDString
      * @return
      */
-    QString fromStringToQString( const std::string &pSTDString);
+    static QString fromStringToQString( const std::string &pSTDString);
 
     /**
      * @brief FromStringToConstChar

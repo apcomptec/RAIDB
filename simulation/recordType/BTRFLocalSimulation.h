@@ -4,6 +4,7 @@
 #include "simulation/LocalSimulation.h"
 #include "simulation/recordType/BTRFSimulation.h"
 #include "dataStructure/n_aryrecordfile.h"
+//#include "dataStructure/IN_aryNode.h"
 
 class BTRFLocalSimulation: public LocalSimulation
 {
@@ -14,19 +15,7 @@ public:
      */
     BTRFLocalSimulation();
 
-    N_aryRecordFile fileSystem;
-
-// -----------------------------------------------------------------------------
-// MÉTODOS PÚBLICOS DE LA CLASE ABSTRACTA ISIMULABLE
-// -----------------------------------------------------------------------------
-    virtual void createFile();
-
-    virtual void insertRecord();
-
-    virtual void deleteRecord();
-
-    virtual void searchRecord();
-// -----------------------------------------------------------------------------
+    virtual void mainMenu();
 
 private:
 
@@ -35,20 +24,49 @@ private:
      */
     BTRFSimulation *_fileSimulation;
 
+    N_aryRecordFile *_fileSystem;
+
+    /**
+     * @brief _currentFolder puntero al directorio actual
+     */
+    N_aryRecordFileNode<QString> *_currentFolder;
+
+// -----------------------------------------------------------------------------
+// MÉTODOS PARA EDITAR EL ARCHIVO
+// -----------------------------------------------------------------------------
+    void createFile();
+
+    void insertRecord();
+
+    void deleteRecord();
+
+    void searchRecord();
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// MÉTODOS PARA EDITAR DIRECTORIOS
+// -----------------------------------------------------------------------------
+    void showFolderContent();
+    void createFolder();
+    void deleteFolder();
+    void changeFolder();
+// -----------------------------------------------------------------------------
+
+    virtual void fileHandling();
+    virtual void directoryHandling();
 
 
 // -----------------------------------------------------------------------------
-// MÉTODO PRIVADO DE LA INTEFAZ ISIMULABLE
+// MÉTODO
 // -----------------------------------------------------------------------------
-    virtual BTRecordFileMetadata *createMetadata() const;
-    virtual void mainMenu();
+    BTRecordFileMetadata *createMetadata() const;
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 // MÉTODOS AUXILIARES
 // -----------------------------------------------------------------------------
-        IMetadata *getMetadata() const;
-        void modifyFile();
+    IMetadata *getMetadata() const;
+    void modifyFile();
 // -----------------------------------------------------------------------------
 
 };

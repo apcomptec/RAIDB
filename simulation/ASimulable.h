@@ -15,37 +15,21 @@ class ISimulable
 public:
 
     /**
-     * @brief createFile
-     */
-    virtual void createFile() = 0;
-
-    /**
-     * @brief insertRecord
-     */
-    virtual void insertRecord() = 0;
-
-    /**
-     * @brief deleteRecord
-     */
-    virtual void deleteRecord() = 0;
-
-    /**
-     * @brief searchRecord
-     */
-    virtual void searchRecord() = 0;
-
-private:
-
-    /**
      * @brief mainMenu Menú principal cuando se comience la simulación
      */
     virtual void mainMenu() = 0;
 
+private:
+
     /**
-     * @brief createMetadata Se encarga de reconstruir los metadatos del
-     * archivo
+     * @brief fileHandling
      */
-    virtual IMetadata *createMetadata() const = 0;
+    virtual void fileHandling() = 0;
+
+    /**
+     * @brief directoryHandling
+     */
+    virtual void directoryHandling() = 0;
 };
 
 #endif // ASIMULABLE_H

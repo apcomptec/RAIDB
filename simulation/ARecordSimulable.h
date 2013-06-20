@@ -9,7 +9,7 @@ class ARecordSimulable
 public:
     ARecordSimulable(IRecordFile * const pFile);
 
-    virtual void insert();
+    void insert();
     void dataStructureByUser();
 
     IMetadata *getMetadata();
