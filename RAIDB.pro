@@ -47,7 +47,8 @@ SOURCES += \
     UnitTestCase/unittesting.cpp \
     Client-Server/masterserver.cpp \
     util/Encryption.cpp \
-    util/randomnumber.cpp
+    util/randomnumber.cpp \
+    Client-Server/serverstorage.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -102,4 +103,5 @@ HEADERS += \
     UnitTestCase/unittesting.h \
     Client-Server/masterserver.h \
     util/Encryption.h \
-    util/randomnumber.h
+    util/randomnumber.h \
+    Client-Server/serverstorage.h

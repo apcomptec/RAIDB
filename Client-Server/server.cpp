@@ -15,10 +15,10 @@ Server::Server(QObject *parent) :
  * @brief Server::startServer
  *  Metodo que inicializa el servidor mediante un puerto esppecifico
  */
-void Server::startServer()
+void Server::startServer(int pPort)
 {
     //Se verifica que se haya inicializado el socket de escucha
-    if(!this->listen(QHostAddress::Any, 1234))
+    if(!this->listen(QHostAddress::Any, pPort))
     {
         qDebug() << "No se pudo iniciar el servidor";
     }

@@ -12,7 +12,7 @@ public:
     //Constructor
     explicit Server(QObject *parent = 0);
     //Se inicializa el server
-    void startServer();
+    void startServer(int pPort);
 
 signals:
 
@@ -22,7 +22,7 @@ protected:
     //Recibe conexiones
     virtual void incomingConnection(int pSocketDescriptor) = 0;
 
-private:
+protected:
     ThreadServer *thread;
 };
 
