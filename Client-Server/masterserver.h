@@ -9,6 +9,7 @@ private:
 
 public:
     MasterServer();
+    ~MasterServer();
     void incomingConnection(int pSocketDescriptor);
 };
 

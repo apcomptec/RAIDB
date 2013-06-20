@@ -1,10 +1,9 @@
-#include "masterserver.h"
+#include "serverstorage.h"
 
-MasterServer::MasterServer()
+ServerStorage::ServerStorage()
 {
 }
-
-MasterServer::~MasterServer()
+ServerStorage::~ServerStorage()
 {}
 
 /**
@@ -14,7 +13,7 @@ MasterServer::~MasterServer()
  *  -client.
  * @param pSocketDescriptor
  */
-void MasterServer::incomingConnection(int pSocketDescriptor)
+void ServerStorage::incomingConnection(int pSocketDescriptor)
 {
     qDebug() << pSocketDescriptor << "Conectando...";
 
