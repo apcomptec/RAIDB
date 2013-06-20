@@ -91,7 +91,9 @@ void BTRFLocalSimulation::createFolder() // TODO
     std::cout << "Escriba el nombre del directorio: ";
     std::cin >> name;
 
-    _fileSystem->insertDirPtr(Converter::fromStringToQString(name));
+    _currentFolder->addChildPtr(
+        new N_aryRecordFileNode<QString>(
+            Converter::fromStringToQString(name)));
 }
 
 void BTRFLocalSimulation::deleteFolder() // TODO
@@ -114,11 +116,13 @@ void BTRFLocalSimulation::changeFolder()
 
     } else { // desde el directorio donde está el puntero actual
         std::cout << "Entró";
-        tmp = _currentFolder->searchChildPtr(
-                  new N_aryRecordFileNode<QString>(qPath));
+        tmp =
+            dynamic_cast<N_aryRecordFileNode<QString>*>(_currentFolder)->
+            searchDirInto(new N_aryRecordFileNode<QString>(qPath));
     }
 
     if (tmp != nullptr) { // sí existe la ruta
+        std::cout << "FOLDER: " << tmp->getData().toStdString();
         _currentFolder = dynamic_cast<N_aryRecordFileNode<QString>*>(tmp);
     }
 }
