@@ -109,7 +109,6 @@ template<typename DATATYPE>
 DLL<IRecordFile*>* N_aryRecordFileNode<DATATYPE>::getRecordFileListPtr()
 {
     //Se retorna la lista
-    std::cout << this->_fileListPtr->getSize() << std::endl;
     return this->_fileListPtr;
 }
 
@@ -206,7 +205,7 @@ IN_aryNode<DATATYPE>* N_aryRecordFileNode<DATATYPE>::searchDirInto(IN_aryNode<DA
         if(pDir->getData() == tmpDir->getData()->getData())
         {
             //En caso de encontrar el nodo lo devuelve
-            return tmpDir;
+            return tmpDir->getData();
         }
         //Se mueven las referencias de los nodos
         tmpDir = tmpDir->getNextPtr();
