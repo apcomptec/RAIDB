@@ -22,6 +22,29 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
 
 }
 
+/**
+ * @brief BTRecordFile::maxSizeOfRegistryInBlock
+ * @return máxima cantidad de registros que caben en un bloque
+ */
+unsigned short BTRecordFile::getMaxSizeOfRegistryInBlock() const
+{
+    return _maxSizeOfRegistryInBlock;
+}
+
+void BTRecordFile::setMaxSizeOfRegistryInBlock(unsigned short maxSizeOfRegistryInBlock)
+{
+    _maxSizeOfRegistryInBlock = maxSizeOfRegistryInBlock;
+}
+
+/**
+ * @brief BTRecordFile::computeMaxSizeOfRegistryInBlock
+ * @return calcula max cantidad de registros por bloque
+ */
+unsigned short BTRecordFile::computeMaxSizeOfRegistryInBlock()
+{
+    return this->_disk->getBlockSize() / this->_metadataPtr->getRecordSize();
+}
+
 std::string BTRecordFile::getIdNextBlock() const
 {
     return _idNextBlock;
