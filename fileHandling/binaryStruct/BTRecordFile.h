@@ -71,6 +71,9 @@ public:
 
     std::string getIdNextBlock() const;
     void setIdNextBlock(const std::string &idNextBlock);
+    unsigned short computeMaxSizeOfRegistryInBlock(); // calcula max cantidad de registros por bloque
+    unsigned short getMaxSizeOfRegistryInBlock() const;
+    void setMaxSizeOfRegistryInBlock(unsigned short maxSizeOfRegistryInBlock);
 
 private:
     BTRecordFileMetadata *_metadataPtr;
@@ -80,6 +83,7 @@ private:
     int _sizeOwner_FileName;
     unsigned short _cantidadDatosUser;
     std::string _idNextBlock;
+    unsigned short _maxSizeOfRegistryInBlock;   // dice cual es la cantidad máxima de registros en un bloque
 
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;
