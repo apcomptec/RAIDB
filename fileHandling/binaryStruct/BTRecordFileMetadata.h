@@ -57,7 +57,12 @@ public:
     virtual void setEOF(const unsigned short &pEOF);
     virtual unsigned short getFirstRecordPos() const;
     virtual void setFirstRecordPos(const unsigned short &pPos);
-// -----------------------------------------------------------------------------
+
+    unsigned short getPointerNextBlock() const; // Dice si posee o no puntero a otro archivo
+    void setPointerNextBlock(unsigned short pointerNextBlock);
+
+    // -----------------------------------------------------------------------------
+
 
 private:
 
@@ -81,7 +86,8 @@ private:
      * calcula mediante la posición exacta en disco
      * @brief _eof Muestra dónde está el final de archivo
      */
-    unsigned short _recordSize, _numberOfRecords, _fileSize, _fr, _eof, _freeBlockList;
+    unsigned short _recordSize, _numberOfRecords, _fileSize, _fr, _eof,
+    _freeBlockList, _pointerNextBlock;
 
     /**
      * @brief _freeBlockList Lista con los bloques libres

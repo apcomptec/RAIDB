@@ -69,6 +69,9 @@ public:
     void loadUserInfo(DLL<IRecordDataType *> *pTmp1, std::string pTipo, std::string pTamano, std::string pTitulo);
 // -----------------------------------------------------------------------------
 
+    std::string getIdNextBlock() const;
+    void setIdNextBlock(const std::string &idNextBlock);
+
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
@@ -76,6 +79,7 @@ private:
     Converter *_conversion;
     int _sizeOwner_FileName;
     unsigned short _cantidadDatosUser;
+    std::string _idNextBlock;
 
     BTRecord *_registryArray;
     unsigned short _listFreeBlocks;

@@ -598,6 +598,6 @@ int main()
 //    }
 
     //file->readALLRecordsFromDisk();
-//    file->saveMetadata2Disk();
-//    file->loadMetadata();
+    file->saveMetadata2Disk();
+    file->loadMetadata();
 }

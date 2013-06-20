@@ -17,7 +17,19 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_sizeOwner_FileName = 24;
     this->_cantidadDatosUser = -1; // no hay
     this->_conversion = new Converter();
-    _disk = new Disk(1,7);
+    _disk = new Disk( 1,7 );
+    this->_idNextBlock = " "; // es nulo pues no hay siguiente
+
+}
+
+std::string BTRecordFile::getIdNextBlock() const
+{
+    return _idNextBlock;
+}
+
+void BTRecordFile::setIdNextBlock(const std::string &idNextBlock)
+{
+    _idNextBlock = idNextBlock;
 }
 
 /**
@@ -90,7 +102,7 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
         else{ // se insertan otros registros después de haber uno
             cout << "CANTIDAD DE REGISTROS--> " << cantRegistros << endl;
             unsigned short fatherPosition = posicionPrimerRegistro +
-                ( (tamanoRegistro) * ( ( cantRegistros / 2) - 1) );
+                    ( (tamanoRegistro) * ( ( cantRegistros / 2) - 1) );
             std::string leftChild = "00000000";       // obtiene el hijo izq
             std::string rightChild = "00000000";      // obtiene el hijo der
             modifyLastTreeRegistry( cantRegistros, fatherPosition ); // cambia datos del registro padre
@@ -100,21 +112,21 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
         }
         dataBinaryRecord += getUserRecordData( pListPtr );
         cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
-//        cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
-//        cout << "tamanoRegistro " << _metadataPtr->getRecordSize() << endl;
+        //        cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
+        //        cout << "tamanoRegistro " << _metadataPtr->getRecordSize() << endl;
 
         this->_disk->write( this->_metadataPtr->getEOF() ,
-                        _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
-    //  Actualiza el tamaño de EOF y la cantidad de registros insertados
+                            _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
+        //  Actualiza el tamaño de EOF y la cantidad de registros insertados
         this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
         //cout << "EOF  " << this->_metadataPtr->getEOF()  << endl;
-//        cout << "BOF  " << this->_metadataPtr->getFirstRecordPos()  << endl;
+        //        cout << "BOF  " << this->_metadataPtr->getFirstRecordPos()  << endl;
         this->_metadataPtr->setNumberOfRecords( ++cantRegistros );
     }
     else{
         cout << "$$$$$$$$$$ Insertando en espacio... $$$$$$$$$$" << endl;
         aux_InsertRecord2Disk( pListPtr );
-        }
+    }
     cout << "-----------------------------------------------------------------" << endl;
     cout << "$$$$$$$$$$ Escritura a disco finalizada $$$$$$$$$$" << endl;
     cout << "-----------------------------------------------------------------" << endl;
@@ -161,7 +173,7 @@ void BTRecordFile::aux_InsertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     dataBinaryRecord += getUserRecordData( pListPtr );
     this->_disk->write( path2Write + 24 ,
-                    _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
+                        _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
 
     cout << "......... Registro insertado ........." << endl;
 }
@@ -207,7 +219,7 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
  * @param
  */
 void BTRecordFile::modifyLastTreeRegistry(unsigned short pRecordNumber,
-                 unsigned short pChangePositon){
+                                          unsigned short pChangePositon){
     std::string modifiedChild = _conversion->decimalToBinary( std::to_string(pRecordNumber) );
     const char *modifiedChildChar = modifiedChild.c_str();
     if (pRecordNumber % 2 == 0){    // registro es par modifica hizq
@@ -346,12 +358,15 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
 void BTRecordFile::saveMetadata2Disk()
 {
     std::string metadataBinary;
+    std::string puntero = _conversion->fromShort2String( _metadataPtr->getPointerNextBlock() );
     std::string tamanoRegistro = _conversion->fromShort2String( _metadataPtr->getRecordSize() );
     std::string BOF = _conversion->fromShort2String( _metadataPtr->getFirstRecordPos() );
     std::string cantidadRegistro = _conversion->fromShort2String( _metadataPtr->getNumberOfRecords() );
     std::string ENDOF = _conversion->fromShort2String( _metadataPtr->getEOF() );
     std::string freeBlocks = _conversion->fromShort2String( _metadataPtr->getFreeBlockList() );
     _conversion->setFillData( 16 ); // hace los datos de tamaño 16 en binario
+    metadataBinary += _conversion->decimalToBinary( puntero );
+    cout << _conversion->decimalToBinary( puntero ) << endl;
     metadataBinary += _conversion->decimalToBinary( tamanoRegistro );
     cout << _conversion->decimalToBinary( tamanoRegistro ) << endl;
     metadataBinary += _conversion->decimalToBinary( BOF );
@@ -403,17 +418,17 @@ void BTRecordFile::saveMetadata2Disk()
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
     _disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
-//    return metadataBinary;
+    //    return metadataBinary;
 }
 
 void BTRecordFile::loadMetadata()
 {
-    std::string *DatosUsuario = new std::string[6];
+    std::string *DatosUsuario = new std::string[7];
     DLL<IRecordDataType*> *tmp1 = new DLL<IRecordDataType*>();
     int contador = 0;
     const char* data;
     std::string strData;
-    while( contador != 96 ){
+    while( contador != 112 ){
         data = _disk->read( contador, 15 );
         strData = _conversion->fromConstChar2String( data );
         cout << "-->"<<_conversion->binaryToDecimal( strData ) <<  endl;
@@ -422,7 +437,7 @@ void BTRecordFile::loadMetadata()
     }
     cout << endl;
 
-    while ( contador != 144 ){// lectura del Owner nombreArchivo (tamaño 24)
+    while ( contador != (144 + 16) ){// lectura del Owner nombreArchivo (tamaño 24)
         data = _disk->read( contador, _sizeOwner_FileName - 1 );
         strData = _conversion->fromConstChar2String( data );
         cout << "-->"<<_conversion->binaryToString( strData ) <<  endl;
@@ -432,7 +447,7 @@ void BTRecordFile::loadMetadata()
     const char* data1;
     const char* data2;
     unsigned short contador2 = 0;
-    std::string p = _conversion->binaryToDecimal( DatosUsuario[5] );
+    std::string p = _conversion->binaryToDecimal( DatosUsuario[6] );
     _conversion->fromString2Short( p );
     while( contador2 != _conversion->fromString2Short(p) ){
         data0 =  _disk->read( contador, 23 );                                  // lectura del tipo de dato
@@ -456,27 +471,31 @@ void BTRecordFile::loadMetadata()
  */
 void BTRecordFile::dataClassification( std::string *pDatosUsuario )
 {
-    std::string tamanoRegistro = _conversion->binaryToDecimal( pDatosUsuario[0] );
+    std::string puntero = _conversion->binaryToDecimal( pDatosUsuario[0] );
+    unsigned short numero00 = _conversion->fromString2Short( puntero );
+    _metadataPtr->setPointerNextBlock( numero00 );
+
+    std::string tamanoRegistro = _conversion->binaryToDecimal( pDatosUsuario[1] );
     unsigned short numero0 = _conversion->fromString2Short( tamanoRegistro );
     _metadataPtr->setRecordSize( numero0 );
 
-    std::string BOF = _conversion->binaryToDecimal( pDatosUsuario[1] );
+    std::string BOF = _conversion->binaryToDecimal( pDatosUsuario[2] );
     unsigned short numero1 = _conversion->fromString2Short( BOF );
     _metadataPtr->setFirstRecordPos( numero1 );
 
-    std::string cantidadRegistro = _conversion->binaryToDecimal( pDatosUsuario[2] );
+    std::string cantidadRegistro = _conversion->binaryToDecimal( pDatosUsuario[3] );
     unsigned short numero2 = _conversion->fromString2Short( cantidadRegistro );
     _metadataPtr->setFirstRecordPos( numero2 );
 
-    std::string pEOF = _conversion->binaryToDecimal( pDatosUsuario[3] );
+    std::string pEOF = _conversion->binaryToDecimal( pDatosUsuario[4] );
     unsigned short numero3 = _conversion->fromString2Short( pEOF );
     _metadataPtr->setEOF( numero3 );
 
-    std::string freeBlocks = _conversion->binaryToDecimal( pDatosUsuario[4] );
+    std::string freeBlocks = _conversion->binaryToDecimal( pDatosUsuario[5] );
     unsigned short numero4 = _conversion->fromString2Short( freeBlocks);
     _metadataPtr->setFreeBlockList( numero4 );
 
-    std::string userdataLength = _conversion->binaryToDecimal( pDatosUsuario[5] );
+    std::string userdataLength = _conversion->binaryToDecimal( pDatosUsuario[6] );
     unsigned short numero5 = _conversion->fromString2Short( userdataLength );
     this->_cantidadDatosUser = numero5;
 }
@@ -520,7 +539,7 @@ std::string BTRecordFile::sortUserDataFromDisk(std::string pData, char pTipo)
         finalBinaryRecord = _conversion->binaryToDecimal( pData );
     }
     else if (pTipo == BTRecordFileMetadata::STRING ||
-        pTipo == BTRecordFileMetadata::CHAR) { // string o char
+             pTipo == BTRecordFileMetadata::CHAR) { // string o char
         finalBinaryRecord = _conversion->binaryToString( pData );
     }
     else { // son solo numeros
@@ -560,12 +579,12 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
                 newRecord->setLeftChildPtr(0);      // no tiene hijos
                 newRecord->setRightChildPtr(0);     // no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                .setLeftChildPtr(_counter);
+                        .setLeftChildPtr(_counter);
             } else {
                 newRecord->setRightChildPtr(0);     // no tiene hijos
                 newRecord->setLeftChildPtr(0);      // no tiene hijos
                 (this->_registryArray[newRecord->getParentPtr()])
-                .setRightChildPtr(_counter);
+                        .setRightChildPtr(_counter);
             }
         }
         this->_counter++;   // aumenta la posición para insertar el siguiente dato
@@ -595,11 +614,11 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
 
     pNewRecord->setRightChildPtr(pHDer);
     (this->_registryArray[tmp])
-    .setRightChildPtr(pHDer);
+            .setRightChildPtr(pHDer);
 
     pNewRecord->setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
     (this->_registryArray[tmp])
-    .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
+            .setLeftChildPtr(this->_registryArray[tmp].getRightChildPtr() - 1);
 }
 
 
@@ -647,7 +666,7 @@ void BTRecordFile::printDataStructureByUser() // TODO ver que hay duplicado
     std::cout << "Los registros tienen la siguiente estructura: \n\n";
 
     DLLNode<IRecordDataType *> *current =
-        _metadataPtr->getRecordStruct()->getHeadPtr();
+            _metadataPtr->getRecordStruct()->getHeadPtr();
 
     char headerName;
 
@@ -725,9 +744,9 @@ void BTRecordFile::printArrayRecord() const
          << "LeftChild" << setw(15) << "RightChild" << endl;
     for (int i = 1; i < this->getCounter(); i++) {
         cout << setw(7) << i << setw(15) <<
-             _registryArray[i].getParentPtr() << setw(15) <<
-             _registryArray[i].getLeftChildPtr() << setw(15) <<
-             _registryArray[i].getRightChildPtr() << setw(15) << "\n";
+                _registryArray[i].getParentPtr() << setw(15) <<
+                _registryArray[i].getLeftChildPtr() << setw(15) <<
+                _registryArray[i].getRightChildPtr() << setw(15) << "\n";
     }
 }
 
