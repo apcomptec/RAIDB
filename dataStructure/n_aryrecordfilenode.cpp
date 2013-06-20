@@ -189,3 +189,27 @@ template<typename DATATYPE>
 IRecordFile* N_aryRecordFileNode<DATATYPE>::deleteRecordFilePtr(IRecordFile *pFile){
     return this->_fileListPtr->removeSpecific(pFile);
 }
+
+template<typename DATATYPE>
+/**
+ * @brief N_aryRecordFileNode<DATATYPE>::searchDirInto
+ *  En este metodo se busca un nodo si se encuentra lo devuelve
+ * @param pDir
+ * @return Nodo al cual se esta buscando
+ */
+IN_aryNode<DATATYPE>* N_aryRecordFileNode<DATATYPE>::searchDirInto(IN_aryNode<DATATYPE> * pDir)
+{
+    //Se obtiene el nodo header
+    DLLNode<IN_aryNode<DATATYPE>*>* tmpDir = this->_dirListPtr->getHeadPtr();
+    //Comienza un ciclo de busqueda
+    for (int var = 0; var < this->_dirListPtr->getSize(); ++var) {
+        if(pDir->getData() == tmpDir->getData()->getData())
+        {
+            //En caso de encontrar el nodo lo devuelve
+            return tmpDir;
+        }
+        //Se mueven las referencias de los nodos
+        tmpDir = tmpDir->getNextPtr();
+    }
+    return nullptr;
+}
