@@ -36,7 +36,7 @@ public:
     void setRecordFileListPtr(DLL<IRecordFile*>*);
     bool addRecordFilePtr(IRecordFile*);
     IRecordFile *deleteRecordFilePtr(IRecordFile*);
-    IRecordFile *searchRecordFilePtr(IRecordFile*);
+    IRecordFile *searchRecordFilePtr(std::string pName);
 
 };
 
