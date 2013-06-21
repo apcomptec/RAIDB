@@ -13,6 +13,9 @@ ThreadServer::ThreadServer(int ID, QObject *parent) :
     this->_socketDescriptor = ID;
 }
 
+ThreadServer::ThreadServer()
+{}
+
 /**
  * @brief ThreadServer::run
  *  Metodo de ejecucion del hilo.
@@ -51,12 +54,12 @@ void ThreadServer::readyRead()
 
 
     qDebug() << this->_socketDescriptor << "Data in: " << Data;
-
-    this->answerProtocol("true");
+    QString message(Data.constData());
+    answerProtocol(message);
 
 }
 
-void ThreadServer::answerProtocol(QString pMessage)
+void ThreadServer::writeToClient(QString pMessage)
 {
     //Se escribe en el socket
     try{

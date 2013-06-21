@@ -11,10 +11,12 @@ class ThreadServer : public QThread
     Q_OBJECT
 public:
     //Constructor
-    explicit ThreadServer(int ID, QObject *parent = 0);
+    ThreadServer(int ID, QObject *parent = 0);
+    ThreadServer();
     //Ejecucion del hilo
     void run();
-    void answerProtocol(QString);
+    virtual void answerProtocol(QString) = 0;
+    void writeToClient(QString);
 
 signals:
     //Error
@@ -29,7 +31,7 @@ public slots:
     
 public slots:
 
-private:
+protected:
     //Socket para recibir
     QTcpSocket *_socket;
     //Identificador del socket
