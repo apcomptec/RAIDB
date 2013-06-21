@@ -36,13 +36,15 @@ private:
 // -----------------------------------------------------------------------------
     void createFile();
 
-    void selectFile();
+    void editFile();
 
     void insertRecord();
 
     void deleteRecord();
 
     void searchRecord();
+
+    void updateMetadata();
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -56,7 +58,6 @@ private:
 
     virtual void fileHandling();
     virtual void directoryHandling();
-
 
 // -----------------------------------------------------------------------------
 // MÉTODO

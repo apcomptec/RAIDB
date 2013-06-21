@@ -585,36 +585,47 @@ std::string BTRecordFile::sortUserDataFromDisk(std::string pData, char pTipo)
  */
 BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
 {
-    unsigned short hDer = this->_registryArray[3].getRightChildPtr();
-    BTRecord *newRecord = new BTRecord();
-    newRecord->setDataList(pListPtr);
-    if (this->getListFreeBlocks() == 0) {
-        if (this->_registryArray == NULL) {   //arreglo vacío
-            newRecord->setParentPtr(0);
-            newRecord->setLeftChildPtr(0);
-            newRecord->setRightChildPtr(0);
-            this->_registryArray[1] = *newRecord;    // inicio en la posición 1
-        } else {
-            this->_registryArray[_counter] = *newRecord;
-            newRecord->setParentPtr(_counter / 2);      // setea el padre
-            (this->_registryArray[_counter]).setParentPtr(_counter / 2);
-            if ((_counter % 2) == 0) {    //si el numero es par es hijo izquierdo
-                newRecord->setLeftChildPtr(0);      // no tiene hijos
-                newRecord->setRightChildPtr(0);     // no tiene hijos
-                (this->_registryArray[newRecord->getParentPtr()])
-                        .setLeftChildPtr(_counter);
-            } else {
-                newRecord->setRightChildPtr(0);     // no tiene hijos
-                newRecord->setLeftChildPtr(0);      // no tiene hijos
-                (this->_registryArray[newRecord->getParentPtr()])
-                        .setRightChildPtr(_counter);
-            }
+    unsigned short cantRegistros = this->_metadataPtr->getNumberOfRecords();
+    unsigned short tamanoRegistro = this->_metadataPtr->getRecordSize();
+    unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
+    std::string dataBinaryRecord;  // concatenacion del registro a binario
+    if (this->_metadataPtr->getFreeBlockList() == 0){
+        if( this->_disk == NULL ){
+            this->_disk = new Disk( 1, 7 );
+            dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
         }
-        this->_counter++;   // aumenta la posición para insertar el siguiente dato
-    } else {
-        insertRecordAUX(newRecord, hDer);
+        else{ // se insertan otros registros después de haber uno
+            cout << "CANTIDAD DE REGISTROS--> " << cantRegistros << endl;
+            unsigned short fatherPosition = posicionPrimerRegistro +
+                    ( (tamanoRegistro) * ( ( cantRegistros / 2) - 1) );
+            std::string leftChild = "00000000";       // obtiene el hijo izq
+            std::string rightChild = "00000000";      // obtiene el hijo der
+            modifyLastTreeRegistry( cantRegistros, fatherPosition ); // cambia datos del registro padre
+            unsigned short padre = (cantRegistros / 2);
+            std::string parent = _conversion->decimalToBinary( std::to_string(padre) );
+            dataBinaryRecord = ( parent + leftChild + rightChild );
+        }
+        dataBinaryRecord += getUserRecordData( pListPtr );
+        cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
+        //        cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
+        //        cout << "tamanoRegistro " << _metadataPtr->getRecordSize() << endl;
+
+        this->_disk->write( this->_metadataPtr->getEOF() ,
+                            _conversion->fromStringToConstChar(dataBinaryRecord) ); // en vez de cero sería en EOF
+        //  Actualiza el tamaño de EOF y la cantidad de registros insertados
+        this->_metadataPtr->setEOF( this->_metadataPtr->getEOF() + tamanoRegistro );
+        //cout << "EOF  " << this->_metadataPtr->getEOF()  << endl;
+        //        cout << "BOF  " << this->_metadataPtr->getFirstRecordPos()  << endl;
+        this->_metadataPtr->setNumberOfRecords( ++cantRegistros );
     }
-    return newRecord;
+    else{
+        cout << "$$$$$$$$$$ Insertando en espacio... $$$$$$$$$$" << endl;
+        aux_InsertRecord2Disk( pListPtr );
+    }
+    cout << "-----------------------------------------------------------------" << endl;
+    cout << "$$$$$$$$$$ Escritura a disco finalizada $$$$$$$$$$" << endl;
+    cout << "-----------------------------------------------------------------" << endl;
+
 }
 
 /**
@@ -727,30 +738,39 @@ void BTRecordFile::printDataStructureByUser() // TODO ver que hay duplicado
  * hace un borrado de un registro y "crea" una lista de espacios vacíos para ser
  * ocupados después por otros nuevos registros
  */
-BTRecord *BTRecordFile::deleteRecord(unsigned short pDatoBorrado)
+BTRecord *BTRecordFile::deleteRecord(unsigned short recordID)
 {
-    if (this->getListFreeBlocks() == 0) {// no bloques libres no hay ninguno borrado
-        cout << "--------------------------" << endl;
-        cout << "Borrando el registro # " << pDatoBorrado << endl;
-        cout << "--------------------------" << endl;
-        this->setListFreeBlocks(pDatoBorrado);
-        _registryArray[pDatoBorrado].setParentPtr(0);
-        _registryArray[pDatoBorrado].setLeftChildPtr(0);
-        this->setListFreeBlocks(pDatoBorrado);
-    } else if (this->getListFreeBlocks() != 0) { // ya hay registros borrados
-        cout << "--------------------------" << endl;
-        cout << "Borrando el registro # " << pDatoBorrado << endl;
-        cout << "--------------------------" << endl;
+    unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
+    unsigned short recordSize = this->_metadataPtr->getRecordSize();
+    unsigned short ListFreeBlocks = this->_metadataPtr->getFreeBlockList();
+    // formula para detectar el lugar del registro por borrar
+    unsigned short erasedRecordSpace = BOF + ( recordSize * (recordID - 1) );
+    cout << "--------------------------" << endl;
+    cout << "Borrando el registro # " << recordID << endl;
+    cout << "--------------------------" << endl;
+
+    if( ListFreeBlocks == 0 ){  // no bloques libres no hay ninguno borrado
+        this->_metadataPtr->setFreeBlockList( recordID );
+        this->_disk->write(erasedRecordSpace, "00000000");  // setea el padre
+        this->_disk->write(erasedRecordSpace + 8, "00000000");  // setea el hizq
+    }
+    else if( ListFreeBlocks != 0 ){   // no existe ningún registro borrado
         // setea el hijo izq del dato de _listFreeBlocks
-        unsigned short actual = this->_listFreeBlocks;
-        while (_registryArray[actual].getLeftChildPtr() != 0) {
-            actual = _registryArray[actual].getLeftChildPtr();
+        unsigned short actual = ListFreeBlocks;
+        getLeftChildErase(actual);
+        while ( getLeftChildErase(actual) != 0) {
+            actual = getLeftChildErase(actual);
         }
-        this->_registryArray[actual].setLeftChildPtr(pDatoBorrado);
-        this->_registryArray[pDatoBorrado].setParentPtr(0);
-        this->_registryArray[pDatoBorrado].setLeftChildPtr(0);
-    } else {
-        cout << "No existe registro para borrar." << endl;
+        std::string stringID = _conversion->fromShort2String( recordID );
+        std::string datoBorrado = _conversion->decimalToBinary( stringID );
+        unsigned short erasedRecordSpace1 = BOF + ( recordSize * (actual - 1) );
+
+        this->_disk->write( erasedRecordSpace1 + 8, _conversion->fromStringToConstChar( datoBorrado ) );// setea el padre a 0
+        this->_disk->write( erasedRecordSpace, "00000000" );        // setea el padre a 0
+        this->_disk->write( erasedRecordSpace + 8, "00000000" );    // setea hIZQ a 0
+    }
+    else{
+        cout << "No existe registro para borrar o.O" << endl;
     }
 }
 

@@ -10,13 +10,18 @@ BTRFLocalSimulation::BTRFLocalSimulation()
 
 void BTRFLocalSimulation::createFile()
 {
-    _fileSimulation = new BTRFSimulation(createMetadata());
-    _fileSystem->insertFilePtr("Root", _fileSimulation->getFile());
-    _fileSystem->printTree();
-    _fileSimulation->dataStructureByUser();
+    BTRecordFileMetadata *metadata = createMetadata();
+    if (metadata != nullptr) {
+        _fileSimulation = new BTRFSimulation(metadata);
+        _currentFolder->addRecordFilePtr(_fileSimulation->getFile());
+        _fileSystem->printTree();
+        _fileSimulation->dataStructureByUser();
+    } else {
+        std::cout << "El archivo no fue creado\n";
+    }
 }
 
-void BTRFLocalSimulation::selectFile()
+void BTRFLocalSimulation::editFile()
 {
     std::string name;
     IRecordFile *file;
@@ -24,7 +29,30 @@ void BTRFLocalSimulation::selectFile()
     std::cout << "Nombre del archivo: ";
     std::cin >> name;
 
-    _currentFolder->searchRecordFilePtr(name);
+    file = _currentFolder->searchRecordFilePtr(name);
+
+    if (file != nullptr) {
+        char option;
+
+        std::cout << "Seleccione lo que quiere hacer:\n"
+                  " 1. Insertar registro\n"
+                  " 2. Borrar registro\n"
+                  " 3. Modificar registro\n"
+                  " 4. Buscar registro\n";
+
+        std::cin >> option;
+
+        switch (option) {
+        case '0':
+            break;
+        case '1':
+            insertRecord();
+        default:
+            break;
+        }
+    } else {
+
+    }
 }
 
 void BTRFLocalSimulation::insertRecord()
@@ -35,10 +63,6 @@ void BTRFLocalSimulation::insertRecord()
     DLL<IRecordDataType *> *dataList = new DLL<IRecordDataType*>();
 
     std::cout << "Registro #" << getMetadata()->getNumberOfRecords() << "\n";
-
-//    RecordDataType<char> *record =
-//        dynamic_cast<RecordDataType<char>*>(current->getData());
-//    const char *option = record->getDataPtr();
 
     std::string name, data;
     unsigned short size;
@@ -57,7 +81,8 @@ void BTRFLocalSimulation::insertRecord()
         current = current->getNextPtr();
     }
 
-    _fileSimulation->insert(dataList);
+    _fileSimulation->insertRecord(dataList);
+    updateMetadata();
 }
 
 void BTRFLocalSimulation::deleteRecord() // TODO
@@ -66,6 +91,11 @@ void BTRFLocalSimulation::deleteRecord() // TODO
 
 void BTRFLocalSimulation::searchRecord()
 {
+}
+
+void BTRFLocalSimulation::updateMetadata()
+{
+    dynamic_cast<BTRecordFile*>(_fileSimulation->getFile())->saveMetadata2Disk();
 }
 
 void BTRFLocalSimulation::showFolderContent() // TEST
@@ -146,7 +176,7 @@ void BTRFLocalSimulation::fileHandling()
 
     std::cout << "Seleccione una opción (0 para salir):\n"
               " 1. Crear un archivo\n"
-              " 2. Seleccionar archivo\n"
+              " 2. Editar un archivo\n"
               "> ";
 
     std::cin >> option;
@@ -158,20 +188,12 @@ void BTRFLocalSimulation::fileHandling()
         createFile();
         break;
     case '2':
-        selectFile();
+        editFile();
         break;
     default:
         std::cout << "Escogió una opción incorrecta";
         break;
     }
-
-
-
-//    " 2. Insertar registro\n"
-//    " 3. Borrar registro\n"
-//    " 4. Modificar registro\n"
-//    " 5. Buscar registro\n"
-//    " 6. Crear archivo\n"
 }
 
 void BTRFLocalSimulation::directoryHandling()
@@ -208,6 +230,7 @@ void BTRFLocalSimulation::directoryHandling()
 
 BTRecordFileMetadata *BTRFLocalSimulation::createMetadata() const
 {
+    BTRecordFileMetadata *file = nullptr;
     unsigned short length;
     std::string name, fileName, owner = "LOCAL";
     char field, option;
@@ -221,48 +244,52 @@ BTRecordFileMetadata *BTRFLocalSimulation::createMetadata() const
     // CAMPOS DE REGISTRO
 
     std::cout << "Escriba los campos presentes en el registro "
-              << "(0 para salir):\n"
-              << "1. String\n"
-              << "2. Char\n"
-              << "3. Short\n"
-              << "4. Int\n"
-              << "5. Double\n"
-              << "6. Bool\n"
-              << "> ";
+              "(0 para salir):\n"
+              "1. String\n"
+              "2. Char\n"
+              "3. Short\n"
+              "4. Int\n"
+              "5. Double\n"
+              "6. Bool\n"
+              "> ";
 
     std::cin >> option;
 
-    while (option != '0') {
-        if (option > '0' && option < '7') {
-            std::cout << "\nNombre del campo: ";
-            std::cin >> name;
+    if (option != '0') {
+        while (option != '0') {
+            if (option > '0' && option < '7') {
+                std::cout << "\nNombre del campo: ";
+                std::cin >> name;
 
-            std::cout << "\nDefina su tamaño (en B): ";
-            std::cin >> length;
+                std::cout << "\nDefina su tamaño (en B): ";
+                std::cin >> length;
 
-            // resta uno a field para que sean compatibles con las
-            // constantes ya declaradas
-            field = option - 1;
-            header = new RecordDataType<char>(name, field, length);
-            recordStruct->insertAtBack(header);
-        } else {
-            std::cout << "No existe el tipo especificado";
+                // resta uno a field para que sean compatibles con las
+                // constantes ya declaradas
+                field = option - 1;
+                header = new RecordDataType<char>(name, field, length);
+                recordStruct->insertAtBack(header);
+            } else {
+                std::cout << "No existe el tipo especificado";
+            }
+
+            std::cout << "Escriba los campos presentes en el registro "
+                      << "(0 para salir):\n"
+                      << "1. String\n"
+                      << "2. Char\n"
+                      << "3. Short\n"
+                      << "4. Int\n"
+                      << "5. Double\n"
+                      << "6. Bool\n"
+                      << "> ";
+
+            std::cin >> option;
         }
 
-        std::cout << "Escriba los campos presentes en el registro "
-                  << "(0 para salir):\n"
-                  << "1. String\n"
-                  << "2. Char\n"
-                  << "3. Short\n"
-                  << "4. Int\n"
-                  << "5. Double\n"
-                  << "6. Bool\n"
-                  << "> ";
-
-        std::cin >> option;
+        file = new BTRecordFileMetadata(fileName, owner, recordStruct);
     }
 
-    return new BTRecordFileMetadata(fileName, owner, recordStruct);
+    return file;
 }
 
 void BTRFLocalSimulation::mainMenu()
