@@ -38,6 +38,7 @@ public:
     virtual void generateBackUp(unsigned short pAmountDisks,
                      unsigned short pAmountDiskGroups,
                      unsigned short pAmountUsers);  // Crea un XML
+    void readBackUp();
     virtual void readFile();    // Lee un XML PRUEBA
     virtual void writeFile();   // Escribe un XML PRUEBA
 
