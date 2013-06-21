@@ -6,7 +6,7 @@ XMLParser::XMLParser()
 {
     this->_pathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaReadRegistro.xml";
     this->_wpathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaWriteRegistro.xml";
-    this->_pathBACKUP = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaWriteRegistro.xml";
+    this->_pathBACKUP = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/BackUp.xml";
 }
 
 /**
@@ -74,17 +74,23 @@ void XMLParser::writeFile()
     qDebug() << "Archivo Guardado";
 }
 
-void XMLParser::createFile1(unsigned short pAmountDisks,
+/**
+ * Función para crear el Back Up
+ * @brief XMLParser::generateBackUp
+ * @param pAmountDisks
+ * @param pAmountDiskGroups
+ * @param pAmountUsers
+ */
+void XMLParser::generateBackUp(unsigned short pAmountDisks,
                             unsigned short pAmountDiskGroups,
                             unsigned short pAmountUsers)
 {
-    QDomDocument document;
-    // crea un nodo root
-    QDomElement root = document.createElement( "root" );
-    document.appendChild( root );
-    QDomElement disks = document.createElement( "disks" );
+    QDomDocument document;      // Se crea el documento xml
+    QDomElement root = document.createElement( "root" );    // crea un root
+    document.appendChild( root );   // se añade el root al documento
+    QDomElement disks = document.createElement( "disks" );  // discos
     root.appendChild( disks );
-    for ( unsigned short i = 0; i < pAmountDisks; ++i ){
+    for ( unsigned short i = 0; i < pAmountDisks; ++i ){    // Atributos de discos
         QDomElement disk = document.createElement("disk");
         disk.setAttribute( "id", i );
         disk.setAttribute( "host", "192.168.45.63" );
@@ -95,7 +101,7 @@ void XMLParser::createFile1(unsigned short pAmountDisks,
     }
     QDomElement diskGroups = document.createElement( "diskGroups" );
     root.appendChild( diskGroups );
-    for ( unsigned short i = 0; i < pAmountDiskGroups; ++i ){
+    for ( unsigned short i = 0; i < pAmountDiskGroups; ++i ){// Atributos de diskGroups
         QDomElement diskGroup = document.createElement("diskGroup");
         diskGroup.setAttribute( "id", pAmountDiskGroups );
         diskGroup.setAttribute( "raid", 0 );
@@ -103,7 +109,7 @@ void XMLParser::createFile1(unsigned short pAmountDisks,
         diskGroup.setAttribute( "blockSize", 1.0 );
 
         QDomElement diskPosee = document.createElement( "disks" );
-        diskGroups.appendChild( diskPosee );
+        diskGroup.appendChild( diskPosee );
         for ( unsigned short i = 0; i < pAmountDiskGroups; ++i ){
             QDomElement disk1 = document.createElement("disk");
             disk1.setAttribute( "id", 0 );
@@ -113,7 +119,7 @@ void XMLParser::createFile1(unsigned short pAmountDisks,
     }
     QDomElement users = document.createElement( "users" );
     root.appendChild( users );
-    for ( unsigned short i = 0; i < pAmountUsers; ++i ){
+    for ( unsigned short i = 0; i < pAmountUsers; ++i ){    // Atributos de users
         QDomElement user = document.createElement("user");
         user.setAttribute( "id", pAmountUsers );
         user.setAttribute( "name", "Joe Pino" );
@@ -122,7 +128,7 @@ void XMLParser::createFile1(unsigned short pAmountDisks,
         users.appendChild( user );
     }
     // guardar archivo
-    QFile file( _wpathXMLFile );
+    QFile file( _pathBACKUP );    // Se almacena el xml en un doc
     if( !file.open(QIODevice::WriteOnly | QIODevice::Text) ){
         qDebug() << "Error al guardar archivo";
     }
@@ -131,9 +137,6 @@ void XMLParser::createFile1(unsigned short pAmountDisks,
     file.close();
     qDebug() << "Archivo Guardado";
 }
-
-void XMLParser::createFile(){}
-
 
 /**
  * @brief XMLParser::~XMLParser

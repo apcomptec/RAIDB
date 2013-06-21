@@ -64,7 +64,8 @@ int main()
 
 //    std::cout << disk->read(0, 700);
 
-//    XMLParser *p = new XMLParser();
+    XMLParser *p = new XMLParser();
+    p->generateBackUp(3,2,3);
 //    p->createFile();
 //    p->readFile();
 
@@ -271,7 +272,7 @@ int main()
 //// PRUEBA SIMULADOR LOCAL
 //// *****************************************************************************
 
-    new BTRFLocalSimulation();
+   // new BTRFLocalSimulation();
 
 //    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
 //    std::string name = "12", owner = "u";

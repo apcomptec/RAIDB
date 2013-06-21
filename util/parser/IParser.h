@@ -28,7 +28,9 @@ private:
     /**
      * @brief createFile Crea un archivo
      */
-    virtual void createFile() = 0;
+    virtual void generateBackUp(unsigned short pAmountDisks,
+                            unsigned short pAmountDiskGroups,
+                            unsigned short pAmountUsers) = 0;
 };
 
 #endif // IPARSER_H
