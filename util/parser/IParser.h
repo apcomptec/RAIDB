@@ -7,6 +7,8 @@
 
 #ifndef IPARSER_H
 #define IPARSER_H
+#include "dataStructure/IN_aryNode.h"
+#include <QString>
 
 class IParser
 {
@@ -30,7 +32,7 @@ private:
      */
     virtual void generateBackUp(unsigned short pAmountDisks,
                             unsigned short pAmountDiskGroups,
-                            unsigned short pAmountUsers) = 0;
+                            unsigned short pAmountUsers, IN_aryNode<QString>*) = 0;
 };
 
 #endif // IPARSER_H

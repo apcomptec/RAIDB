@@ -23,4 +23,15 @@
   <user pass="1" diskGroup="3" id="3" name="Joe Pino"/>
   <user pass="1" diskGroup="3" id="3" name="Joe Pino"/>
  </users>
+ <folder name="root">
+  <folder name="home">
+   <folder name="jose">
+    <folder name="dir"/>
+   </folder>
+   <folder name="daniel"/>
+   <folder name="badilla"/>
+  </folder>
+  <folder name="tmp"/>
+  <folder name="bin"/>
+ </folder>
 </root>

@@ -24,7 +24,7 @@ void XMLParser::readFile()
     }
     // obtiene del xml el root
     QDomElement xmlroot = document.firstChildElement();
-   // lee records
+    // lee records
     QDomNodeList records = xmlroot.elementsByTagName( "Record" );
     for (int i = 0; i < records.count(); i++){
         QDomElement record = records.at(i).toElement();
@@ -41,7 +41,7 @@ void XMLParser::readFile()
         //QDomNodeList varas = xmlroot.elementsByTagName( "Varas" );
 
         //recordItem->appendRow(varas); forma el arbol xml
-    root->appendRow( ID );
+        root->appendRow( ID );
     }
 }
 
@@ -60,8 +60,7 @@ void XMLParser::readBackUp()
  * @brief XMLParser::writeFile
  * Escribe un XML
  */
-void XMLParser::writeFile()
-{
+void XMLParser::writeFile(){
     QDomDocument document;
     // crea un nodo root
     QDomElement xmlroot = document.createElement("Blocks");
@@ -85,6 +84,30 @@ void XMLParser::writeFile()
     qDebug() << "Archivo Guardado";
 }
 
+void XMLParser::writeN_aryXML(IN_aryNode<QString>* pRoot, QDomElement pRootXML, QDomDocument pDocument)
+{
+    DLLNode<IN_aryNode<QString>*>* folder = pRoot->getChildList()->getHeadPtr();
+    while( folder != nullptr )
+    {
+        QDomElement xmlChild = pDocument.createElement("folder");
+        xmlChild.setAttribute("name", folder->getData()->getData());
+        pRootXML.appendChild(xmlChild);
+        this->writeN_aryXML(folder->getData(), xmlChild, pDocument);
+        folder = folder->getNextPtr();
+    }
+    DLLNode<IRecordFile*>* file = (dynamic_cast<N_aryRecordFileNode<QString>*>(pRoot))->getRecordFileListPtr()->getHeadPtr();
+    while(file != nullptr)
+    {
+        QDomElement xmlChild = pDocument.createElement("file");
+        xmlChild.setAttribute("name", Converter::fromStringToQString(
+                                  file->getData()->getMetadata()->getFileName()));
+        xmlChild.setAttribute("owner", Converter::fromStringToQString(
+                                  file->getData()->getMetadata()->getOwner()));
+        pRootXML.appendChild(xmlChild);
+        file = file->getNextPtr();
+    }
+}
+
 /**
  * Función para crear el Back Up
  * @brief XMLParser::generateBackUp
@@ -93,8 +116,8 @@ void XMLParser::writeFile()
  * @param pAmountUsers
  */
 void XMLParser::generateBackUp(unsigned short pAmountDisks,
-                            unsigned short pAmountDiskGroups,
-                            unsigned short pAmountUsers)
+                               unsigned short pAmountDiskGroups,
+                               unsigned short pAmountUsers, IN_aryNode<QString> *pRoot)
 {
     QDomDocument document;      // Se crea el documento xml
     QDomElement root = document.createElement( "root" );    // crea un root
@@ -138,6 +161,11 @@ void XMLParser::generateBackUp(unsigned short pAmountDisks,
         user.setAttribute( "diskGroup", 3 );
         users.appendChild( user );
     }
+    // crea un nodo root
+    QDomElement rootN_ary = document.createElement("folder");
+    rootN_ary.setAttribute("name", "root");
+    root.appendChild(rootN_ary);
+    this->writeN_aryXML(pRoot, rootN_ary, document);
     // guardar archivo
     QFile file( _pathBACKUP );    // Se almacena el xml en un doc
     if( !file.open(QIODevice::WriteOnly | QIODevice::Text) ){

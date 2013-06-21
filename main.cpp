@@ -65,13 +65,12 @@ int main()
 //    std::cout << disk->read(0, 700);
 
 //    XMLParser *p = new XMLParser();
-//    p->generateBackUp(3,2,3);
-//    p->createFile();
-//    p->readFile();
+////    p->generateBackUp(3,2,3);
 
-//// *****************************************************************************
-//// LECTURA DEL ARBOL DE CARPETA Y ARCHIVO N-ARIO
-//// *****************************************************************************
+
+////// *****************************************************************************
+////// LECTURA DEL ARBOL DE CARPETA Y ARCHIVO N-ARIO
+////// *****************************************************************************
 //    N_aryRecordFile* nTree = new N_aryRecordFile();
 //    nTree->insertDirPtr("home");
 //    nTree->insertDirPtr("tmp");
@@ -91,6 +90,7 @@ int main()
 
 //    std::cout << "\n" << std::endl;
 //    nTree->printContentOf("/home/");
+//    p->generateBackUp(3,2,3,nTree->getRoot());
 //    std::cout << "Fin de la ejecución" << std::endl;
 
 // *****************************************************************************

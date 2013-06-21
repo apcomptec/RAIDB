@@ -14,7 +14,6 @@ void MasterThread::answerProtocol(QString pMessage)
     int pos = 0;
     QRegExp connect ("connect[A-ZñÑa-z ]{10,256}");
     validator.setRegExp(connect);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Usuario Conectado";
@@ -24,7 +23,6 @@ void MasterThread::answerProtocol(QString pMessage)
     qDebug() << validator.validate(pMessage, pos);
     QRegExp adduser ("adduser[A-ZñÑa-z ]{10,256}");
     validator.setRegExp(adduser);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Usuario incluido";
@@ -33,7 +31,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp get ("get[A-ZñÑa-z// ]{5,256}");
     validator.setRegExp(get);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Se envio el archivo";
@@ -42,7 +39,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp cd ("cd[A-ZñÑa-z ]{10,256}");
     validator.setRegExp(cd);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Se movio de carpeta";
@@ -51,7 +47,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp touch ("touch[A-ZñÑa-z#/-// ]{10,256}");
     validator.setRegExp(touch);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Se crea archivo";
@@ -60,7 +55,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp rm ("rm[A-ZñÑa-z// ]{10,256}");
     validator.setRegExp(rm);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Archivo o carpeta removida";
@@ -69,7 +63,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp openfile ("openfile[A-ZñÑa-z// ]{10,256}");
     validator.setRegExp(openfile);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Archivo abierto";
@@ -78,7 +71,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp appendReg ("appendReg[0-9A-ZñÑa-z ]{10,256}");
     validator.setRegExp(appendReg);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Registro añadido";
@@ -87,7 +79,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp delReg ("delReg[0-9A-ZñÑa-z ]{10,256}");
     validator.setRegExp(delReg);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Registro removido";
@@ -96,7 +87,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp write ("write[0-9A-ZñÑa-z ]{10,256}");
     validator.setRegExp(write);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Se modifica registro";
@@ -105,7 +95,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp seek ("seek[0-9A-ZñÑa-z ]{1,256}");
     validator.setRegExp(seek);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Se mueve puntero";
@@ -114,7 +103,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp read ("read[0-9A-ZñÑa-z ]{1,256}");
     validator.setRegExp(read);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Se lee registro";
@@ -123,7 +111,6 @@ void MasterThread::answerProtocol(QString pMessage)
     }
     QRegExp close ("close[a-z]{0,10}");
     validator.setRegExp(close);
-    qDebug() << validator.validate(pMessage, pos);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Se cierra el cliente";

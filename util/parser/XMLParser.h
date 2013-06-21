@@ -15,6 +15,8 @@
 #include <QString>
 #include <QDebug>
 #include "dataStructure/IN_aryNode.h"
+#include "dataStructure/n_aryrecordfile.h"
+#include "util/Converter.h"
 #include "IParser.h"
 
 using namespace std;
@@ -37,10 +39,11 @@ public:
 // ----- MÉTODOS DE LA INTERFAZ IPARSER -----
     virtual void generateBackUp(unsigned short pAmountDisks,
                      unsigned short pAmountDiskGroups,
-                     unsigned short pAmountUsers);  // Crea un XML
+                     unsigned short pAmountUsers, IN_aryNode<QString>* pRoot);  // Crea un XML
     void readBackUp();
     virtual void readFile();    // Lee un XML PRUEBA
     virtual void writeFile();   // Escribe un XML PRUEBA
+    void writeN_aryXML(IN_aryNode<QString>*, QDomElement, QDomDocument);
 
 };
 
