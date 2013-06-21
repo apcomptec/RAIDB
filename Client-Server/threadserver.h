@@ -29,7 +29,7 @@ public slots:
     
 public slots:
 
-private:
+protected:
     //Socket para recibir
     QTcpSocket *_socket;
     //Identificador del socket

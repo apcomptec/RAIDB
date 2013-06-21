@@ -48,7 +48,10 @@ SOURCES += \
     Client-Server/masterserver.cpp \
     util/Encryption.cpp \
     util/randomnumber.cpp \
-    Client-Server/serverstorage.cpp
+    Client-Server/serverstorage.cpp \
+    Client-Server/masterthread.cpp \
+    Client-Server/storagethread.cpp \
+    Client-Server/user.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -104,4 +107,7 @@ HEADERS += \
     Client-Server/masterserver.h \
     util/Encryption.h \
     util/randomnumber.h \
-    Client-Server/serverstorage.h
+    Client-Server/serverstorage.h \
+    Client-Server/masterthread.h \
+    Client-Server/storagethread.h \
+    Client-Server/user.h
