@@ -1,0 +1,26 @@
+<root>
+ <disks>
+  <disk size="poronga" blockSize="1" host="192.168.45.63" usedBlocks="1" id="0"/>
+  <disk size="poronga" blockSize="1" host="192.168.45.63" usedBlocks="1" id="1"/>
+  <disk size="poronga" blockSize="1" host="192.168.45.63" usedBlocks="1" id="2"/>
+ </disks>
+ <diskGroups>
+  <diskGroup size="1.8" blockSize="1" id="2" raid="0">
+   <disks>
+    <disk id="0"/>
+    <disk id="0"/>
+   </disks>
+  </diskGroup>
+  <diskGroup size="1.8" blockSize="1" id="2" raid="0">
+   <disks>
+    <disk id="0"/>
+    <disk id="0"/>
+   </disks>
+  </diskGroup>
+ </diskGroups>
+ <users>
+  <user pass="1" diskGroup="3" id="3" name="Joe Pino"/>
+  <user pass="1" diskGroup="3" id="3" name="Joe Pino"/>
+  <user pass="1" diskGroup="3" id="3" name="Joe Pino"/>
+ </users>
+</root>

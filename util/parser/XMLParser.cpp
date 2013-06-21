@@ -6,7 +6,7 @@ XMLParser::XMLParser()
 {
     this->_pathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaReadRegistro.xml";
     this->_wpathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaWriteRegistro.xml";
-    this->_pathBACKUP = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaWriteRegistro.xml";
+    this->_pathBACKUP = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/BackUp.xml";
 }
 
 /**
@@ -128,7 +128,7 @@ void XMLParser::generateBackUp(unsigned short pAmountDisks,
         users.appendChild( user );
     }
     // guardar archivo
-    QFile file( _wpathXMLFile );    // Se almacena el xml en un doc
+    QFile file( _pathBACKUP );    // Se almacena el xml en un doc
     if( !file.open(QIODevice::WriteOnly | QIODevice::Text) ){
         qDebug() << "Error al guardar archivo";
     }
