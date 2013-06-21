@@ -65,33 +65,34 @@ int main()
 //    std::cout << disk->read(0, 700);
 
     XMLParser *p = new XMLParser();
-    p->generateBackUp(3,2,3);
+
 //    p->createFile();
 //    p->readFile();
 
 //// *****************************************************************************
 //// LECTURA DEL ARBOL DE CARPETA Y ARCHIVO N-ARIO
 //// *****************************************************************************
-//    N_aryRecordFile* nTree = new N_aryRecordFile();
-//    nTree->insertDirPtr("home");
-//    nTree->insertDirPtr("tmp");
-//    nTree->insertDirPtr("bin");
-//    nTree->insertDirPtr("jose", "/home/");
-//    nTree->insertDirPtr("daniel", "/home/");
-//    nTree->insertDirPtr("badilla", "/home/");
-//    nTree->insertDirPtr("dir", "/home/jose/");
-//    nTree->insertDirPtr("nueva", "/home/daniel/");
+    N_aryRecordFile* nTree = new N_aryRecordFile();
+    nTree->insertDirPtr("home");
+    nTree->insertDirPtr("tmp");
+    nTree->insertDirPtr("bin");
+    nTree->insertDirPtr("jose", "/home/");
+    nTree->insertDirPtr("daniel", "/home/");
+    nTree->insertDirPtr("badilla", "/home/");
+    nTree->insertDirPtr("dir", "/home/jose/");
+    nTree->insertDirPtr("nueva", "/home/daniel/");
 
-//    std::cout << "\nImpresion del arbol" << std::endl;
-//    nTree->printTree();
+    std::cout << "\nImpresion del arbol" << std::endl;
+    nTree->printTree();
 
-//    nTree->deleteDirPtr("/home/daniel/nueva/");
-//    std::cout << "\nImpresion del arbol" << std::endl;
-//    nTree->printTree();
+    nTree->deleteDirPtr("/home/daniel/nueva/");
+    std::cout << "\nImpresion del arbol" << std::endl;
+    nTree->printTree();
 
-//    std::cout << "\n" << std::endl;
-//    nTree->printContentOf("/home/");
-//    std::cout << "Fin de la ejecución" << std::endl;
+    std::cout << "\n" << std::endl;
+    nTree->printContentOf("/home/");
+    p->generateBackUp(3,2,3,nTree->getRoot());
+    std::cout << "Fin de la ejecución" << std::endl;
 
 // *****************************************************************************
 // LECTURA DEL ARBOL DE CARPETA Y ARCHIVO N-ARIO
