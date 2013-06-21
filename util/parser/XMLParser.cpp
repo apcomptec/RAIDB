@@ -4,8 +4,9 @@
 
 XMLParser::XMLParser()
 {
-    this->_pathXMLFile = "doc/PruebaReadRegistro.xml";
-    this->_wpathXMLFile = "doc/PruebaWriteRegistro.xml";
+    this->_pathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaReadRegistro.xml";
+    this->_wpathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaWriteRegistro.xml";
+    this->_pathBACKUP = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaWriteRegistro.xml";
 }
 
 /**
@@ -73,12 +74,65 @@ void XMLParser::writeFile()
     qDebug() << "Archivo Guardado";
 }
 
-void XMLParser::createFile()
+void XMLParser::createFile1(unsigned short pAmountDisks,
+                            unsigned short pAmountDiskGroups,
+                            unsigned short pAmountUsers)
 {
+    QDomDocument document;
     // crea un nodo root
+    QDomElement root = document.createElement( "root" );
+    document.appendChild( root );
+    QDomElement disks = document.createElement( "disks" );
+    root.appendChild( disks );
+    for ( unsigned short i = 0; i < pAmountDisks; ++i ){
+        QDomElement disk = document.createElement("disk");
+        disk.setAttribute( "id", i );
+        disk.setAttribute( "host", "192.168.45.63" );
+        disk.setAttribute( "size", "poronga" );
+        disk.setAttribute( "blockSize", 1.0 );
+        disk.setAttribute( "usedBlocks", 1.0 );
+        disks.appendChild( disk );
+    }
+    QDomElement diskGroups = document.createElement( "diskGroups" );
+    root.appendChild( diskGroups );
+    for ( unsigned short i = 0; i < pAmountDiskGroups; ++i ){
+        QDomElement diskGroup = document.createElement("diskGroup");
+        diskGroup.setAttribute( "id", pAmountDiskGroups );
+        diskGroup.setAttribute( "raid", 0 );
+        diskGroup.setAttribute( "size", 1.8 );
+        diskGroup.setAttribute( "blockSize", 1.0 );
 
+        QDomElement diskPosee = document.createElement( "disks" );
+        diskGroups.appendChild( diskPosee );
+        for ( unsigned short i = 0; i < pAmountDiskGroups; ++i ){
+            QDomElement disk1 = document.createElement("disk");
+            disk1.setAttribute( "id", 0 );
+            diskPosee.appendChild( disk1 );
+        }
+        diskGroups.appendChild( diskGroup );
+    }
+    QDomElement users = document.createElement( "users" );
+    root.appendChild( users );
+    for ( unsigned short i = 0; i < pAmountUsers; ++i ){
+        QDomElement user = document.createElement("user");
+        user.setAttribute( "id", pAmountUsers );
+        user.setAttribute( "name", "Joe Pino" );
+        user.setAttribute( "pass", 1.0 );
+        user.setAttribute( "diskGroup", 3 );
+        users.appendChild( user );
+    }
+    // guardar archivo
+    QFile file( _wpathXMLFile );
+    if( !file.open(QIODevice::WriteOnly | QIODevice::Text) ){
+        qDebug() << "Error al guardar archivo";
+    }
+    QTextStream stream( &file );
+    stream << document.toString();
+    file.close();
+    qDebug() << "Archivo Guardado";
 }
 
+void XMLParser::createFile(){}
 
 
 /**
@@ -86,7 +140,3 @@ void XMLParser::createFile()
  * Destructor
  */
 XMLParser::~XMLParser(){}
-
-
-
-
