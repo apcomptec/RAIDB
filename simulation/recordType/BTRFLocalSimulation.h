@@ -36,6 +36,8 @@ private:
 // -----------------------------------------------------------------------------
     void createFile();
 
+    void selectFile();
+
     void insertRecord();
 
     void deleteRecord();

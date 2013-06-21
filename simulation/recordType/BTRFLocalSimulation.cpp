@@ -12,10 +12,19 @@ void BTRFLocalSimulation::createFile()
 {
     _fileSimulation = new BTRFSimulation(createMetadata());
     _fileSystem->insertFilePtr("Root", _fileSimulation->getFile());
-//    _currentFolder =
-//        dynamic_cast<N_aryRecordFileNode<QString>*>(_fileSystem.getRoot());
     _fileSystem->printTree();
     _fileSimulation->dataStructureByUser();
+}
+
+void BTRFLocalSimulation::selectFile()
+{
+    std::string name;
+    IRecordFile *file;
+
+    std::cout << "Nombre del archivo: ";
+    std::cin >> name;
+
+    _currentFolder->searchRecordFilePtr(name);
 }
 
 void BTRFLocalSimulation::insertRecord()
@@ -104,60 +113,65 @@ void BTRFLocalSimulation::changeFolder()
 {
     std::string path;
     QString qPath;
-    IN_aryNode<QString> *tmp; // ubicación temporal de la ruta objetivo
+    IN_aryNode<QString> *tmp = nullptr; // ubicación temporal de la ruta objetivo
 
     std::cout << "Dirección solicitada: ";
     std::cin >> path;
 
     qPath = Converter::fromStringToQString(path);
 
-    if (path[0] == '/') { // inicia desde la raíz
-        tmp = _fileSystem->searchDir(qPath);
-
+    if (path == "/") { // va a la raíz
+        tmp = _fileSystem->getRoot();
+    } else if (path[0] == '/') { // inicia desde la raíz
+        tmp = _fileSystem->searchDir(qPath.remove(0, 1));
     } else { // desde el directorio donde está el puntero actual
-        std::cout << "Entró";
         tmp =
             dynamic_cast<N_aryRecordFileNode<QString>*>(_currentFolder)->
             searchDirInto(new N_aryRecordFileNode<QString>(qPath));
     }
 
     if (tmp != nullptr) { // sí existe la ruta
-        std::cout << "FOLDER: " << tmp->getData().toStdString();
+        std::cout << "Está en ";
         _currentFolder = dynamic_cast<N_aryRecordFileNode<QString>*>(tmp);
+    } else { // hubo un error al ir a la ruta especificada
+        std::cout << "Hubo un error al ir a ";
     }
+
+    std::cout << path << "\n";
 }
 
 void BTRFLocalSimulation::fileHandling()
 {
     char option;
 
-    std::cout << "Escriba lo que desea hacer en el archivo:\n"
+    std::cout << "Seleccione una opción (0 para salir):\n"
               " 1. Crear un archivo\n"
-              " 2. Insertar registro\n"
-              " 3. Borrar registro\n"
-              " 4. Modificar registro\n"
-              " 5. Buscar registro\n"
-              " 6. Crear archivo\n"
+              " 2. Seleccionar archivo\n"
               "> ";
 
     std::cin >> option;
 
     switch (option) {
+    case '0':
+        break;
     case '1':
-        insertRecord();
+        createFile();
         break;
     case '2':
-        deleteRecord();
-        break;
-    case '3':
-        // TODO agregar método
-        break;
-    case '4':
-        searchRecord();
+        selectFile();
         break;
     default:
+        std::cout << "Escogió una opción incorrecta";
         break;
     }
+
+
+
+//    " 2. Insertar registro\n"
+//    " 3. Borrar registro\n"
+//    " 4. Modificar registro\n"
+//    " 5. Buscar registro\n"
+//    " 6. Crear archivo\n"
 }
 
 void BTRFLocalSimulation::directoryHandling()
@@ -187,6 +201,7 @@ void BTRFLocalSimulation::directoryHandling()
         changeFolder();
         break;
     default:
+        std::cout << "Escogió una opción incorrecta";
         break;
     }
 }
