@@ -39,7 +39,7 @@ public:
     virtual void setRecordList(DLL<IRecord *> *);
     virtual BTRecord *insertRecord(DLL<IRecordDataType *> *pListPtr);
 //    virtual BTRecord *deleteRecord(IMetadata *pRecordPtr);
-    virtual BTRecord *deleteRecord(unsigned short pDatoBorrado);
+    virtual BTRecord *deleteRecord(unsigned short recordID);
 //    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual void printArrayRecord() const;
     virtual unsigned short showFragmentation() const;

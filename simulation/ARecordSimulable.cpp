@@ -6,10 +6,10 @@
 ARecordSimulable::ARecordSimulable(IRecordFile * const pFile)
     : _file(pFile)
 {
-    // empty body
+    // vacío
 }
 
-void ARecordSimulable::insert()
+void ARecordSimulable::insertRecord()
 {
 }
 
@@ -65,4 +65,9 @@ IMetadata *ARecordSimulable::getMetadata()
 IRecordFile *ARecordSimulable::getFile()
 {
     return _file;
+}
+
+void ARecordSimulable::setFile(IRecordFile *pFile)
+{
+    _file = pFile;
 }

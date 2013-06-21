@@ -9,16 +9,20 @@ class ARecordSimulable
 public:
     ARecordSimulable(IRecordFile * const pFile);
 
-    void insert();
+    /**
+     * @brief insert inserta nuevos registros al archivo
+     */
+    void insertRecord();
     void dataStructureByUser();
 
     IMetadata *getMetadata();
     void setMetadata(IMetadata * const pMetadata);
 
     IRecordFile *getFile();
+    void setFile(IRecordFile *pFile);
 
 protected:
-    IRecordFile * const _file;
+    IRecordFile * _file;
 };
 
 #endif // ARECORDSIMULABLE_H
