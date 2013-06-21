@@ -17,7 +17,7 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_sizeOwner_FileName = 24;
     this->_cantidadDatosUser = -1; // no hay
     this->_conversion = new Converter();
-    _disk = new Disk( 1,7 );
+    _disk = new Disk( 1,7 );// id del disco/tamaño en megas disco/tamaño bloque bytes
     this->_idNextBlock = " "; // es nulo pues no hay siguiente
 
 }

@@ -14,8 +14,8 @@
 #include <QFile>
 #include <QString>
 #include <QDebug>
+#include "dataStructure/IN_aryNode.h"
 #include "IParser.h"
-#include "dataStructure/n_aryrecordfile.h"
 
 using namespace std;
 
@@ -24,10 +24,11 @@ class XMLParser: public IParser{
 private:
     QString _pathXMLFile;       // Archivo XML a leer
     QString _wpathXMLFile;      // Archivo XML a escribir
-    QDomDocument _documento;
-    // crea un nodo root
-    QDomElement _xmlraiz;
-    QDomElement _xmlNewCarpet;
+    QString _pathBACKUP;        // Archivo XML del Back Up
+//    QDomDocument _documento;
+//    QDomElement _xmlraiz;       // Crea un nodo root
+//    QDomElement _xmlraiztmp;       // Crea un nodo root
+//    QDomElement _xmlNewCarpet;
 
 public:
     XMLParser();        // Constructor
@@ -35,6 +36,11 @@ public:
 
 // ----- MÉTODOS DE LA INTERFAZ IPARSER -----
     virtual void createFile();  // Crea un XML
+    void createFile1(unsigned short pAmountDisks,
+                     unsigned short pAmountDiskGroups,
+                     unsigned short pAmountUsers);  // Crea un XML
+    void writeFileData( QString pPath );
+    void saveFile();
     virtual void readFile();    // Lee un XML
     virtual void writeFile();   // Escribe un XML
 
