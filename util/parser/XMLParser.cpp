@@ -74,7 +74,7 @@ void XMLParser::writeFile()
     qDebug() << "Archivo Guardado";
 }
 
-void XMLParser::createFile1(unsigned short pAmountDisks,
+void XMLParser::generateBackUp(unsigned short pAmountDisks,
                             unsigned short pAmountDiskGroups,
                             unsigned short pAmountUsers)
 {
@@ -103,7 +103,7 @@ void XMLParser::createFile1(unsigned short pAmountDisks,
         diskGroup.setAttribute( "blockSize", 1.0 );
 
         QDomElement diskPosee = document.createElement( "disks" );
-        diskGroups.appendChild( diskPosee );
+        diskGroup.appendChild( diskPosee );
         for ( unsigned short i = 0; i < pAmountDiskGroups; ++i ){
             QDomElement disk1 = document.createElement("disk");
             disk1.setAttribute( "id", 0 );
@@ -131,9 +131,6 @@ void XMLParser::createFile1(unsigned short pAmountDisks,
     file.close();
     qDebug() << "Archivo Guardado";
 }
-
-void XMLParser::createFile(){}
-
 
 /**
  * @brief XMLParser::~XMLParser

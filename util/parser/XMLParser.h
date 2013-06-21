@@ -35,8 +35,8 @@ public:
     ~XMLParser();       // Destructor
 
 // ----- MÉTODOS DE LA INTERFAZ IPARSER -----
-    virtual void createFile();  // Crea un XML
-    void createFile1(unsigned short pAmountDisks,
+    //virtual void createFile();  // Crea un XML
+    virtual void generateBackUp(unsigned short pAmountDisks,
                      unsigned short pAmountDiskGroups,
                      unsigned short pAmountUsers);  // Crea un XML
     void writeFileData( QString pPath );
