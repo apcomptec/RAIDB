@@ -6,7 +6,6 @@
 class MasterServer: public Server
 {
 private:
-    ThreadServer * _threadMaster;
 
 public:
     MasterServer();

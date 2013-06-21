@@ -89,7 +89,7 @@ void BTRFLocalSimulation::showFolderContent() // TEST
     std::cout << "ARCHIVOS:\n";
     while (file != nullptr) {
         std::cout << file->getData()->getMetadata()->getFileName() << "\n";
-        folder = folder->getNextPtr();
+        file = file->getNextPtr();
     }
 }
 
