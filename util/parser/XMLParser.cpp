@@ -4,9 +4,9 @@
 
 XMLParser::XMLParser()
 {
-    this->_pathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaReadRegistro.xml";
-    this->_wpathXMLFile = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/PruebaWriteRegistro.xml";
-    this->_pathBACKUP = "/home/darayavilla/Qt_projects/Proyecto2/apcomptec-RAIDB/doc/BackUp.xml";
+    this->_pathXMLFile = "doc/PruebaReadRegistro.xml";
+    this->_wpathXMLFile = "doc/PruebaWriteRegistro.xml";
+    this->_pathBACKUP = "doc/BackUp.xml";
 }
 
 /**
@@ -42,6 +42,17 @@ void XMLParser::readFile()
 
         //recordItem->appendRow(varas); forma el arbol xml
     root->appendRow( ID );
+    }
+}
+
+void XMLParser::readBackUp()
+{
+    QStandardItem *root = new QStandardItem( "Blocks" );
+    QDomDocument document;
+    QFile file( _pathXMLFile );
+    if( file.open(QIODevice::ReadOnly | QIODevice::Text) ){
+        document.setContent( &file );
+        file.close();
     }
 }
 
@@ -137,6 +148,7 @@ void XMLParser::generateBackUp(unsigned short pAmountDisks,
     file.close();
     qDebug() << "Archivo Guardado";
 }
+
 
 /**
  * @brief XMLParser::~XMLParser
