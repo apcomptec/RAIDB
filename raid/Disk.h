@@ -10,10 +10,13 @@
 
 #include <string>
 #include "dataStructure/DLL.h"
+#include "util/Encryption.h"
+
 
 class Disk
 {
 public:
+    Encryption *_securityKey;
 
     /**
      * @brief Disk Constructor
@@ -65,6 +68,8 @@ public:
      * @return Devuelve el nombre del disco (disk + id)
      */
     std::string getName();
+
+    string generateSecurityKey() const;
 
 private:
 
