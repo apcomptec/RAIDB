@@ -31,14 +31,14 @@ public:
     void setIP(QString);
     void setNumLSS(int);
     void setSize(int);
-    void setNumUsedBlock(int pNum);
+    void setNumUsedBlock(DLL<int> *pNum);
     void setSizeBlock(int);
 
     //Metodo de obtencion de datos
     QString getIP();
     int getNumLSS();
     int getSize();
-    int getNumUsedBlock();
+    DLL<int> *getNumUsedBlock();
     int getSizeBlock();
 
     //Metodo de calculo de numero de bloques
