@@ -18,7 +18,8 @@ private:
     //Numero de bloques total
     int _numBlocks;
     //Numero de Bloques usados
-    DLL<int>* _numUsedBlocks;
+    DLL<int>*
+    _numUsedBlocks;
     //Tamaño de bloque
     int _sizeBlock;
 
