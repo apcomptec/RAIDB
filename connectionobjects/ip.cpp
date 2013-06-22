@@ -21,7 +21,7 @@ void IP::setNumLSS(int pNum)
     this->_numLSS = pNum;
 }
 
-void IP::setNumUsedBlock(int pNum)
+void IP::setNumUsedBlock(DLL<int>* pNum)
 {
     this->_numUsedBlocks = pNum;
 }
@@ -46,7 +46,7 @@ int IP::getNumLSS()
     return this->_numLSS;
 }
 
-int IP::getNumUsedBlock()
+DLL<int>* IP::getNumUsedBlock()
 {
     return this->_numUsedBlocks;
 }
