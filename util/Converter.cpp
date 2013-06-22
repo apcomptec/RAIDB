@@ -23,7 +23,7 @@ unsigned short Converter::getFillData() const
  * @brief Converter::setFillData
  * @param fillData
  */
-void Converter::setFillData( unsigned short pFillData )
+void Converter::setFillData(unsigned short pFillData)
 {
     this->_fillData = pFillData;
 }
@@ -34,7 +34,8 @@ void Converter::setFillData( unsigned short pFillData )
  * @return
  * Conversión de unsigned short a std::string
  */
-std::string Converter::fromShort2String( unsigned short pShortNumber ){
+std::string Converter::fromShort2String(unsigned short pShortNumber)
+{
     return std::to_string(pShortNumber);
 }
 
@@ -44,9 +45,9 @@ std::string Converter::fromShort2String( unsigned short pShortNumber ){
  * @return shortNumber
  * Conversió de std::string a unsigned short
  */
-unsigned short Converter::fromString2Short( const std::string &pSTDString )
+unsigned short Converter::fromString2Short(const std::string &pSTDString)
 {
-    QString qstString = this->fromStringToQString( pSTDString );
+    QString qstString = this->fromStringToQString(pSTDString);
     unsigned short shortNumber = qstString.toShort();
     return shortNumber;
 }
@@ -56,7 +57,7 @@ unsigned short Converter::fromString2Short( const std::string &pSTDString )
  * @return STDString;
  * Conversión de const char* a std::string
  */
-std::string Converter::fromConstChar2String( const char *pConstChar )
+std::string Converter::fromConstChar2String(const char *pConstChar)
 {
     std::string STDString(pConstChar);
     return STDString;
@@ -97,12 +98,12 @@ std::string Converter::decimalToBinary(const std::string &pDecimalNumber)
     bool ok = false;
     //  convierte un string de decimal a binario
     QString binaryNumber =
-            QString::number(qstrDecimalNumber.toLongLong(&ok, 10), 2);
+        QString::number(qstrDecimalNumber.toLongLong(&ok, 10), 2);
 
     std::string stringBinary = binaryNumber.toStdString();
     stringBinary.length() == 8 ? stringBinary : completeBinary(stringBinary);
     //cout << "Conversión entero " << completeBinary( stringBinary ) << endl;
-    return completeBinary( stringBinary );
+    return completeBinary(stringBinary);
 
 }
 
@@ -118,7 +119,7 @@ std::string Converter::binaryToDecimal(const std::string &pBinaryString)
     //qDebug() << qstrDecimalNumber; // número decimal
     bool ok = false;
     QString decimalNumber =
-            QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
+        QString::number(qstrDecimalNumber.toLongLong(&ok, 2), 10);
     //qDebug() << decimalNumber; // número convertido a decimal
     std::string stringDecimal = decimalNumber.toStdString();
     //cout << "Conversión de " << pBinaryString << " a " << stringDecimal << endl;
@@ -138,7 +139,7 @@ std::string Converter::stringToBinary(const std::string &pStringLetters)
         string += array.to_string();
     }
     //cout << "Conversión : " << completeBinary( string ) << endl;
-    return completeBinary( string );  //string;
+    return completeBinary(string);    //string;
 }
 
 /**
@@ -181,12 +182,11 @@ std::string Converter::numericCharToString(char &pChar)
 std::string Converter::completeBinary(std::string pBinary)
 {
     short length = pBinary.length();
-    if( length == getFillData() ){
+    if (length == getFillData()) {
         return pBinary;     // si no hay variación de tamaño
-    }
-    else{
+    } else {
         std::string complete = "0";
-        for (int i = 0; i < ((getFillData() -1) - length); ++i) {
+        for (int i = 0; i < ((getFillData() - 1) - length); ++i) {
             complete += "0";
         }
         complete += pBinary;
@@ -201,9 +201,9 @@ std::string Converter::completeBinary(std::string pBinary)
  * @return
  * Funcion que convierte un std::string a double
  */
-double Converter::fromString2Double( std::string pDoubleString )
+double Converter::fromString2Double(std::string pDoubleString)
 {
-    double doubleNumber = ::atof( pDoubleString.c_str() );
+    double doubleNumber = ::atof(pDoubleString.c_str());
     return doubleNumber;
 }
 
@@ -213,7 +213,7 @@ double Converter::fromString2Double( std::string pDoubleString )
  * @return
  * Funcion que convierte un double a std::string
  */
-std::string Converter::fromDouble2String( double pDoubleNumber )
+std::string Converter::fromDouble2String(double pDoubleNumber)
 {
     QString QstrDouble = QString::number(pDoubleNumber);
     std::string pDoubleString = QstrDouble.toStdString();
@@ -228,9 +228,9 @@ std::string Converter::fromDouble2String( double pDoubleNumber )
  * @return
  * Función que convierte un std::string Double BINARIO a Double std::string
  */
-std::string Converter::fromBinaryDouble2String( std::string pDoubleString )
+std::string Converter::fromBinaryDouble2String(std::string pDoubleString)
 {
-    std::bitset<64> Bitset64( pDoubleString );
+    std::bitset<64> Bitset64(pDoubleString);
     double doubleNumber = Bitset64.to_ulong();
     //cout << doubleNumber << endl;
     return fromDouble2String(doubleNumber);
@@ -244,24 +244,25 @@ std::string Converter::fromBinaryDouble2String( std::string pDoubleString )
  * Por ej: 7.3 -> 73 (01001001) y contador - 1 (00000001) que es cantidad
  * de espacios después del punto 10 ** (contador - 1)
  */
-std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString )
+std::string Converter::fromDoubleString2BinaryString(std::string pDoubleString)
 {
-    int contador = 0;
-    double doubleNumber = fromString2Double( pDoubleString );
-    for(int i = pDoubleString.find("."); i < pDoubleString.length() ; i++){
-        contador++;
+    std::string entero;
+    std::string decimal;
+    for (int i = pDoubleString.find(".") + 1; i < pDoubleString.length() ; i++) {
+        decimal += pDoubleString.at(i);
     }
-    int intDoubleNumber = doubleNumber * ( pow( 10, (contador - 1) ) );
-    //cout << contador - 1 << endl;
-    //cout << pDoubleString.find(".") << endl;
-    cout << doubleNumber << endl;
-    cout << intDoubleNumber << endl;
-    std::string entero = decimalToBinary( fromInt2String(intDoubleNumber) );
-    cout << entero << endl;
-    std::string decimal = decimalToBinary( fromInt2String(contador - 1) );
+    for (int j = 0; j < pDoubleString.find("."); j++) {
+        entero += pDoubleString.at(j);
+    }
     cout << decimal << endl;
-    cout << entero + decimal << endl;
-    return completeBinary( entero + decimal );  //entero + decimal;
+//    cout << entero << endl;
+    std::string decimalBinario = decimalToBinary(decimal);
+//    cout << decimalBinario << endl;
+    std::string enteroBinario = decimalToBinary(entero);
+//    cout << enteroBinario << endl;
+    setFillData(8); // se debe setear el valor para obtener una misma cantidad en los numeros
+    cout << completeBinary(enteroBinario) + completeBinary(decimalBinario) << endl;
+    return completeBinary(enteroBinario) + completeBinary(decimalBinario) ;      //entero + decimal;
 }
 
 /**
@@ -270,34 +271,30 @@ std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString 
  * @return
  * Función para convertir desde string binario a string Double
  */
-std::string Converter::fromBinaryString2DoubleString( std::string pBinaryString )
+std::string Converter::fromBinaryString2DoubleString(std::string pDoubleBinaryString)
 {
     std::string decimal;
     std::string entero;
     // conversion parte entera
-    for(int i = (pBinaryString.length() - 8); i < pBinaryString.length() ; i++){
-        decimal += pBinaryString.at(i);
+    for (int i = (pDoubleBinaryString.length() / 2); i < pDoubleBinaryString.length(); i++) {
+        decimal += pDoubleBinaryString.at(i);
     }
-    //cout << decimal << endl;
-    //cout << binaryToDecimal( decimal ) << endl;
-    for(int i = 0; i < (pBinaryString.length() - 8) ; i++){// conversion parte entera
-        entero += pBinaryString.at(i);
+    cout << decimal << endl;
+    cout << binaryToDecimal(decimal) << endl;
+    for (int i = 0; i < (pDoubleBinaryString.length() / 2) ; i++) { // conversion parte entera
+        entero += pDoubleBinaryString.at(i);
     }
-    //cout << entero << endl;
-    //cout << binaryToDecimal( entero ) << endl;
+    cout << entero << endl;
+    cout << binaryToDecimal(entero) << endl;
 
-    int decimalIntNumber = fromString2Int( binaryToDecimal( decimal ) );
-    int enteroIntNumber = fromString2Int( binaryToDecimal( entero ) );
-
-    double final = enteroIntNumber * ( pow( 10, (-decimalIntNumber) ) );
-    //cout << final << endl;
+    cout << binaryToDecimal(entero) + "." + binaryToDecimal(decimal) << endl;
     //cout << fromDouble2String( final ) << endl;
-    return fromDouble2String( final );
+    return binaryToDecimal(entero) + "." + binaryToDecimal(decimal);
 }
 
-std::string Converter::fromInt2String( int pIntNumber )
+std::string Converter::fromInt2String(int pIntNumber)
 {
-    std::string stringIntNumber = std::to_string( pIntNumber );
+    std::string stringIntNumber = std::to_string(pIntNumber);
     return stringIntNumber;
 }
 
@@ -307,9 +304,9 @@ std::string Converter::fromInt2String( int pIntNumber )
  * @return
  * Conversión de std::string a int
  */
-int Converter::fromString2Int( std::string pIntString )
+int Converter::fromString2Int(std::string pIntString)
 {
-    int intNumber = atoi( pIntString.c_str() );
+    int intNumber = atoi(pIntString.c_str());
     //cout << intNumber << endl;
     return intNumber;
 }
@@ -321,16 +318,17 @@ int Converter::fromString2Int( std::string pIntString )
  * @return
  * Función que indica si un string es un entero (true) o son letras (false)
  */
-bool Converter::verificaValidezInt( QString pDato ){
+bool Converter::verificaValidezInt(QString pDato)
+{
     bool charValido;
     int validaIntroduceNumeros;
-    for(int i = 0; i < pDato.length() ; i++){
+    for (int i = 0; i < pDato.length() ; i++) {
         //validacion de que solo se introducen numeros(convierten qstring a int)
         validaIntroduceNumeros = pDato.toInt(&charValido);
-        if(charValido == false){    //existe un caracter que no es número
+        if (charValido == false) {  //existe un caracter que no es número
             return false;
         }//fin del if interno
-        else{
+        else {
             return true;
         }//fin if
     }//fin del for
@@ -342,24 +340,24 @@ bool Converter::verificaValidezInt( QString pDato ){
  * @return
  * Función que indica si un string es un double (true) o son letras o entero (false)
  */
-bool Converter::verificaValidezDouble( QString pDato ){
+bool Converter::verificaValidezDouble(QString pDato)
+{
     bool charValido;
     double validaIntroduceNumeros;
-    if( !verificaValidezInt( pDato ) ){     // si no es string(numero entero)
-        for(int i = 0; i < pDato.length() ; i++){
+    if (!verificaValidezInt(pDato)) {       // si no es string(numero entero)
+        for (int i = 0; i < pDato.length() ; i++) {
             //validacion de que solo se introducen numeros(convierten qstring a int)
             validaIntroduceNumeros = pDato.toDouble(&charValido);
-            if(charValido == false){    //existe un caracter que no es número
-               // cout << "No es double! " << validaIntroduceNumeros << endl;
+            if (charValido == false) {  //existe un caracter que no es número
+                // cout << "No es double! " << validaIntroduceNumeros << endl;
                 return false;
             }//fin del if interno
-            else{
+            else {
                 //cout << "Es un double! " << validaIntroduceNumeros << endl;
                 return true;
             }//fin if
         }//fin del for
-    }
-    else{
+    } else {
         //cout << "Es numero entero" << endl;
         return false;   // pues es un numero entero
     }

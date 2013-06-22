@@ -66,6 +66,7 @@ public:
 
 private:
 
+    unsigned short _tamanoMetadata;
     /**
      * @brief _recordStructPtr
      */

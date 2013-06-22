@@ -19,7 +19,6 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_conversion = new Converter();
     _disk = new Disk( 1,7 );// id del disco/tamaño en megas disco/tamaño bloque bytes
     this->_idNextBlock = " "; // es nulo pues no hay siguiente
-
 }
 
 /**
@@ -42,7 +41,8 @@ void BTRecordFile::setMaxSizeOfRegistryInBlock(unsigned short maxSizeOfRegistryI
  */
 unsigned short BTRecordFile::computeMaxSizeOfRegistryInBlock()
 {
-    return this->_disk->getBlockSize() / this->_metadataPtr->getRecordSize();
+    int p = (this->_disk->getBlockSize() / this->_metadataPtr->getRecordSize());
+    return p;
 }
 
 std::string BTRecordFile::getIdNextBlock() const
@@ -102,8 +102,6 @@ void BTRecordFile::setRecordList(DLL<IRecord *> *)
     // No es necesario establecer una lista de datos
 }
 
-
-
 //------------------------------------------------------------------------------
 //   INSERCION DE DATOS EN DISCO
 //------------------------------------------------------------------------------
@@ -117,8 +115,12 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     unsigned short tamanoRegistro = this->_metadataPtr->getRecordSize();
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
+//    if ( computeMaxSizeOfRegistryInBlock() > cantRegistros ){
+//        cout << "No se puede insertar" << endl;
+//    }
+//    else{
     if (this->_metadataPtr->getFreeBlockList() == 0){
-        if( this->_disk == NULL ){
+        if( cantRegistros == 1 ){
             this->_disk = new Disk( 1, 7 );
             dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
         }
@@ -134,8 +136,9 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
             dataBinaryRecord = ( parent + leftChild + rightChild );
         }
         dataBinaryRecord += getUserRecordData( pListPtr );
+
         cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
-        //        cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
+                cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
         //        cout << "tamanoRegistro " << _metadataPtr->getRecordSize() << endl;
 
         this->_disk->write( this->_metadataPtr->getEOF() ,
@@ -153,6 +156,7 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     cout << "-----------------------------------------------------------------" << endl;
     cout << "$$$$$$$$$$ Escritura a disco finalizada $$$$$$$$$$" << endl;
     cout << "-----------------------------------------------------------------" << endl;
+//    }// fin del else de computeMaxSizeOfRegistryInBlock()
 }
 
 /**
@@ -210,7 +214,7 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
     DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
     RecordDataType<std::string> *data;
     while( tmp != nullptr ){
-        data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
+        data = dynamic_cast<RecordDataType<std::string>*>( tmp->getData() );
         QString qstrData= _conversion->fromStringToQString(*data->getDataPtr());
 
         if ( _conversion->verificaValidezDouble( qstrData ) == true){                  // VERIFICACION DE SI EL DATO ES DEL TIPO DOUBLE
@@ -325,7 +329,6 @@ void BTRecordFile::readALLRecordsFromDisk()
         readOneRecordFromDisk( contador );
         ++contador;
     }
-
 }
 
 /**
@@ -339,7 +342,6 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
         unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
         unsigned short recordSize = this->_metadataPtr->getRecordSize();
         unsigned short recordSpace = BOF + ( recordSize * ( recordID - 1 ) );
-
         const char* padre = this->_disk->read( recordSpace, 7 );
         std::string stringData1 = _conversion->fromConstChar2String( padre );
         const char* Hizq = this->_disk->read( recordSpace + 8, 7 );
@@ -416,7 +418,6 @@ void BTRecordFile::saveMetadata2Disk()
 
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
-
     unsigned short data1;
     std::string data2;
     std::string data3;
@@ -440,6 +441,7 @@ void BTRecordFile::saveMetadata2Disk()
     metadataBinary += datos;
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
+
     _disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
     //    return metadataBinary;
 }
@@ -508,7 +510,7 @@ void BTRecordFile::dataClassification( std::string *pDatosUsuario )
 
     std::string cantidadRegistro = _conversion->binaryToDecimal( pDatosUsuario[3] );
     unsigned short numero2 = _conversion->fromString2Short( cantidadRegistro );
-    _metadataPtr->setFirstRecordPos( numero2 );
+    _metadataPtr->setNumberOfRecords( numero2 );
 
     std::string pEOF = _conversion->binaryToDecimal( pDatosUsuario[4] );
     unsigned short numero3 = _conversion->fromString2Short( pEOF );
@@ -571,8 +573,6 @@ std::string BTRecordFile::sortUserDataFromDisk(std::string pData, char pTipo)
     return finalBinaryRecord;   // retorna conversion a decimal
 }
 
-
-
 //------------------------------------------------------------------------------
 //   FIN INSERCION, LECTURA Y BORRADO DE DATOS EN DISCO
 //------------------------------------------------------------------------------
@@ -590,7 +590,7 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     if (this->_metadataPtr->getFreeBlockList() == 0){
-        if( this->_disk == NULL ){
+        if( cantRegistros == 1 ){
             this->_disk = new Disk( 1, 7 );
             dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
         }
@@ -664,13 +664,13 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
  */
 void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
 {
-    const char *padre = pDisk.read( 0, 7 );
-    const char *hizq = pDisk.read( 8, 7 );
-    const char *hder = pDisk.read( 16, 7 );
+    const char *padre = pDisk.read( this->_metadataPtr->getFirstRecordPos(), 7 );
+    const char *hizq = pDisk.read( this->_metadataPtr->getFirstRecordPos() + 8, 7 );
+    const char *hder = pDisk.read( this->_metadataPtr->getFirstRecordPos() + 16, 7 );
     std::string father(padre);          // obtiene el padre
     std::string HI(hizq);               // obtiene el hijo izq
     std::string HD(hder);               // obtiene el hijo der
-    unsigned short _sizeCounter = 24;       // inicio de la data
+    unsigned short _sizeCounter = this->_metadataPtr->getFirstRecordPos() + 24;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
     const char *data;
@@ -771,25 +771,6 @@ BTRecord *BTRecordFile::deleteRecord(unsigned short recordID)
     }
     else{
         cout << "No existe registro para borrar o.O" << endl;
-    }
-}
-
-/**
- * @brief BTRecordFile::printArrayRecord
- * @return
- * Imprime la constitución de los registros(padre,hijos)
- */
-void BTRecordFile::printArrayRecord() const
-{
-    // TODO pasar esta función para que ejecute a un solo registro y luego
-    // aquí iterar sobre el arreglo
-    cout << "   Record #" << setw(15) << "Parent" << setw(15)
-         << "LeftChild" << setw(15) << "RightChild" << endl;
-    for (int i = 1; i < this->getCounter(); i++) {
-        cout << setw(7) << i << setw(15) <<
-                _registryArray[i].getParentPtr() << setw(15) <<
-                _registryArray[i].getLeftChildPtr() << setw(15) <<
-                _registryArray[i].getRightChildPtr() << setw(15) << "\n";
     }
 }
 

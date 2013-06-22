@@ -41,7 +41,6 @@ public:
 //    virtual BTRecord *deleteRecord(IMetadata *pRecordPtr);
     virtual BTRecord *deleteRecord(unsigned short recordID);
 //    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
-    virtual void printArrayRecord() const;
     virtual unsigned short showFragmentation() const;
     virtual bool defragFile();
 // -----------------------------------------------------------------------------

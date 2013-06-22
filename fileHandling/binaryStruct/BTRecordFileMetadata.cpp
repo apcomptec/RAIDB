@@ -27,9 +27,10 @@ BTRecordFileMetadata::BTRecordFileMetadata(const std::string &pFileName,
       _owner(pOwner)
 {
     this->_numberOfRecords = 1;
+    this->_tamanoMetadata = 664;
     this->_recordSize = 24 + ( 8 * computeRecordSize() );   // tamaño en bits de todo el registro
-    this->_eof = 0;
-    this->_fr = 0;
+    this->_fr = _tamanoMetadata;
+    this->_eof = _fr;
     this->_freeBlockList = 0;
     this->_pointerNextBlock = 0;    // dice si tiene un puntero hacia otro bloque
 }
