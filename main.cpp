@@ -138,7 +138,7 @@ int main()
 //// PRUEBA SIMULADOR LOCAL
 //// *****************************************************************************
 
-    new BTRFLocalSimulation();
+//    new BTRFLocalSimulation();
 
 //    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
 //    std::string name = "12", owner = "u";
@@ -153,41 +153,40 @@ int main()
 
 //        std::cout << std::left << std::setw(4) << "Hola" << std::setw(13) << "jaja\n";
 
-///// ############################################################################
-///// ESCRITURA DE REGISTROS EN EL DISCO
-///// ############################################################################
+// ############################################################################
+// ESCRITURA DE REGISTROS EN EL DISCO
+// ############################################################################
 
-//// *****************************************************************************
-//// ESTRUCTURA METADATOS
-//// *****************************************************************************
-//    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
-//    std::string name1 = "DAV";
-//    char dataType1 = '0';
-//    unsigned short size1 = 4;
-//    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
-//    list1->insertAtBack(data1);
+// *****************************************************************************
+// ESTRUCTURA METADATOS
+// *****************************************************************************
+    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
+    std::string name1 = "DAV";
+    char dataType1 = '0';
+    unsigned short size1 = 4;
+    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
+    list1->insertAtBack(data1);
 
-//    std::string name2 = "IMO";
-//    char dataType2 = '3';
-//    unsigned short size2 = 2;
-//    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
-//    list1->insertAtBack(data2);
+    std::string name2 = "IMO";
+    char dataType2 = '3';
+    unsigned short size2 = 2;
+    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
+    list1->insertAtBack(data2);
 
-//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
+    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
 
-//// *****************************************************************************
-//// CREACIÓN ARCHIVO BINARIO
-//// *****************************************************************************
-//    BTRecordFile *file = new BTRecordFile(metadata);
+// *****************************************************************************
+// CREACIÓN ARCHIVO BINARIO
+// *****************************************************************************
+    BTRecordFile *file = new BTRecordFile(metadata);
 
 ////    file->saveMetadata2Disk();    // sirve para la metadata
 ////    file->loadMetadata();         // sirve para la metadata
 
-// *****************************************************************************
-// REGISTRO 1
-// *****************************************************************************
-//    {
-        // CAMPO 'APELLIDO'
+//// *****************************************************************************
+//// REGISTRO 1
+//// *****************************************************************************
+//   {     // CAMPO 'APELLIDO'
 //        std::string apellido1 = "H";
 //        RecordDataType<std::string> *apellido1Data =
 //            new RecordDataType<std::string>(name1, apellido1 , size1);
@@ -206,11 +205,11 @@ int main()
 
 ////        // ESCRIBE A DISCO EL REGISTRO 1
 //        file->insertRecord2Disk(record1);
-////    }
+//    }
 
-// *****************************************************************************
-// REGISTRO 2
-// *****************************************************************************
+//// *****************************************************************************
+//// REGISTRO 2
+//// *****************************************************************************
 //    {
 //        // CAMPO 'APELLIDO'
 //        std::string apellido2 = "Z";
@@ -236,9 +235,9 @@ int main()
 //        file->insertRecord2Disk(record2);
 //    }
 
-// *****************************************************************************
-// REGISTRO 3
-// *****************************************************************************
+//// *****************************************************************************
+//// REGISTRO 3
+//// *****************************************************************************
 //    {
 //        // CAMPO 'APELLIDO'
 //        std::string apellido3 = "L";
@@ -262,9 +261,9 @@ int main()
 
 //    }
 
-// *****************************************************************************
-// REGISTRO 4
-// *****************************************************************************
+//// *****************************************************************************
+//// REGISTRO 4
+//// *****************************************************************************
 //    {
 //        // CAMPO 'APELLIDO'
 //        std::string apellido4 = "R";
@@ -290,9 +289,9 @@ int main()
 //        file->insertRecord2Disk(record4);
 //    }
 
-// *****************************************************************************
-// REGISTRO 5
-// *****************************************************************************
+//// *****************************************************************************
+//// REGISTRO 5
+//// *****************************************************************************
 //    {
 //        // CAMPO 'APELLIDO'
 //        std::string apellido5 = "P";
