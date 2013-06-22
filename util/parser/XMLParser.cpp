@@ -47,13 +47,33 @@ void XMLParser::readFile()
 
 void XMLParser::readBackUp()
 {
-    QStandardItem *root = new QStandardItem( "Blocks" );
+    QStandardItem *root = new QStandardItem( "root" );
     QDomDocument document;
-    QFile file( _pathXMLFile );
+    QFile file( _pathBACKUP );
     if( file.open(QIODevice::ReadOnly | QIODevice::Text) ){
         document.setContent( &file );
         file.close();
     }
+    QDomElement xmlroot = document.firstChildElement();
+    QDomNodeList disks = xmlroot.elementsByTagName( "disk" );
+
+    for (int i = 0; i < disks.count(); i++){
+
+//        QDomNodeList disk = disks.elementsByTagName( "disk" );
+      //  for (int j = 0; j < disk.count(); j++){
+
+        QDomElement record = disks.at(i).toElement();
+        QStandardItem *id = new QStandardItem(record.attribute("id"));
+        QStandardItem *size = new QStandardItem(record.attribute("size"));
+        QStandardItem *blockSize = new QStandardItem(record.attribute("blockSize"));
+        QStandardItem *host = new QStandardItem(record.attribute("host"));
+        qDebug() << " id " << id->text() << "  "
+                 << " size " << size->text() << " "
+                 << " blockSize " << blockSize->text() << "  "
+                 << " host " << host->text() << "  "
+                 << " usedBlocks " << host->text() << endl;
+        root->appendRow( id );}
+//    }
 }
 
 /**
