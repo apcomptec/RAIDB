@@ -41,9 +41,9 @@ QString User::getPassword() const
  * @brief User::getID
  * @return
  */
-int User::getID() const
+QString User::getID() const
 {
-    return this->_id;
+    return this->_ip;
 }
 
 /**
@@ -68,7 +68,7 @@ void User::setPassword(QString pPassword)
  * @brief User::setID
  * @param pID
  */
-void User::setID(int pID)
+void User::setID(QString pID)
 {
-    this->_id = pID;
+    this->_ip = pID;
 }

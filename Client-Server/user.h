@@ -16,7 +16,7 @@ private:
     //Constraseña del usuario
     QString _password;
     //Identificador de usuario
-    int _id;
+    QString _ip;
 
 public:
     User(QString pUser, QString pPassword);
@@ -25,12 +25,12 @@ public:
     //METODOS PARA OBTENER VARIABLES
     QString getUser() const;
     QString getPassword() const;
-    int getID() const;
+    QString getID() const;
 
     //METODOS DE MODIFICACION DE VARIABLE
     void setUser(QString);
     void setPassword(QString);
-    void setID(int);
+    void setID(QString);
 };
 //Fin de la clase
 #endif // USER_H

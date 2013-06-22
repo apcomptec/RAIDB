@@ -3,6 +3,8 @@
 MasterThread::MasterThread(int &pID, QObject* parent)
 {
     this->_socketDescriptor = pID;
+    this->_listUser = new DLL<User*>();
+    this->_fileSystem = new N_aryRecordFile();
 }
 
 MasterThread::~MasterThread()
@@ -12,20 +14,28 @@ void MasterThread::answerProtocol(QString pMessage)
 {
     QRegExpValidator validator;
     int pos = 0;
-    QRegExp connect ("connect[A-ZñÑa-z ]{10,256}");
+    QRegExp connect ("connect[0-9A-ZñÑa-z:/. ]{10,256}");
     validator.setRegExp(connect);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Usuario Conectado";
-        this->writeToClient("true");
+        this->writeToClient(this->verifyUser(pMessage));
         return;
     }
     qDebug() << validator.validate(pMessage, pos);
-    QRegExp adduser ("adduser[A-ZñÑa-z ]{10,256}");
+    QRegExp adduser ("adduser[0-9A-ZñÑa-z:/. ]{10,256}");
     validator.setRegExp(adduser);
     if(validator.validate(pMessage, pos) == 2)
     {
         qDebug() << "Usuario incluido";
+        this->writeToClient(this->addUser(pMessage));
+        return;
+    }
+    QRegExp mkdir ("mkdir[A-ZñÑa-z// ]{5,256}");
+    validator.setRegExp(mkdir);
+    if(validator.validate(pMessage, pos) == 2)
+    {
+        qDebug() << "Se creo folder";
         this->writeToClient("true");
         return;
     }
@@ -37,7 +47,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp cd ("cd[A-ZñÑa-z ]{10,256}");
+    QRegExp cd ("cd[A-ZñÑa-z// ]{10,256}");
     validator.setRegExp(cd);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -45,7 +55,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp touch ("touch[A-ZñÑa-z#/-// ]{10,256}");
+    QRegExp touch ("touch[A-ZñÑa-z#/-///.: ]{10,256}");
     validator.setRegExp(touch);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -69,7 +79,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp appendReg ("appendReg[0-9A-ZñÑa-z ]{10,256}");
+    QRegExp appendReg ("appendReg[0-9A-ZñÑa-z# ]{10,256}");
     validator.setRegExp(appendReg);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -85,7 +95,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp write ("write[0-9A-ZñÑa-z ]{10,256}");
+    QRegExp write ("write[0-9A-ZñÑa-z# ]{10,256}");
     validator.setRegExp(write);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -115,7 +125,61 @@ void MasterThread::answerProtocol(QString pMessage)
     {
         qDebug() << "Se cierra el cliente";
         this->writeToClient("true");
+        this->deleteLater();
         return;
     }
     this->writeToClient("false");
+}
+
+QString MasterThread::verifyUser(QString pMessage)
+{
+    QRegExp regex ("[:]");
+    QString user = pMessage.split(regex)[2];
+    QString password = pMessage.split(regex)[3];
+
+    DLLNode<User*>* userNode = this->_listUser->getHeadPtr();
+    while(userNode != nullptr && userNode->getData()->getUser() != user)
+    {
+        userNode = userNode->getNextPtr();
+    }
+
+    if(userNode == nullptr)
+    {
+        return "false";
+    }
+    else if(userNode->getData()->getUser() == user && userNode->getData()->getPassword() == password)
+    {
+        return "true";
+    }else
+    {
+        return "false";
+    }
+}
+
+QString MasterThread::addUser(QString pMessage)
+{
+    QRegExp regex ("[:]");
+    QString user = pMessage.split(regex)[2];
+    qDebug() << "User: " << user;
+    QString password = pMessage.split(regex)[3];
+    qDebug() << "Password: " << password;
+
+    DLLNode<User*>* userNode = this->_listUser->getHeadPtr();
+    while(userNode != nullptr && userNode->getData()->getUser() != user)
+    {
+        userNode = userNode->getNextPtr();
+    }
+    if(userNode == nullptr)
+    {
+        User* newUser = new User(user,password);
+        this->_listUser->insertAtBack(newUser);
+        return "true";
+    }else{
+        return "false";
+    }
+}
+
+void MasterThread::createFolder(QString pMessage)
+{
+
 }
