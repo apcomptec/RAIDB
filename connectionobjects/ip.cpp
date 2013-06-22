@@ -1,6 +1,6 @@
 #include "ip.h"
 
-IP::IP(QString pIP, int pNumLSS, int pSize, int pSizeBlock, int pNumUsedBlock)
+IP::IP(QString pIP, int pNumLSS, int pSize, int pSizeBlock, DLL<int>* pNumUsedBlock)
 {
     this->_ip = pIP;
     this->_numLSS = pNumLSS;
