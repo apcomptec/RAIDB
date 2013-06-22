@@ -180,7 +180,7 @@ int main()
 // *****************************************************************************
     BTRecordFile *file = new BTRecordFile(metadata);
 
-////    file->saveMetadata2Disk();    // sirve para la metadata
+   file->saveMetadata2Disk();    // sirve para la metadata
 ////    file->loadMetadata();         // sirve para la metadata
 
 //// *****************************************************************************
