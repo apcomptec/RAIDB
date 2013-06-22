@@ -417,7 +417,6 @@ void BTRecordFile::saveMetadata2Disk()
 
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
-
     unsigned short data1;
     std::string data2;
     std::string data3;
@@ -441,6 +440,8 @@ void BTRecordFile::saveMetadata2Disk()
     metadataBinary += datos;
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
+    this->_metadataPtr->setFirstRecordPos( metadataBinary.length() + 1);
+
     _disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
     //    return metadataBinary;
 }
