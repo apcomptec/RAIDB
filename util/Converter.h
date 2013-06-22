@@ -84,13 +84,14 @@ public:
     double fromString2Double( std::string pDoubleString );
     string fromDouble2String( double pDoubleNumber );
     std::string fromBinaryDouble2String( std::string pDoubleString );
-    std::string fromDoubleString2BinaryString( std::string pDoubleString );
+    std::string fromDoubleString2BinaryString(std::string pDoubleString );
+    std::string fromBinaryString2DoubleString( std::string pDoubleBinaryString );
     std::string fromInt2String( int pIntNumber );
     int fromString2Int( std::string pIntString );
-    std::string fromBinaryString2DoubleString( std::string pBinaryString );
 
     unsigned short getFillData() const;
     void setFillData(unsigned short pFillData);
+
 
 private:
 

@@ -246,22 +246,23 @@ std::string Converter::fromBinaryDouble2String( std::string pDoubleString )
  */
 std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString )
 {
-    int contador = 0;
-    double doubleNumber = fromString2Double( pDoubleString );
-    for(int i = pDoubleString.find("."); i < pDoubleString.length() ; i++){
-        contador++;
+    std::string entero;
+    std::string decimal;
+    for(int i = pDoubleString.find(".") + 1; i < pDoubleString.length() ; i++){
+        decimal += pDoubleString.at(i);
     }
-    int intDoubleNumber = doubleNumber * ( pow( 10, (contador - 1) ) );
-    //cout << contador - 1 << endl;
-    //cout << pDoubleString.find(".") << endl;
-    cout << doubleNumber << endl;
-    cout << intDoubleNumber << endl;
-    std::string entero = decimalToBinary( fromInt2String(intDoubleNumber) );
-    cout << entero << endl;
-    std::string decimal = decimalToBinary( fromInt2String(contador - 1) );
+    for(int j = 0; j < pDoubleString.find("."); j++){
+        entero += pDoubleString.at(j);
+    }
     cout << decimal << endl;
-    cout << entero + decimal << endl;
-    return completeBinary( entero + decimal );  //entero + decimal;
+//    cout << entero << endl;
+    std::string decimalBinario = decimalToBinary( decimal );
+//    cout << decimalBinario << endl;
+    std::string enteroBinario = decimalToBinary( entero );
+//    cout << enteroBinario << endl;
+    setFillData(8); // se debe setear el valor para obtener una misma cantidad en los numeros
+    cout << completeBinary( enteroBinario ) + completeBinary( decimalBinario ) << endl;
+    return completeBinary( enteroBinario ) + completeBinary( decimalBinario ) ;  //entero + decimal;
 }
 
 /**
@@ -270,29 +271,25 @@ std::string Converter::fromDoubleString2BinaryString( std::string pDoubleString 
  * @return
  * Función para convertir desde string binario a string Double
  */
-std::string Converter::fromBinaryString2DoubleString( std::string pBinaryString )
+std::string Converter::fromBinaryString2DoubleString( std::string pDoubleBinaryString )
 {
     std::string decimal;
     std::string entero;
     // conversion parte entera
-    for(int i = (pBinaryString.length() - 8); i < pBinaryString.length() ; i++){
-        decimal += pBinaryString.at(i);
+    for(int i = (pDoubleBinaryString.length() / 2); i < pDoubleBinaryString.length(); i++){
+        decimal += pDoubleBinaryString.at(i);
     }
-    //cout << decimal << endl;
-    //cout << binaryToDecimal( decimal ) << endl;
-    for(int i = 0; i < (pBinaryString.length() - 8) ; i++){// conversion parte entera
-        entero += pBinaryString.at(i);
+    cout << decimal << endl;
+    cout << binaryToDecimal( decimal ) << endl;
+    for(int i = 0; i < (pDoubleBinaryString.length() / 2) ; i++){// conversion parte entera
+        entero += pDoubleBinaryString.at(i);
     }
-    //cout << entero << endl;
-    //cout << binaryToDecimal( entero ) << endl;
+    cout << entero << endl;
+    cout << binaryToDecimal( entero ) << endl;
 
-    int decimalIntNumber = fromString2Int( binaryToDecimal( decimal ) );
-    int enteroIntNumber = fromString2Int( binaryToDecimal( entero ) );
-
-    double final = enteroIntNumber * ( pow( 10, (-decimalIntNumber) ) );
-    //cout << final << endl;
+    cout << binaryToDecimal( entero ) + "." + binaryToDecimal( decimal ) << endl;
     //cout << fromDouble2String( final ) << endl;
-    return fromDouble2String( final );
+    return binaryToDecimal( entero ) + "." + binaryToDecimal( decimal );
 }
 
 std::string Converter::fromInt2String( int pIntNumber )

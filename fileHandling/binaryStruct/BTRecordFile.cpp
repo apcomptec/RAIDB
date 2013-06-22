@@ -19,7 +19,6 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_conversion = new Converter();
     _disk = new Disk( 1,7 );// id del disco/tamaño en megas disco/tamaño bloque bytes
     this->_idNextBlock = " "; // es nulo pues no hay siguiente
-
 }
 
 /**
@@ -102,8 +101,6 @@ void BTRecordFile::setRecordList(DLL<IRecord *> *)
 {
     // No es necesario establecer una lista de datos
 }
-
-
 
 //------------------------------------------------------------------------------
 //   INSERCION DE DATOS EN DISCO
