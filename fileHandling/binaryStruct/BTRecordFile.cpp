@@ -118,7 +118,8 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     if (this->_metadataPtr->getFreeBlockList() == 0){
-        if( this->_disk == NULL ){
+        //cout << "Hermano-->: " << ( this->_disk == NULL ) << endl;
+        if( cantRegistros == 1 ){
             this->_disk = new Disk( 1, 7 );
             dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
         }
@@ -134,8 +135,9 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
             dataBinaryRecord = ( parent + leftChild + rightChild );
         }
         dataBinaryRecord += getUserRecordData( pListPtr );
+
         cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
-        //        cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
+                cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
         //        cout << "tamanoRegistro " << _metadataPtr->getRecordSize() << endl;
 
         this->_disk->write( this->_metadataPtr->getEOF() ,
@@ -210,7 +212,7 @@ std::string BTRecordFile::getUserRecordData( DLL<IRecordDataType *> *_dataListPt
     DLLNode<IRecordDataType*> *tmp = _dataListPtr->getHeadPtr();
     RecordDataType<std::string> *data;
     while( tmp != nullptr ){
-        data = dynamic_cast<RecordDataType<std::string>*>(tmp->getData());
+        data = dynamic_cast<RecordDataType<std::string>*>( tmp->getData() );
         QString qstrData= _conversion->fromStringToQString(*data->getDataPtr());
 
         if ( _conversion->verificaValidezDouble( qstrData ) == true){                  // VERIFICACION DE SI EL DATO ES DEL TIPO DOUBLE

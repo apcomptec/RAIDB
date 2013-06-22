@@ -194,7 +194,7 @@ int main()
         record1->insertAtBack(apellido1Data);
 
         // CAMPO 'GÉNERO'
-        std::string genero1 = "0";
+        std::string genero1 = "7";
         RecordDataType<std::string> *genero1Data =
             new RecordDataType<std::string>(name2, genero1 , size2);
 
