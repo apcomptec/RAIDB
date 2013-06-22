@@ -349,6 +349,8 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
         const char* Hder = this->_disk->read( recordSpace + 16, 7 );
         std::string stringData3 = _conversion->fromConstChar2String( Hder );
 
+        cout << "BOF: " << BOF <<"EOF: " << _metadataPtr->getEOF() << "\nrecordSize: " << recordSize << "\nrecordSpace: " << recordSpace;
+
         cout << "Registro #" << recordID << " " ;
         cout << "Padre: ";
         cout << _conversion->binaryToDecimal(stringData1);
@@ -589,6 +591,11 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     unsigned short tamanoRegistro = this->_metadataPtr->getRecordSize();
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
+    cout << "cantRegistros: "<<cantRegistros <<endl;
+    cout << "tamanoRegistro: "<<tamanoRegistro <<endl;
+    cout << "BOF: "<<posicionPrimerRegistro <<endl;
+    cout << "EOF: "<<_metadataPtr->getEOF() <<endl;
+
     if (this->_metadataPtr->getFreeBlockList() == 0){
         if( cantRegistros == 1 ){
             this->_disk = new Disk( 1, 7 );

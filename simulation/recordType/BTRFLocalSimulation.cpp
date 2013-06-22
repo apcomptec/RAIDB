@@ -35,7 +35,7 @@ void BTRFLocalSimulation::editFile()
         char option;
 
         while (option != '0') {
-            dynamic_cast<BTRecordFile*>(file)->loadMetadata();
+//            dynamic_cast<BTRecordFile*>(file)->loadMetadata();
 
             std::cout << "Seleccione lo que quiere hacer (0 para salir):\n"
                       " 1. Insertar registro\n"
