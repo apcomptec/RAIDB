@@ -2,6 +2,7 @@
 
 DiskGroupSimulator::DiskGroupSimulator()
 {
+    srand(time(nullptr));
     this->_listDisk = new DLL<QString>();
     this->numDiskComplete = this->numDiskIncomplete = 0;
     initSimulator();
@@ -47,7 +48,6 @@ void DiskGroupSimulator::initSimulator()
         std::cout << "2. Eliminar Disk" << std::endl;
         std::cout << "3. Buscar Disk" << std::endl;
         std::cout << "4. Organizar Disks" << std::endl;
-        std::cout << "5. Mostrar Organizacion de Disk" << std::endl;
         std::cout << ">> ";
         std::cin >> entry;
 
@@ -60,6 +60,7 @@ void DiskGroupSimulator::verifyOption(char pEntry)
     std::string message;
     if(pEntry == '1')
     {
+        std::cout << "Escriba el id del disco: ";
         std::cout << ">> ";
         std::cin >> message;
         this->insertDisk(Converter::fromStringToQString(message));
@@ -74,8 +75,6 @@ void DiskGroupSimulator::verifyOption(char pEntry)
     }else if(pEntry == '4')
     {
         this->organiseDisk();
-    }else if(pEntry == '5')
-    {
     }
 }
 
@@ -84,4 +83,30 @@ void DiskGroupSimulator::organiseDisk()
     this->calculateNumOfListDisk();
     std::cout << "Lista discos completos al maximo: " << this->numDiskComplete << std::endl;
     std::cout << "Discos restantes: " << this->numDiskIncomplete << std::endl;
+    std::cout << "Listas completas de discos: \n";
+    for (int var = 0; var < this->numDiskComplete; ++var) {
+        for (int t = 0; t < NUMMAXDISK; ++t) {
+            std::cout << this->getRandomDisk().toStdString() << " -> ";
+        }
+        std::cout << "\n";
+    }
+
+    std::cout << "Listas incompletas de discos: \n";
+    for (int var = 0; var < this->numDiskIncomplete; ++var) {
+        std::cout << this->getRandomDisk().toStdString() << " -> ";
+    }
+    std::cout << "\n";
+}
+
+QString DiskGroupSimulator::getRandomDisk()
+{
+    int it = 0, randDisk = rand() % this->_listDisk->getSize();
+    DLLNode<QString>* tmpDisk = this->_listDisk->getHeadPtr();
+    while(it != randDisk)
+    {
+        tmpDisk = tmpDisk->getNextPtr();
+        it++;
+    }
+    this->removeDisk(tmpDisk->getData());
+    return tmpDisk->getData();
 }
