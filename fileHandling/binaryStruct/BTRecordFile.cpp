@@ -42,7 +42,8 @@ void BTRecordFile::setMaxSizeOfRegistryInBlock(unsigned short maxSizeOfRegistryI
  */
 unsigned short BTRecordFile::computeMaxSizeOfRegistryInBlock()
 {
-    return this->_disk->getBlockSize() / this->_metadataPtr->getRecordSize();
+    int p = (this->_disk->getBlockSize() / this->_metadataPtr->getRecordSize());
+    return p;
 }
 
 std::string BTRecordFile::getIdNextBlock() const
@@ -117,6 +118,10 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     unsigned short tamanoRegistro = this->_metadataPtr->getRecordSize();
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
+    if ( computeMaxSizeOfRegistryInBlock() > cantRegistros ){
+        cout << "No se puede insertar" << endl;
+    }
+    else{
     if (this->_metadataPtr->getFreeBlockList() == 0){
         if( cantRegistros == 1 ){
             this->_disk = new Disk( 1, 7 );
@@ -154,6 +159,7 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     cout << "-----------------------------------------------------------------" << endl;
     cout << "$$$$$$$$$$ Escritura a disco finalizada $$$$$$$$$$" << endl;
     cout << "-----------------------------------------------------------------" << endl;
+    }// fin del else de computeMaxSizeOfRegistryInBlock()
 }
 
 /**
