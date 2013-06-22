@@ -665,13 +665,13 @@ void BTRecordFile::insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer)
  */
 void BTRecordFile::readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID)
 {
-    const char *padre = pDisk.read( 0, 7 );
-    const char *hizq = pDisk.read( 8, 7 );
-    const char *hder = pDisk.read( 16, 7 );
+    const char *padre = pDisk.read( this->_metadataPtr->getFirstRecordPos(), 7 );
+    const char *hizq = pDisk.read( this->_metadataPtr->getFirstRecordPos() + 8, 7 );
+    const char *hder = pDisk.read( this->_metadataPtr->getFirstRecordPos() + 16, 7 );
     std::string father(padre);          // obtiene el padre
     std::string HI(hizq);               // obtiene el hijo izq
     std::string HD(hder);               // obtiene el hijo der
-    unsigned short _sizeCounter = 24;       // inicio de la data
+    unsigned short _sizeCounter = this->_metadataPtr->getFirstRecordPos() + 24;       // inicio de la data
     DLL<IRecordDataType*> *tmp1 = _metadataPtr->getRecordStruct();
     DLLNode<IRecordDataType*> *tmp = tmp1->getHeadPtr();
     const char *data;
