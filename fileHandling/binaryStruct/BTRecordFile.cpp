@@ -342,7 +342,6 @@ void BTRecordFile::readOneRecordFromDisk( unsigned short recordID )
         unsigned short BOF = this->_metadataPtr->getFirstRecordPos();
         unsigned short recordSize = this->_metadataPtr->getRecordSize();
         unsigned short recordSpace = BOF + ( recordSize * ( recordID - 1 ) );
-
         const char* padre = this->_disk->read( recordSpace, 7 );
         std::string stringData1 = _conversion->fromConstChar2String( padre );
         const char* Hizq = this->_disk->read( recordSpace + 8, 7 );
@@ -511,7 +510,7 @@ void BTRecordFile::dataClassification( std::string *pDatosUsuario )
 
     std::string cantidadRegistro = _conversion->binaryToDecimal( pDatosUsuario[3] );
     unsigned short numero2 = _conversion->fromString2Short( cantidadRegistro );
-    _metadataPtr->setFirstRecordPos( numero2 );
+    _metadataPtr->setNumberOfRecords( numero2 );
 
     std::string pEOF = _conversion->binaryToDecimal( pDatosUsuario[4] );
     unsigned short numero3 = _conversion->fromString2Short( pEOF );
@@ -772,25 +771,6 @@ BTRecord *BTRecordFile::deleteRecord(unsigned short recordID)
     }
     else{
         cout << "No existe registro para borrar o.O" << endl;
-    }
-}
-
-/**
- * @brief BTRecordFile::printArrayRecord
- * @return
- * Imprime la constitución de los registros(padre,hijos)
- */
-void BTRecordFile::printArrayRecord() const
-{
-    // TODO pasar esta función para que ejecute a un solo registro y luego
-    // aquí iterar sobre el arreglo
-    cout << "   Record #" << setw(15) << "Parent" << setw(15)
-         << "LeftChild" << setw(15) << "RightChild" << endl;
-    for (int i = 1; i < this->getCounter(); i++) {
-        cout << setw(7) << i << setw(15) <<
-                _registryArray[i].getParentPtr() << setw(15) <<
-                _registryArray[i].getLeftChildPtr() << setw(15) <<
-                _registryArray[i].getRightChildPtr() << setw(15) << "\n";
     }
 }
 

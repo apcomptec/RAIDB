@@ -27,7 +27,7 @@ BTRecordFileMetadata::BTRecordFileMetadata(const std::string &pFileName,
       _owner(pOwner)
 {
     this->_numberOfRecords = 1;
-    this->_tamanoMetadata = 306;
+    this->_tamanoMetadata = 664;
     this->_recordSize = 24 + ( 8 * computeRecordSize() );   // tamaño en bits de todo el registro
     this->_fr = _tamanoMetadata;
     this->_eof = _fr;

@@ -4,7 +4,6 @@
 #include "simulation/LocalSimulation.h"
 #include "simulation/recordType/BTRFSimulation.h"
 #include "dataStructure/n_aryrecordfile.h"
-//#include "dataStructure/IN_aryNode.h"
 
 class BTRFLocalSimulation: public LocalSimulation
 {
@@ -44,7 +43,11 @@ private:
 
     void searchRecord();
 
+    void modifyRecord();
+
     void updateMetadata();
+
+    void printAllFile();
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------

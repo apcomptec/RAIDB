@@ -138,7 +138,7 @@ int main()
 //// PRUEBA SIMULADOR LOCAL
 //// *****************************************************************************
 
-//    new BTRFLocalSimulation();
+    new BTRFLocalSimulation();
 
 //    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
 //    std::string name = "12", owner = "u";
@@ -160,28 +160,28 @@ int main()
 // *****************************************************************************
 // ESTRUCTURA METADATOS
 // *****************************************************************************
-    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
-    std::string name1 = "DAV";
-    char dataType1 = '0';
-    unsigned short size1 = 4;
-    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
-    list1->insertAtBack(data1);
+//    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
+//    std::string name1 = "DAV";
+//    char dataType1 = '0';
+//    unsigned short size1 = 4;
+//    RecordDataType<char> *data1 = new RecordDataType<char>(name1, dataType1, size1);
+//    list1->insertAtBack(data1);
 
-    std::string name2 = "IMO";
-    char dataType2 = '3';
-    unsigned short size2 = 2;
-    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
-    list1->insertAtBack(data2);
+//    std::string name2 = "IMO";
+//    char dataType2 = '3';
+//    unsigned short size2 = 2;
+//    RecordDataType<char> *data2 = new RecordDataType<char>(name2, dataType2, size2);
+//    list1->insertAtBack(data2);
 
-    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
+//    BTRecordFileMetadata *metadata = new BTRecordFileMetadata("Fil", "YO", list1);
 
-// *****************************************************************************
-// CREACIÓN ARCHIVO BINARIO
-// *****************************************************************************
-    BTRecordFile *file = new BTRecordFile(metadata);
+//// *****************************************************************************
+//// CREACIÓN ARCHIVO BINARIO
+//// *****************************************************************************
+//    BTRecordFile *file = new BTRecordFile(metadata);
 
 //   file->saveMetadata2Disk();    // sirve para la metadata
-////    file->loadMetadata();         // sirve para la metadata
+//   file->loadMetadata();         // sirve para la metadata
 
 //// *****************************************************************************
 //// REGISTRO 1

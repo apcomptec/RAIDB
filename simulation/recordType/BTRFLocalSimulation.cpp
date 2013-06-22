@@ -34,24 +34,43 @@ void BTRFLocalSimulation::editFile()
     if (file != nullptr) {
         char option;
 
-        std::cout << "Seleccione lo que quiere hacer:\n"
-                  " 1. Insertar registro\n"
-                  " 2. Borrar registro\n"
-                  " 3. Modificar registro\n"
-                  " 4. Buscar registro\n";
+        while (option != '0') {
+            dynamic_cast<BTRecordFile*>(file)->loadMetadata();
 
-        std::cin >> option;
+            std::cout << "Seleccione lo que quiere hacer (0 para salir):\n"
+                      " 1. Insertar registro\n"
+                      " 2. Borrar registro\n"
+                      " 3. Modificar registro\n"
+                      " 4. Buscar registro\n"
+                      " 5. Ver contenido del archivo\n";
 
-        switch (option) {
-        case '0':
-            break;
-        case '1':
-            insertRecord();
-        default:
-            break;
+            std::cin >> option;
+
+            switch (option) {
+            case '0':
+                break;
+            case '1':
+                insertRecord();
+                break;
+            case '2':
+                deleteRecord();
+                break;
+            case '3':
+                modifyRecord();
+                break;
+            case '4':
+                searchRecord();
+                break;
+            case '5':
+                printAllFile();
+                break;
+            default:
+                std::cout << "La opción no existe\n";
+                break;
+            }
         }
     } else {
-
+        std::cout << "El archivo seleccionado no existe\n";
     }
 }
 
@@ -93,9 +112,18 @@ void BTRFLocalSimulation::searchRecord()
 {
 }
 
+void BTRFLocalSimulation::modifyRecord()
+{
+}
+
 void BTRFLocalSimulation::updateMetadata()
 {
     dynamic_cast<BTRecordFile*>(_fileSimulation->getFile())->saveMetadata2Disk();
+}
+
+void BTRFLocalSimulation::printAllFile()
+{
+    dynamic_cast<BTRecordFile*>(_fileSimulation->getFile())->readALLRecordsFromDisk();
 }
 
 void BTRFLocalSimulation::showFolderContent() // TEST
