@@ -18,7 +18,7 @@ public:
      */
     Converter();
 
-    std::string fromShort2String( unsigned short pShortNumber );
+    std::string fromShort2String(unsigned short pShortNumber);
 
 
     /**
@@ -26,21 +26,21 @@ public:
      * @param pSTDString
      * @return
      */
-    unsigned short fromString2Short( const std::string &pSTDString );
+    unsigned short fromString2Short(const std::string &pSTDString);
 
     /**
      * @brief fromConstChar2String
      * @param pConstChar
      * @return
      */
-    std::string fromConstChar2String( const char *pConstChar );
+    std::string fromConstChar2String(const char *pConstChar);
 
     /**
      * @brief fromStringToQString
      * @param pSTDString
      * @return
      */
-    static QString fromStringToQString( const std::string &pSTDString);
+    static QString fromStringToQString(const std::string &pSTDString);
 
     /**
      * @brief FromStringToConstChar
@@ -79,18 +79,19 @@ public:
 
     string completeBinary(std::string pBinary);
 
-    bool verificaValidezInt( QString pDato );
-    bool verificaValidezDouble( QString pDato );
-    double fromString2Double( std::string pDoubleString );
-    string fromDouble2String( double pDoubleNumber );
-    std::string fromBinaryDouble2String( std::string pDoubleString );
-    std::string fromDoubleString2BinaryString( std::string pDoubleString );
-    std::string fromInt2String( int pIntNumber );
-    int fromString2Int( std::string pIntString );
-    std::string fromBinaryString2DoubleString( std::string pBinaryString );
+    bool verificaValidezInt(QString pDato);
+    bool verificaValidezDouble(QString pDato);
+    double fromString2Double(std::string pDoubleString);
+    string fromDouble2String(double pDoubleNumber);
+    std::string fromBinaryDouble2String(std::string pDoubleString);
+    std::string fromDoubleString2BinaryString(std::string pDoubleString);
+    std::string fromBinaryString2DoubleString(std::string pDoubleBinaryString);
+    std::string fromInt2String(int pIntNumber);
+    int fromString2Int(std::string pIntString);
 
     unsigned short getFillData() const;
     void setFillData(unsigned short pFillData);
+
 
 private:
 

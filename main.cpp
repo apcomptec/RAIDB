@@ -16,6 +16,9 @@ using namespace std;
 
 int main()
 {
+//    Converter *d = new Converter();
+//    d->fromDoubleString2BinaryString("7.2");
+//    d->fromBinaryString2DoubleString("111101");
 //    Encryption *p = new Encryption();
 //    p->passwordEncryption("Daniel");
 //    std::cout << read(5);
@@ -177,8 +180,8 @@ int main()
 //// *****************************************************************************
 //    BTRecordFile *file = new BTRecordFile(metadata);
 
-//    file->saveMetadata2Disk();    // sirve para la metadata
-//    file->loadMetadata();         // sirve para la metadata
+////    file->saveMetadata2Disk();    // sirve para la metadata
+////    file->loadMetadata();         // sirve para la metadata
 
 // *****************************************************************************
 // REGISTRO 1
