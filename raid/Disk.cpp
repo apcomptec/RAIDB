@@ -11,8 +11,19 @@ Disk::Disk(const unsigned short &pId, const unsigned short &pSize,
     : ID(pId), SIZE(pSize), BLOCK_SIZE(pBlockSize),
       NAME(std::string("disk") + std::to_string(ID))
 {
+    this->_securityKey = new Encryption();
     createDisk();
     fillBlockList();
+}
+
+/**
+ * @brief Disk::generateSecurityKey
+ * @return genera una security key
+ */
+std::string Disk::generateSecurityKey() const
+{
+    std::string p = _securityKey->generateRandomPassword(); //genera clave random
+    return  _securityKey->passwordEncryption( p );    // encripta la clave
 }
 
 unsigned int Disk::createFile()
