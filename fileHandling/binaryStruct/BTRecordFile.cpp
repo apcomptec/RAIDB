@@ -329,7 +329,6 @@ void BTRecordFile::readALLRecordsFromDisk()
         readOneRecordFromDisk( contador );
         ++contador;
     }
-
 }
 
 /**
@@ -575,8 +574,6 @@ std::string BTRecordFile::sortUserDataFromDisk(std::string pData, char pTipo)
     }
     return finalBinaryRecord;   // retorna conversion a decimal
 }
-
-
 
 //------------------------------------------------------------------------------
 //   FIN INSERCION, LECTURA Y BORRADO DE DATOS EN DISCO
