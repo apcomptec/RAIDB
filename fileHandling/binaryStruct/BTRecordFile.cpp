@@ -118,7 +118,6 @@ void BTRecordFile::insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ){
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     if (this->_metadataPtr->getFreeBlockList() == 0){
-        //cout << "Hermano-->: " << ( this->_disk == NULL ) << endl;
         if( cantRegistros == 1 ){
             this->_disk = new Disk( 1, 7 );
             dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
@@ -592,7 +591,7 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
     unsigned short posicionPrimerRegistro = this->_metadataPtr->getFirstRecordPos();
     std::string dataBinaryRecord;  // concatenacion del registro a binario
     if (this->_metadataPtr->getFreeBlockList() == 0){
-        if( this->_disk == NULL ){
+        if( cantRegistros == 1 ){
             this->_disk = new Disk( 1, 7 );
             dataBinaryRecord  = "000000000000000000000000"; // No tiene ni padre ni hijos
         }
