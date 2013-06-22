@@ -2,6 +2,8 @@
 #define DISKGROUPSIMULATOR_H
 #include "dataStructure/DLL.h"
 #include "util/Converter.h"
+#include <stdlib.h>
+#include <time.h>
 #include <string>
 #include <QString>
 
