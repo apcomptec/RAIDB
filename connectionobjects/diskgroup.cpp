@@ -1,9 +1,9 @@
 #include "diskgroup.h"
 
-DiskGroup::DiskGroup(DLL<IP *> * pList, int pIP)
+DiskGroup::DiskGroup(DLL<IP *> * pList, int pID)
 {
     this->_listDisk = pList;
-    this->_id = pIP;
+    this->_id = pID;
 }
 
 DiskGroup::~DiskGroup()

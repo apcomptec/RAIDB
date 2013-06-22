@@ -4,6 +4,7 @@ MasterThread::MasterThread(int &pID, QObject* parent)
 {
     this->_socketDescriptor = pID;
     this->_listUser = new DLL<User*>();
+    this->_fileSystem = new N_aryRecordFile();
 }
 
 MasterThread::~MasterThread()
@@ -30,6 +31,14 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient(this->addUser(pMessage));
         return;
     }
+    QRegExp mkdir ("mkdir[A-ZñÑa-z// ]{5,256}");
+    validator.setRegExp(mkdir);
+    if(validator.validate(pMessage, pos) == 2)
+    {
+        qDebug() << "Se creo folder";
+        this->writeToClient("true");
+        return;
+    }
     QRegExp get ("get[A-ZñÑa-z// ]{5,256}");
     validator.setRegExp(get);
     if(validator.validate(pMessage, pos) == 2)
@@ -38,7 +47,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp cd ("cd[A-ZñÑa-z ]{10,256}");
+    QRegExp cd ("cd[A-ZñÑa-z// ]{10,256}");
     validator.setRegExp(cd);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -46,7 +55,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp touch ("touch[A-ZñÑa-z#/-// ]{10,256}");
+    QRegExp touch ("touch[A-ZñÑa-z#/-///.: ]{10,256}");
     validator.setRegExp(touch);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -70,7 +79,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp appendReg ("appendReg[0-9A-ZñÑa-z ]{10,256}");
+    QRegExp appendReg ("appendReg[0-9A-ZñÑa-z# ]{10,256}");
     validator.setRegExp(appendReg);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -86,7 +95,7 @@ void MasterThread::answerProtocol(QString pMessage)
         this->writeToClient("true");
         return;
     }
-    QRegExp write ("write[0-9A-ZñÑa-z ]{10,256}");
+    QRegExp write ("write[0-9A-ZñÑa-z# ]{10,256}");
     validator.setRegExp(write);
     if(validator.validate(pMessage, pos) == 2)
     {
@@ -116,6 +125,7 @@ void MasterThread::answerProtocol(QString pMessage)
     {
         qDebug() << "Se cierra el cliente";
         this->writeToClient("true");
+        this->deleteLater();
         return;
     }
     this->writeToClient("false");
@@ -167,4 +177,9 @@ QString MasterThread::addUser(QString pMessage)
     }else{
         return "false";
     }
+}
+
+void MasterThread::createFolder(QString pMessage)
+{
+
 }

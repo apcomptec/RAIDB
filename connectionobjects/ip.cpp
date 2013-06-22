@@ -21,7 +21,7 @@ void IP::setNumLSS(int pNum)
     this->_numLSS = pNum;
 }
 
-void IP::setNumUsedBlock(int pNUm)
+void IP::setNumUsedBlock(int pNum)
 {
     this->_numUsedBlocks = pNum;
 }

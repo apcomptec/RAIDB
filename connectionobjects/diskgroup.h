@@ -14,7 +14,7 @@ private:
 
 public:
     //CONSTRUCTOR Y DESTRUCTOR
-    DiskGroup(DLL<IP*>*, int pIP);
+    DiskGroup(DLL<IP*>* pList, int pID);
     ~DiskGroup();
 
     //METODOS

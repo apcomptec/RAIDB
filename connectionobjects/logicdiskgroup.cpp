@@ -26,7 +26,7 @@ void LogicDiskGroup::calcAndOrganize()
 {
     this->_listResult = new DLL<IP*>();
 
-    int numDisk = this->_listDisk->getSize();
+    int numDisk = this->_listIP->getSize();
 
     if((numDisk % NUMMAXDISK) == 0)
     {
@@ -37,6 +37,10 @@ void LogicDiskGroup::calcAndOrganize()
         numDiskIncomplete = numDisk - (numDiskComplete * NUMMAXDISK);
     }
 
+    if(this->_listIP->getSize() < NUMMAXDISK)
+    {
+        this->_listResult = this->_listIP;
+    }
     for (int var = 0; var < NUMMAXDISK; ++var) {
         this->_listResult->insertAtBack(this->getRandomIP());
     }
@@ -44,14 +48,14 @@ void LogicDiskGroup::calcAndOrganize()
 
 IP* LogicDiskGroup::getRandomIP()
 {
-    int it = 0, randDisk = rand() % this->_listDisk->getSize();
-    DLLNode<IP*>* tmpDisk = this->_listDisk->getHeadPtr();
+    int it = 0, randDisk = rand() % this->_listIP->getSize();
+    DLLNode<IP*>* tmpDisk = this->_listIP->getHeadPtr();
     while(it != randDisk)
     {
         tmpDisk = tmpDisk->getNextPtr();
         it++;
     }
-    this->removeDisk(tmpDisk->getData());
+    this->removeIP(tmpDisk->getData());
     return tmpDisk->getData();
 }
 

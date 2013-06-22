@@ -23,22 +23,22 @@ private:
 
 public:
     //CONSTRUCTOR Y DESTRUCTOR
-    IP(QString, int, int, int, int);
+    IP(QString pIP, int pNumLSS, int pSize, int pSizeBlock, int pNumUsedBlock);
     ~IP();
 
     //Metodos de modificacion
     void setIP(QString);
     void setNumLSS(int);
     void setSize(int);
-    void setNumUsedBlock(int);
+    void setNumUsedBlock(int pNum);
     void setSizeBlock(int);
 
     //Metodo de obtencion de datos
-    void getIP();
-    void getNumLSS();
-    void getSize();
-    void getNumUsedBlock();
-    void getSizeBlock();
+    QString getIP();
+    int getNumLSS();
+    int getSize();
+    int getNumUsedBlock();
+    int getSizeBlock();
 
     //Metodo de calculo de numero de bloques
     void calcNumOfBlocks();
