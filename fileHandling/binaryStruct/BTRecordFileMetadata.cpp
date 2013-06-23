@@ -21,14 +21,14 @@ const char BTRecordFileMetadata::BOOL       = '5';
 // -----------------------------------------------------------------------------
 
 BTRecordFileMetadata::BTRecordFileMetadata(const std::string &pFileName,
-                                           const std::string &pOwner, DLL<IRecordDataType *> *pRecordStruct)
+        const std::string &pOwner, DLL<IRecordDataType *> *pRecordStruct)
     : _recordStructPtr(pRecordStruct),
       _fileName(pFileName),
       _owner(pOwner)
 {
     this->_numberOfRecords = 1;
     this->_tamanoMetadata = 664;
-    this->_recordSize = 24 + ( 8 * computeRecordSize() );   // tamaño en bits de todo el registro
+    this->_recordSize = 24 + (8 * computeRecordSize());     // tamaño en bits de todo el registro
     this->_fr = _tamanoMetadata;
     this->_eof = _fr;
     this->_freeBlockList = 0;
@@ -116,6 +116,62 @@ void BTRecordFileMetadata::setFirstRecordPos(const unsigned short &pPos)
     _fr = pPos;
 }
 
+void BTRecordFileMetadata::printMetadata() const
+{
+    std::cout << "Nombre: " << getFileName()
+              << "\nDueño: " << getOwner()
+              << "\nTamaño: " << getFileSize()
+              << "\nPosición último elemento borrado: " << getFreeBlockList()
+              << "\nInicio de datos: " << getFirstRecordPos()
+              << "\nFin de archivo: " << getEOF();
+
+    std::cout << "\n";
+    printUserRecordStruct();
+}
+
+void BTRecordFileMetadata::printUserRecordStruct() const
+{
+    std::cout << "Estructura de datos de usuario:\n";
+
+    DLLNode<IRecordDataType*> *current = getRecordStruct()->getHeadPtr();
+
+    char headerName;
+    bool flag = true;
+
+    do {
+        headerName =
+            *dynamic_cast<RecordDataType<char>*>
+            (current->getData())->getDataPtr();
+
+        if (headerName == BTRecordFileMetadata::STRING) {
+            std::cout << "string";
+        } else if (headerName == BTRecordFileMetadata::CHAR) {
+            std::cout << "char";
+        } else if (headerName == BTRecordFileMetadata::SHORT) {
+            std::cout << "short";
+        } else if (headerName == BTRecordFileMetadata::INT) {
+            std::cout << "int";
+        } else if (headerName == BTRecordFileMetadata::DOUBLE) {
+            std::cout << "double";
+        } else if (headerName == BTRecordFileMetadata::BOOL) {
+            std::cout << "bool";
+        } else {
+            flag = false;
+            std::cout << "El tipo de dato no es soportado";
+        }
+
+        if (flag) {
+            std::cout << ": " << current->getData()->getName() << " ["
+                      << current->getData()->getSize() << "B]";
+        }
+
+        current = current->getNextPtr();
+        std::cout << "\n";
+    } while (current != nullptr);
+
+    std::cout << "\n";
+}
+
 unsigned short BTRecordFileMetadata::getRecordSize() const
 {
     return _recordSize;
@@ -132,7 +188,7 @@ unsigned short BTRecordFileMetadata::computeRecordSize()
     unsigned short size = 0;
 
     DLLNode<IRecordDataType *> *currentDataByUser =
-            _recordStructPtr->getHeadPtr();
+        _recordStructPtr->getHeadPtr();
 
     while (currentDataByUser != nullptr) {
         size += currentDataByUser->getData()->getSize();

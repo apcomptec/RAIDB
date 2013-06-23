@@ -57,6 +57,8 @@ public:
     virtual void setEOF(const unsigned short &pEOF);
     virtual unsigned short getFirstRecordPos() const;
     virtual void setFirstRecordPos(const unsigned short &pPos);
+    virtual void printMetadata() const;
+    virtual void printUserRecordStruct() const;
 
     unsigned short getPointerNextBlock() const; // Dice si posee o no puntero a otro archivo
     void setPointerNextBlock(unsigned short pointerNextBlock);

@@ -13,7 +13,6 @@ public:
      * @brief insert inserta nuevos registros al archivo
      */
     void insertRecord();
-    void dataStructureByUser();
 
     IMetadata *getMetadata();
     void setMetadata(IMetadata * const pMetadata);

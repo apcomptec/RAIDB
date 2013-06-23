@@ -13,9 +13,10 @@ void BTRFLocalSimulation::createFile()
     BTRecordFileMetadata *metadata = createMetadata();
     if (metadata != nullptr) {
         _fileSimulation = new BTRFSimulation(metadata);
+        std::cout << "Dirección archivo: " << _fileSimulation->getFile() << "\n\n";
         _currentFolder->addRecordFilePtr(_fileSimulation->getFile());
         _fileSystem->printTree();
-        _fileSimulation->dataStructureByUser();
+        _fileSimulation->getMetadata()->printUserRecordStruct();
     } else {
         std::cout << "El archivo no fue creado\n";
     }
@@ -32,22 +33,23 @@ void BTRFLocalSimulation::editFile()
     file = _currentFolder->searchRecordFilePtr(name);
 
     if (file != nullptr) {
+        std::cout << "Dirección archivo a editar: " << file << "\n\n";
         char option;
 
         while (option != '0') {
-//            dynamic_cast<BTRecordFile*>(file)->loadMetadata();
-
             std::cout << "Seleccione lo que quiere hacer (0 para salir):\n"
                       " 1. Insertar registro\n"
                       " 2. Borrar registro\n"
                       " 3. Modificar registro\n"
                       " 4. Buscar registro\n"
-                      " 5. Ver contenido del archivo\n";
+                      " 5. Ver contenido del archivo\n"
+                      " 6. Ver metadatos\n";
 
             std::cin >> option;
 
             switch (option) {
             case '0':
+//                updateMetadata();   //cuando se sale del programa, se procede a guardar metadatos
                 break;
             case '1':
                 insertRecord();
@@ -64,6 +66,9 @@ void BTRFLocalSimulation::editFile()
             case '5':
                 printAllFile();
                 break;
+            case '6':
+                _fileSimulation->getFile()->getMetadata()->printMetadata();
+                break;
             default:
                 std::cout << "La opción no existe\n";
                 break;
@@ -76,6 +81,7 @@ void BTRFLocalSimulation::editFile()
 
 void BTRFLocalSimulation::insertRecord()
 {
+    std::cout << "Dirección archivo actual: " << _fileSimulation->getFile() << "\n\n";
     DLLNode<IRecordDataType*> *current =
         getMetadata()->getRecordStruct()->getHeadPtr();
 
@@ -101,7 +107,7 @@ void BTRFLocalSimulation::insertRecord()
     }
 
     _fileSimulation->insertRecord(dataList);
-    updateMetadata();
+//    updateMetadata();
 }
 
 void BTRFLocalSimulation::deleteRecord() // TODO
@@ -118,6 +124,7 @@ void BTRFLocalSimulation::modifyRecord()
 
 void BTRFLocalSimulation::updateMetadata()
 {
+    std::cout << "\nDirección del archivo: " << _fileSimulation->getFile() << "\n\n";
     dynamic_cast<BTRecordFile*>(_fileSimulation->getFile())->saveMetadata2Disk();
 }
 
@@ -316,7 +323,6 @@ BTRecordFileMetadata *BTRFLocalSimulation::createMetadata() const
 
         file = new BTRecordFileMetadata(fileName, owner, recordStruct);
     }
-
     return file;
 }
 

@@ -127,8 +127,23 @@ public:
      */
     virtual void setFirstRecordPos(const unsigned short &pPos) = 0;
 
+    /**
+     * @brief printMetadata Imprime la información de los metadatos
+     */
+    virtual void printMetadata() const = 0;
+
+    /**
+     * @brief printUserRecordStruct Imprime cómo el usuario conformó su
+     * estructura de datos
+     */
+    virtual void printUserRecordStruct() const = 0;
+
 private:
 
+    /**
+     * @brief computeRecordSize
+     * @return Tamaño de un registro
+     */
     virtual unsigned short computeRecordSize() = 0;
 };
 
