@@ -18,6 +18,7 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_cantidadDatosUser = -1; // no hay
     this->_conversion = new Converter();
     _disk = new Disk( 1,7 );// id del disco/tamaño en megas disco/tamaño bloque bytes
+    _diskMetadata = new Disk( 2, 7 );
     this->_idNextBlock = " "; // es nulo pues no hay siguiente
 }
 
@@ -442,7 +443,9 @@ void BTRecordFile::saveMetadata2Disk()
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
 
-    _disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
+    //_disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
+    _diskMetadata->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
+
     //    return metadataBinary;
 }
 
@@ -454,7 +457,8 @@ void BTRecordFile::loadMetadata()
     const char* data;
     std::string strData;
     while( contador != 112 ){
-        data = _disk->read( contador, 15 );
+        //data = _disk->read( contador, 15 );
+        data = _diskMetadata->read( contador, 15 );
         strData = _conversion->fromConstChar2String( data );
         cout << "-->"<<_conversion->binaryToDecimal( strData ) <<  endl;
         DatosUsuario[contador/16] = strData;
@@ -463,7 +467,8 @@ void BTRecordFile::loadMetadata()
     cout << endl;
 
     while ( contador != (144 + 16) ){// lectura del Owner nombreArchivo (tamaño 24)
-        data = _disk->read( contador, _sizeOwner_FileName - 1 );
+        //data = _disk->read( contador, _sizeOwner_FileName - 1 );
+        data = _diskMetadata->read( contador, _sizeOwner_FileName - 1 );
         strData = _conversion->fromConstChar2String( data );
         cout << "-->"<<_conversion->binaryToString( strData ) <<  endl;
         contador += _sizeOwner_FileName;
@@ -475,9 +480,12 @@ void BTRecordFile::loadMetadata()
     std::string p = _conversion->binaryToDecimal( DatosUsuario[6] );
     _conversion->fromString2Short( p );
     while( contador2 != _conversion->fromString2Short(p) ){
-        data0 =  _disk->read( contador, 23 );                                  // lectura del tipo de dato
-        data1 =  _disk->read( contador + 24 , 23 );                            // lectura del tamaño de dato
-        data2 =  _disk->read( contador + 48, 23 );    // lectura del titulo de dato
+//        data0 =  _disk->read( contador, 23 );                                  // lectura del tipo de dato
+//        data1 =  _disk->read( contador + 24 , 23 );                            // lectura del tamaño de dato
+//        data2 =  _disk->read( contador + 48, 23 );    // lectura del titulo de dato
+        data0 =  _diskMetadata->read( contador, 23 );                                  // lectura del tipo de dato
+        data1 =  _diskMetadata->read( contador + 24 , 23 );                            // lectura del tamaño de dato
+        data2 =  _diskMetadata->read( contador + 48, 23 );    // lectura del titulo de dato
         loadUserInfo( tmp1, data0, data1, data2 );
         contador2++;
         contador += ( _sizeOwner_FileName * 3 );
