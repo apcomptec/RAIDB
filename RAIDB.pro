@@ -51,11 +51,11 @@ SOURCES += \
     Client-Server/serverstorage.cpp \
     Client-Server/masterthread.cpp \
     Client-Server/storagethread.cpp \
-    Client-Server/user.cpp \
     simulation/DiskGroupSimulator/diskgroupsimulator.cpp \
     connectionobjects/ip.cpp \
     connectionobjects/diskgroup.cpp \
-    connectionobjects/logicdiskgroup.cpp
+    connectionobjects/logicdiskgroup.cpp \
+    connectionobjects/user.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -115,8 +115,8 @@ HEADERS += \
     Client-Server/serverstorage.h \
     Client-Server/masterthread.h \
     Client-Server/storagethread.h \
-    Client-Server/user.h \
     simulation/DiskGroupSimulator/diskgroupsimulator.h \
     connectionobjects/ip.h \
     connectionobjects/diskgroup.h \
-    connectionobjects/logicdiskgroup.h
+    connectionobjects/logicdiskgroup.h \
+    connectionobjects/user.h

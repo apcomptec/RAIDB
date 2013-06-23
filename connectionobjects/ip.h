@@ -1,6 +1,7 @@
 #ifndef IP_H
 #define IP_H
 #include <QString>
+#include <dataStructure/DLL.h>
 
 /**
  * @brief The IP class
@@ -17,27 +18,27 @@ private:
     //Numero de bloques total
     int _numBlocks;
     //Numero de Bloques usados
-    int _numUsedBlocks;
+    DLL<int>* _numUsedBlocks;
     //Tamaño de bloque
     int _sizeBlock;
 
 public:
     //CONSTRUCTOR Y DESTRUCTOR
-    IP(QString pIP, int pNumLSS, int pSize, int pSizeBlock, int pNumUsedBlock);
+    IP(QString pIP, int pNumLSS, int pSize, int pSizeBlock, DLL<int> *pNumUsedBlock);
     ~IP();
 
     //Metodos de modificacion
     void setIP(QString);
     void setNumLSS(int);
     void setSize(int);
-    void setNumUsedBlock(int pNum);
+    void setNumUsedBlock(DLL<int> *pNum);
     void setSizeBlock(int);
 
     //Metodo de obtencion de datos
     QString getIP();
     int getNumLSS();
     int getSize();
-    int getNumUsedBlock();
+    DLL<int> *getNumUsedBlock();
     int getSizeBlock();
 
     //Metodo de calculo de numero de bloques

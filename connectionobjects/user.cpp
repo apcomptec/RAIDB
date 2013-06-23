@@ -47,6 +47,15 @@ QString User::getID() const
 }
 
 /**
+ * @brief User::getDiskGroup
+ * @return
+ */
+DiskGroup* User::getDiskGroup()
+{
+    return this->_diskGroup;
+}
+
+/**
  * @brief User::setUser
  * @param pUser
  */
@@ -71,4 +80,13 @@ void User::setPassword(QString pPassword)
 void User::setID(QString pID)
 {
     this->_ip = pID;
+}
+
+/**
+ * @brief User::setDiskGroup
+ * @param pGroup
+ */
+void User::setDiskGroup(DiskGroup * pGroup)
+{
+    this->_diskGroup = pGroup;
 }
