@@ -17,12 +17,7 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_sizeOwner_FileName = 24;
     this->_cantidadDatosUser = -1; // no hay
     this->_conversion = new Converter();
-<<<<<<< HEAD
     _disk = new Disk(1, 7); // id del disco/tamaño en megas disco/tamaño bloque bytes
-=======
-    _disk = new Disk( 1,7 );// id del disco/tamaño en megas disco/tamaño bloque bytes
-    _diskMetadata = new Disk( 2, 7 );
->>>>>>> 5541ab590fc889985bf6ddcb67ae72ef6ff7b27e
     this->_idNextBlock = " "; // es nulo pues no hay siguiente
 }
 
@@ -145,13 +140,9 @@ void BTRecordFile::insertRecord2Disk(DLL<IRecordDataType *> *pListPtr)
         cout << "El BINARIO es-->: " << dataBinaryRecord << endl;
         cout << "El tamano BINARIO es-->: " << dataBinaryRecord.length() << endl;
         //        cout << "tamanoRegistro " << _metadataPtr->getRecordSize() << endl;
-        std::cout << "???????????????????????????????????????????????\n";
-        std::cout << "Dirección de inserción: \n";
-        std::cout << "eof: " << _metadataPtr->getEOF();
 
         this->_disk->write(this->_metadataPtr->getEOF() ,
                            _conversion->fromStringToConstChar(dataBinaryRecord));  // en vez de cero sería en EOF
-        std::cout << "\n???????????????????????????????????????????????\n";
         //  Actualiza el tamaño de EOF y la cantidad de registros insertados
         this->_metadataPtr->setEOF(this->_metadataPtr->getEOF() + tamanoRegistro);
         //cout << "EOF  " << this->_metadataPtr->getEOF()  << endl;
@@ -452,14 +443,8 @@ void BTRecordFile::saveMetadata2Disk()
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
 
-<<<<<<< HEAD
     _disk->write(0, _conversion->fromStringToConstChar(metadataBinary));    // escribe a disco
-=======
-    //_disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
-    _diskMetadata->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
-
->>>>>>> 5541ab590fc889985bf6ddcb67ae72ef6ff7b27e
-    //    return metadataBinary;
+  //    return metadataBinary;
 }
 
 void BTRecordFile::loadMetadata()
@@ -470,8 +455,7 @@ void BTRecordFile::loadMetadata()
     const char* data;
     std::string strData;
     while( contador != 112 ){
-        //data = _disk->read( contador, 15 );
-        data = _diskMetadata->read( contador, 15 );
+        data = _disk->read( contador, 15 );
         strData = _conversion->fromConstChar2String( data );
         cout << "-->"<<_conversion->binaryToDecimal( strData ) <<  endl;
         DatosUsuario[contador/16] = strData;
@@ -480,8 +464,7 @@ void BTRecordFile::loadMetadata()
     cout << endl;
 
     while ( contador != (144 + 16) ){// lectura del Owner nombreArchivo (tamaño 24)
-        //data = _disk->read( contador, _sizeOwner_FileName - 1 );
-        data = _diskMetadata->read( contador, _sizeOwner_FileName - 1 );
+        data = _disk->read( contador, _sizeOwner_FileName - 1 );
         strData = _conversion->fromConstChar2String( data );
         cout << "-->"<<_conversion->binaryToString( strData ) <<  endl;
         contador += _sizeOwner_FileName;
@@ -493,9 +476,7 @@ void BTRecordFile::loadMetadata()
     std::string p = _conversion->binaryToDecimal( DatosUsuario[6] );
     _conversion->fromString2Short( p );
     while( contador2 != _conversion->fromString2Short(p) ){
-//        data0 =  _disk->read( contador, 23 );                                  // lectura del tipo de dato
-//        data1 =  _disk->read( contador + 24 , 23 );                            // lectura del tamaño de dato
-//        data2 =  _disk->read( contador + 48, 23 );    // lectura del titulo de dato
+        //lectura del titulo de dato
         data0 =  _diskMetadata->read( contador, 23 );                                  // lectura del tipo de dato
         data1 =  _diskMetadata->read( contador + 24 , 23 );                            // lectura del tamaño de dato
         data2 =  _diskMetadata->read( contador + 48, 23 );    // lectura del titulo de dato
