@@ -4,7 +4,7 @@
 #include "QRegExpValidator"
 #include "QStringList"
 #include "dataStructure/DLL.h"
-#include "user.h"
+#include "connectionobjects/user.h"
 #include "dataStructure/n_aryrecordfile.h"
 
 class MasterThread: public ThreadServer

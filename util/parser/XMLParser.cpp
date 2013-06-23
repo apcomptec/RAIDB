@@ -47,13 +47,52 @@ void XMLParser::readFile()
 
 void XMLParser::readBackUp()
 {
-    QStandardItem *root = new QStandardItem( "Blocks" );
     QDomDocument document;
-    QFile file( _pathXMLFile );
+    QFile file( _pathBACKUP );
     if( file.open(QIODevice::ReadOnly | QIODevice::Text) ){
         document.setContent( &file );
         file.close();
     }
+
+    QDomElement xmlRoot = document.firstChildElement();
+    QDomElement disksID = xmlRoot.elementsByTagName("disks").at(0).toElement();
+
+
+    QDomNodeList disks = disksID.elementsByTagName("disk");
+    for (int var = 0; var < disks.count(); ++var) {
+        QDomElement element = disks.at(var).toElement();
+        qDebug() << "Disco #" << element.attribute("id");
+        qDebug() << "Numero de Bloques usados:" << element.attribute("usedBlocks");
+        qDebug() << "IP: " << element.attribute("host");
+        qDebug() << "Tamaño de bloques: " << element.attribute("blockSize");
+        qDebug() << "Tamaño de Disco: " << element.attribute("size");
+    }
+
+    QDomNodeList diskGroups = xmlRoot.elementsByTagName("diskGroups");
+    for (int var = 0; var < diskGroups.count(); ++var) {
+        QDomElement diskGroup = diskGroups.at(var).toElement();
+        qDebug() << "Raid #" << diskGroup.attribute("raid");
+        qDebug() << "Tamaño: " << diskGroup.attribute("size");
+        qDebug() << "Tamaño de bloque: " << diskGroup.attribute("blockSize");
+        qDebug() << "ID: " << diskGroup.attribute("id");
+        QDomElement disks = diskGroup.elementsByTagName("disks").at(0).toElement();
+        QDomNodeList disk = disks.elementsByTagName("disk");
+        for (int var = 0; var < disk.count(); ++var) {
+            QDomElement diskElem = disk.at(0).toElement();
+            qDebug() << "ID: " << diskElem.attribute("id");
+        }
+    }
+
+    QDomElement users = xmlRoot.elementsByTagName("users").at(0).toElement();
+    QDomNodeList userList = users.elementsByTagName("user");
+    for (int var = 0; var < userList.count(); ++var) {
+        QDomElement user = userList.at(var).toElement();
+        qDebug() << "Nombre: " << user.attribute("name");
+        qDebug() << "Password: " << user.attribute("pass");
+        qDebug() << "ID: " << user.attribute("id");
+        qDebug() << "Grupo de Disco #" << user.attribute("diskGroup");
+    }
+
 }
 
 /**
