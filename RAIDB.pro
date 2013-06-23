@@ -55,7 +55,8 @@ SOURCES += \
     connectionobjects/ip.cpp \
     connectionobjects/diskgroup.cpp \
     connectionobjects/logicdiskgroup.cpp \
-    connectionobjects/user.cpp
+    connectionobjects/user.cpp \
+    simulation/recordType/BTRFNetworkSimulation.cpp
 
 OTHER_FILES += \
     doc/RAIDB_UML.xmi \
@@ -119,4 +120,5 @@ HEADERS += \
     connectionobjects/ip.h \
     connectionobjects/diskgroup.h \
     connectionobjects/logicdiskgroup.h \
-    connectionobjects/user.h
+    connectionobjects/user.h \
+    simulation/recordType/BTRFNetworkSimulation.h

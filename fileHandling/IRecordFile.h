@@ -47,10 +47,10 @@ public:
 
     /**
      * @brief deleteRecord
-     * @param pRecordPtr Registro a borrar
+     * @param pRecord Registro a borrar
      * @return Puntero al registro eliminado
      */
-//    virtual IRecord *deleteRecord(IRecord *pRecordPtr) = 0;
+    virtual IRecord *deleteRecord(unsigned short pRecord) = 0;
 
     /**
      * @brief searchRecordPtr
@@ -59,6 +59,8 @@ public:
      * nullptr
      */
 //    virtual IRecord *searchRecord(IRecord *pRecordPtr) const = 0;
+
+    virtual IRecordFile *readRecord(unsigned short pRecordNumber) = 0;
 
     /**
      * @brief showFragmentation

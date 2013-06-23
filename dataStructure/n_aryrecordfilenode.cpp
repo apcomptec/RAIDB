@@ -175,19 +175,20 @@ template<typename DATATYPE>
  * @return _data
  */
 IRecordFile* N_aryRecordFileNode<DATATYPE>::searchRecordFilePtr(std::string pName)
-{
-    //Se busca y se devuelve el dato
-//    return this->_fileListPtr->searchNotInOrder(pFile)->getData();
+{ // FIXME se cae cuando el archivo no existe
     DLLNode<IRecordFile*> *current = _fileListPtr->getHeadPtr();
-    std::string name = current->getData()->getMetadata()->getFileName();
 
-    while (current != nullptr && name != pName) {
-        current = current->getNextPtr();
-//        std::cout << "NAME:::: " << (&name == 0); // TEST
+    if (current != nullptr) {
+
+        std::string name = current->getData()->getMetadata()->getFileName();
+
+        while (current != nullptr && name != pName) {
+            current = current->getNextPtr();
+        }
+        return current->getData();
     }
 
-    return current->getData();
-
+    return nullptr;
 }
 
 template<typename DATATYPE>

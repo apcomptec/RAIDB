@@ -29,7 +29,7 @@ void BTRFLocalSimulation::editFile()
 
     std::cout << "Nombre del archivo: ";
     std::cin >> name;
-
+    std::cout << "Funca\n";
     file = _currentFolder->searchRecordFilePtr(name);
 
     if (file != nullptr) {
@@ -49,7 +49,7 @@ void BTRFLocalSimulation::editFile()
 
             switch (option) {
             case '0':
-//                updateMetadata();   //cuando se sale del programa, se procede a guardar metadatos
+                updateMetadata();   //cuando se sale del programa, se procede a guardar metadatos
                 break;
             case '1':
                 insertRecord();
@@ -110,8 +110,14 @@ void BTRFLocalSimulation::insertRecord()
 //    updateMetadata();
 }
 
-void BTRFLocalSimulation::deleteRecord() // TODO
+void BTRFLocalSimulation::deleteRecord()
 {
+    unsigned short record;
+
+    std::cout << "Escriba el número de registro a borrar: ";
+    std::cin >> record;
+
+    _fileSimulation->deleteRecord(record);
 }
 
 void BTRFLocalSimulation::searchRecord()

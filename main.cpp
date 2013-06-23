@@ -86,8 +86,8 @@ int main()
 ////// *****************************************************************************
 ////// LECTURA DEL ARBOL DE CARPETA Y ARCHIVO N-ARIO
 ////// *****************************************************************************
-    XMLParser *p = new XMLParser();
-    p->readBackUp();
+//    XMLParser *p = new XMLParser();
+//    p->readBackUp();
 //    N_aryRecordFile* nTree = new N_aryRecordFile();
 //    nTree->insertDirPtr("home");
 //    nTree->insertDirPtr("tmp");
@@ -152,7 +152,7 @@ int main()
 // PRUEBA SIMULADOR LOCAL
 // *****************************************************************************
 
-//    new BTRFLocalSimulation();
+    new BTRFLocalSimulation();
 
 // *****************************************************************************
 

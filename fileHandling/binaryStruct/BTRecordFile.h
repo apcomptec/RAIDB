@@ -38,8 +38,8 @@ public:
     virtual DLL<IRecord *> *getRecordList() const;
     virtual void setRecordList(DLL<IRecord *> *);
     virtual BTRecord *insertRecord(DLL<IRecordDataType *> *pListPtr);
-//    virtual BTRecord *deleteRecord(IMetadata *pRecordPtr);
-    virtual BTRecord *deleteRecord(unsigned short recordID);
+    virtual BTRecord *deleteRecord(unsigned short pRecord);
+    virtual BTRecordFile *readRecord(unsigned short pRecordNumber);
 //    virtual BTRecord *searchRecord(BTRecord *pRecordPtr) const;
     virtual unsigned short showFragmentation() const;
     virtual bool defragFile();
@@ -48,23 +48,23 @@ public:
     BTRecord *getRegistryArray() const;
     void setRegistryArray(BTRecord *pRegistryArray);
     Disk *getDisk() const;
-    void setDisk( Disk *pDisk );
+    void setDisk(Disk *pDisk);
     int getCounter() const;
     void setCounter(int counter);
     unsigned short getListFreeBlocks() const;
     void setListFreeBlocks(unsigned short pListFreeBlocks);
     ~BTRecordFile();
-    void readRecordFromDiskTest( Disk pDisk, unsigned short pRecordID );
+    void readRecordFromDiskTest(Disk pDisk, unsigned short pRecordID);
 
 // -----------------------------------------------------------------------------
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO
-    void insertRecord2Disk( DLL<IRecordDataType *> *pListPtr ); // INSERCION DE REGISTROS EN DISCO
-    void deleteRecordFromDisk(unsigned short recordID );        // BORRADO DE UN REGISTRO
+    void insertRecord2Disk(DLL<IRecordDataType *> *pListPtr);   // INSERCION DE REGISTROS EN DISCO
+    void deleteRecordFromDisk(unsigned short recordID);         // BORRADO DE UN REGISTRO
     void readALLRecordsFromDisk();                              // LECTURA DE TODOS LOS REGISTROS
-    void readOneRecordFromDisk( unsigned short recordID );      // LECTURA DE UN REGISTRO
+    void readOneRecordFromDisk(unsigned short recordID);        // LECTURA DE UN REGISTRO
     void saveMetadata2Disk();                                   // GUARDA LA METADATA ACTUAL
     void loadMetadata();                                        // CARGA LA METADATA ACTUAL
-    void dataClassification( std::string *pDatosUsuario );
+    void dataClassification(std::string *pDatosUsuario);
     void loadUserInfo(DLL<IRecordDataType *> *pTmp1, std::string pTipo, std::string pTamano, std::string pTitulo);
 // -----------------------------------------------------------------------------
 
@@ -81,21 +81,28 @@ private:
     int _counter;       //llevará la cantidad de registros insertados
     Converter *_conversion;
     int _sizeOwner_FileName;
-    unsigned short _cantidadDatosUser;
+
+    /**
+     * @brief _cantidadDatosUser
+     * @brief _positionInBlock indica dónde se ubica el archivo en el bloque
+     * @brief _listFreeBlocks
+     * @brief _maxSizeOfRegistryInBlock dice cual es la cantidad máxima de
+     *registros en un bloque
+     */
+    unsigned short _cantidadDatosUser, _positionInBlock, _listFreeBlocks,
+             _maxSizeOfRegistryInBlock;
     std::string _idNextBlock;
-    unsigned short _maxSizeOfRegistryInBlock;   // dice cual es la cantidad máxima de registros en un bloque
 
     BTRecord *_registryArray;
-    unsigned short _listFreeBlocks;
     void insertRecordAUX(BTRecord *pNewRecord, unsigned short pHDer);
     void printDataStructureByUser();
-    string sortUserDataFromDisk(std::string pData , char pTipo );   //clasifica los datos en ints, strings, etc...
+    string sortUserDataFromDisk(std::string pData , char pTipo);    //clasifica los datos en ints, strings, etc...
 
 // -----------------------------------------------------------------------------
 // MÉTODOS QUE SIRVEN PARA LA INSERCIÓN y BORRADO DE REGISTROS EN DISCO
     void modifyLastTreeRegistry(unsigned short pRecordNumber,
                                 unsigned short pChangePositon);
-    std::string getUserRecordData( DLL<IRecordDataType *> *pListPtr );
+    std::string getUserRecordData(DLL<IRecordDataType *> *pListPtr);
     unsigned short getLeftChildErase(unsigned short pNextLeftChild);
     void aux_InsertRecord2Disk(DLL<IRecordDataType *> *pListPtr);
 // -----------------------------------------------------------------------------

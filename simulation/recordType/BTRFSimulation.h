@@ -11,6 +11,8 @@ public:
     BTRFSimulation(BTRecordFileMetadata * const pMetadata);
 
     virtual void insertRecord(DLL<IRecordDataType *> *pList);
+    virtual void read(unsigned short pRecordNum);
+    virtual void deleteRecord(unsigned short pRecord);
 };
 
 #endif // BTRFSIMULATION_H

@@ -17,12 +17,8 @@ BTRecordFile::BTRecordFile(BTRecordFileMetadata * const pMetadata)
     this->_sizeOwner_FileName = 24;
     this->_cantidadDatosUser = -1; // no hay
     this->_conversion = new Converter();
-<<<<<<< HEAD
     _disk = new Disk(1, 7); // id del disco/tamaño en megas disco/tamaño bloque bytes
-=======
-    _disk = new Disk( 1,7 );// id del disco/tamaño en megas disco/tamaño bloque bytes
     _diskMetadata = new Disk( 2, 7 );
->>>>>>> 5541ab590fc889985bf6ddcb67ae72ef6ff7b27e
     this->_idNextBlock = " "; // es nulo pues no hay siguiente
 }
 
@@ -452,13 +448,9 @@ void BTRecordFile::saveMetadata2Disk()
     cout << "Metadatos: " << metadataBinary << endl;
     cout << "Tamaño Metadatos: " << metadataBinary.length() << endl;
 
-<<<<<<< HEAD
-    _disk->write(0, _conversion->fromStringToConstChar(metadataBinary));    // escribe a disco
-=======
     //_disk->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
     _diskMetadata->write( 0, _conversion->fromStringToConstChar( metadataBinary) ); // escribe a disco
 
->>>>>>> 5541ab590fc889985bf6ddcb67ae72ef6ff7b27e
     //    return metadataBinary;
 }
 
@@ -658,6 +650,11 @@ BTRecord *BTRecordFile::insertRecord(DLL<IRecordDataType *> *pListPtr)
               "\nMetadatos final: \n";
     getMetadata()->printMetadata();
     std::cout << "------------------------------------------------------------\n\n";
+
+}
+
+BTRecordFile *BTRecordFile::readRecord(unsigned short pRecordNumber)
+{
 
 }
 

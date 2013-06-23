@@ -14,6 +14,8 @@ public:
      */
     void insertRecord();
 
+    void readRecord(unsigned short pRecordNum);
+
     IMetadata *getMetadata();
     void setMetadata(IMetadata * const pMetadata);
 

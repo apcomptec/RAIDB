@@ -16,10 +16,6 @@ Disk::Disk(const unsigned short &pId, const unsigned short &pSize,
     fillBlockList();
 }
 
-/**
- * @brief Disk::generateSecurityKey
- * @return genera una security key
- */
 std::string Disk::generateSecurityKey() const
 {
     std::string p = _securityKey->generateRandomPassword(); //genera clave random
@@ -83,6 +79,11 @@ unsigned short Disk::getBlockSize()
 std::string Disk::getName()
 {
     return NAME;
+}
+
+unsigned short Disk::getSize() const
+{
+    return SIZE;
 }
 
 void Disk::createDisk()

@@ -12,11 +12,9 @@
 #include "dataStructure/DLL.h"
 #include "util/Encryption.h"
 
-
 class Disk
 {
 public:
-    Encryption *_securityKey;
 
     /**
      * @brief Disk Constructor
@@ -69,9 +67,24 @@ public:
      */
     std::string getName();
 
-    string generateSecurityKey() const;
+    /**
+     * @brief getSize
+     * @return Tamaño del disco
+     */
+    unsigned short getSize() const;
+
+    /**
+     * @brief generateSecurityKey
+     * @return Identificación única del disco
+     */
+    std::string generateSecurityKey() const;
 
 private:
+
+    /**
+     * @brief _securityKey Identificación MD5 del disco
+     */
+    Encryption *_securityKey;
 
     /**
      * @brief ID ID del disco
@@ -85,7 +98,6 @@ private:
      * 10, se refiere a 2^10 B (o kB), o 20 (MB), ...
      */
     static const char POTENCY;
-
 
     /**
      * @brief _name Nombre del disco
