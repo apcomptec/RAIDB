@@ -93,6 +93,20 @@ void XMLParser::readBackUp()
         qDebug() << "ID: " << user.attribute("id");
         qDebug() << "Grupo de Disco #" << user.attribute("diskGroup");
     }
+    qDebug() << "Arbol N-ario";
+
+    QDomElement rootFolder = xmlRoot.elementsByTagName("folder").at(0).toElement();
+    this->readN_ary(rootFolder, "");
+}
+
+void XMLParser::readN_ary(QDomElement element, QString pPath)
+{
+    qDebug() << pPath << element.attribute("name") << "/";
+    QDomNodeList paths = element.elementsByTagName("folder");
+    for (int var = 0; var < paths.count(); ++var) {
+        QDomElement folder = paths.at(var).toElement();
+        this->readN_ary(folder, pPath+element.attribute("name")+"/");
+    }
 }
 
 /**

@@ -44,6 +44,7 @@ public:
     virtual void readFile();    // Lee un XML PRUEBA
     virtual void writeFile();   // Escribe un XML PRUEBA
     void writeN_aryXML(IN_aryNode<QString>*, QDomElement, QDomDocument);
+    void readN_ary(QDomElement, QString);
 
 };
 
