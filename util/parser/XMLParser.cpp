@@ -47,6 +47,7 @@ void XMLParser::readFile()
 
 void XMLParser::readBackUp()
 {
+    QStandardItem *root = new QStandardItem( "root" );
     QDomDocument document;
     QFile file( _pathBACKUP );
     if( file.open(QIODevice::ReadOnly | QIODevice::Text) ){
@@ -92,7 +93,6 @@ void XMLParser::readBackUp()
         qDebug() << "ID: " << user.attribute("id");
         qDebug() << "Grupo de Disco #" << user.attribute("diskGroup");
     }
-
 }
 
 /**

@@ -77,6 +77,7 @@ public:
 private:
     BTRecordFileMetadata *_metadataPtr;
     Disk *_disk;
+    Disk *_diskMetadata;
     int _counter;       //llevará la cantidad de registros insertados
     Converter *_conversion;
     int _sizeOwner_FileName;

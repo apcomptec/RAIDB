@@ -67,13 +67,13 @@ int main()
 
 //    std::cout << disk->read(0, 700);
 
-//    XMLParser *p = new XMLParser();
-////    p->generateBackUp(3,2,3);
 
 
 ////// *****************************************************************************
 ////// LECTURA DEL ARBOL DE CARPETA Y ARCHIVO N-ARIO
 ////// *****************************************************************************
+    XMLParser *p = new XMLParser();
+    p->readBackUp();
 //    N_aryRecordFile* nTree = new N_aryRecordFile();
 //    nTree->insertDirPtr("home");
 //    nTree->insertDirPtr("tmp");
@@ -105,7 +105,6 @@ int main()
 //// PRUEBA PARA HACER CONVERSIONES DE DATOS DE BINARIO A NORMAL Y VICEVERSA
 //// *****************************************************************************
 //       Converter *c = new Converter();
-//        Converter *c = new Converter();
 //    cout << "--------------------" << endl;
 //    cout << c->fromString2Short("3") << endl;
 //    cout << "--------------------" << endl;
@@ -138,7 +137,7 @@ int main()
 //// PRUEBA SIMULADOR LOCAL
 //// *****************************************************************************
 
-    new BTRFLocalSimulation();
+//    new BTRFLocalSimulation();
 
 //    std::cout << std::setw(20) << "Hola" << std::setw(6) << "jaja" << std::setw(1) << "LOLO";
 //    std::string name = "12", owner = "u";
@@ -157,9 +156,9 @@ int main()
 // ESCRITURA DE REGISTROS EN EL DISCO
 // ############################################################################
 
-// *****************************************************************************
-// ESTRUCTURA METADATOS
-// *****************************************************************************
+//// *****************************************************************************
+//// ESTRUCTURA METADATOS
+//// *****************************************************************************
 //    DLL<IRecordDataType*> *list1 = new DLL<IRecordDataType*>();
 //    std::string name1 = "DAV";
 //    char dataType1 = '0';
@@ -180,8 +179,8 @@ int main()
 //// *****************************************************************************
 //    BTRecordFile *file = new BTRecordFile(metadata);
 
-//   file->saveMetadata2Disk();    // sirve para la metadata
-//   file->loadMetadata();         // sirve para la metadata
+////   file->saveMetadata2Disk();    // sirve para la metadata
+////   file->loadMetadata();         // sirve para la metadata
 
 //// *****************************************************************************
 //// REGISTRO 1
